@@ -10,7 +10,7 @@
  *   Cirrus Link Solutions
  */
 
-var SparkplugClient = require('./lib/sparkplug-client');
+var SparkplugClient = require('sparkplug-client');
 
 /*
  * Main sample function which includes the run() function for running the sample
