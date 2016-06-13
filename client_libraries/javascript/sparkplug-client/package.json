@@ -18,7 +18,6 @@
   "homepage": "https://github.com/Cirrus-Link/Sparkplug#readme",
   "files" : [
     "index.js",
-    "lib/kurapayload.proto",
     "lib/kurapayload.js",
     "README.md"
   ],
