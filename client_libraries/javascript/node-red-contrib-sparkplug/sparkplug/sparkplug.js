@@ -76,62 +76,6 @@ module.exports = function(RED) {
         /*
          * Receive input from a device.  The topic should be of the format: <deviceId>/<messageType>, where
          * <messageType> can be one of: DDATA, DBIRTH, or DDEATH.
-         *
-         * The topics here are prefixed with topic version A1.0.
-         *
-         * The payloads should be of the following formats:
-         *
-         * Topic: A1.0/<deviceId>/DDATA
-         * Payload: An object with a "timestamp" (required), array of ALL "metric" objects (required),
-         *          and "position" (optional).
-         * Example:
-         * {
-         *     "timestamp" : 1465577611580
-         *     "metric" : [
-         *         {
-         *             "name" : "my_int",
-         *             "value" : 456,
-         *             "type" : "int"
-         *         }
-         *     ],
-         *     "position" : {
-         *         "latitude" : 38.83667239,
-         *         "longitude" : -94.67176706,
-         *         "altitude" : 319,
-         *         "precision" : 2.0,
-         *         "heading" : 0,
-         *         "speed" : 0,
-         *         "timestamp" : new Date().getTime(),
-         *          "satellites" : 8,
-         *          "status" : 3
-         *      }
-         * }
-         *
-         * Topic: A1.0/<deviceId>/DBIRTH
-         * Payload: An object with a "timestamp" (required), array of ALL "metric" objects (required).
-         * Example:
-         * {
-         *     "timestamp" : 1465577611580
-         *     "metric" : [
-         *         {
-         *             "name" : "my_int",
-         *             "value" : 456,
-         *             "type" : "int"
-         *         },
-         *         {
-         *             "name" : "my_float",
-         *             "value" : 1.23,
-         *             "type" : "float"
-         *         }
-         *     ]
-         * }
-         *
-         * Topic: A1.0/<deviceId>/DDEATH
-         * Payload: An object with a "timestamp" (required).
-         * Example:
-         * {
-         *     "timestamp" : 1465577611580
-         * }
          */
         this.on('input', function(msg) {
             var tokens = msg.topic.split("/"),
