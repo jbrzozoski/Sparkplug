@@ -102,7 +102,7 @@ public class SparkplugExample implements MqttCallback {
 					payload.addMetric("my_double", random.nextDouble());
 					payload.addMetric("my_float", random.nextFloat());
 					payload.addMetric("my_int", random.nextInt(100));
-					payload.addMetric("my_long", random.nextLong());
+					payload.addMetric("my_long", System.currentTimeMillis());
 					
 					System.out.println("Publishing updated values");
 					payload = addSeqNum(payload);
@@ -156,7 +156,7 @@ public class SparkplugExample implements MqttCallback {
 				payload.addMetric("my_double", random.nextDouble());
 				payload.addMetric("my_float", random.nextFloat());
 				payload.addMetric("my_int", random.nextInt(100));
-				payload.addMetric("my_long", random.nextLong());
+				payload.addMetric("my_long", System.currentTimeMillis());
 	
 				// Only do this once to set up the inputs and outputs
 				payload.addMetric("Inputs/0", true);
