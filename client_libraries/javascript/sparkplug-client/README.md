@@ -2,10 +2,14 @@ Sparkplug Client
 =========
 
 A client library providing a MQTT client for MQTT device communication using the
-Sparkplug Specification from Cirrus Link Solutions.  The client will connect to
-an MQTT Server and act as an MQTT Edge of Network (EoN) Node.  It will publish
-birth certificates (NBIRTH), node data messages (NDATA), and process node
-command messages (NCMD) that have been sent from another MQTT client.
+Sparkplug Specification from Cirrus Link Solutions.  
+
+https://s3.amazonaws.com/ignition-modules/Current/Sparkplug+Specification.pdf
+
+The client will connect to an MQTT Server and act as an MQTT Edge of Network
+(EoN) Node.  It will publish birth certificates (NBIRTH), node data messages
+(NDATA), and process node command messages (NCMD) that have been sent from
+another MQTT client.
 
 The client also provides and interface for MQTT Device application code to
 publish device birth certificates (DBIRTH), device data messages (DDATA), device
