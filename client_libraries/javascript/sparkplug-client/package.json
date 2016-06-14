@@ -1,6 +1,6 @@
 {
   "name": "sparkplug-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A client module for MQTT communication using the Sparkplug specification from Cirrus Link Solutions",
   "main": "index.js",
   "repository": {
@@ -16,13 +16,14 @@
     "url": "https://github.com/Cirrus-Link/Sparkplug/issues"
   },
   "homepage": "https://github.com/Cirrus-Link/Sparkplug#readme",
-  "files" : [
+  "files": [
     "index.js",
     "lib/kurapayload.js",
     "README.md"
   ],
   "dependencies": {
     "mqtt": "^1.10.0",
-    "protobufjs": "^5.0.1"
+    "protobufjs": "^5.0.1",
+    "bytebuffer": "^5.0.1"
   }
 }
