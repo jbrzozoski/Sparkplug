@@ -30,10 +30,10 @@ When editing the Sparkplug Node the following properties are configurable:
 * Port: The port of the MQTT server.
 * Username: The username for the MQTT server connection.
 * Password: The password for the MQTT server connection.
-* clientId: A unique client ID for the MQTT server connection.
-* groupId: An ID representing a logical grouping of MQTT EoN Nodes and Devices
+* Client ID: A unique client ID for the MQTT server connection.
+* Group ID: An ID representing a logical grouping of MQTT EoN Nodes and Devices
   into the infrastructure.
-* edgeNode: An ID that uniquely identifies the MQTT EoN Node within the
+* Edge Node: An ID that uniquely identifies the MQTT EoN Node within the
   infrastructure.
 * Enable Cache: Whether to enable EoN node caching.
 
@@ -43,22 +43,23 @@ down the client connection by disconnecting from the MQTT Server.
 
 ### Sparkplug Node Inputs
 
-The Sparkplug Node expects input messages to be published on topics of the
-format:  `<topicVersion>/<deviceId>/<type>`.  The following are acceptable
-values for each token in the topic:
+The Sparkplug Node expects input messages to be received on topics of the
+format:  *topicVersion*/*deviceId*/*type*.
 
- * topicVersion: A1.0
- * deviceId: A unique device ID string that does not contain the following
+Acceptable values for each token in the topic are :
+
+ * *topicVersion*: A1.0
+ * *deviceId*: A unique device ID string that does not contain the following
    reserved characters: '/', '#', "+".
- * type: DDATA | DBIRTH | DDEATH
+ * *type*: DDATA | DBIRTH | DDEATH
 
 The payload of each message will depend on the message type.
 
 #### DBIRTH message
 
-Topic: A1.0/<deviceId>/DBIRTH
-Payload: An object with a "timestamp" (required), array of ALL "metric" objects
-         (required), and "position" (optional).
+Topic:  A1.0/*deviceId*/DBIRTH  
+Payload:  An object with a "timestamp" (required), array of ALL "metric" objects
+         (required), and "position" (optional).  
 Example:
 ```
 {
@@ -91,9 +92,9 @@ Example:
 
 #### DDATA message
 
-Topic: A1.0/<deviceId>/DDATA
+Topic: A1.0/*deviceId*/DDATA  
 Payload: An object with a "timestamp" (required), array of one or more "metric"
-         objects (required), and "position" (optional).
+         objects (required), and "position" (optional).  
 Example:
 ```
 {
@@ -110,8 +111,8 @@ Example:
 
 #### DDEATH message
 
-Topic: A1.0/<deviceId>/DDEATH
-Payload: An object with a "timestamp" (required).
+Topic: A1.0/*deviceId*/DDEATH  
+Payload: An object with a "timestamp" (required).  
 Example:
 ```
 {
@@ -129,7 +130,7 @@ The Sparkplug Node sends output messages in order to notify other nodes of a
 
 #### 'rebirth' message
 
-Topic: rebirth
+Topic: rebirth  
 Payload: {}
 
 The Sparkplug Node sends a 'rebirth' message in order to force all device nodes
@@ -140,8 +141,8 @@ a rebirth from itself all all devices.
 
 #### command message
 
-Topic: <deviceId>
-Payload: An object with an array of one or more "metric" objects (required).
+Topic: *deviceId*  
+Payload: An object with an array of one or more "metric" objects (required).  
 Example:
 ```
 {
