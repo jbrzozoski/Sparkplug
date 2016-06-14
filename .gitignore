@@ -8,4 +8,4 @@ javaClientId-tcplocalhost*
 javaSimpleEdgeNode-tcplocalhost*
 *.o
 sparkplug_example
-
+.DS_Store
