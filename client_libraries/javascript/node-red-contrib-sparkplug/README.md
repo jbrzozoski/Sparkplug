@@ -171,7 +171,8 @@ containing any metric values that have changed or been successfully written to.
 ## Release History
 
 * 1.0.0 Initial release
-* 1.0.2 Current release
+* 1.0.2 Bug Fixes
+* 1.1.0 Added connection status indicator, changed category
 
 ## License
 
