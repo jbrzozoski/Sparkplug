@@ -171,8 +171,9 @@ client.publishDeviceDeath(deviceId, payload);
 
 ### Receiving events
 
-The client uses an EventEmitter to emit two types of events to device
-applications:  a "rebirth" event and "command" event.
+The client uses an EventEmitter to emit events to device applications.  The
+client emits a "rebirth" event, "command" event, and four MQTT connection
+events: "connect", "reconnect", "error", and "close".
 
 #### Rebirth Event
 
@@ -216,10 +217,62 @@ client.on('command', function (deviceId, payload) {
 });
 ```
 
+#### Connect Event
+
+A "connect" event is emitted when the client has connected to the server.
+
+Here is a code example of handling a "connect" event:
+
+```javascript
+client.on('connect', function () {
+    console.log("received 'connect' event");
+});
+```
+
+#### Reconnect Event
+
+A "reconnect" event is emitted when the client is attempting to reconnect to the
+server.
+
+Here is a code example of handling a "reconnect" event:
+
+```javascript
+client.on('reconnect', function () {
+    console.log("received 'reconnect' event");
+});
+```
+
+#### Error Event
+
+An "error" event is emitted when the client has experienced an error while
+trying to connect to the server.
+
+Here is a code example of handling a "error" event:
+
+```javascript
+client.on('error', function (error) {
+    console.log("received 'error' event: " + error);
+});
+```
+
+#### Close Event
+
+A "close" event is emitted when the client's connection to the server has been
+closed.
+
+Here is a code example of handling a "close" event:
+
+```javascript
+client.on('close', function () {
+    console.log("received 'close' event");
+});
+```
+
 ## Release History
 
 * 1.0.0 Initial release
-* 1.0.2 Current release
+* 1.0.2 Bug Fixes
+* 1.1.0 Added more emitted events (connect, reconnect, error, close)
 
 ## License
 

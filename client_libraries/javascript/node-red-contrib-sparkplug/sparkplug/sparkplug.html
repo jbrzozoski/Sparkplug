@@ -11,8 +11,8 @@
 -->
 
 <script type="text/javascript">
-    RED.nodes.registerType('sparkplug',{     
-        category: 'output',
+    RED.nodes.registerType('sparkplug',{
+        category: 'function',
         defaults: {
             name: {value:""},
             broker: {value:"tcp://localhost", required:true},
@@ -32,7 +32,7 @@
         inputs:1,
         outputs:1,
         icon: "bridge.png",
-        align: "right",
+        align: "left",
         label: function() {
             return this.name||"sparkplug";
         },

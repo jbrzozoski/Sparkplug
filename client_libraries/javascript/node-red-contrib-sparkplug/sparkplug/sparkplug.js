@@ -31,26 +31,31 @@ module.exports = function(RED) {
             hwVersion = 'Emulated Hardware',
             swVersion = 'v1.0.0',
             deviceId = 'Emulated Device',
-            sparkPlugClient,
             publishPeriod = 5000,
+            sparkplugClient;
 
-        // Create the SparkplugClient
-        sparkplugClient = SparkplugClient.newClient(sparkPlugConfig);
+        try {
+            // Create the SparkplugClient
+            sparkplugClient = SparkplugClient.newClient(sparkPlugConfig);
+        } catch (e) {
+            node.error("Error creating new client", e);
+        }
 
-        // Create 'rebirth' handler
+        /*
+         * 'rebirth' handler
+         */
         sparkplugClient.on('rebirth', function () {
             node.log(config.edgenode + " received 'rebirth' event");
             // If device cache is enabled, send birth on behalf of device
             if (cacheEnabled) {
-                console.log("!!!! " + JSON.stringify(deviceCache));
                 // Loop over all devices in the device data cache
-                for (var key in deviceCache) {
+                Object.keys(deviceCache).forEach(function(key) {
                     // Publish BIRTH certificate for device
                     sparkplugClient.publishDeviceBirth(key, {
                             "timestamp" : new Date().getTime(),
                             "metric" : deviceCache[key]
                         });
-                }
+                });
             } else {
                 node.log(config.edgenode + " sending 'rebirth' message to downstream nodes");
                 node.send({
@@ -60,12 +65,13 @@ module.exports = function(RED) {
             }
         });
 
-        // Create 'command' handler
+        /*
+         * 'command' handler
+         */
         sparkplugClient.on('command', function (deviceId, payload) {
             var timestamp = payload.timestamp,
             metric = payload.metric;
-            node.log(config.edgenode + " received 'command' event, deviceId: " + deviceId);
-            node.log(config.edgenode + " sending 'command' message to downstream nodes");
+            node.log(config.edgenode + " received 'command' event for deviceId: " + deviceId + ", sending to nodes");
             node.send({
                 "topic" : deviceId,
                 "payload" : payload
@@ -74,14 +80,51 @@ module.exports = function(RED) {
         });
 
         /*
-         * Receive input from a device.  The topic should be of the format: <deviceId>/<messageType>, where
-         * <messageType> can be one of: DDATA, DBIRTH, or DDEATH.
+         * 'error' handler
+         */
+        sparkplugClient.on('error', function (error) {
+            node.log(config.edgenode + " received 'error' event: " + error);
+            node.status( {
+                fill:"red", 
+                shape:"ring", 
+                text:"disconnected"
+            });
+        });
+
+        /*
+         * 'connect' handler
+         */
+        sparkplugClient.on('connect', function () {
+            node.log(config.edgenode + " received 'connect' event");
+            node.status( {
+                fill:"green", 
+                shape:"dot", 
+                text:"connected"
+            });
+        });
+
+        /*
+         * 'connect' handler
+         */
+        sparkplugClient.on('reconnect', function () {
+            node.log(config.edgenode + " received 'reconnect' event");
+            node.status( {
+                fill:"yellow", 
+                shape:"ring", 
+                text:"connecting"
+            });
+        });
+
+        /*
+         * Receive 'input' message.  
+         * The topic should be of the format: <deviceId>/<messageType>
+         * where <messageType> can be one of: DDATA, DBIRTH, or DDEATH.
          */
         this.on('input', function(msg) {
             var tokens = msg.topic.split("/"),
                 payload = msg.payload,
                 publishBirth = false,
-                deviceId, messageType, cachedDevice;
+                deviceId, messageType, cachedMetrics;
 
             node.log(config.edgenode + " recieved input msg: " + JSON.stringify(msg));
 
@@ -95,45 +138,39 @@ module.exports = function(RED) {
             messageType = tokens[2];
 
             // Get cached device
-            cachedDevice = deviceCache[deviceId];
+            cachedMetrics = deviceCache[deviceId];
 
             if (messageType === "DBIRTH") {
                 if (cacheEnabled) {
-                    if (cachedDevice !== undefined) {
-                        // Update device cache
-                        cachedDevice.metric = payload.metric;
-                    } else {
-                        deviceCache[deviceId] = payload.metric;
-                    }
+                    deviceCache[deviceId] = payload.metric;
                 }
                 // Publish device birth
                 sparkplugClient.publishDeviceBirth(deviceId, payload);
             } else if (messageType === "DDATA") {
                 if (cacheEnabled) {
-                    if (cachedDevice === undefined) {
+                    if (cachedMetrics === undefined) {
                         node.error(config.edgenode + " received a DDATA for unknown device " + deviceId);
                         return;
                     }
+
                     // Update metrics in device cache
                     // Loop over incoming metrics
-                    for (var i = 0; i < payload.metric.length; i++) {
-                        var m = payload.metric[i],
-                            found = false;
-                        // Loop through existing metrics to check if the incoming metric is known
-                        for (var j = 0; j < cachedDevice.metric.length; j++) {
-                            if (cachedDevice.metric[j].name === m.name) {
-                                // Update metric value
-                                cachedDevice.metric[j].value = m.value;
-                                found = true;
-                                break;
-                            }
-                        }
-                        if (!found) {
+                    payload.metric.forEach(function(metric) {
+                        // Loop through cached metrics to check if the incoming metric is cached
+                        // then update the value in the cache.
+                        if(!cachedMetrics.some(function(cachedMetric) {
+                                if (cachedMetric.name === metric.name) {
+                                    // Update metric value
+                                    cachedMetric.value = metric.value;
+                                    return true;
+                                }
+                                return false;
+                            })) {
                             node.warn(config.edgenode + " received a DDATA message with an unknown metric");
                             // Add new metric
-                            cachedDevice.metric.push(incomingMetrics);
+                            cachedMetrics.push(metric);
                         }
-                    }
+                    });
                 }
                 // Publish device data
                 sparkplugClient.publishDeviceData(deviceId, payload);
@@ -145,6 +182,9 @@ module.exports = function(RED) {
             }
         });
 
+        /*
+         * Received 'close' message.
+         */
         this.on('close', function() {
             // Stop the sparkplug client
             sparkplugClient.stop();
