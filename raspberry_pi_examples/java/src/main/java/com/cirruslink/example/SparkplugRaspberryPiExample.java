@@ -23,7 +23,7 @@ import org.eclipse.kura.core.cloud.CloudPayloadProtoBufEncoderImpl;
 import org.eclipse.kura.message.KuraPayload;
 import org.eclipse.kura.message.KuraPosition;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -52,7 +52,7 @@ import com.pi4j.io.gpio.event.GpioPinListenerDigital;
  * 
  */
 
-public class SparkplugRaspberryPiExample implements MqttCallback {
+public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 
 	private static final Pibrella pibrella = new PibrellaDevice();
 
@@ -97,18 +97,18 @@ public class SparkplugRaspberryPiExample implements MqttCallback {
 
 			// Thread pool for outgoing published messages
 			executor = Executors.newFixedThreadPool(1);
+			
+			// Establish the session with autoreconnect = true;
+			establishMqttSession();
 
 			// Wait for 'ctrl c' to exit
 			while (true) {
 				//
-				// This is a very simple loop for the demo that tries to keep the MQTT Session 
-				// up, and published the Up Time metric based on the current value of
+				// This is a very simple loop for the demo that keeps the MQTT Session 
+				// up, and publishes the Up Time metric based on the current value of
 				// the scanRateMs process variable.
 				//
-				if (client == null || !client.isConnected()) {
-					establishMqttSession();
-					publishBirth();
-				} else {
+				if (client.isConnected()) {
 					synchronized (lock) {
 						KuraPayload outboundPayload = new KuraPayload();
 						outboundPayload.setTimestamp(new Date());
@@ -116,8 +116,9 @@ public class SparkplugRaspberryPiExample implements MqttCallback {
 						outboundPayload.addMetric("Up Time ms", System.currentTimeMillis() - upTimeStart);
 						// Publish current Up Time
 						executor.execute(new Publisher("spAv1.0/" + groupId + "/NDATA/" + edgeNode, outboundPayload));
-
 					}
+				} else {
+					System.out.println("Connection is not established - not sending data");
 				}
 				Thread.sleep(scanRateMs);
 			}
@@ -143,6 +144,8 @@ public class SparkplugRaspberryPiExample implements MqttCallback {
 			// Setup the MQTT connection parameters using the Paho MQTT Client.
 			//
 			MqttConnectOptions options = new MqttConnectOptions();
+			// Autoreconnect enable
+			options.setAutomaticReconnect(true);
 			// MQTT session parameters Clean Start = true
 			options.setCleanSession(true);
 			// Session connection attempt timeout period in seconds
@@ -331,6 +334,12 @@ public class SparkplugRaspberryPiExample implements MqttCallback {
 		payload.addMetric("seq", seq);
 		seq++;
 		return payload;
+	}
+	
+	@Override
+	public void connectComplete(boolean reconnect, String serverURI) {
+		System.out.println("Connected! - publishing birth");
+		publishBirth();
 	}
 
 	public void connectionLost(Throwable cause) {

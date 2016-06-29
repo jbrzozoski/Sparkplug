@@ -358,7 +358,7 @@ void publishBirth(struct mosquitto *mosq) {
 
 int main(int argc, char *argv[])
 {
-	char *host = "52.0.30.234";
+	char *host = "192.168.1.1";
 	int port = 1883;
 	int keepalive = 60;
 	bool clean_session = true;

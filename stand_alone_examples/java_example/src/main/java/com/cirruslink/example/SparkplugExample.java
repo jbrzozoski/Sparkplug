@@ -24,14 +24,14 @@ import org.eclipse.kura.core.cloud.CloudPayloadProtoBufEncoderImpl;
 import org.eclipse.kura.message.KuraPayload;
 import org.eclipse.kura.message.KuraPosition;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
+import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 
-public class SparkplugExample implements MqttCallback {
+public class SparkplugExample implements MqttCallbackExtended {
 
 	// HW/SW versions
 	private static final String HW_VERSION = "Emulated Hardware";
@@ -73,6 +73,7 @@ public class SparkplugExample implements MqttCallback {
 			
 			// Connect to the MQTT Server
 			MqttConnectOptions options = new MqttConnectOptions();
+			options.setAutomaticReconnect(true);
 			options.setCleanSession(true);
 			options.setConnectionTimeout(30);
 			options.setKeepAliveInterval(30);
@@ -86,33 +87,31 @@ public class SparkplugExample implements MqttCallback {
 			
 			// Subscribe to control/command messages for both the edge of network node and the attached devices
 			client.subscribe("spAv1.0/" + groupId + "/NCMD/" + edgeNode + "/#", 0);
-			client.subscribe("spAv1.0/" + groupId + "/DCMD/" + edgeNode + "/#", 0);
+			client.subscribe("spAv1.0/" + groupId + "/DCMD/" + edgeNode + "/#", 0);	
 			
-			// Publish the Birth certificate
-			publishBirth();			
-			
-			// Loop 100 times publishing data every PUBLISH_PERIOD
-			for(int i=0; i<100; i++) {
+			// Loop forever publishing data every PUBLISH_PERIOD
+			while(true) {
 				Thread.sleep(PUBLISH_PERIOD);
 
-				synchronized(seqLock) {
-					// Create the payload and add some metrics
-					KuraPayload payload = new KuraPayload();
-					payload.addMetric("my_boolean", random.nextBoolean());
-					payload.addMetric("my_double", random.nextDouble());
-					payload.addMetric("my_float", random.nextFloat());
-					payload.addMetric("my_int", random.nextInt(100));
-					payload.addMetric("my_long", System.currentTimeMillis());
-					
-					System.out.println("Publishing updated values");
-					payload = addSeqNum(payload);
-					CloudPayloadEncoder encoder = new CloudPayloadProtoBufEncoderImpl(payload);
-					client.publish("spAv1.0/" + groupId + "/DDATA/" + edgeNode + "/" + deviceId, encoder.getBytes(), 0, false);
+				if(client.isConnected()) {
+					synchronized(seqLock) {
+						System.out.println("Connected - publishing new data");
+						// Create the payload and add some metrics
+						KuraPayload payload = new KuraPayload();
+						payload.addMetric("my_boolean", random.nextBoolean());
+						payload.addMetric("my_double", random.nextDouble());
+						payload.addMetric("my_float", random.nextFloat());
+						payload.addMetric("my_int", random.nextInt(100));
+						payload.addMetric("my_long", System.currentTimeMillis());
+						
+						payload = addSeqNum(payload);
+						CloudPayloadEncoder encoder = new CloudPayloadProtoBufEncoderImpl(payload);
+						client.publish("spAv1.0/" + groupId + "/DDATA/" + edgeNode + "/" + deviceId, encoder.getBytes(), 0, false);
+					}
+				} else {
+					System.out.println("Not connected - not publishing data");
 				}
 			}
-
-			// Close the connection
-			client.disconnect();			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -203,10 +202,16 @@ public class SparkplugExample implements MqttCallback {
 		seq++;
 		return payload;
 	}
+	
+	@Override
+	public void connectComplete(boolean reconnect, String serverURI) {
+		System.out.println("Connected! - publishing birth");
+		publishBirth();
+	}
 
 	public void connectionLost(Throwable cause) {
-		System.out.println("The MQTT Connection was lost!");
-	}
+		System.out.println("The MQTT Connection was lost! - will auto-reconnect");
+    }
 
 	public void messageArrived(String topic, MqttMessage message) throws Exception {
 		System.out.println("Message Arrived on topic " + topic);
