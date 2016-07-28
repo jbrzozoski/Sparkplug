@@ -42,7 +42,7 @@ function SparkplugClient(config) {
     // Increments a sequence number
     incrementSeqNum = function() {
         if (seq == 256) {
-            return seq = 0;
+            seq = 0;
         }
         return seq++;
     },
