@@ -37,7 +37,7 @@ void my_subscribe_callback(struct mosquitto *mosq, void *userdata, int mid, int 
 void my_log_callback(struct mosquitto *mosq, void *userdata, int level, const char *str);
 Kuradatatypes__KuraPayload__KuraMetric *getDoubleMetric(char *name, double value);
 Kuradatatypes__KuraPayload__KuraMetric *getFloatMetric(char *name, float value);
-Kuradatatypes__KuraPayload__KuraMetric *getLongMetric(char *name, long value);
+Kuradatatypes__KuraPayload__KuraMetric *getLongMetric(char *name, int64_t value);
 Kuradatatypes__KuraPayload__KuraMetric *getIntMetric(char *name, int value);
 Kuradatatypes__KuraPayload__KuraMetric *getBooleanMetric(char *name, protobuf_c_boolean value);
 Kuradatatypes__KuraPayload__KuraMetric *getStringMetric(char *name, char *value);
@@ -174,7 +174,7 @@ Kuradatatypes__KuraPayload__KuraMetric *getFloatMetric(char *name, float value) 
 	return metric;
 }
 
-Kuradatatypes__KuraPayload__KuraMetric *getLongMetric(char *name, long value) {
+Kuradatatypes__KuraPayload__KuraMetric *getLongMetric(char *name, int64_t value) {
 	Kuradatatypes__KuraPayload__KuraMetric *metric;
 	metric = malloc(sizeof(Kuradatatypes__KuraPayload__KuraMetric));
 	kuradatatypes__kura_payload__kura_metric__init(metric);
@@ -262,7 +262,7 @@ Kuradatatypes__KuraPayload getNextPayload(bool birth) {
 		metrics[2] = getDoubleMetric("my_double", ((double)rand()/(double)100));
 		metrics[3] = getFloatMetric("my_float", ((float)rand()/(float)100));
 		metrics[4] = getIntMetric("my_int", rand());
-		metrics[5] = getLongMetric("my_long", (long)rand());
+		metrics[5] = getLongMetric("my_long", (int64_t)rand());
 		metrics[6] = getBooleanMetric("Inputs/0", true);
 		metrics[7] = getIntMetric("Inputs/1", 0);
 		metrics[8] = getFloatMetric("Inputs/2", 1.23);
@@ -290,7 +290,7 @@ Kuradatatypes__KuraPayload getNextPayload(bool birth) {
 		metrics[2] = getDoubleMetric("my_double", ((double)rand()/(double)100));
 		metrics[3] = getFloatMetric("my_float", ((float)rand()/(float)100));
 		metrics[4] = getIntMetric("my_int", rand());
-		metrics[5] = getLongMetric("my_long", (long)rand());
+		metrics[5] = getLongMetric("my_long", (int64_t)rand());
 		payload.n_metric = 6;
 
 		// Add the metric to the payload and set the number of metrics
