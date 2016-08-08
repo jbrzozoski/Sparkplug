@@ -3,12 +3,12 @@ syntax = "proto2";
 //
 // To compile:
 // cd client_libraries/java
-// protoc --proto_path=../../ --java_out=src/main/java ../../sparkplug_b/chariot.proto
+// protoc --proto_path=../../ --java_out=src/main/java ../../sparkplug_b/sparkplug_b.proto
 //
 package com.cirruslink.sparkplug.protobuf;
 
 option java_package         = "com.cirruslink.sparkplug.protobuf.message";
-option java_outer_classname = "ChariotProto";
+option java_outer_classname = "SparkplugBProto";
 
 message Payload {
 
@@ -64,7 +64,7 @@ message Payload {
 
 			// Catchalls and future expansion
 			optional string description		= 14;		// Could be anything such as json or xml of custom properties
-			map<string, string> properties		= 15;		// Alternate catchall for name/value pairs of properties
+//			map<string, string> properties		= 15;		// Alternate catchall for name/value pairs of properties
 			extensions				16 to max;	// For third party extensions
 		}
 

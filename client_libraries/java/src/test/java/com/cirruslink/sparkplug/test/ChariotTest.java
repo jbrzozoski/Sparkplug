@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
 import com.cirruslink.sparkplug.message.protobuf.chariot.MetaData;
-import com.cirruslink.sparkplug.message.protobuf.chariot.Payload;
+import com.cirruslink.sparkplug.message.protobuf.chariot.SparkplugBPayload;
 import com.cirruslink.sparkplug.message.protobuf.chariot.PayloadDecoder;
 import com.cirruslink.sparkplug.message.protobuf.chariot.PayloadEncoder;
 import com.cirruslink.sparkplug.message.protobuf.chariot.Metric;
@@ -20,7 +20,7 @@ import com.cirruslink.sparkplug.message.protobuf.chariot.types.File;
 import com.cirruslink.sparkplug.message.protobuf.chariot.types.Row;
 import com.cirruslink.sparkplug.message.protobuf.chariot.types.Value;
 import com.cirruslink.sparkplug.message.protobuf.chariot.types.ValueDataType;
-import com.cirruslink.sparkplug.protobuf.message.ChariotProto.Payload.Metric.DataType;
+import com.cirruslink.sparkplug.protobuf.message.SparkplugBProto.Payload.Metric.DataType;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -45,10 +45,10 @@ public class ChariotTest extends TestCase {
 	public void testEnDeCode() {
 		try {
 			Date currentTime = new Date();
-			Payload payload = new Payload();
-			payload.setTimestamp(currentTime);
-			payload.setSeq(0);
-			payload.setBody("Hello".getBytes());
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
+			sparkplugBPayload.setSeq(0);
+			sparkplugBPayload.setBody("Hello".getBytes());
 			
 			// Create one metric
 			Metric<Integer> metric = new Metric<Integer>();
@@ -70,17 +70,17 @@ public class ChariotTest extends TestCase {
 			metaData.setMd5("none");
 			metaData.setDescription("none");		
 			metric.setMetaData(metaData);
-			payload.addMetric(metric);
+			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
 			PayloadEncoder encoder = new PayloadEncoder();
-			byte[] bytes = encoder.getBytes(payload);
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
 			
 			// Decode
 			PayloadDecoder decoder = new PayloadDecoder();
-			Payload decodedPayload = decoder.buildFromByteArray(bytes);
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
 			
-			// Payload checks
+			// SparkplugBPayload checks
 			assertEquals(currentTime, decodedPayload.getTimestamp());
 			assertEquals(0, decodedPayload.getSeq());
 			assertTrue(Arrays.equals("Hello".getBytes(), decodedPayload.getBody()));
@@ -115,22 +115,22 @@ public class ChariotTest extends TestCase {
 		try {
 			// Now test a minimal payload
 			Date currentTime = new Date();
-			Payload payload = new Payload();
-			payload.setTimestamp(currentTime);
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
 			Metric<Integer> metric = new Metric<Integer>("MyName", DataType.Int1, 65);
-			payload.addMetric(metric);
+			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
 			PayloadEncoder encoder = new PayloadEncoder();
-			byte[] bytes = encoder.getBytes(payload);
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
 			
 			// Decode
 			PayloadDecoder decoder = new PayloadDecoder();
-			Payload decodedPayload = decoder.buildFromByteArray(bytes);
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
 			
-			// Payload checks
+			// SparkplugBPayload checks
 			assertEquals(currentTime, decodedPayload.getTimestamp());
 			assertEquals(-1, decodedPayload.getSeq());
 			assertNull(decodedPayload.getBody());
@@ -153,22 +153,22 @@ public class ChariotTest extends TestCase {
 		try {
 			// Now test a minimal payload
 			Date currentTime = new Date();
-			Payload payload = new Payload();
-			payload.setTimestamp(currentTime);
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
 			Metric<Integer> metric = new Metric<Integer>("MyName", DataType.Int2, 65);
-			payload.addMetric(metric);
+			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
 			PayloadEncoder encoder = new PayloadEncoder();
-			byte[] bytes = encoder.getBytes(payload);
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
 			
 			// Decode
 			PayloadDecoder decoder = new PayloadDecoder();
-			Payload decodedPayload = decoder.buildFromByteArray(bytes);
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
 			
-			// Payload checks
+			// SparkplugBPayload checks
 			assertEquals(currentTime, decodedPayload.getTimestamp());
 			assertEquals(-1, decodedPayload.getSeq());
 			assertNull(decodedPayload.getBody());
@@ -191,22 +191,22 @@ public class ChariotTest extends TestCase {
 		try {
 			// Now test a minimal payload
 			Date currentTime = new Date();
-			Payload payload = new Payload();
-			payload.setTimestamp(currentTime);
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
 			Metric<Integer> metric = new Metric<Integer>("MyName", DataType.Int4, 65);
-			payload.addMetric(metric);
+			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
 			PayloadEncoder encoder = new PayloadEncoder();
-			byte[] bytes = encoder.getBytes(payload);
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
 			
 			// Decode
 			PayloadDecoder decoder = new PayloadDecoder();
-			Payload decodedPayload = decoder.buildFromByteArray(bytes);
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
 			
-			// Payload checks
+			// SparkplugBPayload checks
 			assertEquals(currentTime, decodedPayload.getTimestamp());
 			assertEquals(-1, decodedPayload.getSeq());
 			assertNull(decodedPayload.getBody());
@@ -229,22 +229,22 @@ public class ChariotTest extends TestCase {
 		try {
 			// Now test a minimal payload
 			Date currentTime = new Date();
-			Payload payload = new Payload();
-			payload.setTimestamp(currentTime);
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
 			Metric<Long> metric = new Metric<Long>("MyName", DataType.Int8, 65L);
-			payload.addMetric(metric);
+			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
 			PayloadEncoder encoder = new PayloadEncoder();
-			byte[] bytes = encoder.getBytes(payload);
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
 			
 			// Decode
 			PayloadDecoder decoder = new PayloadDecoder();
-			Payload decodedPayload = decoder.buildFromByteArray(bytes);
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
 			
-			// Payload checks
+			// SparkplugBPayload checks
 			assertEquals(currentTime, decodedPayload.getTimestamp());
 			assertEquals(-1, decodedPayload.getSeq());
 			assertNull(decodedPayload.getBody());
@@ -267,22 +267,22 @@ public class ChariotTest extends TestCase {
 		try {
 			// Now test a minimal payload
 			Date currentTime = new Date();
-			Payload payload = new Payload();
-			payload.setTimestamp(currentTime);
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
 			Metric<Float> metric = new Metric<Float>("MyName", DataType.Float4, 6.5F);
-			payload.addMetric(metric);
+			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
 			PayloadEncoder encoder = new PayloadEncoder();
-			byte[] bytes = encoder.getBytes(payload);
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
 			
 			// Decode
 			PayloadDecoder decoder = new PayloadDecoder();
-			Payload decodedPayload = decoder.buildFromByteArray(bytes);
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
 			
-			// Payload checks
+			// SparkplugBPayload checks
 			assertEquals(currentTime, decodedPayload.getTimestamp());
 			assertEquals(-1, decodedPayload.getSeq());
 			assertNull(decodedPayload.getBody());
@@ -305,22 +305,22 @@ public class ChariotTest extends TestCase {
 		try {
 			// Now test a minimal payload
 			Date currentTime = new Date();
-			Payload payload = new Payload();
-			payload.setTimestamp(currentTime);
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
 			Metric<Double> metric = new Metric<Double>("MyName", DataType.Float8, 6.5);
-			payload.addMetric(metric);
+			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
 			PayloadEncoder encoder = new PayloadEncoder();
-			byte[] bytes = encoder.getBytes(payload);
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
 			
 			// Decode
 			PayloadDecoder decoder = new PayloadDecoder();
-			Payload decodedPayload = decoder.buildFromByteArray(bytes);
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
 			
-			// Payload checks
+			// SparkplugBPayload checks
 			assertEquals(currentTime, decodedPayload.getTimestamp());
 			assertEquals(-1, decodedPayload.getSeq());
 			assertNull(decodedPayload.getBody());
@@ -343,22 +343,22 @@ public class ChariotTest extends TestCase {
 		try {
 			// Now test a minimal payload
 			Date currentTime = new Date();
-			Payload payload = new Payload();
-			payload.setTimestamp(currentTime);
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
 			Metric<Boolean> metric = new Metric<Boolean>("MyName", DataType.Boolean, true);
-			payload.addMetric(metric);
+			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
 			PayloadEncoder encoder = new PayloadEncoder();
-			byte[] bytes = encoder.getBytes(payload);
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
 			
 			// Decode
 			PayloadDecoder decoder = new PayloadDecoder();
-			Payload decodedPayload = decoder.buildFromByteArray(bytes);
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
 			
-			// Payload checks
+			// SparkplugBPayload checks
 			assertEquals(currentTime, decodedPayload.getTimestamp());
 			assertEquals(-1, decodedPayload.getSeq());
 			assertNull(decodedPayload.getBody());
@@ -381,22 +381,22 @@ public class ChariotTest extends TestCase {
 		try {
 			// Now test a minimal payload
 			Date currentTime = new Date();
-			Payload payload = new Payload();
-			payload.setTimestamp(currentTime);
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
 			Metric<String> metric = new Metric<String>("MyName", DataType.String, "MyString");
-			payload.addMetric(metric);
+			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
 			PayloadEncoder encoder = new PayloadEncoder();
-			byte[] bytes = encoder.getBytes(payload);
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
 			
 			// Decode
 			PayloadDecoder decoder = new PayloadDecoder();
-			Payload decodedPayload = decoder.buildFromByteArray(bytes);
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
 			
-			// Payload checks
+			// SparkplugBPayload checks
 			assertEquals(currentTime, decodedPayload.getTimestamp());
 			assertEquals(-1, decodedPayload.getSeq());
 			assertNull(decodedPayload.getBody());
@@ -419,22 +419,22 @@ public class ChariotTest extends TestCase {
 		try {
 			// Now test a minimal payload
 			Date currentTime = new Date();
-			Payload payload = new Payload();
-			payload.setTimestamp(currentTime);
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
 			Metric<Date> metric = new Metric<Date>("MyName", DataType.DateTime, currentTime);
-			payload.addMetric(metric);
+			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
 			PayloadEncoder encoder = new PayloadEncoder();
-			byte[] bytes = encoder.getBytes(payload);
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
 			
 			// Decode
 			PayloadDecoder decoder = new PayloadDecoder();
-			Payload decodedPayload = decoder.buildFromByteArray(bytes);
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
 			
-			// Payload checks
+			// SparkplugBPayload checks
 			assertEquals(currentTime, decodedPayload.getTimestamp());
 			assertEquals(-1, decodedPayload.getSeq());
 			assertNull(decodedPayload.getBody());
@@ -457,8 +457,8 @@ public class ChariotTest extends TestCase {
 		try {
 			// Now test a minimal payload
 			Date currentTime = new Date();
-			Payload payload = new Payload();
-			payload.setTimestamp(currentTime);
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create the Dataset
 			DataSet dataSet = new DataSet();
@@ -488,17 +488,17 @@ public class ChariotTest extends TestCase {
 			
 			// Create one metric
 			Metric<DataSet> metric = new Metric<DataSet>("MyName", DataType.Dataset, dataSet);
-			payload.addMetric(metric);
+			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
 			PayloadEncoder encoder = new PayloadEncoder();
-			byte[] bytes = encoder.getBytes(payload);
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
 			
 			// Decode
 			PayloadDecoder decoder = new PayloadDecoder();
-			Payload decodedPayload = decoder.buildFromByteArray(bytes);
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
 			
-			// Payload checks
+			// SparkplugBPayload checks
 			assertEquals(currentTime, decodedPayload.getTimestamp());
 			assertEquals(-1, decodedPayload.getSeq());
 			assertNull(decodedPayload.getBody());
@@ -562,22 +562,22 @@ public class ChariotTest extends TestCase {
 		try {
 			// Now test a minimal payload
 			Date currentTime = new Date();
-			Payload payload = new Payload();
-			payload.setTimestamp(currentTime);
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
 			Metric<String> metric = new Metric<String>("MyText", DataType.Text, "MyText");
-			payload.addMetric(metric);
+			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
 			PayloadEncoder encoder = new PayloadEncoder();
-			byte[] bytes = encoder.getBytes(payload);
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
 			
 			// Decode
 			PayloadDecoder decoder = new PayloadDecoder();
-			Payload decodedPayload = decoder.buildFromByteArray(bytes);
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
 			
-			// Payload checks
+			// SparkplugBPayload checks
 			assertEquals(currentTime, decodedPayload.getTimestamp());
 			assertEquals(-1, decodedPayload.getSeq());
 			assertNull(decodedPayload.getBody());
@@ -600,23 +600,23 @@ public class ChariotTest extends TestCase {
 		try {
 			// Now test a minimal payload
 			Date currentTime = new Date();
-			Payload payload = new Payload();
-			payload.setTimestamp(currentTime);
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
 			byte[] someBytes = new byte[]{0x0, 0x1, 0x2, 0x3, 0x4};
 			Metric<byte[]> metric = new Metric<byte[]>("MyName", DataType.Bytes, someBytes);
-			payload.addMetric(metric);
+			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
 			PayloadEncoder encoder = new PayloadEncoder();
-			byte[] bytes = encoder.getBytes(payload);
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
 			
 			// Decode
 			PayloadDecoder decoder = new PayloadDecoder();
-			Payload decodedPayload = decoder.buildFromByteArray(bytes);
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
 			
-			// Payload checks
+			// SparkplugBPayload checks
 			assertEquals(currentTime, decodedPayload.getTimestamp());
 			assertEquals(-1, decodedPayload.getSeq());
 			assertNull(decodedPayload.getBody());
@@ -646,8 +646,8 @@ public class ChariotTest extends TestCase {
 		try {
 			// Now test a minimal payload
 			Date currentTime = new Date();
-			Payload payload = new Payload();
-			payload.setTimestamp(currentTime);
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
 			byte[] someBytes = new byte[]{0x0, 0x1, 0x2, 0x3, 0x4};
@@ -658,17 +658,17 @@ public class ChariotTest extends TestCase {
 			metaData.setFileType("bin");
 			metric.setMetaData(metaData);
 			
-			payload.addMetric(metric);
+			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
 			PayloadEncoder encoder = new PayloadEncoder();
-			byte[] bytes = encoder.getBytes(payload);
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
 			
 			// Decode
 			PayloadDecoder decoder = new PayloadDecoder();
-			Payload decodedPayload = decoder.buildFromByteArray(bytes);
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
 			
-			// Payload checks
+			// SparkplugBPayload checks
 			assertEquals(currentTime, decodedPayload.getTimestamp());
 			assertEquals(-1, decodedPayload.getSeq());
 			assertNull(decodedPayload.getBody());

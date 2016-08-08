@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Payload {
+public class SparkplugBPayload {
 
 	private Date timestamp;
 	private List<Metric<? extends Object>> metrics;
@@ -12,12 +12,12 @@ public class Payload {
 	private String uuid;
 	private byte[] body;
 	
-	public Payload() {
+	public SparkplugBPayload() {
 		super();
 		metrics = new ArrayList<Metric<? extends Object>>();
 	}
 
-	public Payload(Date timestamp, List<Metric<? extends Object>> metrics, long seq, String uuid, byte[] body) {
+	public SparkplugBPayload(Date timestamp, List<Metric<? extends Object>> metrics, long seq, String uuid, byte[] body) {
 		super();
 		this.timestamp = timestamp;
 		this.metrics = metrics;

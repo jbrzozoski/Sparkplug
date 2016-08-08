@@ -2,7 +2,7 @@ package com.cirruslink.sparkplug.message.protobuf.chariot;
 
 import java.util.Date;
 
-import com.cirruslink.sparkplug.protobuf.message.ChariotProto.Payload.Metric.DataType;
+import com.cirruslink.sparkplug.protobuf.message.SparkplugBProto.Payload.Metric.DataType;
 
 public class Metric<V> {
 
