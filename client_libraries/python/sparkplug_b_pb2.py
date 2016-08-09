@@ -18,8 +18,7 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='sparkplug_b.proto',
   package='com.cirruslink.sparkplug.protobuf',
-  syntax='proto2',
-  serialized_pb=_b('\n\x11sparkplug_b.proto\x12!com.cirruslink.sparkplug.protobuf\"\xc3\x0f\n\x07Payload\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x41\n\x06metric\x18\x02 \x03(\x0b\x32\x31.com.cirruslink.sparkplug.protobuf.Payload.Metric\x12\x0b\n\x03seq\x18\x03 \x01(\x04\x12\x0c\n\x04uuid\x18\x04 \x01(\t\x12\x0c\n\x04\x62ody\x18\x05 \x01(\x0c\x1a\xae\x0e\n\x06Metric\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x61lias\x18\x02 \x01(\x04\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12L\n\x08\x64\x61tatype\x18\x04 \x01(\x0e\x32:.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataType\x12\x12\n\nhistorical\x18\x05 \x01(\x08\x12L\n\x08metadata\x18\x06 \x01(\x0b\x32:.com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData\x12\x11\n\tint_value\x18\x07 \x01(\r\x12\x12\n\nlong_value\x18\x08 \x01(\x04\x12\x13\n\x0b\x66loat_value\x18\t \x01(\x02\x12\x14\n\x0c\x64ouble_value\x18\n \x01(\x01\x12\x15\n\rboolean_value\x18\x0b \x01(\x08\x12\x14\n\x0cstring_value\x18\x0c \x01(\t\x12\x13\n\x0b\x62ytes_value\x18\r \x01(\x0c\x12P\n\rdataset_value\x18\x0e \x01(\x0b\x32\x39.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet\x12\x42\n\x07members\x18\x0f \x03(\x0b\x32\x31.com.cirruslink.sparkplug.protobuf.Payload.Metric\x1a\x99\x03\n\x08MetaData\x12\x13\n\x0bisMultiPart\x18\x01 \x01(\x08\x12\x10\n\x08isScript\x18\x02 \x01(\x08\x12\r\n\x05units\x18\x03 \x01(\t\x12\x14\n\x0c\x63ontent_type\x18\x04 \x01(\t\x12\x0c\n\x04size\x18\x05 \x01(\x04\x12\x11\n\talgorithm\x18\x06 \x01(\t\x12\x0e\n\x06\x66ormat\x18\x07 \x01(\t\x12\x0b\n\x03seq\x18\x08 \x01(\x04\x12\x11\n\tfile_name\x18\t \x01(\t\x12\x11\n\tfile_type\x18\n \x01(\t\x12\x0b\n\x03md5\x18\x0b \x01(\t\x12\x0e\n\x06remove\x18\x0c \x01(\x08\x12\x0e\n\x06typeId\x18\r \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x0e \x01(\t\x12^\n\nproperties\x18\x0f \x03(\x0b\x32J.com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.PropertiesEntry\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01*\x08\x08\x10\x10\x80\x80\x80\x80\x02\x1a\xad\x05\n\x07\x44\x61taSet\x12\x16\n\x0enum_of_columns\x18\x01 \x01(\x04\x12P\n\x07\x63olumns\x18\x02 \x03(\x0b\x32?.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value\x12K\n\x04rows\x18\x03 \x03(\x0b\x32=.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Row\x1a\xfd\x02\n\x05Value\x12V\n\x04type\x18\x01 \x01(\x0e\x32H.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value.DataType\x12\x11\n\tint_value\x18\x02 \x01(\r\x12\x12\n\nlong_value\x18\x03 \x01(\x04\x12\x13\n\x0b\x66loat_value\x18\x04 \x01(\x02\x12\x14\n\x0c\x64ouble_value\x18\x05 \x01(\x01\x12\x15\n\rboolean_value\x18\x06 \x01(\x08\x12\x14\n\x0cstring_value\x18\x07 \x01(\t\"\x92\x01\n\x08\x44\x61taType\x12\x0b\n\x07Unknown\x10\x00\x12\x08\n\x04Int1\x10\x01\x12\x08\n\x04Int2\x10\x02\x12\x08\n\x04Int4\x10\x03\x12\x08\n\x04Int8\x10\x04\x12\n\n\x06\x46loat4\x10\x05\x12\n\n\x06\x46loat8\x10\x06\x12\x0b\n\x07\x42oolean\x10\x07\x12\n\n\x06String\x10\x08\x12\x0c\n\x08\x44\x61teTime\x10\t\x12\x08\n\x04Text\x10\n\x12\x08\n\x04Null\x10\x0b*\x08\x08\x08\x10\x80\x80\x80\x80\x02\x1a\x61\n\x03Row\x12P\n\x07\x65lement\x18\x01 \x03(\x0b\x32?.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value*\x08\x08\x02\x10\x80\x80\x80\x80\x02*\x08\x08\x04\x10\x80\x80\x80\x80\x02\"\xc3\x01\n\x08\x44\x61taType\x12\x0b\n\x07Unknown\x10\x00\x12\x08\n\x04Int1\x10\x01\x12\x08\n\x04Int2\x10\x02\x12\x08\n\x04Int4\x10\x03\x12\x08\n\x04Int8\x10\x04\x12\n\n\x06\x46loat4\x10\x05\x12\n\n\x06\x46loat8\x10\x06\x12\x0b\n\x07\x42oolean\x10\x07\x12\n\n\x06String\x10\x08\x12\x0c\n\x08\x44\x61teTime\x10\t\x12\x0b\n\x07\x44\x61taset\x10\n\x12\x08\n\x04Text\x10\x0b\x12\t\n\x05\x42ytes\x10\x0c\x12\x08\n\x04\x46ile\x10\r\x12\n\n\x06UdtDef\x10\x0e\x12\x0b\n\x07UdtInst\x10\x0f*\x08\x08\x10\x10\x80\x80\x80\x80\x02*\x08\x08\x06\x10\x80\x80\x80\x80\x02\x42<\n)com.cirruslink.sparkplug.protobuf.messageB\x0fSparkplugBProto')
+  serialized_pb=_b('\n\x11sparkplug_b.proto\x12!com.cirruslink.sparkplug.protobuf\"\xb0\x0e\n\x07Payload\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x41\n\x06metric\x18\x02 \x03(\x0b\x32\x31.com.cirruslink.sparkplug.protobuf.Payload.Metric\x12\x0b\n\x03seq\x18\x03 \x01(\x04\x12\x0c\n\x04uuid\x18\x04 \x01(\t\x12\x0c\n\x04\x62ody\x18\x05 \x01(\x0c\x1a\x9b\r\n\x06Metric\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x61lias\x18\x02 \x01(\x04\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12L\n\x08\x64\x61tatype\x18\x04 \x01(\x0e\x32:.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataType\x12\x12\n\nhistorical\x18\x05 \x01(\x08\x12L\n\x08metadata\x18\x06 \x01(\x0b\x32:.com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData\x12\x11\n\tint_value\x18\x07 \x01(\r\x12\x12\n\nlong_value\x18\x08 \x01(\x04\x12\x13\n\x0b\x66loat_value\x18\t \x01(\x02\x12\x14\n\x0c\x64ouble_value\x18\n \x01(\x01\x12\x15\n\rboolean_value\x18\x0b \x01(\x08\x12\x14\n\x0cstring_value\x18\x0c \x01(\t\x12\x13\n\x0b\x62ytes_value\x18\r \x01(\x0c\x12P\n\rdataset_value\x18\x0e \x01(\x0b\x32\x39.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet\x12\x42\n\x07members\x18\x0f \x03(\x0b\x32\x31.com.cirruslink.sparkplug.protobuf.Payload.Metric\x1a\x86\x02\n\x08MetaData\x12\x13\n\x0bisMultiPart\x18\x01 \x01(\x08\x12\x10\n\x08isScript\x18\x02 \x01(\x08\x12\r\n\x05units\x18\x03 \x01(\t\x12\x14\n\x0c\x63ontent_type\x18\x04 \x01(\t\x12\x0c\n\x04size\x18\x05 \x01(\x04\x12\x11\n\talgorithm\x18\x06 \x01(\t\x12\x0e\n\x06\x66ormat\x18\x07 \x01(\t\x12\x0b\n\x03seq\x18\x08 \x01(\x04\x12\x11\n\tfile_name\x18\t \x01(\t\x12\x11\n\tfile_type\x18\n \x01(\t\x12\x0b\n\x03md5\x18\x0b \x01(\t\x12\x0e\n\x06remove\x18\x0c \x01(\x08\x12\x0e\n\x06typeId\x18\r \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x0e \x01(\t*\x08\x08\x0f\x10\x80\x80\x80\x80\x02\x1a\xad\x05\n\x07\x44\x61taSet\x12\x16\n\x0enum_of_columns\x18\x01 \x01(\x04\x12P\n\x07\x63olumns\x18\x02 \x03(\x0b\x32?.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value\x12K\n\x04rows\x18\x03 \x03(\x0b\x32=.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Row\x1a\xfd\x02\n\x05Value\x12V\n\x04type\x18\x01 \x01(\x0e\x32H.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value.DataType\x12\x11\n\tint_value\x18\x02 \x01(\r\x12\x12\n\nlong_value\x18\x03 \x01(\x04\x12\x13\n\x0b\x66loat_value\x18\x04 \x01(\x02\x12\x14\n\x0c\x64ouble_value\x18\x05 \x01(\x01\x12\x15\n\rboolean_value\x18\x06 \x01(\x08\x12\x14\n\x0cstring_value\x18\x07 \x01(\t\"\x92\x01\n\x08\x44\x61taType\x12\x0b\n\x07Unknown\x10\x00\x12\x08\n\x04Int1\x10\x01\x12\x08\n\x04Int2\x10\x02\x12\x08\n\x04Int4\x10\x03\x12\x08\n\x04Int8\x10\x04\x12\n\n\x06\x46loat4\x10\x05\x12\n\n\x06\x46loat8\x10\x06\x12\x0b\n\x07\x42oolean\x10\x07\x12\n\n\x06String\x10\x08\x12\x0c\n\x08\x44\x61teTime\x10\t\x12\x08\n\x04Text\x10\n\x12\x08\n\x04Null\x10\x0b*\x08\x08\x08\x10\x80\x80\x80\x80\x02\x1a\x61\n\x03Row\x12P\n\x07\x65lement\x18\x01 \x03(\x0b\x32?.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value*\x08\x08\x02\x10\x80\x80\x80\x80\x02*\x08\x08\x04\x10\x80\x80\x80\x80\x02\"\xc3\x01\n\x08\x44\x61taType\x12\x0b\n\x07Unknown\x10\x00\x12\x08\n\x04Int1\x10\x01\x12\x08\n\x04Int2\x10\x02\x12\x08\n\x04Int4\x10\x03\x12\x08\n\x04Int8\x10\x04\x12\n\n\x06\x46loat4\x10\x05\x12\n\n\x06\x46loat8\x10\x06\x12\x0b\n\x07\x42oolean\x10\x07\x12\n\n\x06String\x10\x08\x12\x0c\n\x08\x44\x61teTime\x10\t\x12\x0b\n\x07\x44\x61taset\x10\n\x12\x08\n\x04Text\x10\x0b\x12\t\n\x05\x42ytes\x10\x0c\x12\x08\n\x04\x46ile\x10\r\x12\n\n\x06UdtDef\x10\x0e\x12\x0b\n\x07UdtInst\x10\x0f*\x08\x08\x10\x10\x80\x80\x80\x80\x02*\x08\x08\x06\x10\x80\x80\x80\x80\x02\x42<\n)com.cirruslink.sparkplug.protobuf.messageB\x0fSparkplugBProto')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -82,8 +81,8 @@ _PAYLOAD_METRIC_DATASET_VALUE_DATATYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1561,
-  serialized_end=1707,
+  serialized_start=1414,
+  serialized_end=1560,
 )
 _sym_db.RegisterEnumDescriptor(_PAYLOAD_METRIC_DATASET_VALUE_DATATYPE)
 
@@ -160,48 +159,11 @@ _PAYLOAD_METRIC_DATATYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1829,
-  serialized_end=2024,
+  serialized_start=1682,
+  serialized_end=1877,
 )
 _sym_db.RegisterEnumDescriptor(_PAYLOAD_METRIC_DATATYPE)
 
-
-_PAYLOAD_METRIC_METADATA_PROPERTIESENTRY = _descriptor.Descriptor(
-  name='PropertiesEntry',
-  full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.PropertiesEntry',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='key', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.PropertiesEntry.key', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.PropertiesEntry.value', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=_descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001')),
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1079,
-  serialized_end=1128,
-)
 
 _PAYLOAD_METRIC_METADATA = _descriptor.Descriptor(
   name='MetaData',
@@ -308,27 +270,19 @@ _PAYLOAD_METRIC_METADATA = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
-    _descriptor.FieldDescriptor(
-      name='properties', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.properties', index=14,
-      number=15, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
   ],
   extensions=[
   ],
-  nested_types=[_PAYLOAD_METRIC_METADATA_PROPERTIESENTRY, ],
+  nested_types=[],
   enum_types=[
   ],
   options=None,
   is_extendable=True,
-  syntax='proto2',
-  extension_ranges=[(16, 536870912), ],
+  extension_ranges=[(15, 536870912), ],
   oneofs=[
   ],
   serialized_start=729,
-  serialized_end=1138,
+  serialized_end=991,
 )
 
 _PAYLOAD_METRIC_DATASET_VALUE = _descriptor.Descriptor(
@@ -362,14 +316,14 @@ _PAYLOAD_METRIC_DATASET_VALUE = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='float_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value.float_value', index=3,
       number=4, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
       name='double_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value.double_value', index=4,
       number=5, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=float(0),
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -396,12 +350,11 @@ _PAYLOAD_METRIC_DATASET_VALUE = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=True,
-  syntax='proto2',
   extension_ranges=[(8, 536870912), ],
   oneofs=[
   ],
-  serialized_start=1336,
-  serialized_end=1717,
+  serialized_start=1189,
+  serialized_end=1570,
 )
 
 _PAYLOAD_METRIC_DATASET_ROW = _descriptor.Descriptor(
@@ -426,12 +379,11 @@ _PAYLOAD_METRIC_DATASET_ROW = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=True,
-  syntax='proto2',
   extension_ranges=[(2, 536870912), ],
   oneofs=[
   ],
-  serialized_start=1719,
-  serialized_end=1816,
+  serialized_start=1572,
+  serialized_end=1669,
 )
 
 _PAYLOAD_METRIC_DATASET = _descriptor.Descriptor(
@@ -470,12 +422,11 @@ _PAYLOAD_METRIC_DATASET = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=True,
-  syntax='proto2',
   extension_ranges=[(4, 536870912), ],
   oneofs=[
   ],
-  serialized_start=1141,
-  serialized_end=1826,
+  serialized_start=994,
+  serialized_end=1679,
 )
 
 _PAYLOAD_METRIC = _descriptor.Descriptor(
@@ -544,14 +495,14 @@ _PAYLOAD_METRIC = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='float_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.float_value', index=8,
       number=9, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
       name='double_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.double_value', index=9,
       number=10, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=float(0),
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -599,12 +550,11 @@ _PAYLOAD_METRIC = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=True,
-  syntax='proto2',
   extension_ranges=[(16, 536870912), ],
   oneofs=[
   ],
   serialized_start=196,
-  serialized_end=2034,
+  serialized_end=1887,
 )
 
 _PAYLOAD = _descriptor.Descriptor(
@@ -657,16 +607,13 @@ _PAYLOAD = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=True,
-  syntax='proto2',
   extension_ranges=[(6, 536870912), ],
   oneofs=[
   ],
   serialized_start=57,
-  serialized_end=2044,
+  serialized_end=1897,
 )
 
-_PAYLOAD_METRIC_METADATA_PROPERTIESENTRY.containing_type = _PAYLOAD_METRIC_METADATA
-_PAYLOAD_METRIC_METADATA.fields_by_name['properties'].message_type = _PAYLOAD_METRIC_METADATA_PROPERTIESENTRY
 _PAYLOAD_METRIC_METADATA.containing_type = _PAYLOAD_METRIC
 _PAYLOAD_METRIC_DATASET_VALUE.fields_by_name['type'].enum_type = _PAYLOAD_METRIC_DATASET_VALUE_DATATYPE
 _PAYLOAD_METRIC_DATASET_VALUE.containing_type = _PAYLOAD_METRIC_DATASET
@@ -690,13 +637,6 @@ Payload = _reflection.GeneratedProtocolMessageType('Payload', (_message.Message,
   Metric = _reflection.GeneratedProtocolMessageType('Metric', (_message.Message,), dict(
 
     MetaData = _reflection.GeneratedProtocolMessageType('MetaData', (_message.Message,), dict(
-
-      PropertiesEntry = _reflection.GeneratedProtocolMessageType('PropertiesEntry', (_message.Message,), dict(
-        DESCRIPTOR = _PAYLOAD_METRIC_METADATA_PROPERTIESENTRY,
-        __module__ = 'sparkplug_b_pb2'
-        # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.PropertiesEntry)
-        ))
-      ,
       DESCRIPTOR = _PAYLOAD_METRIC_METADATA,
       __module__ = 'sparkplug_b_pb2'
       # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData)
@@ -735,7 +675,6 @@ Payload = _reflection.GeneratedProtocolMessageType('Payload', (_message.Message,
 _sym_db.RegisterMessage(Payload)
 _sym_db.RegisterMessage(Payload.Metric)
 _sym_db.RegisterMessage(Payload.Metric.MetaData)
-_sym_db.RegisterMessage(Payload.Metric.MetaData.PropertiesEntry)
 _sym_db.RegisterMessage(Payload.Metric.DataSet)
 _sym_db.RegisterMessage(Payload.Metric.DataSet.Value)
 _sym_db.RegisterMessage(Payload.Metric.DataSet.Row)
@@ -743,6 +682,4 @@ _sym_db.RegisterMessage(Payload.Metric.DataSet.Row)
 
 DESCRIPTOR.has_options = True
 DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\n)com.cirruslink.sparkplug.protobuf.messageB\017SparkplugBProto'))
-_PAYLOAD_METRIC_METADATA_PROPERTIESENTRY.has_options = True
-_PAYLOAD_METRIC_METADATA_PROPERTIESENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
 # @@protoc_insertion_point(module_scope)
