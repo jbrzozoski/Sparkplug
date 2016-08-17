@@ -1,7 +1,16 @@
-package com.cirruslink.sparkplug.message.protobuf.chariot.types;
+/*
+ * Licensed Materials - Property of Cirrus Link Solutions
+ * Copyright (c) 2016 Cirrus Link Solutions LLC - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
 
-public class Value<V> {
+package com.cirruslink.sparkplug.message.model;
 
+import java.util.List;
+
+public class Row {
+	
 	/*
     message DataSet {
         message Value {
@@ -41,38 +50,28 @@ public class Value<V> {
         repeated Row rows                       = 3;
         extensions                              4 to max;       // For third party extensions
     }*/
-	
-	private ValueDataType type;
-	private V value;
-	
-	public Value() {
+
+	private List<Value<?>> values;
+
+	public Row() {
 		super();
 	}
 
-	public Value(ValueDataType type, V value) {
+	public Row(List<Value<?>> values) {
 		super();
-		this.type = type;
-		this.value = value;
+		this.values = values;
 	}
 
-	public ValueDataType getType() {
-		return type;
+	public List<Value<?>> getValues() {
+		return values;
 	}
 
-	public void setType(ValueDataType type) {
-		this.type = type;
-	}
-
-	public V getValue() {
-		return value;
-	}
-
-	public void setValue(V value) {
-		this.value = value;
+	public void setValues(List<Value<?>> values) {
+		this.values = values;
 	}
 
 	@Override
 	public String toString() {
-		return "Value [type=" + type + ", value=" + value + "]";
+		return "Row [values=" + values + "]";
 	}
 }

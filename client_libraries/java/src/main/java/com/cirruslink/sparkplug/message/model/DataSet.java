@@ -1,8 +1,15 @@
-package com.cirruslink.sparkplug.message.protobuf.chariot.types;
+/*
+ * Licensed Materials - Property of Cirrus Link Solutions
+ * Copyright (c) 2016 Cirrus Link Solutions LLC - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
+package com.cirruslink.sparkplug.message.model;
 
 import java.util.List;
 
-public class Row {
+public class DataSet {
 	
 	/*
     message DataSet {
@@ -44,27 +51,58 @@ public class Row {
         extensions                              4 to max;       // For third party extensions
     }*/
 
-	private List<Value<?>> values;
-
-	public Row() {
+	private long numOfColumns;
+	private List<Value<?>> columns;
+	private List<Row> rows;
+	
+	public DataSet() {
 		super();
 	}
-
-	public Row(List<Value<?>> values) {
+	
+	public DataSet(long numOfColumns, List<Value<?>> columns, List<Row> rows) {
 		super();
-		this.values = values;
+		this.numOfColumns = numOfColumns;
+		this.columns = columns;
+		this.rows = rows;
 	}
 
-	public List<Value<?>> getValues() {
-		return values;
+	public long getNumOfColumns() {
+		return numOfColumns;
 	}
 
-	public void setValues(List<Value<?>> values) {
-		this.values = values;
+	public void setNumOfColumns(long numOfColumns) {
+		this.numOfColumns = numOfColumns;
 	}
 
-	@Override
-	public String toString() {
-		return "Row [values=" + values + "]";
+	public List<Value<?>> getColumns() {
+		return columns;
+	}
+
+	public void setColumns(List<Value<?>> columns2) {
+		this.columns = columns2;
+	}
+
+	public List<Row> getRows() {
+		return rows;
+	}
+
+	public void addRow(Row row) {
+		rows.add(row);
+	}
+	
+	public void addRow(int index, Row row) {
+		rows.add(index, row);
+	}
+	
+	public Row removeRow(int index) {
+		return rows.remove(index);
+	}
+	
+	public boolean removeRow(Row row) {
+		return rows.remove(row);
+	}
+	
+	public void setRows(List<Row> rows) {
+		this.rows = rows;
 	}
 }

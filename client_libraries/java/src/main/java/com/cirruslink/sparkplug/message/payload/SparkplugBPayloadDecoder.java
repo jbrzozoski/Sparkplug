@@ -1,4 +1,11 @@
-package com.cirruslink.sparkplug.message.protobuf.chariot;
+/*
+ * Licensed Materials - Property of Cirrus Link Solutions
+ * Copyright (c) 2016 Cirrus Link Solutions LLC - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
+package com.cirruslink.sparkplug.message.payload;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,18 +14,20 @@ import java.util.List;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.cirruslink.sparkplug.message.protobuf.chariot.types.DataSet;
-import com.cirruslink.sparkplug.message.protobuf.chariot.types.File;
-import com.cirruslink.sparkplug.message.protobuf.chariot.types.Row;
-import com.cirruslink.sparkplug.message.protobuf.chariot.types.Value;
-import com.cirruslink.sparkplug.message.protobuf.chariot.types.ValueDataType;
-import com.cirruslink.sparkplug.protobuf.message.SparkplugBProto;
+import com.cirruslink.sparkplug.message.model.DataSet;
+import com.cirruslink.sparkplug.message.model.File;
+import com.cirruslink.sparkplug.message.model.MetaData;
+import com.cirruslink.sparkplug.message.model.Metric;
+import com.cirruslink.sparkplug.message.model.Row;
+import com.cirruslink.sparkplug.message.model.Value;
+import com.cirruslink.sparkplug.message.model.ValueDataType;
+import com.cirruslink.sparkplug.message.protobuf.SparkplugBProto;
 
-public class PayloadDecoder {
+public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPayload> {
 	
-	private static Logger logger = LogManager.getLogger(PayloadDecoder.class.getName());
+	private static Logger logger = LogManager.getLogger(SparkplugBPayloadDecoder.class.getName());
 
-	public PayloadDecoder() {
+	public SparkplugBPayloadDecoder() {
 		super();
 	}
 	
@@ -44,34 +53,26 @@ public class PayloadDecoder {
 			// Get the Metric from protobuf
 			SparkplugBProto.Payload.Metric protoMetric = protoPayload.getMetric(i);
 
-			Metric metric = null;
+			Metric metric = new Metric();
 			SparkplugBProto.Payload.Metric.DataType dataType = protoMetric.getDatatype();
 			
 			if(dataType == SparkplugBProto.Payload.Metric.DataType.Unknown) {
 				throw new Exception("Failed to decode");				
 			} else if(dataType == SparkplugBProto.Payload.Metric.DataType.Int1 || dataType == SparkplugBProto.Payload.Metric.DataType.Int2 || dataType == SparkplugBProto.Payload.Metric.DataType.Int4) {
-				metric = new Metric<Integer>();
-				metric.setMetricValue(protoMetric.getIntValue());
+				metric.setValue(protoMetric.getIntValue());
 			} else if(dataType == SparkplugBProto.Payload.Metric.DataType.Int8) {
-				metric = new Metric<Long>();
-				metric.setMetricValue(protoMetric.getLongValue());
+				metric.setValue(protoMetric.getLongValue());
 			} else if(dataType == SparkplugBProto.Payload.Metric.DataType.Float4) {
-				metric = new Metric<Float>();
-				metric.setMetricValue(protoMetric.getFloatValue());
+				metric.setValue(protoMetric.getFloatValue());
 			} else if(dataType == SparkplugBProto.Payload.Metric.DataType.Float8) {
-				metric = new Metric<Double>();
-				metric.setMetricValue(protoMetric.getDoubleValue());
+				metric.setValue(protoMetric.getDoubleValue());
 			} else if(dataType == SparkplugBProto.Payload.Metric.DataType.Boolean) {
-				metric = new Metric<Boolean>();
-				metric.setMetricValue(protoMetric.getBooleanValue());
+				metric.setValue(protoMetric.getBooleanValue());
 			} else if(dataType == SparkplugBProto.Payload.Metric.DataType.String) {
-				metric = new Metric<String>();
-				metric.setMetricValue(protoMetric.getStringValue());
+				metric.setValue(protoMetric.getStringValue());
 			} else if(dataType == SparkplugBProto.Payload.Metric.DataType.DateTime) {
-				metric = new Metric<Date>();
-				metric.setMetricValue(new Date(protoMetric.getLongValue()));
+				metric.setValue(new Date(protoMetric.getLongValue()));
 			} else if(dataType == SparkplugBProto.Payload.Metric.DataType.Dataset) {
-				metric = new Metric<DataSet>();
 				DataSet dataSet = new DataSet();
 				SparkplugBProto.Payload.Metric.DataSet protoDataSet = protoMetric.getDatasetValue();
 				dataSet.setNumOfColumns(protoDataSet.getNumOfColumns());
@@ -110,16 +111,13 @@ public class PayloadDecoder {
 				}
 				
 				// Finally set the metric value
-				metric.setMetricValue(dataSet);				
+				metric.setValue(dataSet);				
 			} else if(dataType == SparkplugBProto.Payload.Metric.DataType.Text) {
-				metric = new Metric<String>();
-				metric.setMetricValue(protoMetric.getStringValue());
+				metric.setValue(protoMetric.getStringValue());
 			} else if(dataType == SparkplugBProto.Payload.Metric.DataType.Bytes) {
-				metric = new Metric<byte[]>();
-				metric.setMetricValue(protoMetric.getBytesValue().toByteArray());
+				metric.setValue(protoMetric.getBytesValue().toByteArray());
 			} else if(dataType == SparkplugBProto.Payload.Metric.DataType.File) {
-				metric = new Metric<File>();
-				metric.setMetricValue(new File(protoMetric.getMetadata().getFileName(), protoMetric.getBytesValue().toByteArray()));
+				metric.setValue(new File(protoMetric.getMetadata().getFileName(), protoMetric.getBytesValue().toByteArray()));
 			} else {
 				throw new Exception("Failed to decode");
 			}

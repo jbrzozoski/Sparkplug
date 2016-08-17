@@ -1,4 +1,11 @@
-package com.cirruslink.sparkplug.message.protobuf.chariot;
+/*
+ * Licensed Materials - Property of Cirrus Link Solutions
+ * Copyright (c) 2016 Cirrus Link Solutions LLC - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
+package com.cirruslink.sparkplug.message.payload;
 
 import java.io.IOException;
 import java.util.Date;
@@ -7,42 +14,46 @@ import java.util.List;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.cirruslink.sparkplug.message.protobuf.chariot.types.DataSet;
-import com.cirruslink.sparkplug.message.protobuf.chariot.types.File;
-import com.cirruslink.sparkplug.message.protobuf.chariot.types.Row;
-import com.cirruslink.sparkplug.message.protobuf.chariot.types.Value;
-import com.cirruslink.sparkplug.message.protobuf.chariot.types.ValueDataType;
-import com.cirruslink.sparkplug.protobuf.message.SparkplugBProto;
+import com.cirruslink.sparkplug.message.model.DataSet;
+import com.cirruslink.sparkplug.message.model.File;
+import com.cirruslink.sparkplug.message.model.MetaData;
+import com.cirruslink.sparkplug.message.model.Metric;
+import com.cirruslink.sparkplug.message.model.Row;
+import com.cirruslink.sparkplug.message.model.Value;
+import com.cirruslink.sparkplug.message.model.ValueDataType;
+import com.cirruslink.sparkplug.message.protobuf.SparkplugBProto;
 import com.google.protobuf.ByteString;
 
-public class PayloadEncoder {
+public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPayload> {
 	
-	private static Logger logger = LogManager.getLogger(PayloadEncoder.class.getName());
+	private static Logger logger = LogManager.getLogger(SparkplugBPayloadEncoder.class.getName());
 	
-	public PayloadEncoder() {
+	public SparkplugBPayloadEncoder() {
 		super();
 	}
 	
-	public byte[] getBytes(SparkplugBPayload sparkplugBPayload) throws IOException {
+	public byte[] getBytes(SparkplugBPayload payload) throws IOException {
 		
 		SparkplugBProto.Payload.Builder protoMsg = SparkplugBProto.Payload.newBuilder();
 		
 		// Set the timestamp
-		if (sparkplugBPayload.getTimestamp() != null) {
-			logger.debug("Setting time " + sparkplugBPayload.getTimestamp());
-			protoMsg.setTimestamp(sparkplugBPayload.getTimestamp().getTime());
+		if (payload.getTimestamp() != null) {
+			logger.debug("Setting time " + payload.getTimestamp());
+			protoMsg.setTimestamp(payload.getTimestamp().getTime());
 		}
 		
 		// Set the sequence number
-		logger.debug("Setting sequence number " + sparkplugBPayload.getSeq());
-		protoMsg.setSeq(sparkplugBPayload.getSeq());
+		logger.debug("Setting sequence number " + payload.getSeq());
+		protoMsg.setSeq(payload.getSeq());
 		
-		// Set the UUID
-		logger.debug("Setting the UUID " + sparkplugBPayload.getUuid());
-		protoMsg.setUuid(sparkplugBPayload.getUuid());
+		// Set the UUID if defined
+		if (payload.getUuid() != null) {
+			logger.debug("Setting the UUID " + payload.getUuid());
+			protoMsg.setUuid(payload.getUuid());
+		}
 		
 		// Set the metrics
-		for (Metric<?> metric : sparkplugBPayload.getMetrics()) {
+		for (Metric metric : payload.getMetrics()) {
 			
 			// build a metric
 			SparkplugBProto.Payload.Metric.Builder metricBuilder = SparkplugBProto.Payload.Metric.newBuilder();
@@ -73,16 +84,16 @@ public class PayloadEncoder {
 		
 
 		// Set the body
-		if (sparkplugBPayload.getBody() != null) {
-			logger.debug("Setting the body " + new String(sparkplugBPayload.getBody()));
-			protoMsg.setBody(ByteString.copyFrom(sparkplugBPayload.getBody()));
+		if (payload.getBody() != null) {
+			logger.debug("Setting the body " + new String(payload.getBody()));
+			protoMsg.setBody(ByteString.copyFrom(payload.getBody()));
 		}
 
 		return protoMsg.build().toByteArray();
 	}
 	
 	private SparkplugBProto.Payload.Metric.Builder setMetricValue(SparkplugBProto.Payload.Metric.Builder metricBuilder,
-			Metric<?> metric) throws Exception {
+			Metric metric) throws Exception {
 		
 		// Set the datatype
 		metricBuilder.setDatatype(metric.getDataType());
@@ -92,25 +103,25 @@ public class PayloadEncoder {
 			logger.error("Unknown DataType: " + metric.getDataType());
 			throw new Exception("Failed to encode");
 		} else if(metric.getDataType().equals(SparkplugBProto.Payload.Metric.DataType.Int1)) {
-			metricBuilder.setIntValue((Integer) metric.getMetricValue());
+			metricBuilder.setIntValue((Integer) metric.getValue());
 		} else if(metric.getDataType().equals(SparkplugBProto.Payload.Metric.DataType.Int2)) {
-			metricBuilder.setIntValue((Integer) metric.getMetricValue());
+			metricBuilder.setIntValue((Integer) metric.getValue());
 		} else if(metric.getDataType().equals(SparkplugBProto.Payload.Metric.DataType.Int4)) {
-			metricBuilder.setIntValue((Integer) metric.getMetricValue());
+			metricBuilder.setIntValue((Integer) metric.getValue());
 		} else if(metric.getDataType().equals(SparkplugBProto.Payload.Metric.DataType.Int8)) {
-			metricBuilder.setLongValue((Long) metric.getMetricValue());
+			metricBuilder.setLongValue((Long) metric.getValue());
 		} else if(metric.getDataType().equals(SparkplugBProto.Payload.Metric.DataType.Float4)) {
-			metricBuilder.setFloatValue((Float) metric.getMetricValue());
+			metricBuilder.setFloatValue((Float) metric.getValue());
 		} else if(metric.getDataType().equals(SparkplugBProto.Payload.Metric.DataType.Float8)) {
-			metricBuilder.setDoubleValue((Double) metric.getMetricValue());
+			metricBuilder.setDoubleValue((Double) metric.getValue());
 		} else if(metric.getDataType().equals(SparkplugBProto.Payload.Metric.DataType.Boolean)) {
-			metricBuilder.setBooleanValue((Boolean) metric.getMetricValue());
+			metricBuilder.setBooleanValue((Boolean) metric.getValue());
 		} else if(metric.getDataType().equals(SparkplugBProto.Payload.Metric.DataType.String)) {
-			metricBuilder.setStringValue((String) metric.getMetricValue());
+			metricBuilder.setStringValue((String) metric.getValue());
 		} else if(metric.getDataType().equals(SparkplugBProto.Payload.Metric.DataType.DateTime)) {
-			metricBuilder.setLongValue(((Date)metric.getMetricValue()).getTime());
+			metricBuilder.setLongValue(((Date)metric.getValue()).getTime());
 		} else if(metric.getDataType().equals(SparkplugBProto.Payload.Metric.DataType.Dataset)) {
-			DataSet dataSet = (DataSet) metric.getMetricValue();
+			DataSet dataSet = (DataSet) metric.getValue();
 			SparkplugBProto.Payload.Metric.DataSet.Builder protoDataSetBuilder = SparkplugBProto.Payload.Metric.DataSet.newBuilder();
 			
 			protoDataSetBuilder.setNumOfColumns(dataSet.getNumOfColumns());
@@ -149,13 +160,13 @@ public class PayloadEncoder {
 			metricBuilder.setDatasetValue(protoDataSetBuilder);
 			
 		} else if(metric.getDataType().equals(SparkplugBProto.Payload.Metric.DataType.Text)) {
-			metricBuilder.setStringValue((String) metric.getMetricValue());
+			metricBuilder.setStringValue((String) metric.getValue());
 		} else if(metric.getDataType().equals(SparkplugBProto.Payload.Metric.DataType.Bytes)) {
-			metricBuilder.setBytesValue(ByteString.copyFrom((byte[]) metric.getMetricValue()));
+			metricBuilder.setBytesValue(ByteString.copyFrom((byte[]) metric.getValue()));
 		} else if(metric.getDataType().equals(SparkplugBProto.Payload.Metric.DataType.File)) {
-			metricBuilder.setBytesValue(ByteString.copyFrom(((File) metric.getMetricValue()).getBytes()));
+			metricBuilder.setBytesValue(ByteString.copyFrom(((File) metric.getValue()).getBytes()));
 			SparkplugBProto.Payload.Metric.MetaData.Builder metaDataBuilder = SparkplugBProto.Payload.Metric.MetaData.newBuilder();
-			metaDataBuilder.setFileName(((File) metric.getMetricValue()).getFileName());
+			metaDataBuilder.setFileName(((File) metric.getValue()).getFileName());
 			metricBuilder.setMetadata(metaDataBuilder);
 		} else {
 			logger.error("Unknown DataType: " + metric.getDataType());
@@ -166,7 +177,7 @@ public class PayloadEncoder {
 	}
 	
 	private SparkplugBProto.Payload.Metric.Builder setMetaData(SparkplugBProto.Payload.Metric.Builder metricBuilder,
-			Metric<?> metric) throws Exception {
+			Metric metric) throws Exception {
 		
 		// If the builder has been built already - use it
 		SparkplugBProto.Payload.Metric.MetaData.Builder metaDataBuilder;

@@ -1,9 +1,14 @@
-package com.cirruslink.sparkplug.message.protobuf.chariot.types;
+/*
+ * Licensed Materials - Property of Cirrus Link Solutions
+ * Copyright (c) 2016 Cirrus Link Solutions LLC - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
 
-import java.util.List;
+package com.cirruslink.sparkplug.message.model;
 
-public class DataSet {
-	
+public class Value<V> {
+
 	/*
     message DataSet {
         message Value {
@@ -43,59 +48,38 @@ public class DataSet {
         repeated Row rows                       = 3;
         extensions                              4 to max;       // For third party extensions
     }*/
-
-	private long numOfColumns;
-	private List<Value<?>> columns;
-	private List<Row> rows;
 	
-	public DataSet() {
+	private ValueDataType type;
+	private V value;
+	
+	public Value() {
 		super();
 	}
-	
-	public DataSet(long numOfColumns, List<Value<?>> columns, List<Row> rows) {
+
+	public Value(ValueDataType type, V value) {
 		super();
-		this.numOfColumns = numOfColumns;
-		this.columns = columns;
-		this.rows = rows;
+		this.type = type;
+		this.value = value;
 	}
 
-	public long getNumOfColumns() {
-		return numOfColumns;
+	public ValueDataType getType() {
+		return type;
 	}
 
-	public void setNumOfColumns(long numOfColumns) {
-		this.numOfColumns = numOfColumns;
+	public void setType(ValueDataType type) {
+		this.type = type;
 	}
 
-	public List<Value<?>> getColumns() {
-		return columns;
+	public V getValue() {
+		return value;
 	}
 
-	public void setColumns(List<Value<?>> columns2) {
-		this.columns = columns2;
+	public void setValue(V value) {
+		this.value = value;
 	}
 
-	public List<Row> getRows() {
-		return rows;
-	}
-
-	public void addRow(Row row) {
-		rows.add(row);
-	}
-	
-	public void addRow(int index, Row row) {
-		rows.add(index, row);
-	}
-	
-	public Row removeRow(int index) {
-		return rows.remove(index);
-	}
-	
-	public boolean removeRow(Row row) {
-		return rows.remove(row);
-	}
-	
-	public void setRows(List<Row> rows) {
-		this.rows = rows;
+	@Override
+	public String toString() {
+		return "Value [type=" + type + ", value=" + value + "]";
 	}
 }

@@ -1,4 +1,11 @@
-package com.cirruslink.sparkplug.message.protobuf.chariot;
+/*
+ * Licensed Materials - Property of Cirrus Link Solutions
+ * Copyright (c) 2016 Cirrus Link Solutions LLC - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
+package com.cirruslink.sparkplug.message.model;
 
 public class MetaData {
 
