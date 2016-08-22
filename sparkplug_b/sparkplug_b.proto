@@ -7,7 +7,7 @@ syntax = "proto2";
 //
 package com.cirruslink.sparkplug.protobuf;
 
-option java_package         = "com.cirruslink.sparkplug.protobuf.message";
+option java_package         = "com.cirruslink.sparkplug.protobuf";
 option java_outer_classname = "SparkplugBProto";
 
 message Payload {
@@ -68,23 +68,24 @@ message Payload {
 		}
 
 		message DataSet {
+			
+			enum DataType {
+				Unknown			= 0;
+				Int1			= 1;
+				Int2			= 2;
+				Int4			= 3;
+				Int8			= 4;
+				Float4			= 5;
+				Float8			= 6;
+				Boolean			= 7;
+				String			= 8;
+				DateTime		= 9;
+				Text			= 10;
+				Null			= 11;
+			}
+			
 			message Value {
-				enum DataType {
-					Unknown			= 0;
-					Int1			= 1;
-					Int2			= 2;
-					Int4			= 3;
-					Int8			= 4;
-					Float4			= 5;
-					Float8			= 6;
-					Boolean			= 7;
-					String			= 8;
-					DateTime		= 9;
-					Text			= 10;
-					Null			= 11;
-				}
 
-				optional DataType type			= 1;
 				optional uint32 int_value		= 2;		// Int1, Int2, Int4
 				optional uint64 long_value		= 3;		// Int8, DateTime
 				optional float  float_value		= 4;		// Float4
@@ -100,10 +101,10 @@ message Payload {
 			}
 
 			optional uint64 num_of_columns		= 1;
-			repeated Value columns				= 2;
-			repeated Row rows					= 3;
-			extensions      	                4 to max;	// For third party extensions
-
+			repeated string columns				= 2;
+			repeated DataType types				= 3;
+			repeated Row rows					= 4;
+			extensions      	                5 to max;	// For third party extensions
 		}
 
 		optional string   name			= 1;		// Metric name - should only be included on birth

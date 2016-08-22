@@ -7,7 +7,10 @@
 
 package com.cirruslink.sparkplug.message.model;
 
-public enum ValueDataType {
+/**
+ * An enumeration of data types associated with a Metric
+ */
+public enum MetricDataType {
 	Unknown,
 	Int1,
 	Int2,
@@ -18,6 +21,10 @@ public enum ValueDataType {
 	Boolean,
 	String,
 	DateTime,
+	DataSet,
 	Text,
-	Null,
+	UdtInst,
+	UdtDef,
+	Bytes,
+	File
 }

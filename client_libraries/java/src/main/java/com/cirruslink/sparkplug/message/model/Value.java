@@ -49,24 +49,24 @@ public class Value<V> {
         extensions                              4 to max;       // For third party extensions
     }*/
 	
-	private ValueDataType type;
+	private DataSetDataType type;
 	private V value;
 	
 	public Value() {
 		super();
 	}
 
-	public Value(ValueDataType type, V value) {
+	public Value(DataSetDataType type, V value) {
 		super();
 		this.type = type;
 		this.value = value;
 	}
 
-	public ValueDataType getType() {
+	public DataSetDataType getType() {
 		return type;
 	}
 
-	public void setType(ValueDataType type) {
+	public void setType(DataSetDataType type) {
 		this.type = type;
 	}
 

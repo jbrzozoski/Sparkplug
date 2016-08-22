@@ -52,17 +52,19 @@ public class DataSet {
     }*/
 
 	private long numOfColumns;
-	private List<Value<?>> columns;
+	private List<String> columnNames;
+	private List<DataSetDataType> types;
 	private List<Row> rows;
 	
 	public DataSet() {
 		super();
 	}
 	
-	public DataSet(long numOfColumns, List<Value<?>> columns, List<Row> rows) {
+	public DataSet(long numOfColumns, List<String> columnNames, List<DataSetDataType> types, List<Row> rows) {
 		super();
 		this.numOfColumns = numOfColumns;
-		this.columns = columns;
+		this.columnNames = columnNames;
+		this.types = types;
 		this.rows = rows;
 	}
 
@@ -74,12 +76,12 @@ public class DataSet {
 		this.numOfColumns = numOfColumns;
 	}
 
-	public List<Value<?>> getColumns() {
-		return columns;
+	public List<String> getColumnNames() {
+		return columnNames;
 	}
 
-	public void setColumns(List<Value<?>> columns2) {
-		this.columns = columns2;
+	public void setColumnNames(List<String> columnNames) {
+		this.columnNames = columnNames;
 	}
 
 	public List<Row> getRows() {
@@ -87,11 +89,11 @@ public class DataSet {
 	}
 
 	public void addRow(Row row) {
-		rows.add(row);
+		this.rows.add(row);
 	}
 	
 	public void addRow(int index, Row row) {
-		rows.add(index, row);
+		this.rows.add(index, row);
 	}
 	
 	public Row removeRow(int index) {
@@ -104,5 +106,17 @@ public class DataSet {
 	
 	public void setRows(List<Row> rows) {
 		this.rows = rows;
+	}
+
+	public List<DataSetDataType> getTypes() {
+		return types;
+	}
+
+	public void setTypes(List<DataSetDataType> types) {
+		this.types = types;
+	}
+	
+	public void addType(int index, DataSetDataType type) {
+		this.types.add(index, type);
 	}
 }

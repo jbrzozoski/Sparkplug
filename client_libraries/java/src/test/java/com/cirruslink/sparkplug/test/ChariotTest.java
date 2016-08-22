@@ -11,17 +11,17 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 
 import com.cirruslink.sparkplug.message.model.DataSet;
+import com.cirruslink.sparkplug.message.model.DataSetDataType;
 import com.cirruslink.sparkplug.message.model.File;
 import com.cirruslink.sparkplug.message.model.MetaData;
 import com.cirruslink.sparkplug.message.model.Metric;
+import com.cirruslink.sparkplug.message.model.MetricDataType;
 import com.cirruslink.sparkplug.message.model.Row;
 import com.cirruslink.sparkplug.message.model.Value;
-import com.cirruslink.sparkplug.message.model.ValueDataType;
 import com.cirruslink.sparkplug.message.payload.PayloadDecoder;
 import com.cirruslink.sparkplug.message.payload.SparkplugBPayload;
 import com.cirruslink.sparkplug.message.payload.SparkplugBPayloadDecoder;
 import com.cirruslink.sparkplug.message.payload.SparkplugBPayloadEncoder;
-import com.cirruslink.sparkplug.message.protobuf.SparkplugBProto.Payload.Metric.DataType;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -56,7 +56,7 @@ public class ChariotTest extends TestCase {
 			metric.setName("Name");
 			metric.setAlias(0);
 			metric.setTimestamp(currentTime);
-			metric.setDataType(DataType.Int1);
+			metric.setDataType(MetricDataType.Int1);
 			metric.setHistorical(false);
 			metric.setValue(65);
 			MetaData metaData = new MetaData();
@@ -92,7 +92,7 @@ public class ChariotTest extends TestCase {
 			assertEquals("Name", decodedMetric.getName());
 			assertEquals(0, decodedMetric.getAlias());
 			assertEquals(currentTime, decodedMetric.getTimestamp());
-			assertEquals(DataType.Int1, decodedMetric.getDataType());
+			assertEquals(MetricDataType.Int1, decodedMetric.getDataType());
 			assertEquals(false, decodedMetric.isHistorical());
 			assertEquals(65, decodedMetric.getValue());
 			assertNotNull(decodedMetric.getMetaData());
@@ -120,7 +120,7 @@ public class ChariotTest extends TestCase {
 			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
-			Metric metric = new Metric("MyName", DataType.Int1, 65);
+			Metric metric = new Metric("MyName", MetricDataType.Int1, 65);
 			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
@@ -140,7 +140,7 @@ public class ChariotTest extends TestCase {
 			assertEquals(1, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(DataType.Int1, decodedMetric.getDataType());
+			assertEquals(MetricDataType.Int1, decodedMetric.getDataType());
 			assertEquals(false, decodedMetric.isHistorical());
 			assertEquals(65, decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
@@ -158,7 +158,7 @@ public class ChariotTest extends TestCase {
 			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
-			Metric metric = new Metric("MyName", DataType.Int2, 65);
+			Metric metric = new Metric("MyName", MetricDataType.Int2, 65);
 			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
@@ -178,7 +178,7 @@ public class ChariotTest extends TestCase {
 			assertEquals(1, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(DataType.Int2, decodedMetric.getDataType());
+			assertEquals(MetricDataType.Int2, decodedMetric.getDataType());
 			assertEquals(false, decodedMetric.isHistorical());
 			assertEquals(65, decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
@@ -196,7 +196,7 @@ public class ChariotTest extends TestCase {
 			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
-			Metric metric = new Metric("MyName", DataType.Int4, 65);
+			Metric metric = new Metric("MyName", MetricDataType.Int4, 65);
 			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
@@ -216,7 +216,7 @@ public class ChariotTest extends TestCase {
 			assertEquals(1, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(DataType.Int4, decodedMetric.getDataType());
+			assertEquals(MetricDataType.Int4, decodedMetric.getDataType());
 			assertEquals(false, decodedMetric.isHistorical());
 			assertEquals(65, decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
@@ -234,7 +234,7 @@ public class ChariotTest extends TestCase {
 			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
-			Metric metric = new Metric("MyName", DataType.Int8, 65L);
+			Metric metric = new Metric("MyName", MetricDataType.Int8, 65L);
 			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
@@ -254,7 +254,7 @@ public class ChariotTest extends TestCase {
 			assertEquals(1, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(DataType.Int8, decodedMetric.getDataType());
+			assertEquals(MetricDataType.Int8, decodedMetric.getDataType());
 			assertEquals(false, decodedMetric.isHistorical());
 			assertEquals(65L, decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
@@ -272,7 +272,7 @@ public class ChariotTest extends TestCase {
 			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
-			Metric metric = new Metric("MyName", DataType.Float4, 6.5F);
+			Metric metric = new Metric("MyName", MetricDataType.Float4, 6.5F);
 			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
@@ -292,7 +292,7 @@ public class ChariotTest extends TestCase {
 			assertEquals(1, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(DataType.Float4, decodedMetric.getDataType());
+			assertEquals(MetricDataType.Float4, decodedMetric.getDataType());
 			assertEquals(false, decodedMetric.isHistorical());
 			assertEquals(6.5F, decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
@@ -310,7 +310,7 @@ public class ChariotTest extends TestCase {
 			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
-			Metric metric = new Metric("MyName", DataType.Float8, 6.5);
+			Metric metric = new Metric("MyName", MetricDataType.Float8, 6.5);
 			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
@@ -330,7 +330,7 @@ public class ChariotTest extends TestCase {
 			assertEquals(1, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(DataType.Float8, decodedMetric.getDataType());
+			assertEquals(MetricDataType.Float8, decodedMetric.getDataType());
 			assertEquals(false, decodedMetric.isHistorical());
 			assertEquals(6.5, decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
@@ -348,7 +348,7 @@ public class ChariotTest extends TestCase {
 			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
-			Metric metric = new Metric("MyName", DataType.Boolean, true);
+			Metric metric = new Metric("MyName", MetricDataType.Boolean, true);
 			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
@@ -368,7 +368,7 @@ public class ChariotTest extends TestCase {
 			assertEquals(1, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(DataType.Boolean, decodedMetric.getDataType());
+			assertEquals(MetricDataType.Boolean, decodedMetric.getDataType());
 			assertEquals(false, decodedMetric.isHistorical());
 			assertEquals(true, decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
@@ -386,7 +386,7 @@ public class ChariotTest extends TestCase {
 			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
-			Metric metric = new Metric("MyName", DataType.String, "MyString");
+			Metric metric = new Metric("MyName", MetricDataType.String, "MyString");
 			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
@@ -406,7 +406,7 @@ public class ChariotTest extends TestCase {
 			assertEquals(1, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(DataType.String, decodedMetric.getDataType());
+			assertEquals(MetricDataType.String, decodedMetric.getDataType());
 			assertEquals(false, decodedMetric.isHistorical());
 			assertEquals("MyString", decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
@@ -424,7 +424,7 @@ public class ChariotTest extends TestCase {
 			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
-			Metric metric = new Metric("MyName", DataType.DateTime, currentTime);
+			Metric metric = new Metric("MyName", MetricDataType.DateTime, currentTime);
 			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
@@ -444,7 +444,7 @@ public class ChariotTest extends TestCase {
 			assertEquals(1, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(DataType.DateTime, decodedMetric.getDataType());
+			assertEquals(MetricDataType.DateTime, decodedMetric.getDataType());
 			assertEquals(false, decodedMetric.isHistorical());
 			assertEquals(currentTime, decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
@@ -464,31 +464,39 @@ public class ChariotTest extends TestCase {
 			// Create the Dataset
 			DataSet dataSet = new DataSet();
 			dataSet.setNumOfColumns(3);
-			List<Value<?>> columns = new ArrayList<Value<?>>();
-			columns.add(new Value<String>(ValueDataType.String, "Booleans"));
-			columns.add(new Value<String>(ValueDataType.String, "Int4s"));
-			columns.add(new Value<String>(ValueDataType.String, "Floats"));
-			dataSet.setColumns(columns);
+			
+			List<String> columnNames = new ArrayList<String>();
+			columnNames.add("Booleans");
+			columnNames.add("Int4s");
+			columnNames.add("Floats");
+			dataSet.setColumnNames(columnNames);
+			
+			List<DataSetDataType> columnTypes = new ArrayList<DataSetDataType>();
+			columnTypes.add(DataSetDataType.Boolean);
+			columnTypes.add(DataSetDataType.Int4);
+			columnTypes.add(DataSetDataType.Float4);
+			dataSet.setTypes(columnTypes);
+			
 			List<Row> rows = new ArrayList<Row>();
 			List<Value<?>> rowValues = new ArrayList<Value<?>>();
-			rowValues.add(new Value<Boolean>(ValueDataType.Boolean, false));
-			rowValues.add(new Value<Integer>(ValueDataType.Int4, 1));
-			rowValues.add(new Value<Float>(ValueDataType.Float4, 1.1F));
+			rowValues.add(new Value<Boolean>(DataSetDataType.Boolean, false));
+			rowValues.add(new Value<Integer>(DataSetDataType.Int4, 1));
+			rowValues.add(new Value<Float>(DataSetDataType.Float4, 1.1F));
 			rows.add(new Row(rowValues));
 			rowValues = new ArrayList<Value<?>>();
-			rowValues.add(new Value<Boolean>(ValueDataType.Boolean, true));
-			rowValues.add(new Value<Integer>(ValueDataType.Int4, 2));
-			rowValues.add(new Value<Float>(ValueDataType.Float4, 1.2F));
+			rowValues.add(new Value<Boolean>(DataSetDataType.Boolean, true));
+			rowValues.add(new Value<Integer>(DataSetDataType.Int4, 2));
+			rowValues.add(new Value<Float>(DataSetDataType.Float4, 1.2F));
 			rows.add(new Row(rowValues));
 			rowValues = new ArrayList<Value<?>>();
-			rowValues.add(new Value<Boolean>(ValueDataType.Boolean, false));
-			rowValues.add(new Value<Integer>(ValueDataType.Int4, 3));
-			rowValues.add(new Value<Float>(ValueDataType.Float4, 1.3F));
+			rowValues.add(new Value<Boolean>(DataSetDataType.Boolean, false));
+			rowValues.add(new Value<Integer>(DataSetDataType.Int4, 3));
+			rowValues.add(new Value<Float>(DataSetDataType.Float4, 1.3F));
 			rows.add(new Row(rowValues));
 			dataSet.setRows(rows);
 			
 			// Create one metric
-			Metric metric = new Metric("MyName", DataType.Dataset, dataSet);
+			Metric metric = new Metric("MyName", MetricDataType.DataSet, dataSet);
 			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
@@ -508,48 +516,45 @@ public class ChariotTest extends TestCase {
 			assertEquals(1, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(DataType.Dataset, decodedMetric.getDataType());
+			assertEquals(MetricDataType.DataSet, decodedMetric.getDataType());
 			assertEquals(false, decodedMetric.isHistorical());
 			assertNull(decodedMetric.getMetaData());
 			
 			// DataSet Checks
 			DataSet decodedDataSet = (DataSet) decodedMetric.getValue();
 			assertEquals(3, decodedDataSet.getNumOfColumns());
-			List<Value<?>> decodedColumns = decodedDataSet.getColumns();
+			List<String> decodedColumns = decodedDataSet.getColumnNames();
 			assertNotNull(decodedColumns);
-			assertEquals(ValueDataType.String, decodedColumns.get(0).getType());
-			assertEquals(ValueDataType.String, decodedColumns.get(1).getType());
-			assertEquals(ValueDataType.String, decodedColumns.get(2).getType());
-			assertEquals("Booleans", decodedColumns.get(0).getValue());
-			assertEquals("Int4s", decodedColumns.get(1).getValue());
-			assertEquals("Floats", decodedColumns.get(2).getValue());
+			assertEquals("Booleans", decodedColumns.get(0));
+			assertEquals("Int4s", decodedColumns.get(1));
+			assertEquals("Floats", decodedColumns.get(2));
 			
 			// DataSet row checks
 			List<Row> decodedRows = decodedDataSet.getRows();
 			assertEquals(3, decodedRows.size());
 			Row row1 = decodedRows.get(0);
 			List<Value<?>> row1Values = row1.getValues();
-			assertEquals(ValueDataType.Boolean, row1Values.get(0).getType());
-			assertEquals(ValueDataType.Int4, row1Values.get(1).getType());
-			assertEquals(ValueDataType.Float4, row1Values.get(2).getType());
+			assertEquals(DataSetDataType.Boolean, row1Values.get(0).getType());
+			assertEquals(DataSetDataType.Int4, row1Values.get(1).getType());
+			assertEquals(DataSetDataType.Float4, row1Values.get(2).getType());
 			assertEquals(false, row1Values.get(0).getValue());
 			assertEquals(1, row1Values.get(1).getValue());
 			assertEquals(1.1F, row1Values.get(2).getValue());
 
 			Row row2 = decodedRows.get(1);
 			List<Value<?>> row2Values = row2.getValues();
-			assertEquals(ValueDataType.Boolean, row2Values.get(0).getType());
-			assertEquals(ValueDataType.Int4, row2Values.get(1).getType());
-			assertEquals(ValueDataType.Float4, row2Values.get(2).getType());
+			assertEquals(DataSetDataType.Boolean, row2Values.get(0).getType());
+			assertEquals(DataSetDataType.Int4, row2Values.get(1).getType());
+			assertEquals(DataSetDataType.Float4, row2Values.get(2).getType());
 			assertEquals(true, row2Values.get(0).getValue());
 			assertEquals(2, row2Values.get(1).getValue());
 			assertEquals(1.2F, row2Values.get(2).getValue());
 			
 			Row row3 = decodedRows.get(2);
 			List<Value<?>> row3Values = row3.getValues();
-			assertEquals(ValueDataType.Boolean, row3Values.get(0).getType());
-			assertEquals(ValueDataType.Int4, row3Values.get(1).getType());
-			assertEquals(ValueDataType.Float4, row3Values.get(2).getType());
+			assertEquals(DataSetDataType.Boolean, row3Values.get(0).getType());
+			assertEquals(DataSetDataType.Int4, row3Values.get(1).getType());
+			assertEquals(DataSetDataType.Float4, row3Values.get(2).getType());
 			assertEquals(false, row3Values.get(0).getValue());
 			assertEquals(3, row3Values.get(1).getValue());
 			assertEquals(1.3F, row3Values.get(2).getValue());
@@ -567,7 +572,7 @@ public class ChariotTest extends TestCase {
 			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
-			Metric metric = new Metric("MyText", DataType.Text, "MyText");
+			Metric metric = new Metric("MyText", MetricDataType.Text, "MyText");
 			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
@@ -587,7 +592,7 @@ public class ChariotTest extends TestCase {
 			assertEquals(1, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyText", decodedMetric.getName());
-			assertEquals(DataType.Text, decodedMetric.getDataType());
+			assertEquals(MetricDataType.Text, decodedMetric.getDataType());
 			assertEquals(false, decodedMetric.isHistorical());
 			assertEquals("MyText", decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
@@ -606,7 +611,7 @@ public class ChariotTest extends TestCase {
 			
 			// Create one metric
 			byte[] someBytes = new byte[]{0x0, 0x1, 0x2, 0x3, 0x4};
-			Metric metric = new Metric("MyName", DataType.Bytes, someBytes);
+			Metric metric = new Metric("MyName", MetricDataType.Bytes, someBytes);
 			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
@@ -626,7 +631,7 @@ public class ChariotTest extends TestCase {
 			assertEquals(1, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(DataType.Bytes, decodedMetric.getDataType());
+			assertEquals(MetricDataType.Bytes, decodedMetric.getDataType());
 			assertEquals(false, decodedMetric.isHistorical());
 			
 			byte[] decodedBytes = (byte[]) decodedMetric.getValue();
@@ -653,7 +658,7 @@ public class ChariotTest extends TestCase {
 			// Create one metric
 			byte[] someBytes = new byte[]{0x0, 0x1, 0x2, 0x3, 0x4};
 			File file = new File("/tmp/.testfile", someBytes);
-			Metric metric = new Metric("MyName", DataType.File, file);
+			Metric metric = new Metric("MyName", MetricDataType.File, file);
 			
 			MetaData metaData = new MetaData();
 			metaData.setFileType("bin");
@@ -678,7 +683,7 @@ public class ChariotTest extends TestCase {
 			assertEquals(1, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(DataType.File, decodedMetric.getDataType());
+			assertEquals(MetricDataType.File, decodedMetric.getDataType());
 			assertEquals(false, decodedMetric.isHistorical());
 			
 			File decodedFile = (File) decodedMetric.getValue();
