@@ -26,6 +26,12 @@ public class MetaData {
 	private String fileType;
 	private String md5;
 	
+	// Indicates to remove a tag
+	private boolean remove;
+	
+	// UDT metadata
+	private String typeId;
+	
 	// Catchall for future expansion
 	private String description;
 
@@ -35,7 +41,7 @@ public class MetaData {
 
 	public MetaData(boolean isMultiPart, boolean isScript, String units, String contentType, long size,
 			String algorithm, String format, long seq, String fileName, String fileType, String md5,
-			String description) {
+			boolean remove, String typeId, String description) {
 		super();
 		this.isMultiPart = isMultiPart;
 		this.isScript = isScript;
@@ -48,6 +54,8 @@ public class MetaData {
 		this.fileName = fileName;
 		this.fileType = fileType;
 		this.md5 = md5;
+		this.remove = remove;
+		this.typeId = typeId;
 		this.description = description;
 	}
 
@@ -137,6 +145,22 @@ public class MetaData {
 
 	public void setMd5(String md5) {
 		this.md5 = md5;
+	}
+	
+	public boolean isRemove() {
+		return remove;
+	}
+
+	public void setRemove(boolean remove) {
+		this.remove = remove;
+	}
+	
+	public String getTypeId() {
+		return typeId;
+	}
+
+	public void setTypeId(String typeId) {
+		this.typeId = typeId;
 	}
 
 	public String getDescription() {

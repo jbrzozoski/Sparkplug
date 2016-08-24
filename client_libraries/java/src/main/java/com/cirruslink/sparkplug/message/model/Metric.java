@@ -8,6 +8,7 @@
 package com.cirruslink.sparkplug.message.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Metric {
 
@@ -17,6 +18,7 @@ public class Metric {
 	private MetricDataType dataType;
 	private boolean historical;
 	private MetaData metaData;
+	private List<Metric> members;
 	
 	private Object value;
 	
@@ -36,7 +38,7 @@ public class Metric {
 	}
 
 	public Metric(String name, long alias, Date timestamp, MetricDataType dataType, boolean historical, MetaData metaData,
-			Object metricValue) {
+			Object metricValue, List<Metric> members) {
 		super();
 		this.name = name;
 		this.alias = alias;
@@ -45,6 +47,7 @@ public class Metric {
 		this.historical = historical;
 		this.metaData = metaData;
 		this.value = metricValue;
+		this.members = members;
 	}
 
 	public String getName() {
@@ -53,6 +56,10 @@ public class Metric {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public boolean hasAlias() {
+		return alias != -1;
 	}
 
 	public long getAlias() {
@@ -103,13 +110,18 @@ public class Metric {
 		this.value = value;
 	}
 	
-	public boolean hasAlias() {
-		return alias != -1;
+	public List<Metric> getMembers() {
+		return members;
+	}
+
+	public void setMembers(List<Metric> members) {
+		this.members = members;
 	}
 
 	@Override
 	public String toString() {
 		return "Metric [name=" + name + ", alias=" + alias + ", timestamp=" + timestamp + ", dataType=" + dataType
-				+ ", historical=" + historical + ", metaData=" + metaData + ", metricValue=" + value + "]";
+				+ ", historical=" + historical + ", metaData=" + metaData + ", members=" + members + ", value=" + value
+				+ "]";
 	}
 }

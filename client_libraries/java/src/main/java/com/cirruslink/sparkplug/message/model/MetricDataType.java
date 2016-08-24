@@ -23,8 +23,8 @@ public enum MetricDataType {
 	DateTime,
 	DataSet,
 	Text,
-	UdtInst,
-	UdtDef,
 	Bytes,
-	File
+	File,
+	UdtInst,
+	UdtDef
 }

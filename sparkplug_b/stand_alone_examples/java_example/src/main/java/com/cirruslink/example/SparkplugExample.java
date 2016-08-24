@@ -43,7 +43,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 	private static final String HW_VERSION = "Emulated Hardware";
 	private static final String SW_VERSION = "v1.0.0";
 	
-	private static final String namespace = "spBv1.0";
+	private static final String NAMESPACE = "spBv1.0";
 
 	// Configuration
 	private String serverUrl = "tcp://localhost:1883";
@@ -86,16 +86,16 @@ public class SparkplugExample implements MqttCallbackExtended {
 			options.setKeepAliveInterval(30);
 			options.setUserName(username);
 			options.setPassword(password.toCharArray());
-			options.setWill(namespace + "/" + groupId + "/NDEATH/" + edgeNode, deathBytes, 0, false);
+			options.setWill(NAMESPACE + "/" + groupId + "/NDEATH/" + edgeNode, deathBytes, 0, false);
 			client = new MqttClient(serverUrl, clientId);
 			client.setTimeToWait(2000);	
 			client.setCallback(this);					// short timeout on failure to connect
 			client.connect(options);
 			
 			// Subscribe to control/command messages for both the edge of network node and the attached devices
-			client.subscribe(namespace + "/" + groupId + "/NCMD/" + edgeNode + "/#", 0);
-			client.subscribe(namespace + "/" + groupId + "/DCMD/" + edgeNode + "/#", 0);	
-			client.subscribe(namespace + "/#", 0);	
+			client.subscribe(NAMESPACE + "/" + groupId + "/NCMD/" + edgeNode + "/#", 0);
+			client.subscribe(NAMESPACE + "/" + groupId + "/DCMD/" + edgeNode + "/#", 0);	
+			client.subscribe(NAMESPACE + "/#", 0);	
 			
 			// Loop forever publishing data every PUBLISH_PERIOD
 			while (true) {
@@ -112,7 +112,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 								UUID.randomUUID().toString(), 
 								null);
 						
-						client.publish(namespace + "/" + groupId + "/DDATA/" + edgeNode + "/" + deviceId, 
+						client.publish(NAMESPACE + "/" + groupId + "/DDATA/" + edgeNode + "/" + deviceId, 
 								new SparkplugBPayloadEncoder().getBytes(payload), 0, false);
 					}
 				} else {
@@ -194,7 +194,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 				payload.addMetric(new Metric("Node Control/Rebirth", MetricDataType.Boolean, false));
 				
 				System.out.println("Publishing Edge Node Birth");
-				executor.execute(new Publisher(namespace + "/" + groupId + "/NBIRTH/" + edgeNode, payload));
+				executor.execute(new Publisher(NAMESPACE + "/" + groupId + "/NBIRTH/" + edgeNode, payload));
 	
 				// Create the payload and add some metrics
 				payload = new SparkplugBPayload(
@@ -217,7 +217,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 				payload.addMetric(new Metric("Properties/sw_version", MetricDataType.String, SW_VERSION));
 	
 				System.out.println("Publishing Device Birth");
-				executor.execute(new Publisher(namespace + "/" + groupId + "/DBIRTH/" + edgeNode + "/" + deviceId, payload));
+				executor.execute(new Publisher(NAMESPACE + "/" + groupId + "/DBIRTH/" + edgeNode + "/" + deviceId, payload));
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -268,7 +268,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 		}
 		
 		String[] splitTopic = topic.split("/");
-		if (splitTopic[0].equals(namespace) && 
+		if (splitTopic[0].equals(NAMESPACE) && 
 				splitTopic[1].equals(groupId) &&
 				splitTopic[2].equals("NCMD") && 
 				splitTopic[3].equals(edgeNode)) {
@@ -279,7 +279,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 					System.out.println("Unknown Node Command NCMD: " + metric.getName());
 				}
 			}
-		} else if (splitTopic[0].equals(namespace) && 
+		} else if (splitTopic[0].equals(NAMESPACE) && 
 				splitTopic[1].equals(groupId) &&
 				splitTopic[2].equals("DCMD") && 
 				splitTopic[3].equals(edgeNode)) {
@@ -318,7 +318,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 			}
 
 			// Publish the message in a new thread
-			executor.execute(new Publisher(namespace + "/" + groupId + "/DDATA/" + edgeNode + "/" + deviceId, outboundPayload));
+			executor.execute(new Publisher(NAMESPACE + "/" + groupId + "/DDATA/" + edgeNode + "/" + deviceId, outboundPayload));
 		}
 	}
 
