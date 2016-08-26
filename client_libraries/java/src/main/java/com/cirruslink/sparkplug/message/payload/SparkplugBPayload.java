@@ -8,6 +8,7 @@
 package com.cirruslink.sparkplug.message.payload;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -89,5 +90,11 @@ public class SparkplugBPayload {
 
 	public void setBody(byte[] body) {
 		this.body = body;
+	}
+
+	@Override
+	public String toString() {
+		return "SparkplugBPayload [timestamp=" + timestamp + ", metrics=" + metrics + ", seq=" + seq + ", uuid=" + uuid
+				+ ", body=" + Arrays.toString(body) + "]";
 	}
 }
