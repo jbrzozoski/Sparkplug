@@ -82,8 +82,8 @@ public class SparkplugExample implements MqttCallbackExtended {
 			options.setWill("spAv1.0/" + groupId + "/NDEATH/" + edgeNode, deathEncoder.getBytes(), 0, false);
 			client = new MqttClient(serverUrl, clientId);
 			client.setTimeToWait(2000);						// short timeout on failure to connect
-			client.connect(options);
 			client.setCallback(this);
+			client.connect(options);
 			
 			// Subscribe to control/command messages for both the edge of network node and the attached devices
 			client.subscribe("spAv1.0/" + groupId + "/NCMD/" + edgeNode + "/#", 0);
@@ -231,7 +231,8 @@ public class SparkplugExample implements MqttCallbackExtended {
 				splitTopic[1].equals(groupId) &&
 				splitTopic[2].equals("NCMD") && 
 				splitTopic[3].equals(edgeNode)) {
-			if(inboundPayload.getMetric("Rebirth") != null && (Boolean)inboundPayload.getMetric("Rebirth") == true) {
+			if(inboundPayload.getMetric("Node Control/Rebirth") != null && 
+					(Boolean)inboundPayload.getMetric("Node Control/Rebirth") == true) {
 				publishBirth();
 			}
 		} else if(splitTopic[0].equals("spAv1.0") && 
