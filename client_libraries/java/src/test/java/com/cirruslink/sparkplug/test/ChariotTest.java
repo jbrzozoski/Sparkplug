@@ -109,6 +109,7 @@ public class ChariotTest extends TestCase {
 			assertEquals("none", decodedMetaData.getDescription());
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -147,6 +148,7 @@ public class ChariotTest extends TestCase {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -185,6 +187,7 @@ public class ChariotTest extends TestCase {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -223,6 +226,7 @@ public class ChariotTest extends TestCase {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -261,6 +265,7 @@ public class ChariotTest extends TestCase {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -299,6 +304,7 @@ public class ChariotTest extends TestCase {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -337,6 +343,7 @@ public class ChariotTest extends TestCase {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -375,6 +382,7 @@ public class ChariotTest extends TestCase {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -413,6 +421,7 @@ public class ChariotTest extends TestCase {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -451,6 +460,7 @@ public class ChariotTest extends TestCase {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -561,6 +571,7 @@ public class ChariotTest extends TestCase {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -599,6 +610,7 @@ public class ChariotTest extends TestCase {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -645,6 +657,7 @@ public class ChariotTest extends TestCase {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -702,6 +715,7 @@ public class ChariotTest extends TestCase {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			fail();
 		}
 	}
 }

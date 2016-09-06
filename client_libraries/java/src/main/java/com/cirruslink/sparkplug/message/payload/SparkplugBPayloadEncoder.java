@@ -65,7 +65,9 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 				// set the basic parameters
 				logger.debug("Adding metric: " + metric.getName());
 				metricBuilder.setName(metric.getName());
-				metricBuilder.setAlias(metric.getAlias());
+				if(metric.hasAlias()) {
+					metricBuilder.setAlias(metric.getAlias());
+				}
 				metricBuilder.setDatatype(convertMetricDataType(metric.getDataType()));
 				if (metric.getTimestamp() != null) {
 					metricBuilder.setTimestamp(metric.getTimestamp().getTime());

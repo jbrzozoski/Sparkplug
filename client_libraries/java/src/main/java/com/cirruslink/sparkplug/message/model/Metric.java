@@ -13,10 +13,10 @@ import java.util.List;
 public class Metric {
 
 	private String name;
-	private long alias;
+	private Long alias;
 	private Date timestamp;
 	private MetricDataType dataType;
-	private boolean historical;
+	private Boolean historical;
 	private MetaData metaData;
 	private List<Metric> members;
 	
@@ -29,10 +29,10 @@ public class Metric {
 	public Metric(String name, MetricDataType dataType, Object value) {
 		super();
 		this.name = name;
-		this.alias = -1;
+		this.alias = null;
 		this.timestamp = new Date();
 		this.dataType = dataType;
-		this.historical = false;
+		this.historical = null;
 		this.metaData = null;
 		this.value = value;
 	}
@@ -59,7 +59,7 @@ public class Metric {
 	}
 	
 	public boolean hasAlias() {
-		return alias != -1;
+		return (alias == null) ? false : true;
 	}
 
 	public long getAlias() {

@@ -167,7 +167,9 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 			
 			// Set the other tag data
 			metric.setName(protoMetric.getName());
-			metric.setAlias(protoMetric.getAlias());
+			if(protoMetric.hasAlias()) {
+				metric.setAlias(protoMetric.getAlias());
+			}
 			metric.setTimestamp(new Date(protoMetric.getTimestamp()));
 			metric.setDataType(convertMetricType(protoMetric.getDatatype()));
 			metric.setHistorical(protoMetric.getHistorical());
