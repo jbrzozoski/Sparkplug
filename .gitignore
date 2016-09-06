@@ -10,3 +10,4 @@ javaSimpleEdgeNode-tcplocalhost*
 sparkplug_example
 .DS_Store
 .pydevproject
+*.pyc

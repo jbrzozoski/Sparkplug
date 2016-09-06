@@ -36,9 +36,9 @@ myPassword = "changeme"
 def button_changed(pin):
     outboundPayload = sparkplug.getDdataPayload()
     if pin.read() == 1:
-	print("You pressed the button!")
+        print("You pressed the button!")
     else:
-	print("You released the button!")
+        print("You released the button!")
     addMetric(outboundPayload, "button", "Boolean", pin.read());
     byteArray = bytearray(outboundPayload.SerializeToString())
     client.publish("spBv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
@@ -83,57 +83,57 @@ def on_message(client, userdata, msg):
     tokens = msg.topic.split("/")
 
     if tokens[0] == "spBv1.0" and tokens[1] == myGroupId and tokens[2] == "DCMD" and tokens[3] == myNodeName:
-	inboundPayload = sparkplug_b_pb2.Payload()
-	inboundPayload.ParseFromString(msg.payload)
-	outboundPayload = sparkplug.getDdataPayload()
+        inboundPayload = sparkplug_b_pb2.Payload()
+        inboundPayload.ParseFromString(msg.payload)
+        outboundPayload = sparkplug.getDdataPayload()
 
-	for metric in inboundPayload.metric:
-	    print "Tag Name: " + metric.name
-	    if metric.name == "Outputs/e":
-		pibrella.output.e.write(metric.boolean_value)
-		addMetric(outboundPayload, "Outputs/e", "Boolean", pibrella.output.e.read())
-	    elif metric.name == "Outputs/f":
-		pibrella.output.f.write(metric.boolean_value)
-		addMetric(outboundPayload, "Outputs/f", "Boolean", pibrella.output.f.read())
-	    elif metric.name == "Outputs/g":
-		pibrella.output.g.write(metric.boolean_value)
-		addMetric(outboundPayload, "Outputs/g", "Boolean", pibrella.output.g.read())
-	    elif metric.name == "Outputs/h":
-		pibrella.output.h.write(metric.boolean_value)
-		addMetric(outboundPayload, "Outputs/h", "Boolean", pibrella.output.h.read())
-	    elif metric.name == "Outputs/LEDs/green":
-		if metric.boolean_value:
-		    pibrella.light.green.on()
-		else:
-		    pibrella.light.green.off()
-		addMetric(outboundPayload, "Outputs/LEDs/green", "Boolean", pibrella.light.green.read())
-	    elif metric.name == "Outputs/LEDs/red":
-		if metric.boolean_value:
-		    pibrella.light.red.on()
-		else:
-		    pibrella.light.red.off()
-		addMetric(outboundPayload, "Outputs/LEDs/red", "Boolean", pibrella.light.red.read())
-	    elif metric.name == "Outputs/LEDs/yellow":
-		if metric.boolean_value:
-		    pibrella.light.yellow.on()
-		else:
-		    pibrella.light.yellow.off()
-		addMetric(outboundPayload, "Outputs/LEDs/yellow", "Boolean", pibrella.light.yellow.read())
-	    elif metric.name == "buzzer_fail":
-		pibrella.buzzer.fail()
-	    elif metric.name == "buzzer_success":
-		pibrella.buzzer.success()
+        for metric in inboundPayload.metric:
+            print "Tag Name: " + metric.name
+            if metric.name == "Outputs/e":
+                pibrella.output.e.write(metric.boolean_value)
+                addMetric(outboundPayload, "Outputs/e", "Boolean", pibrella.output.e.read())
+            elif metric.name == "Outputs/f":
+                pibrella.output.f.write(metric.boolean_value)
+                addMetric(outboundPayload, "Outputs/f", "Boolean", pibrella.output.f.read())
+            elif metric.name == "Outputs/g":
+                pibrella.output.g.write(metric.boolean_value)
+                addMetric(outboundPayload, "Outputs/g", "Boolean", pibrella.output.g.read())
+            elif metric.name == "Outputs/h":
+                pibrella.output.h.write(metric.boolean_value)
+                addMetric(outboundPayload, "Outputs/h", "Boolean", pibrella.output.h.read())
+            elif metric.name == "Outputs/LEDs/green":
+                if metric.boolean_value:
+                    pibrella.light.green.on()
+                else:
+                    pibrella.light.green.off()
+                addMetric(outboundPayload, "Outputs/LEDs/green", "Boolean", pibrella.light.green.read())
+            elif metric.name == "Outputs/LEDs/red":
+                if metric.boolean_value:
+                    pibrella.light.red.on()
+                else:
+                    pibrella.light.red.off()
+                addMetric(outboundPayload, "Outputs/LEDs/red", "Boolean", pibrella.light.red.read())
+            elif metric.name == "Outputs/LEDs/yellow":
+                if metric.boolean_value:
+                    pibrella.light.yellow.on()
+                else:
+                    pibrella.light.yellow.off()
+                addMetric(outboundPayload, "Outputs/LEDs/yellow", "Boolean", pibrella.light.yellow.read())
+            elif metric.name == "buzzer_fail":
+                pibrella.buzzer.fail()
+            elif metric.name == "buzzer_success":
+                pibrella.buzzer.success()
 
-	byteArray = bytearray(outboundPayload.SerializeToString())
-	client.publish("spBv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
+        byteArray = bytearray(outboundPayload.SerializeToString())
+        client.publish("spBv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
     elif tokens[0] == "spBv1.0" and tokens[1] == myGroupId and tokens[2] == "NCMD" and tokens[3] == myNodeName:
-	inboundPayload = sparkplug_b_pb2.Payload()
-	inboundPayload.ParseFromString(msg.payload)
+        inboundPayload = sparkplug_b_pb2.Payload()
+        inboundPayload.ParseFromString(msg.payload)
         for metric in inboundPayload.metric:
             if metric.name == "Rebirth":
                 publishBirth()
     else:
-	print "Unknown command..."
+        print "Unknown command..."
 
     print "done publishing"
 ######################################################################
@@ -148,19 +148,19 @@ def publishBirth():
     # Set up the device Parameters
     p = subprocess.Popen('uname -a', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     for line in p.stdout.readlines():
-	unameOutput = line,
+        unameOutput = line,
     retVal = p.wait()
     p = subprocess.Popen('cat /proc/cpuinfo | grep Hardware', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     for line in p.stdout.readlines():
-	hardwareOutput = line,
+        hardwareOutput = line,
     retVal = p.wait()
     p = subprocess.Popen('cat /proc/cpuinfo | grep Revision', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     for line in p.stdout.readlines():
-	revisionOutput = line,
+        revisionOutput = line,
     retVal = p.wait()
     p = subprocess.Popen('cat /proc/cpuinfo | grep Serial', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     for line in p.stdout.readlines():
-	serialOutput = line,
+        serialOutput = line,
     retVal = p.wait()
     addMetric(payload, "Parameters/sw_version", "String", ''.join(unameOutput))
     addMetric(payload, "Parameters/hw_version", "String", ''.join(hardwareOutput))

@@ -59,21 +59,21 @@ def addMetric(payload, name, type, value):
         metric.datatype = sparkplug_b_pb2.Payload.Metric.String
         metric.string_value = value
     elif type == "DateTime":
-	print "unsupported"
+        print "unsupported"
     elif type == "Dataset":
-	print "unsupported"
+        print "unsupported"
     elif type == "Text":
-	print "unsupported"
+        print "unsupported"
     elif type == "Bytes":
-	print "unsupported"
+        print "unsupported"
     elif type == "File":
-	print "unsupported"
+        print "unsupported"
     elif type == "UdtDef":
-	print "unsupported"
+        print "unsupported"
     elif type == "UdtInst":
-	print "unsupported"
+        print "unsupported"
     else:
-	print "oops"
+        print "oops"
 
 ######################################################################
 # Helper method for getting the next sequence number
