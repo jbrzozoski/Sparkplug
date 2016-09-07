@@ -35,11 +35,12 @@ myPassword = "changeme"
 ######################################################################
 def button_changed(pin):
     outboundPayload = sparkplug.getDdataPayload()
-    if pin.read() == 1:
+    buttonValue = pin.read()
+    if buttonValue == 1:
         print("You pressed the button!")
     else:
         print("You released the button!")
-    addMetric(outboundPayload, "button", "Boolean", pin.read());
+    addMetric(outboundPayload, "button", "Boolean", buttonValue);
     byteArray = bytearray(outboundPayload.SerializeToString())
     client.publish("spBv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
 
