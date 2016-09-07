@@ -5,12 +5,20 @@ from sparkplug_b_pb2 import Payload
 seqNum = 0
 bdSeq = 0
 
-def getEdgeBirthPayload():
+# Always request this before requesting the Node Birth Payload
+def getNodeDeathPayload():
+    payload = sparkplug_b_pb2.Payload()
+    addMetric(payload, "bdSeq", "Int8", getBdSeqNum())
+    return payload
+
+# Always request this after requesting the Node Death Payload
+def getNodeBirthPayload():
     seqNum = 0
     payload = sparkplug_b_pb2.Payload()
     payload.timestamp = int(round(time.time() * 1000))
     payload.seq = getSeqNum()
-    addMetric(payload, "bdSeq", "Int8", getBdSeqNum())
+    addMetric(payload, "bdSeq", "Int8", --bdSeq)
+    addMetric(payload, "Node Control/Rebirth", "Boolean", False);
     return payload
 
 def getDeviceBirthPayload():
@@ -21,10 +29,6 @@ def getDeviceBirthPayload():
 
 def getDdataPayload():
     return getDeviceBirthPayload()
-
-def getDDeathPayload():
-    payload = sparkplug_b_pb2.Payload()
-    return payload
 
 ######################################################################
 # Helper method for adding metrics to a payload
@@ -73,7 +77,7 @@ def addMetric(payload, name, type, value):
     elif type == "UdtInst":
         print "unsupported"
     else:
-        print "oops"
+        print "invalid"
 
 ######################################################################
 # Helper method for getting the next sequence number

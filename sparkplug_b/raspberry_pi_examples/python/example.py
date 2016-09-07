@@ -130,7 +130,7 @@ def on_message(client, userdata, msg):
         inboundPayload = sparkplug_b_pb2.Payload()
         inboundPayload.ParseFromString(msg.payload)
         for metric in inboundPayload.metric:
-            if metric.name == "Rebirth":
+            if metric.name == "Node Control/Rebirth":
                 publishBirth()
     else:
         print "Unknown command..."
@@ -142,8 +142,10 @@ def on_message(client, userdata, msg):
 # Publish the Birth certificate
 ######################################################################
 def publishBirth():
+    print("Publishing Birth")
+
     # Create the node birth payload
-    payload = sparkplug.getEdgeBirthPayload()
+    payload = sparkplug.getNodeBirthPayload()
 
     # Set up the device Parameters
     p = subprocess.Popen('uname -a', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -196,19 +198,21 @@ def publishBirth():
     client.publish("spBv1.0/" + myGroupId + "/DBIRTH/" + myNodeName + "/" + mySubNodeName, totalByteArray, 0, False)
 ######################################################################
 
-# Create the DEATH payload
-#deathPayload = kurapayload_pb2.KuraPayload()
-#deathPayload.timestamp = int(round(time.time() * 1000))
-#addMetric(deathPayload, "bdSeq", "INT32", getBdSeqNum())
-#deathByteArray = bytearray(deathPayload.SerializeToString())
+# Create the node death payload
+deathPayload = sparkplug.getNodeDeathPayload()
 
 # Start of main program - Set up the MQTT client connection
 client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 client.username_pw_set(myUsername, myPassword)
-#client.will_set("spBv1.0/" + myGroupId + "/NDEATH/" + myNodeName, deathByteArray, 0, False)
+deathByteArray = bytearray(deathPayload.SerializeToString())
+client.will_set("spBv1.0/" + myGroupId + "/NDEATH/" + myNodeName, deathByteArray, 0, False)
 client.connect(serverUrl, 1883, 60)
+
+# Short delay to allow connect callback to occur
+time.sleep(.1)
+client.loop()
 
 publishBirth()
 
