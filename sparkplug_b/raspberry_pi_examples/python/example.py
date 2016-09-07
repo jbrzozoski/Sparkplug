@@ -22,6 +22,7 @@ import random
 import subprocess
 
 from sparkplug_b import *
+from threading import Lock
 
 serverUrl = "192.168.1.23"
 myGroupId = "Sparkplug B Devices"
@@ -29,6 +30,7 @@ myNodeName = "Python Raspberry Pi"
 mySubNodeName = "Pibrella"
 myUsername = "admin"
 myPassword = "changeme"
+lock = Lock()
 
 ######################################################################
 # Button press event handler
@@ -56,10 +58,15 @@ def input_c_changed(pin):
 def input_d_changed(pin):
     input_changed("Inputs/d", pin)
 def input_changed(name, pin):
-    outboundPayload = sparkplug.getDdataPayload()
-    addMetric(outboundPayload, name, "Boolean", pin.read());
-    byteArray = bytearray(outboundPayload.SerializeToString())
-    client.publish("spBv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
+    lock.acquire()
+    try:
+        # Lock the block around the callback handler to prevent inproper access based on debounce
+        outboundPayload = sparkplug.getDdataPayload()
+        addMetric(outboundPayload, name, "Boolean", pin.read());
+        byteArray = bytearray(outboundPayload.SerializeToString())
+        client.publish("spBv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
+    finally:
+        lock.release()
 ######################################################################
 
 ######################################################################
