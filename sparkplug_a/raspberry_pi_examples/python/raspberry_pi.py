@@ -16,9 +16,10 @@ import pibrella
 import kurapayload_pb2
 import time
 import random
+import subprocess
 
-serverUrl = "192.168.1.1"
-myGroupId = "Sparkplug Devices"
+serverUrl = "192.168.2.100"
+myGroupId = "Sparkplug A Devices"
 myNodeName = "Python Raspberry Pi"
 mySubNodeName = "Pibrella"
 myUsername = "admin"
@@ -227,6 +228,28 @@ def publishBirth():
     addMetric(payload, "bdSeq", "INT32", bdSeq)
     addMetric(payload, "seq", "INT32", getSeqNum())
 
+    # Set up the device Parameters
+    p = subprocess.Popen('uname -a', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    for line in p.stdout.readlines():
+        unameOutput = line,
+    retVal = p.wait()
+    p = subprocess.Popen('cat /proc/cpuinfo | grep Hardware', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    for line in p.stdout.readlines():
+        hardwareOutput = line,
+    retVal = p.wait()
+    p = subprocess.Popen('cat /proc/cpuinfo | grep Revision', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    for line in p.stdout.readlines():
+        revisionOutput = line,
+    retVal = p.wait()
+    p = subprocess.Popen('cat /proc/cpuinfo | grep Serial', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    for line in p.stdout.readlines():
+        serialOutput = line,
+    retVal = p.wait()
+    addMetric(payload, "Parameters/sw_version", "STRING", ''.join(unameOutput))
+    addMetric(payload, "Parameters/hw_version", "STRING", ''.join(hardwareOutput))
+    addMetric(payload, "Parameters/hw_revision", "STRING", ''.join(revisionOutput))
+    addMetric(payload, "Parameters/hw_serial", "STRING", ''.join(serialOutput))
+
     # Publish the node birth certificate
     byteArray = bytearray(payload.SerializeToString())
     client.publish("spAv1.0/" + myGroupId + "/NBIRTH/" + myNodeName, byteArray, 0, False)
@@ -252,10 +275,6 @@ def publishBirth():
     addMetric(payload, "button", "BOOL", pibrella.button.read())
     addMetric(payload, "buzzer_fail", "BOOL", 0)
     addMetric(payload, "buzzer_success", "BOOL", 0)
-
-    # Set up the propertites payload
-    addMetric(payload, "Parameters/device_hw_version", "STRING", "PFC_1.1")
-    addMetric(payload, "Parameters/firmware_version", "STRING", "1.4.2")
 
     # Publish the initial data with the Device BIRTH certificate
     totalByteArray = bytearray(payload.SerializeToString())
