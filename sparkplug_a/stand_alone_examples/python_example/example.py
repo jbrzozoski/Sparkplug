@@ -34,7 +34,7 @@ def getSeqNum():
     retVal = seqNum
     seqNum += 1
     if seqNum == 256:
-	seqNum = 0
+        seqNum = 0
     return retVal
 ######################################################################
 
@@ -55,40 +55,40 @@ def getBdSeqNum():
 ######################################################################
 def addMetric(payload, name, type, value):
     if type == "DOUBLE":
-	metric = payload.metric.add()
-	metric.name = name
-	metric.type = kurapayload_pb2.KuraPayload.KuraMetric.DOUBLE
-	metric.double_value = value
+        metric = payload.metric.add()
+        metric.name = name
+        metric.type = kurapayload_pb2.KuraPayload.KuraMetric.DOUBLE
+        metric.double_value = value
     elif type == "FLOAT":
-	metric = payload.metric.add()
-	metric.name = name
-	metric.type = kurapayload_pb2.KuraPayload.KuraMetric.FLOAT
-	metric.float_value = value
+        metric = payload.metric.add()
+        metric.name = name
+        metric.type = kurapayload_pb2.KuraPayload.KuraMetric.FLOAT
+        metric.float_value = value
     elif type == "INT64":
-	metric = payload.metric.add()
-	metric.name = name
-	metric.type = kurapayload_pb2.KuraPayload.KuraMetric.INT64
-	metric.long_value = value
+        metric = payload.metric.add()
+        metric.name = name
+        metric.type = kurapayload_pb2.KuraPayload.KuraMetric.INT64
+        metric.long_value = value
     elif type == "INT32":
-	metric = payload.metric.add()
-	metric.name = name
-	metric.type = kurapayload_pb2.KuraPayload.KuraMetric.INT32
-	metric.int_value = value
+        metric = payload.metric.add()
+        metric.name = name
+        metric.type = kurapayload_pb2.KuraPayload.KuraMetric.INT32
+        metric.int_value = value
     elif type == "BOOL":
-	metric = payload.metric.add()
-	metric.name = name
-	metric.type = kurapayload_pb2.KuraPayload.KuraMetric.BOOL
-	metric.bool_value = value
+        metric = payload.metric.add()
+        metric.name = name
+        metric.type = kurapayload_pb2.KuraPayload.KuraMetric.BOOL
+        metric.bool_value = value
     elif type == "STRING":
-	metric = payload.metric.add()
-	metric.name = name
-	metric.type = kurapayload_pb2.KuraPayload.KuraMetric.STRING
-	metric.string_value = value
+        metric = payload.metric.add()
+        metric.name = name
+        metric.type = kurapayload_pb2.KuraPayload.KuraMetric.STRING
+        metric.string_value = value
     elif type == "BYTES":
-	metric = payload.metric.add()
-	metric.name = name
-	metric.type = kurapayload_pb2.KuraPayload.KuraMetric.BYTES
-	metric.bytes_value = value
+        metric = payload.metric.add()
+        metric.name = name
+        metric.type = kurapayload_pb2.KuraPayload.KuraMetric.BYTES
+        metric.bytes_value = value
 
     return payload
 ######################################################################
@@ -115,27 +115,27 @@ def on_message(client, userdata, msg):
     tokens = msg.topic.split("/")
 
     if tokens[0] == "spAv1.0" and tokens[1] == myGroupId and tokens[2] == "DCMD" and tokens[3] == myNodeName:
-	inboundPayload = kurapayload_pb2.KuraPayload()
-	inboundPayload.ParseFromString(msg.payload)
-	outboundPayload = kurapayload_pb2.KuraPayload()
+        inboundPayload = kurapayload_pb2.KuraPayload()
+        inboundPayload.ParseFromString(msg.payload)
+        outboundPayload = kurapayload_pb2.KuraPayload()
         outboundPayload.timestamp = int(round(time.time() * 1000))
         addMetric(outboundPayload, "seq", "INT32", getSeqNum())
-	for metric in inboundPayload.metric:
-	    if metric.name == "Outputs/0":
-		print "Outputs/0: " + str(metric.bool_value)
-		addMetric(outboundPayload, "Inputs/0", "BOOL", metric.bool_value)
-		addMetric(outboundPayload, "Outputs/0", "BOOL", metric.bool_value)
-	    elif metric.name == "Outputs/1":
-		print "Outputs/1: " + str(metric.int_value)
-		addMetric(outboundPayload, "Inputs/1", "INT32", metric.int_value)
-		addMetric(outboundPayload, "Outputs/1", "INT32", metric.int_value)
-	    elif metric.name == "Outputs/2":
-		print "Outputs/2: " + str(metric.float_value)
-		addMetric(outboundPayload, "Inputs/2", "FLOAT", metric.float_value)
-		addMetric(outboundPayload, "Outputs/2", "FLOAT", metric.float_value)
+        for metric in inboundPayload.metric:
+            if metric.name == "Outputs/0":
+                print "Outputs/0: " + str(metric.bool_value)
+                addMetric(outboundPayload, "Inputs/0", "BOOL", metric.bool_value)
+                addMetric(outboundPayload, "Outputs/0", "BOOL", metric.bool_value)
+            elif metric.name == "Outputs/1":
+                print "Outputs/1: " + str(metric.int_value)
+                addMetric(outboundPayload, "Inputs/1", "INT32", metric.int_value)
+                addMetric(outboundPayload, "Outputs/1", "INT32", metric.int_value)
+            elif metric.name == "Outputs/2":
+                print "Outputs/2: " + str(metric.float_value)
+                addMetric(outboundPayload, "Inputs/2", "FLOAT", metric.float_value)
+                addMetric(outboundPayload, "Outputs/2", "FLOAT", metric.float_value)
 
-	byteArray = bytearray(outboundPayload.SerializeToString())
-	client.publish("spAv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
+        byteArray = bytearray(outboundPayload.SerializeToString())
+        client.publish("spAv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
     elif tokens[0] == "spAv1.0" and tokens[1] == myGroupId and tokens[2] == "NCMD" and tokens[3] == myNodeName:
         inboundPayload = kurapayload_pb2.KuraPayload()
         inboundPayload.ParseFromString(msg.payload)
@@ -233,5 +233,5 @@ while True:
     client.publish("spAv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
 
     for _ in range(50):
-	time.sleep(.1)
-	client.loop()
+        time.sleep(.1)
+        client.loop()

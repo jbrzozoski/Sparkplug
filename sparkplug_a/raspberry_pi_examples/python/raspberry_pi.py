@@ -33,9 +33,9 @@ bdSeq = 0
 def button_changed(pin):
     outboundPayload = kurapayload_pb2.KuraPayload()
     if pin.read() == 1:
-	print("You pressed the button!")
+        print("You pressed the button!")
     else:
-	print("You released the button!")
+        print("You released the button!")
     outboundPayload.timestamp = int(round(time.time() * 1000))
     addMetric(outboundPayload, "seq", "INT32", getSeqNum())
     addMetric(outboundPayload, "button", "BOOL", pin.read());
@@ -90,40 +90,40 @@ def getBdSeqNum():
 ######################################################################
 def addMetric(payload, name, type, value):
     if type == "DOUBLE":
-	metric = payload.metric.add()
-	metric.name = name
-	metric.type = kurapayload_pb2.KuraPayload.KuraMetric.DOUBLE
-	metric.double_value = value
+        metric = payload.metric.add()
+        metric.name = name
+        metric.type = kurapayload_pb2.KuraPayload.KuraMetric.DOUBLE
+        metric.double_value = value
     elif type == "FLOAT":
-	metric = payload.metric.add()
-	metric.name = name
-	metric.type = kurapayload_pb2.KuraPayload.KuraMetric.FLOAT
-	metric.float_value = value
+        metric = payload.metric.add()
+        metric.name = name
+        metric.type = kurapayload_pb2.KuraPayload.KuraMetric.FLOAT
+        metric.float_value = value
     elif type == "INT64":
-	metric = payload.metric.add()
-	metric.name = name
-	metric.type = kurapayload_pb2.KuraPayload.KuraMetric.INT64
-	metric.long_value = value
+        metric = payload.metric.add()
+        metric.name = name
+        metric.type = kurapayload_pb2.KuraPayload.KuraMetric.INT64
+        metric.long_value = value
     elif type == "INT32":
-	metric = payload.metric.add()
-	metric.name = name
-	metric.type = kurapayload_pb2.KuraPayload.KuraMetric.INT32
-	metric.int_value = value
+        metric = payload.metric.add()
+        metric.name = name
+        metric.type = kurapayload_pb2.KuraPayload.KuraMetric.INT32
+        metric.int_value = value
     elif type == "BOOL":
-	metric = payload.metric.add()
-	metric.name = name
-	metric.type = kurapayload_pb2.KuraPayload.KuraMetric.BOOL
-	metric.bool_value = value
+        metric = payload.metric.add()
+        metric.name = name
+        metric.type = kurapayload_pb2.KuraPayload.KuraMetric.BOOL
+        metric.bool_value = value
     elif type == "STRING":
-	metric = payload.metric.add()
-	metric.name = name
-	metric.type = kurapayload_pb2.KuraPayload.KuraMetric.STRING
-	metric.string_value = value
+        metric = payload.metric.add()
+        metric.name = name
+        metric.type = kurapayload_pb2.KuraPayload.KuraMetric.STRING
+        metric.string_value = value
     elif type == "BYTES":
-	metric = payload.metric.add()
-	metric.name = name
-	metric.type = kurapayload_pb2.KuraPayload.KuraMetric.BYTES
-	metric.bytes_value = value
+        metric = payload.metric.add()
+        metric.name = name
+        metric.type = kurapayload_pb2.KuraPayload.KuraMetric.BYTES
+        metric.bytes_value = value
 
     return payload
 ######################################################################
@@ -150,51 +150,51 @@ def on_message(client, userdata, msg):
     tokens = msg.topic.split("/")
 
     if tokens[0] == "spAv1.0" and tokens[1] == myGroupId and tokens[2] == "DCMD" and tokens[3] == myNodeName:
-	inboundPayload = kurapayload_pb2.KuraPayload()
-	inboundPayload.ParseFromString(msg.payload)
-	outboundPayload = kurapayload_pb2.KuraPayload()
-	outboundPayload.timestamp = int(round(time.time() * 1000))
-	addMetric(outboundPayload, "seq", "INT32", getSeqNum())
+        inboundPayload = kurapayload_pb2.KuraPayload()
+        inboundPayload.ParseFromString(msg.payload)
+        outboundPayload = kurapayload_pb2.KuraPayload()
+        outboundPayload.timestamp = int(round(time.time() * 1000))
+        addMetric(outboundPayload, "seq", "INT32", getSeqNum())
 
-	for metric in inboundPayload.metric:
-	    print "Tag Name: " + metric.name
-	    if metric.name == "Outputs/e":
-		pibrella.output.e.write(metric.bool_value)
-		addMetric(outboundPayload, "Outputs/e", "BOOL", pibrella.output.e.read())
-	    elif metric.name == "Outputs/f":
-		pibrella.output.f.write(metric.bool_value)
-		addMetric(outboundPayload, "Outputs/f", "BOOL", pibrella.output.f.read())
-	    elif metric.name == "Outputs/g":
-		pibrella.output.g.write(metric.bool_value)
-		addMetric(outboundPayload, "Outputs/g", "BOOL", pibrella.output.g.read())
-	    elif metric.name == "Outputs/h":
-		pibrella.output.h.write(metric.bool_value)
-		addMetric(outboundPayload, "Outputs/h", "BOOL", pibrella.output.h.read())
-	    elif metric.name == "Outputs/LEDs/green":
-		if metric.bool_value:
-		    pibrella.light.green.on()
-		else:
-		    pibrella.light.green.off()
-		addMetric(outboundPayload, "Outputs/LEDs/green", "BOOL", pibrella.light.green.read())
-	    elif metric.name == "Outputs/LEDs/red":
-		if metric.bool_value:
-		    pibrella.light.red.on()
-		else:
-		    pibrella.light.red.off()
-		addMetric(outboundPayload, "Outputs/LEDs/red", "BOOL", pibrella.light.red.read())
-	    elif metric.name == "Outputs/LEDs/yellow":
-		if metric.bool_value:
-		    pibrella.light.yellow.on()
-		else:
-		    pibrella.light.yellow.off()
-		addMetric(outboundPayload, "Outputs/LEDs/yellow", "BOOL", pibrella.light.yellow.read())
-	    elif metric.name == "buzzer_fail":
-		pibrella.buzzer.fail()
-	    elif metric.name == "buzzer_success":
-		pibrella.buzzer.success()
+        for metric in inboundPayload.metric:
+            print "Tag Name: " + metric.name
+            if metric.name == "Outputs/e":
+                pibrella.output.e.write(metric.bool_value)
+                addMetric(outboundPayload, "Outputs/e", "BOOL", pibrella.output.e.read())
+            elif metric.name == "Outputs/f":
+                pibrella.output.f.write(metric.bool_value)
+                addMetric(outboundPayload, "Outputs/f", "BOOL", pibrella.output.f.read())
+            elif metric.name == "Outputs/g":
+                pibrella.output.g.write(metric.bool_value)
+                addMetric(outboundPayload, "Outputs/g", "BOOL", pibrella.output.g.read())
+            elif metric.name == "Outputs/h":
+                pibrella.output.h.write(metric.bool_value)
+                addMetric(outboundPayload, "Outputs/h", "BOOL", pibrella.output.h.read())
+            elif metric.name == "Outputs/LEDs/green":
+                if metric.bool_value:
+                    pibrella.light.green.on()
+                else:
+                    pibrella.light.green.off()
+                addMetric(outboundPayload, "Outputs/LEDs/green", "BOOL", pibrella.light.green.read())
+            elif metric.name == "Outputs/LEDs/red":
+                if metric.bool_value:
+                    pibrella.light.red.on()
+                else:
+                    pibrella.light.red.off()
+                addMetric(outboundPayload, "Outputs/LEDs/red", "BOOL", pibrella.light.red.read())
+            elif metric.name == "Outputs/LEDs/yellow":
+                if metric.bool_value:
+                    pibrella.light.yellow.on()
+                else:
+                    pibrella.light.yellow.off()
+                addMetric(outboundPayload, "Outputs/LEDs/yellow", "BOOL", pibrella.light.yellow.read())
+            elif metric.name == "buzzer_fail":
+                pibrella.buzzer.fail()
+            elif metric.name == "buzzer_success":
+                pibrella.buzzer.success()
 
-	byteArray = bytearray(outboundPayload.SerializeToString())
-	client.publish("spAv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
+        byteArray = bytearray(outboundPayload.SerializeToString())
+        client.publish("spAv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
     elif tokens[0] == "spAv1.0" and tokens[1] == myGroupId and tokens[2] == "NCMD" and tokens[3] == myNodeName:
         inboundPayload = kurapayload_pb2.KuraPayload()
         inboundPayload.ParseFromString(msg.payload)
