@@ -1,8 +1,8 @@
 Sparkplug Client
 =========
 
-A client library providing a MQTT client for MQTT device communication using the
-Sparkplug Specification from Cirrus Link Solutions.  
+A client library providing a MQTT client for MQTT device communication using
+the Sparkplug Specification from Cirrus Link Solutions.  
 
 https://s3.amazonaws.com/ignition-modules/Current/Sparkplug+Specification.pdf
 
@@ -12,9 +12,9 @@ The client will connect to an MQTT Server and act as an MQTT Edge of Network
 another MQTT client.
 
 The client also provides and interface for MQTT Device application code to
-publish device birth certificates (DBIRTH), device data messages (DDATA), device
-death certificates (DDEATH), and receive device command messages (DCMD) that
-have been sent from another MQTT client.
+publish device birth certificates (DBIRTH), device data messages (DDATA),
+device death certificates (DDEATH), and receive device command messages (DCMD)
+that have been sent from another MQTT client.
 
 ## Installation
 
@@ -35,6 +35,8 @@ must contain the following properties:
 * edgeNode: An ID that uniquely identifies the MQTT EoN Node within the
   infrastructure.
 * clientId: A unique ID for the MQTT client connection.
+* publishDeath: A flag indicating if a Node DEATH Certificate (NDEATH) should
+  be published when the client is stopped (defaults to false).
 
 Here is a code example of creating and configuring a new client:
 
@@ -127,8 +129,8 @@ client.publishDeviceBirth(deviceId, payload);
 
 #### Device Data Message (DDATA)
 
-A device data message (DDATA) will look similar to DBIRTH but is not required to
-publish all metrics, but it must publish at least one.
+A device data message (DDATA) will look similar to DBIRTH but is not required
+to publish all metrics, but it must publish at least one.
 
 
 Here is a code example of publishing a DBIRTH message:
@@ -177,10 +179,10 @@ events: "connect", "reconnect", "error", and "close".
 
 #### Rebirth Event
 
-A "rebirth" event is used to signal the device application that a DBIRTH message
-is requested.  This event will be be emitted immediately after the client
-initially connects with the MQTT Server or any time that the client receives a
-Edge Node command (NCMD) requesting a "rebirth".
+A "rebirth" event is used to signal the device application that a DBIRTH 
+message is requested.  This event will be be emitted immediately after the 
+client initially connects with the MQTT Server or any time that the client
+receives a Edge Node command (NCMD) requesting a "rebirth".
 
 Here is a code example of handling a "rebirth" event:
 
@@ -194,12 +196,12 @@ client.on('rebirth', function () {
 #### Command Event
 
 A device command event is used to communicate a Device Command message (DCMD)
-from another MQTT client to a device.  A 'command' event will include the device
-ID and a payload containing a list of metrics (as described above).  Any metrics
-included in the payload represent attempts to write a new value to the data
-points or process variables that they represent.  After the device application
-processes the request the device application should publish a DDATA message
-containing any metrics that have changed or been updated.
+from another MQTT client to a device.  A 'command' event will include the 
+device ID and a payload containing a list of metrics (as described above).  Any
+metrics included in the payload represent attempts to write a new value to the
+data points or process variables that they represent.  After the device 
+application processes the request the device application should publish a DDATA
+message containing any metrics that have changed or been updated.
 
 Here is a code example of handling a "command" event:
 
@@ -231,8 +233,8 @@ client.on('connect', function () {
 
 #### Reconnect Event
 
-A "reconnect" event is emitted when the client is attempting to reconnect to the
-server.
+A "reconnect" event is emitted when the client is attempting to reconnect to
+the server.
 
 Here is a code example of handling a "reconnect" event:
 
@@ -273,6 +275,7 @@ client.on('close', function () {
 * 1.0.0 Initial release
 * 1.0.2 Bug Fixes
 * 1.1.0 Added more emitted events (connect, reconnect, error, close)
+* 1.2.0 Added 'publishDeath' config option, updated MQTT.js version
 
 ## License
 

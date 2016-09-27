@@ -21,6 +21,7 @@
             groupid: {value:'Sparkplug Devices', required:true},
             edgenode: {value:'Node-RED Edge Node', required:true},
             enablecache: {value: "false"},
+            publishdeath: {value: "true"},
             user: {value: "admin"},
             password: {value: "changeme"}
         },
@@ -44,38 +45,45 @@
 
 <script type="text/x-red" data-template-name="sparkplug">
     <div class="form-row">
-        <label for="node-input-broker"><i class="fa fa-globe"></i> Server</label>
+        <label for="node-input-broker" title="The URL of the MQTT server"><i class="fa fa-globe"></i> Server</label>
         <input type="text" id="node-input-broker" placeholder="Server URL">
     </div>
     <div class="form-row">
-        <label for="node-input-port"><i class="fa fa-globe"></i> Port</label>
+        <label for="node-input-port" title="The port of the MQTT server"><i class="fa fa-globe"></i> Port</label>
         <input type="text" id="node-input-port" placeholder="Server Port" style="width:45px">
     </div>
     <div class="form-row">
-        <label for="node-input-user"><i class="fa fa-user"></i> Username</label>
+        <label for="node-input-user" title="The username for the MQTT server connection"><i class="fa fa-user"></i> Username</label>
         <input type="text" id="node-input-user" placeholder="Username">
     </div>
     <div class="form-row">
-        <label for="node-input-password"><i class="fa fa-lock"></i> Password</label>
+        <label for="node-input-password" title="The password for the MQTT server connection"><i class="fa fa-lock"></i> Password</label>
         <input type="password" id="node-input-password" placeholder="Password">
     </div>
     <div class="form-row">
-        <label for="node-input-clientid"><i class="fa fa-tag"></i> Client ID</label>
+        <label for="node-input-clientid" title="A unique client ID for the MQTT server connection"><i class="fa fa-tag"></i> Client ID</label>
         <input type="text" id="node-input-clientid" placeholder="Client ID">
     </div>
     <div class="form-row">
-        <label for="node-input-groupid"><i class="fa fa-tag"></i> Group ID</label>
+        <label for="node-input-groupid" title="An ID representing a logical grouping of MQTT EoN Nodes and Devices into the infrastructure"><i class="fa fa-tag"></i> Group ID</label>
         <input type="text" id="node-input-groupid" placeholder="Group ID">
     </div>
     <div class="form-row">
-        <label for="node-input-edgenode"><i class="fa fa-tag"></i> Edge Node</label>
+        <label for="node-input-edgenode" title="An ID that uniquely identifies the MQTT EoN Node within the infrastructure"><i class="fa fa-tag"></i> Edge Node</label>
         <input type="text" id="node-input-edgenode" placeholder="Edge Node">
     </div>
     <div class="form-row">
-        <label for="node-input-enablecache"><i class="fa fa-tag"></i> Enable Cache</label>
+        <label for="node-input-enablecache" title="Whether to enable EoN node caching"><i class="fa fa-tag"></i> Enable Cache</label>
         <select id="node-input-enablecache" style="width:125px !important">
             <option value="false">False</option>
             <option value="true">True</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-publishdeath" title="Whether to publish the edge node's death certicate when the client cleanly disconnects"><i class="fa fa-tag"></i> Publish Death</label>
+        <select id="node-input-publishdeath" style="width:125px !important">
+            <option value="true">True</option>
+            <option value="false">False</option>
         </select>
     </div>
 </script>

@@ -22,13 +22,15 @@ var sample = (function () {
             'password' : 'changeme',
             'groupId' : 'Sparkplug Devices',
             'edgeNode' : 'JavaScript Edge Node',
-            'clientId' : 'JavaScriptSimpleEdgeNode'
+            'clientId' : 'JavaScriptSimpleEdgeNode',
+            'publishDeath' : false
         },
         hwVersion = 'Emulated Hardware',
         swVersion = 'v1.0.0',
         deviceId = 'Emulated Device',
         sparkPlugClient,
         publishPeriod = 5000,
+        numOfPublishes = 100,
         
     // Generates a random integer
     randomInt = function() {
@@ -144,18 +146,18 @@ var sample = (function () {
             sparkplugClient.publishDeviceData(deviceId, outboundPayload);             
         });
         
-        for (var i = 1; i < 101; i++) {
+        for (var i = 1; i <= numOfPublishes; i++) {
             // Set up a device data publish for i*publishPeriod milliseconds from now
             setTimeout(function() {
-                // Publish device data
                 sparkplugClient.publishDeviceData(deviceId, getDataPayload());
-                
-                // End the client connection after the last publish
-                if (i === 100) {
-                    sparkplugClient.stop();
-                }
             }, i*publishPeriod);
         }
+
+        // Set up a device data publish for i*publishPeriod milliseconds from now
+        setTimeout(function() {
+            console.log("Stopping Sparkplug Client")
+            sparkplugClient.stop();
+        }, (numOfPublishes+1)*publishPeriod);
     };
     
     return {run:run};

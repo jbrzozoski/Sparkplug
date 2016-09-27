@@ -36,6 +36,8 @@ When editing the Sparkplug Node the following properties are configurable:
 * Edge Node: An ID that uniquely identifies the MQTT EoN Node within the
   infrastructure.
 * Enable Cache: Whether to enable EoN node caching.
+* Publish Death: Whether to publish the edge node's death certicate when the 
+  client cleanly disconnects
 
 Upon deploying the flow, the Sparkplug Node it will automatically connect to
 the MQTT Server. When the flow is stopped, the Sparkplug Node will cleanly close
@@ -173,6 +175,7 @@ containing any metric values that have changed or been successfully written to.
 * 1.0.0 Initial release
 * 1.0.2 Bug Fixes
 * 1.1.0 Added connection status indicator, changed category
+* 1.2.0 Added 'Publish Death' config option, and mouseover config descriptions
 
 ## License
 

@@ -22,6 +22,14 @@ var getRequiredProperty = function(config, propName) {
     throw new Error("Missing required configuration property '" + propName + "'");
 };
 
+var getProperty = function(config, propName, defaultValue) {
+    if (config[propName] !== undefined) {
+        return config[propName];
+    } else {
+        return defaultValue;
+    }
+};
+
 /*
  * Sparkplug Client
  */
@@ -32,10 +40,12 @@ function SparkplugClient(config) {
         groupId = getRequiredProperty(config, "groupId"),
         edgeNode = getRequiredProperty(config, "edgeNode"),
         clientId = getRequiredProperty(config, "clientId"),
+        publishDeath = getProperty(config, "publishDeath", false);
+        version = getProperty(config, "version", "spAv1.0");
         bdSeq = 0,
         seq = 0,
         devices = [],
-        client
+        client = null,
         connecting = false,
         connected = false,
 
@@ -70,7 +80,7 @@ function SparkplugClient(config) {
     },
 
     // Publishes BIRTH certificates for the edge node
-    publishBirth = function(client) {
+    publishNBirth = function(client) {
         var payload, topic;
         // Reset sequence number
         seq = 0;
@@ -78,7 +88,19 @@ function SparkplugClient(config) {
         // Publish BIRTH certificate for edge node
         console.log("Publishing Edge Node Birth");
         payload = getEdgeBirthPayload();
-        topic = "spAv1.0/" + groupId + "/NBIRTH/" + edgeNode;
+        topic = version + "/" + groupId + "/NBIRTH/" + edgeNode;
+        client.publish(topic, kurapayload.generateKuraPayload(payload));
+        messageAlert("published", topic, payload);
+    },
+
+    // Publishes DEATH certificates for the edge node
+    publishNDeath = function(client) {
+        var payload, topic;
+
+        // Publish DEATH certificate for edge node
+        console.log("Publishing Edge Node Death");
+        payload = getDeathPayload();
+        topic = version + "/" + groupId + "/NDEATH/" + edgeNode;
         client.publish(topic, kurapayload.generateKuraPayload(payload));
         messageAlert("published", topic, payload);
     },
@@ -97,7 +119,7 @@ function SparkplugClient(config) {
         payload.metric.push({ "name" : "seq", "value" : incrementSeqNum(), "type" : "int" });
         // Publish
         console.log("Publishing DDATA for device " + deviceId);
-        topic = "spAv1.0/" + groupId + "/DDATA/" + edgeNode + "/" + deviceId;
+        topic = version + "/" + groupId + "/DDATA/" + edgeNode + "/" + deviceId;
         client.publish(topic, kurapayload.generateKuraPayload(payload));
         messageAlert("published", topic, payload);
     };
@@ -107,7 +129,7 @@ function SparkplugClient(config) {
         payload.metric.push({ "name" : "seq", "value" : incrementSeqNum(), "type" : "int" });
         // Publish
         console.log("Publishing DBIRTH for device " + deviceId);
-        topic = "spAv1.0/" + groupId + "/DBIRTH/" + edgeNode + "/" + deviceId;
+        topic = version + "/" + groupId + "/DBIRTH/" + edgeNode + "/" + deviceId;
         client.publish(topic, kurapayload.generateKuraPayload(payload));
         messageAlert("published", topic, payload);
     };
@@ -120,12 +142,17 @@ function SparkplugClient(config) {
         payload.metric.push({ "name" : "seq", "value" : incrementSeqNum(), "type" : "int" });
         // Publish
         console.log("Publishing DDEATH for device " + deviceId);
-        topic = "spAv1.0/" + groupId + "/DDEATH/" + edgeNode + "/" + deviceId;
+        topic = version + "/" + groupId + "/DDEATH/" + edgeNode + "/" + deviceId;
         client.publish(topic, kurapayload.generateKuraPayload(payload));
         messageAlert("published", topic, payload);
     };
 
     this.stop = function() {
+        console.log("publishDeath: " + publishDeath);
+        if (publishDeath) {
+            // Publish the DEATH certificate
+            publishNDeath(client);
+        }
         client.end();
     };
 
@@ -141,7 +168,7 @@ function SparkplugClient(config) {
                 "username" : username,
                 "password" : password,
                 "will" : {
-                    "topic" : "spAv1.0/" + groupId + "/NDEATH/" + edgeNode,
+                    "topic" : version + "/" + groupId + "/NDEATH/" + edgeNode,
                     "payload" : kurapayload.generateKuraPayload(deathPayload),
                     "qos" : 0,
                     "retain" : false
@@ -163,11 +190,11 @@ function SparkplugClient(config) {
 
             // Subscribe to control/command messages for both the edge node and the attached devices
             console.log("Subscribing to control/command messages for both the edge node and the attached devices");
-            client.subscribe("spAv1.0/" + groupId + "/NCMD/" + edgeNode + "/#", { "qos" : 0 });
-            client.subscribe("spAv1.0/" + groupId + "/DCMD/" + edgeNode + "/#", { "qos" : 0 });
+            client.subscribe(version + "/" + groupId + "/NCMD/" + edgeNode + "/#", { "qos" : 0 });
+            client.subscribe(version + "/" + groupId + "/DCMD/" + edgeNode + "/#", { "qos" : 0 });
 
             // Publish BIRTH certificates
-            publishBirth(client);
+            publishNBirth(client);
             // Emit the "rebirth" event to notify devices to send a birth
             console.log("Emmitting 'Rebirth' event");
             sparkplugClient.emit("rebirth");
@@ -213,7 +240,7 @@ function SparkplugClient(config) {
 
             // Split the topic up into tokens
             splitTopic = topic.split("/");
-            if (splitTopic[0] === "spAv1.0"
+            if (splitTopic[0] === version
                     && splitTopic[1] === groupId
                     && splitTopic[2] === "NCMD"
                     && splitTopic[3] === edgeNode) {
@@ -223,14 +250,14 @@ function SparkplugClient(config) {
                         if (metric[i].name == "Node Control/Rebirth" && metric[i].value) {
                             console.log("Received 'Rebirth' command");
                             // Publish BIRTH certificate for the edge node
-                            publishBirth(client);
+                            publishNBirth(client);
                             // Emit the "rebirth" event
                             console.log("Emmitting 'rebirth' event");
                             sparkplugClient.emit("rebirth");
                         }
                     }
                 }
-            } else if (splitTopic[0] === "spAv1.0"
+            } else if (splitTopic[0] === version
                     && splitTopic[1] === groupId
                     && splitTopic[2] === "DCMD"
                     && splitTopic[3] === edgeNode) {

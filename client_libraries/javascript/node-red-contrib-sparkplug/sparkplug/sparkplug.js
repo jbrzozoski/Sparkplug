@@ -26,7 +26,8 @@ module.exports = function(RED) {
                 'password' : password,
                 'groupId' : config.groupid,
                 'edgeNode' : config.edgenode,
-                'clientId' : config.clientid
+                'clientId' : config.clientid,
+                'publishDeath' : config.publishdeath == "true"
             },
             hwVersion = 'Emulated Hardware',
             swVersion = 'v1.0.0',

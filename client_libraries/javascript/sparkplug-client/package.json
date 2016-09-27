@@ -1,6 +1,6 @@
 {
   "name": "sparkplug-client",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "A client module for MQTT communication using the Sparkplug specification from Cirrus Link Solutions",
   "main": "index.js",
   "repository": {
@@ -23,7 +23,7 @@
     "LICENSE"
   ],
   "dependencies": {
-    "mqtt": "^1.10.0",
+    "mqtt": "^2.0.1",
     "protobufjs": "^5.0.1",
     "bytebuffer": "^5.0.1"
   }
