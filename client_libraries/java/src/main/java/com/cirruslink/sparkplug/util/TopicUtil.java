@@ -1,0 +1,66 @@
+/*
+ * Licensed Materials - Property of Cirrus Link Solutions
+ * Copyright (c) 2016 Cirrus Link Solutions LLC - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
+package com.cirruslink.sparkplug.util;
+
+import com.cirruslink.sparkplug.SparkplugParsingException;
+import com.cirruslink.sparkplug.message.model.MessageType;
+import com.cirruslink.sparkplug.message.model.Topic;
+
+/**
+ * Provides utility methods for handling Sparkplug MQTT message topics.
+ */
+public class TopicUtil {
+
+	/**
+	 * Parses a Sparkplug MQTT message topic string and returns a {@link Topic} instance.
+	 *
+	 * @param topic a topic string
+	 * @return a {@link Topic} instance
+	 * @throws SparkplugParsingException if an error occurs while parsing
+	 */
+	@SuppressWarnings("incomplete-switch")
+	public static Topic parseTopic(String topic) throws SparkplugParsingException {
+		MessageType type;
+		String namespace, edgeNodeId, groupId;
+		String[] splitTopic = topic.split("/");
+		int length = splitTopic.length;
+		
+		if (length < 4 || length > 5) {
+			throw new SparkplugParsingException("Invalid number of topic elements: " + length);
+		}
+		
+		namespace = splitTopic[0];
+		groupId = splitTopic[1];
+		type = MessageType.parseMessageType(splitTopic[2]);
+		edgeNodeId = splitTopic[3];
+		
+		if (length == 4) {
+			// A node topic
+			switch (type) {
+				case STATE:
+				case NBIRTH:
+				case NCMD:
+				case NDATA:
+				case NDEATH:
+					return new Topic(namespace, groupId, edgeNodeId, type);
+			}	
+		} else {
+			// A device topic
+			switch (type) {
+				case STATE:
+				case DBIRTH:
+				case DCMD:
+				case DDATA:
+				case DDEATH:
+					return new Topic(namespace, groupId, edgeNodeId, splitTopic[4], type);
+			}
+		}
+		throw new SparkplugParsingException("Invalid number of topic elements " + length 
+				+ " for topic type " + type);
+	}
+}

@@ -1,3 +1,10 @@
+/*
+ * Licensed Materials - Property of Cirrus Link Solutions
+ * Copyright (c) 2016 Cirrus Link Solutions LLC - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
+
 package com.cirruslink.sparkplug.test;
 
 import java.util.ArrayList;
@@ -27,7 +34,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-public class ChariotTest extends TestCase {
+public class SparkplugTest extends TestCase {
 	
 	static {
 	    Logger rootLogger = Logger.getRootLogger();
@@ -35,12 +42,12 @@ public class ChariotTest extends TestCase {
 	    rootLogger.addAppender(new ConsoleAppender(new PatternLayout("%-6r [%p] %c - %m%n")));
 	}
 
-	public ChariotTest(String testName) {
+	public SparkplugTest(String testName) {
 		super( testName );
 	}
 
 	public static Test suite() {
-		return new TestSuite(ChariotTest.class);
+		return new TestSuite(SparkplugTest.class);
 	}
 
 	public void testEnDeCode() {
@@ -90,7 +97,7 @@ public class ChariotTest extends TestCase {
 			assertEquals(1, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("Name", decodedMetric.getName());
-			assertEquals(0, decodedMetric.getAlias());
+			assertEquals(new Long(0), decodedMetric.getAlias());
 			assertEquals(currentTime, decodedMetric.getTimestamp());
 			assertEquals(MetricDataType.Int1, decodedMetric.getDataType());
 			assertEquals(false, decodedMetric.isHistorical());

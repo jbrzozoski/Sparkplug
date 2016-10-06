@@ -32,7 +32,6 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 	
 	public SparkplugBPayloadEncoder() {
 		super();
-		logger.setLevel(Level.DEBUG);
 	}
 	
 	public byte[] getBytes(SparkplugBPayload payload) throws IOException {

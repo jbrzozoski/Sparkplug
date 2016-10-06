@@ -31,7 +31,6 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 
 	public SparkplugBPayloadDecoder() {
 		super();
-		logger.setLevel(Level.DEBUG);
 	}
 	
 	public SparkplugBPayload buildFromByteArray(byte[] bytes) throws Exception {

@@ -62,7 +62,7 @@ public class Metric {
 		return (alias == null) ? false : true;
 	}
 
-	public long getAlias() {
+	public Long getAlias() {
 		return alias;
 	}
 
@@ -87,11 +87,19 @@ public class Metric {
 	}
 
 	public boolean isHistorical() {
-		return historical;
+		return historical == null 
+				? false 
+				: historical;
+	}
+	
+	public Boolean getHistorical() {
+		return this.historical;
 	}
 
 	public void setHistorical(boolean historical) {
-		this.historical = historical;
+		this.historical = historical 
+				? Boolean.TRUE 
+				: null;
 	}
 
 	public MetaData getMetaData() {
