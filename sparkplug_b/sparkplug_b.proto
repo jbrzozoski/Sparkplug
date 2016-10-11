@@ -3,7 +3,7 @@ syntax = "proto2";
 //
 // To compile:
 // cd client_libraries/java
-// protoc --proto_path=../../ --java_out=src/main/java ../../sparkplug_b/sparkplug_b.proto
+// protoc --proto_path=../../ --java_out=src/main/java ../../sparkplug_b.proto 
 //
 package com.cirruslink.sparkplug.protobuf;
 
@@ -12,124 +12,139 @@ option java_outer_classname = "SparkplugBProto";
 
 message Payload {
 
-	message Metric {
+    message Metric {
 
-		enum DataType {
-			// Unknown placeholder for future expansion.
-			Unknown		= 0;
+        enum DataType {
+            // Unknown placeholder for future expansion.
+            Unknown     = 0;
 
-			// Ignition Data Types
-			Int1		= 1;
-			Int2		= 2;
-			Int4		= 3;
-			Int8		= 4;
-			Float4		= 5;
-			Float8		= 6;
-			Boolean		= 7;
-			String		= 8;
-			DateTime	= 9;
-			Dataset		= 10;
-			Text		= 11;
+            // Ignition Data Types
+            Int1        = 1;
+            Int2        = 2;
+            Int4        = 3;
+            Int8        = 4;
+            Float4      = 5;
+            Float8      = 6;
+            Boolean     = 7;
+            String      = 8;
+            DateTime    = 9;
+            Dataset     = 10;
+            Text        = 11;
 
-			// Additional Data Types
-			Bytes		= 12;
-			File		= 13;
-			UdtDef		= 14;
-			UdtInst		= 15;
-		}
+            // Additional Data Types
+            Bytes       = 12;
+            File        = 13;
+            UDT         = 14;
+        }
 
-		message MetaData {
-			// Bytes specific metadata
-			optional bool isMultiPart		= 1;
-			optional bool isScript			= 2;
+        message MetaData {
+            // Bytes specific metadata
+            optional bool isMultiPart       = 1;
 
-			// General metadata
-			optional string units			= 3;		// Engineering units
-			optional string content_type		= 4;		// Content/Media type
-			optional uint64 size			= 5;		// File size, String size, Multi-part size, etc
-			optional string algorithm		= 6;		// Algorithm for encoding, encryption, hashing, or obfuscation
-			optional string format			= 7;		// Date/Time Format or something else
-			optional uint64 seq			= 8;		// Sequence number for multi-part messages
+            // General metadata
+            optional string content_type    = 2;        // Content/Media type
+            optional uint64 size            = 3;        // File size, String size, Multi-part size, etc
+            optional uint64 seq             = 4;        // Sequence number for multi-part messages
 
-			// File metadata
-			optional string file_name		= 9;		// File name
-			optional string file_type		= 10;		// File type (i.e. xml, json, txt, cpp, etc)
-			optional string md5			= 11;		// md5 of data
+            // File metadata
+            optional string file_name       = 5;        // File name
+            optional string file_type       = 6;        // File type (i.e. xml, json, txt, cpp, etc)
+            optional string md5             = 7;        // md5 of data
 
-			// Indicates a request to remove a tag
-			optional bool remove			= 12;
+            // UDT specifics
+            optional string typeId          = 8;        // For UDT types - suchs as 'OPC' or 'Motor'
 
-			// UDT specifics
-			optional string typeId			= 13;		// For UDT types - suchs as 'OPC' or 'Motor'
+            // Catchalls and future expansion
+            optional string description     = 9;        // Could be anything such as json or xml of custom properties
+            repeated MetaField members      = 10;
+                // Add remove=true/false
+                // Add qualities
+            extensions                      11 to max;  // For third party extensions
+        }
 
-			// Catchalls and future expansion
-			optional string description		= 14;		// Could be anything such as json or xml of custom properties
-			extensions						15 to max;	// For third party extensions
-		}
+        message MetaField {
+            optional string   name          = 1;        // Metric name - should only be included on birth
+            optional DataType datatype      = 2;        // DataType of the metric/tag value
 
-		message DataSet {
-			
-			enum DataType {
-				Unknown			= 0;
-				Int1			= 1;
-				Int2			= 2;
-				Int4			= 3;
-				Int8			= 4;
-				Float4			= 5;
-				Float8			= 6;
-				Boolean			= 7;
-				String			= 8;
-				DateTime		= 9;
-				Text			= 10;
-				Null			= 11;
-			}
-			
-			message Value {
+            optional uint32 int_value       = 3;        // Int1, Int2, Int4
+            optional uint64 long_value      = 4;        // Int8, DateTime
+            optional float  float_value     = 5;        // Float4
+            optional double double_value    = 6;        // Float8
+            optional bool   boolean_value   = 7;        // Boolean
+            optional string string_value    = 8;        // String, Text
+            optional bytes  bytes_value     = 9;        // Bytes, File, Script
+            optional DataSet dataset_value  = 10;       // DataSet
+            extensions                      11 to max;  // For third party extensions
+        }
 
-				optional uint32 int_value	= 2;		// Int1, Int2, Int4
-				optional uint64 long_value	= 3;		// Int8, DateTime
-				optional float  float_value	= 4;		// Float4
-				optional double double_value	= 5;		// Float8
-				optional bool   boolean_value	= 6;		// Boolean 
-				optional string string_value	= 7;		// String, Text
-				extensions                      8 to max;	// For third party extensions
-			}
+        message DataSet {
+            
+            enum DataType {
+                Unknown         = 0;
+                Int1            = 1;
+                Int2            = 2;
+                Int4            = 3;
+                Int8            = 4;
+                Float4          = 5;
+                Float8          = 6;
+                Boolean         = 7;
+                String          = 8;
+                DateTime        = 9;
+                Text            = 10;
+                Null            = 11;
+            }
+            
+            message Value {
+                optional uint32 int_value      = 1;        // Int1, Int2, Int4
+                optional uint64 long_value     = 2;        // Int8, DateTime
+                optional float  float_value    = 3;        // Float4
+                optional double double_value   = 4;        // Float8
+                optional bool   boolean_value  = 5;        // Boolean 
+                optional string string_value   = 6;        // String, Text
+                extensions                     7 to max;   // For third party extensions
+            }
 
-			message Row {
-				repeated Value element		= 1;
-				extensions                      2 to max;	// For third party extensions
-			}
+            message Row {
+                repeated Value element  = 1;
+                extensions              2 to max;   // For third party extensions
+            }
 
-			optional uint64 num_of_columns		= 1;
-			repeated string columns			= 2;
-			repeated DataType types			= 3;
-			repeated Row rows			= 4;
-			extensions      	                5 to max;	// For third party extensions
-		}
+            optional uint64 num_of_columns  = 1;
+            repeated string columns         = 2;
+            repeated DataType types         = 3;
+            repeated Row rows               = 4;
+            extensions                      5 to max;   // For third party extensions
+        }
 
-		optional string   name			= 1;		// Metric name - should only be included on birth
-		optional uint64   alias			= 2;		// Metric alias - tied to name on birth and included in all later DATA messages
-		optional uint64   timestamp		= 3;		// Timestamp associated with data acquisition time
-		optional DataType datatype		= 4;		// DataType of the metric/tag value
-		optional bool     historical		= 5;		// If this is historical data and should not update real time tag
-		optional MetaData metadata		= 6;		// Metadata for the payload
+        optional string   name          = 1;        // Metric name - should only be included on birth
+        optional uint64   alias         = 2;        // Metric alias - tied to name on birth and included in all later DATA messages
+        optional uint64   timestamp     = 3;        // Timestamp associated with data acquisition time
+        optional DataType datatype      = 4;        // DataType of the metric/tag value
+        optional bool     historical    = 5;        // If this is historical data and should not update real time tag
+        optional MetaData metadata      = 6;        // Metadata for the payload
 
-		optional uint32 int_value		= 7;		// Int1, Int2, Int4
-		optional uint64 long_value		= 8;		// Int8, DateTime
-		optional float  float_value		= 9;		// Float4
-		optional double double_value		= 10;		// Float8
-		optional bool   boolean_value		= 11;		// Boolean 
-		optional string string_value		= 12;		// String, Text
-		optional bytes  bytes_value		= 13;		// Bytes, File, Script
-		optional DataSet dataset_value		= 14;		// DataSet
-		repeated Metric members			= 15;		// For UDTs - a Metric containing member tags
-		extensions                      	16 to max;	// For third party extensions
-	}
+        optional uint32 int_value       = 7;        // Int1, Int2, Int4
+        optional uint64 long_value      = 8;        // Int8, DateTime
+        optional float  float_value     = 9;        // Float4
+        optional double double_value    = 10;       // Float8
+        optional bool   boolean_value   = 11;       // Boolean
+        optional string string_value    = 12;       // String, Text
+        optional bytes  bytes_value     = 13;       // Bytes, File, Script
+        optional DataSet dataset_value  = 14;       // DataSet
+        extensions                      17 to max;  // For third party extensions
+    }
 
-	optional uint64 timestamp	= 1;		// Timestamp at message sending time
-	repeated Metric metric		= 2;		// Repeated forever - no limit in Google Protobufs
-	optional uint64 seq		= 3;		// Sequence number
-	optional string uuid		= 4;		// UUID to track message type in terms of schema definitions
-	optional bytes  body		= 5;		// To optionally bypass the whole definition above
-	extensions					6 to max;	// For third party extensions
+    message UdtDefinition {
+        optional string name    = 1;        // The name of the UDT definition
+        optional string version = 2;        // The version of the UDT definition to prevent mismatches
+        repeated Metric members = 3;        // Each metric is the name of the member and the datatype of the member but does not contain a value
+        extensions              4 to max;
+    }
+
+    optional uint64 timestamp   = 1;        // Timestamp at message sending time
+    repeated Metric metric      = 2;        // Repeated forever - no limit in Google Protobufs
+    optional uint64 seq         = 3;        // Sequence number
+    optional string uuid        = 4;        // UUID to track message type in terms of schema definitions
+    optional bytes  body        = 5;        // To optionally bypass the whole definition above
+    extensions                  6 to max;   // For third party extensions
 }

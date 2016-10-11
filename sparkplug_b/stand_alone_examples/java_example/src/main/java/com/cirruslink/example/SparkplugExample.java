@@ -47,7 +47,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 
 	// Configuration
 	private String serverUrl = "tcp://localhost:1883";
-	private String groupId = "Sparkplug Devices";
+	private String groupId = "Sparkplug B Devices";
 	private String edgeNode = "Java Edge Node";
 	private String deviceId = "Emulated Device";
 	private String clientId = "javaSimpleEdgeNode";
