@@ -176,6 +176,7 @@ containing any metric values that have changed or been successfully written to.
 * 1.0.2 Bug Fixes
 * 1.1.0 Added connection status indicator, changed category
 * 1.2.0 Added 'Publish Death' config option, and mouseover config descriptions
+* 1.2.1 Added "node-red" keyword
 
 ## License
 
