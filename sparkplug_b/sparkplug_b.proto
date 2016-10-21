@@ -91,7 +91,6 @@ message Payload {
                 String          = 8;
                 DateTime        = 9;
                 Text            = 10;
-                Null            = 11;
             }
             
             message Value {
@@ -121,17 +120,18 @@ message Payload {
         optional uint64   timestamp     = 3;        // Timestamp associated with data acquisition time
         optional DataType datatype      = 4;        // DataType of the metric/tag value
         optional bool     historical    = 5;        // If this is historical data and should not update real time tag
-        optional MetaData metadata      = 6;        // Metadata for the payload
+        optional bool     null          = 6;        // If this is null - explicitly say so
+        optional MetaData metadata      = 7;        // Metadata for the payload
 
-        optional uint32 int_value       = 7;        // Int1, Int2, Int4
-        optional uint64 long_value      = 8;        // Int8, DateTime
-        optional float  float_value     = 9;        // Float4
-        optional double double_value    = 10;       // Float8
-        optional bool   boolean_value   = 11;       // Boolean
-        optional string string_value    = 12;       // String, Text
-        optional bytes  bytes_value     = 13;       // Bytes, File, Script
-        optional DataSet dataset_value  = 14;       // DataSet
-        extensions                      17 to max;  // For third party extensions
+        optional uint32 int_value       = 8;        // Int1, Int2, Int4
+        optional uint64 long_value      = 9;        // Int8, DateTime
+        optional float  float_value     = 10;        // Float4
+        optional double double_value    = 11;       // Float8
+        optional bool   boolean_value   = 12;       // Boolean
+        optional string string_value    = 13;       // String, Text
+        optional bytes  bytes_value     = 14;       // Bytes, File, Script
+        optional DataSet dataset_value  = 15;       // DataSet
+        extensions                      16 to max;  // For third party extensions
     }
 
     message UdtDefinition {
