@@ -40,17 +40,17 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 		
 		// Set the timestamp
 		if (payload.getTimestamp() != null) {
-			logger.debug("Setting time " + payload.getTimestamp());
+			logger.trace("Setting time " + payload.getTimestamp());
 			protoMsg.setTimestamp(payload.getTimestamp().getTime());
 		}
 		
 		// Set the sequence number
-		logger.debug("Setting sequence number " + payload.getSeq());
+		logger.trace("Setting sequence number " + payload.getSeq());
 		protoMsg.setSeq(payload.getSeq());
 		
 		// Set the UUID if defined
 		if (payload.getUuid() != null) {
-			logger.debug("Setting the UUID " + payload.getUuid());
+			logger.trace("Setting the UUID " + payload.getUuid());
 			protoMsg.setUuid(payload.getUuid());
 		}
 		
@@ -63,6 +63,7 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 			try {
 				// set the basic parameters
 				logger.debug("Adding metric: " + metric.getName());
+				logger.trace("    data type: " + metric.getDataType());
 				metricBuilder.setName(metric.getName());
 				if(metric.hasAlias()) {
 					metricBuilder.setAlias(metric.getAlias());
@@ -75,7 +76,7 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 				// Set the value and metadata
 				metricBuilder = setMetricValue(metricBuilder, metric);
 				if (metric.getMetaData() != null) {
-					logger.debug("Metadata is not null");
+					logger.trace("Metadata is not null");
 					metricBuilder = setMetaData(metricBuilder, metric);
 				}
 				
@@ -95,113 +96,115 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 
 		return protoMsg.build().toByteArray();
 	}
-	
+
 	private SparkplugBProto.Payload.Metric.Builder setMetricValue(SparkplugBProto.Payload.Metric.Builder metricBuilder,
 			Metric metric) throws Exception {
 
 		// Set the datatype
 		metricBuilder.setDatatype(convertMetricDataType(metric.getDataType()));
 
-		switch (metric.getDataType()) {
-			case Boolean:
-				metricBuilder.setBooleanValue((Boolean) metric.getValue());
-				break;
-			case DateTime:
-				metricBuilder.setLongValue(((Date)metric.getValue()).getTime());
-				break;
-			case File:
-				metricBuilder.setBytesValue(ByteString.copyFrom(((File) metric.getValue()).getBytes()));
-				SparkplugBProto.Payload.Metric.MetaData.Builder metaDataBuilder = SparkplugBProto.Payload.Metric.MetaData.newBuilder();
-				metaDataBuilder.setFileName(((File) metric.getValue()).getFileName());
-				metricBuilder.setMetadata(metaDataBuilder);
-				break;
-			case Float4:
-				metricBuilder.setFloatValue((Float) metric.getValue());
-				break;
-			case Float8:
-				metricBuilder.setDoubleValue((Double) metric.getValue());
-				break;
-			case Int1:
-			case Int2:
-			case Int4:
-				metricBuilder.setIntValue((Integer) metric.getValue());
-				break;
-			case Int8:
-				metricBuilder.setLongValue((Long) metric.getValue());
-				break;
-			case String:
-			case Text:
-				metricBuilder.setStringValue((String) metric.getValue());
-				break;
-			case Bytes:
-				metricBuilder.setBytesValue(ByteString.copyFrom((byte[]) metric.getValue()));
-				break;
-			case DataSet:
-				DataSet dataSet = (DataSet) metric.getValue();
-				SparkplugBProto.Payload.Metric.DataSet.Builder protoDataSetBuilder = 
-						SparkplugBProto.Payload.Metric.DataSet.newBuilder();
+		if (metric.getValue() == null) {
+			metricBuilder.setNull(true);
+		} else {
+			switch (metric.getDataType()) {
+				case Boolean:
+					metricBuilder.setBooleanValue(toBoolean(metric.getValue()));
+					break;
+				case DateTime:
+					metricBuilder.setLongValue(((Date)metric.getValue()).getTime());
+					break;
+				case File:
+					metricBuilder.setBytesValue(ByteString.copyFrom(((File) metric.getValue()).getBytes()));
+					SparkplugBProto.Payload.Metric.MetaData.Builder metaDataBuilder = 
+							SparkplugBProto.Payload.Metric.MetaData.newBuilder();
+					metaDataBuilder.setFileName(((File) metric.getValue()).getFileName());
+					metricBuilder.setMetadata(metaDataBuilder);
+					break;
+				case Float4:
+					metricBuilder.setFloatValue((Float) metric.getValue());
+					break;
+				case Float8:
+					metricBuilder.setDoubleValue((Double) metric.getValue());
+					break;
+				case Int1:
+				case Int2:
+				case Int4:
+					metricBuilder.setIntValue((Integer) metric.getValue());
+					break;
+				case Int8:
+					metricBuilder.setLongValue((Long) metric.getValue());
+					break;
+				case String:
+				case Text:
+					metricBuilder.setStringValue((String) metric.getValue());
+					break;
+				case Bytes:
+					metricBuilder.setBytesValue(ByteString.copyFrom((byte[]) metric.getValue()));
+					break;
+				case DataSet:
+					DataSet dataSet = (DataSet) metric.getValue();
+					SparkplugBProto.Payload.Metric.DataSet.Builder protoDataSetBuilder = 
+							SparkplugBProto.Payload.Metric.DataSet.newBuilder();
 
-				protoDataSetBuilder.setNumOfColumns(dataSet.getNumOfColumns());
+					protoDataSetBuilder.setNumOfColumns(dataSet.getNumOfColumns());
 
-				// Column names
-				List<String> columnNames = dataSet.getColumnNames();
-				if (columnNames != null && !columnNames.isEmpty()) {
-					for (String name : columnNames) {
-						// Add the column name
-						protoDataSetBuilder.addColumns(name);
+					// Column names
+					List<String> columnNames = dataSet.getColumnNames();
+					if (columnNames != null && !columnNames.isEmpty()) {
+						for (String name : columnNames) {
+							// Add the column name
+							protoDataSetBuilder.addColumns(name);
+						}
+					} else {
+						throw new Exception("Invalid DataSet");
 					}
-				} else {
-					throw new Exception("Invalid DataSet");
-				}
 
-				// Column types
-				List<DataSetDataType> columnTypes = dataSet.getTypes();
-				if (columnTypes != null && !columnTypes.isEmpty()) {
-					for (DataSetDataType type : columnTypes) {
-						// Add the column type
-						protoDataSetBuilder.addTypes(convertDataSetDataType(type));
+					// Column types
+					List<DataSetDataType> columnTypes = dataSet.getTypes();
+					if (columnTypes != null && !columnTypes.isEmpty()) {
+						for (DataSetDataType type : columnTypes) {
+							// Add the column type
+							protoDataSetBuilder.addTypes(convertDataSetDataType(type));
+						}
+					} else {
+						throw new Exception("Invalid DataSet");
 					}
-				} else {
-					throw new Exception("Invalid DataSet");
-				}
 
-				// Dataset rows
-				List<Row> rows = dataSet.getRows();
-				if (rows != null && !rows.isEmpty()) {
-					for (Row row : rows) {
-						SparkplugBProto.Payload.Metric.DataSet.Row.Builder protoRowBuilder = 
-								SparkplugBProto.Payload.Metric.DataSet.Row.newBuilder();
-						List<Value<?>> values = row.getValues();
-						if (values != null && !values.isEmpty()) {
-							for (Value<?> value : values) {
-								// Add the converted element
-								protoRowBuilder.addElement(convertDataSetValue(value));
+					// Dataset rows
+					List<Row> rows = dataSet.getRows();
+					if (rows != null && !rows.isEmpty()) {
+						for (Row row : rows) {
+							SparkplugBProto.Payload.Metric.DataSet.Row.Builder protoRowBuilder = 
+									SparkplugBProto.Payload.Metric.DataSet.Row.newBuilder();
+							List<Value<?>> values = row.getValues();
+							if (values != null && !values.isEmpty()) {
+								for (Value<?> value : values) {
+									// Add the converted element
+									protoRowBuilder.addElement(convertDataSetValue(value));
+								}
+
+								logger.debug("Adding row");
+								protoDataSetBuilder.addRows(protoRowBuilder);
+							} else {
+								throw new Exception("Invalid DataSet");
 							}
-
-							logger.debug("Adding row");
-							protoDataSetBuilder.addRows(protoRowBuilder);
-						} else {
-							throw new Exception("Invalid DataSet");
 						}
 					}
-				}
 
-				// Finally add the dataset
-				logger.debug("Adding the dataset");
-				metricBuilder.setDatasetValue(protoDataSetBuilder);
+					// Finally add the dataset
+					logger.debug("Adding the dataset");
+					metricBuilder.setDatasetValue(protoDataSetBuilder);
 
-				break;
-			case UdtDef:
-				break;
-			case UdtInst:
-				break;
-			case Unknown:
-			default:
-				logger.error("Unknown DataType: " + metric.getDataType());
-				throw new Exception("Failed to encode");
+					break;
+				case UDT:
+					break;
+				case Unknown:
+				default:
+					logger.error("Unknown DataType: " + metric.getDataType());
+					throw new Exception("Failed to encode");
 
+			}
 		}
-		
 		return metricBuilder;
 	}
 	
@@ -217,19 +220,10 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 		}
 		
 		MetaData metaData = metric.getMetaData();
-		if (metaData.getUnits() != null) {
-			metaDataBuilder.setUnits(metaData.getUnits());
-		}
 		if (metaData.getContentType() != null) {
 			metaDataBuilder.setContentType(metaData.getContentType());
 		}
 		metaDataBuilder.setSize(metaData.getSize());
-		if (metaData.getAlgorithm() != null) {
-			metaDataBuilder.setAlgorithm(metaData.getAlgorithm());
-		}
-		if (metaData.getFormat() != null) {
-			metaDataBuilder.setFormat(metaData.getFormat());
-		}
 		metaDataBuilder.setSeq(metaData.getSeq());
 		if (metaData.getFileName() != null) {
 			metaDataBuilder.setFileName(metaData.getFileName());
@@ -273,12 +267,10 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 				protoValueBuilder.setStringValue((String) value.getValue());
 				break;
 			case Boolean:
-				protoValueBuilder.setBooleanValue((Boolean) value.getValue());
+				protoValueBuilder.setBooleanValue(toBoolean(value.getValue()));
 				break;
 			case DateTime:
 				protoValueBuilder.setLongValue(((Date) value.getValue()).getTime());
-				break;
-			case Null:
 				break;
 			default:
 				logger.error("Unknown DataType: " + value.getType());
@@ -306,8 +298,6 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 				return SparkplugBProto.Payload.Metric.DataSet.DataType.Int4;
 			case Int8:
 				return SparkplugBProto.Payload.Metric.DataSet.DataType.Int8;
-			case Null:
-				return SparkplugBProto.Payload.Metric.DataSet.DataType.Null;
 			case String:
 				return SparkplugBProto.Payload.Metric.DataSet.DataType.String;
 			case Text:
@@ -345,12 +335,32 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 				return SparkplugBProto.Payload.Metric.DataType.Dataset;
 			case File:
 				return SparkplugBProto.Payload.Metric.DataType.File;
-			case UdtDef:
-				return SparkplugBProto.Payload.Metric.DataType.UdtDef;
-			case UdtInst:
-				return SparkplugBProto.Payload.Metric.DataType.UdtInst;
+			case UDT:
+				return SparkplugBProto.Payload.Metric.DataType.UDT;
 			default:
 				return SparkplugBProto.Payload.Metric.DataType.Unknown;
 		}
+	}
+	
+	private Boolean toBoolean(Object value) {
+		if (value == null) {
+			return null;
+		}
+		if (value instanceof Integer) {
+			return ((Integer)value).intValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
+		} else if (value instanceof Long) {
+			return ((Long)value).longValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
+		} else if (value instanceof Float) {
+			return ((Float)value).floatValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
+		} else if (value instanceof Double) {
+			return ((Double)value).doubleValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
+		} else if (value instanceof Short) {
+			return ((Short)value).shortValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
+		} else if (value instanceof Byte) {
+			return ((Byte)value).byteValue() == 0 ? Boolean.FALSE : Boolean.TRUE;
+		} else if (value instanceof String) {
+			return Boolean.parseBoolean(value.toString());
+		}
+		return (Boolean)value;
 	}
 }

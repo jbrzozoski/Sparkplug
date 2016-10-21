@@ -67,11 +67,27 @@ public class SparkplugTest extends TestCase {
 			metric.setHistorical(false);
 			metric.setValue(65);
 			MetaData metaData = new MetaData();
-			metaData.setUnits("mph");
 			metaData.setContentType("none");
 			metaData.setSize(12);
-			metaData.setAlgorithm("none");
-			metaData.setFormat("none");
+			metaData.setSeq(0);
+			metaData.setFileName("none");
+			metaData.setFileType("none");
+			metaData.setMd5("none");
+			metaData.setDescription("none");		
+			metric.setMetaData(metaData);
+			sparkplugBPayload.addMetric(metric);
+			
+			// Create null metric
+			metric = new Metric();
+			metric.setName("Null");
+			metric.setAlias(0);
+			metric.setTimestamp(currentTime);
+			metric.setDataType(MetricDataType.String);
+			metric.setHistorical(false);
+			metric.setValue(null);
+			metaData = new MetaData();
+			metaData.setContentType("none");
+			metaData.setSize(12);
 			metaData.setSeq(0);
 			metaData.setFileName("none");
 			metaData.setFileType("none");
@@ -94,7 +110,7 @@ public class SparkplugTest extends TestCase {
 			assertTrue(Arrays.equals("Hello".getBytes(), decodedPayload.getBody()));
 			
 			// Metric checks
-			assertEquals(1, decodedPayload.getMetrics().size());
+			assertEquals(2, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("Name", decodedMetric.getName());
 			assertEquals(new Long(0), decodedMetric.getAlias());
@@ -104,11 +120,8 @@ public class SparkplugTest extends TestCase {
 			assertEquals(65, decodedMetric.getValue());
 			assertNotNull(decodedMetric.getMetaData());
 			MetaData decodedMetaData = decodedMetric.getMetaData();
-			assertEquals("mph", decodedMetaData.getUnits());
 			assertEquals("none", decodedMetaData.getContentType());
 			assertEquals(12, decodedMetaData.getSize());
-			assertEquals("none", decodedMetaData.getAlgorithm());
-			assertEquals("none", decodedMetaData.getFormat());
 			assertEquals(0, decodedMetaData.getSeq());
 			assertEquals("none", decodedMetaData.getFileName());
 			assertEquals("none", decodedMetaData.getFileType());

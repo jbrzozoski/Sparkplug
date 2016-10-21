@@ -134,6 +134,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 		metrics.add(new Metric("my_long", MetricDataType.Int8, random.nextLong()));
 		metrics.add(new Metric("my_float", MetricDataType.Float4, random.nextFloat()));
 		metrics.add(new Metric("my_double", MetricDataType.Float8, random.nextDouble()));
+		metrics.add(new Metric("my_null", MetricDataType.String, null));
 		byte [] randomBytes = new byte[20];
 		random.nextBytes(randomBytes);
 		metrics.add(new Metric("my_bytes", MetricDataType.Bytes, randomBytes));

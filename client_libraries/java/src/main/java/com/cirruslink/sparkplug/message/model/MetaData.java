@@ -14,11 +14,8 @@ public class MetaData {
 	private boolean isScript;
 	
 	// General metadata
-	private String units;
 	private String contentType;
 	private long size;
-	private String algorithm;
-	private String format;
 	private long seq;
 
 	// File metadata
@@ -39,17 +36,13 @@ public class MetaData {
 		super();
 	}
 
-	public MetaData(boolean isMultiPart, boolean isScript, String units, String contentType, long size,
-			String algorithm, String format, long seq, String fileName, String fileType, String md5,
-			boolean remove, String typeId, String description) {
+	public MetaData(boolean isMultiPart, boolean isScript, String contentType, long size, long seq, String fileName, 
+			String fileType, String md5, boolean remove, String typeId, String description) {
 		super();
 		this.isMultiPart = isMultiPart;
 		this.isScript = isScript;
-		this.units = units;
 		this.contentType = contentType;
 		this.size = size;
-		this.algorithm = algorithm;
-		this.format = format;
 		this.seq = seq;
 		this.fileName = fileName;
 		this.fileType = fileType;
@@ -75,14 +68,6 @@ public class MetaData {
 		this.isScript = isScript;
 	}
 
-	public String getUnits() {
-		return units;
-	}
-
-	public void setUnits(String units) {
-		this.units = units;
-	}
-
 	public String getContentType() {
 		return contentType;
 	}
@@ -97,22 +82,6 @@ public class MetaData {
 
 	public void setSize(long size) {
 		this.size = size;
-	}
-
-	public String getAlgorithm() {
-		return algorithm;
-	}
-
-	public void setAlgorithm(String algorithm) {
-		this.algorithm = algorithm;
-	}
-
-	public String getFormat() {
-		return format;
-	}
-
-	public void setFormat(String format) {
-		this.format = format;
 	}
 
 	public long getSeq() {
@@ -173,9 +142,8 @@ public class MetaData {
 
 	@Override
 	public String toString() {
-		return "MetaData [isMultiPart=" + isMultiPart + ", isScript=" + isScript + ", units=" + units + ", contentType="
-				+ contentType + ", size=" + size + ", algorithm=" + algorithm + ", format=" + format + ", seq=" + seq
-				+ ", fileName=" + fileName + ", fileType=" + fileType + ", md5=" + md5 + ", description=" + description
-				+ "]";
+		return "MetaData [isMultiPart=" + isMultiPart + ", isScript=" + isScript + ", contentType=" + contentType 
+				+ ", size=" + size + ", seq=" + seq + ", fileName=" + fileName + ", fileType=" + fileType + ", md5=" 
+				+ md5 + ", description=" + description + "]";
 	}
 }

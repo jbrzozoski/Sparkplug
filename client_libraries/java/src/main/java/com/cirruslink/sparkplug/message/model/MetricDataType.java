@@ -25,6 +25,5 @@ public enum MetricDataType {
 	Text,
 	Bytes,
 	File,
-	UdtInst,
-	UdtDef
+	UDT
 }

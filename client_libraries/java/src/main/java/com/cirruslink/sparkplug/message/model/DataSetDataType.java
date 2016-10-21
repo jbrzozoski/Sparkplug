@@ -21,6 +21,5 @@ public enum DataSetDataType {
 	Boolean,
 	String,
 	DateTime,
-	Text,
-	Null
+	Text
 }
