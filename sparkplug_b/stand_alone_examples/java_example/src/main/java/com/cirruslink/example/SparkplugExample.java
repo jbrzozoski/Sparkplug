@@ -19,6 +19,9 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.net.SocketFactory;
+import javax.net.ssl.SSLSocketFactory;
+
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -46,7 +49,8 @@ public class SparkplugExample implements MqttCallbackExtended {
 	private static final String NAMESPACE = "spBv1.0";
 
 	// Configuration
-	private String serverUrl = "tcp://localhost:1883";
+	private static final boolean USING_REAL_TLS = true;
+	private String serverUrl = "ssl://load1.chariot.io:8883";
 	private String groupId = "Sparkplug B Devices";
 	private String edgeNode = "Java Edge Node";
 	private String deviceId = "Emulated Device";
@@ -78,8 +82,14 @@ public class SparkplugExample implements MqttCallbackExtended {
 			deathPayload = addBdSeqNum(deathPayload);
 			byte [] deathBytes = new SparkplugBPayloadEncoder().getBytes(deathPayload);
 			
-			// Connect to the MQTT Server
 			MqttConnectOptions options = new MqttConnectOptions();
+			
+			if(USING_REAL_TLS) {
+				SocketFactory sf = SSLSocketFactory.getDefault();
+				options.setSocketFactory(sf);
+			}
+			
+			// Connect to the MQTT Server
 			options.setAutomaticReconnect(true);
 			options.setCleanSession(true);
 			options.setConnectionTimeout(30);
