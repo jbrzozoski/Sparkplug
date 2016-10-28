@@ -757,69 +757,81 @@ public final class SparkplugBProto {
          */
         Unknown(0, 0),
         /**
-         * <code>Int1 = 1;</code>
+         * <code>Int8 = 1;</code>
          *
          * <pre>
-         * Ignition Data Types
+         * Data Types
          * </pre>
          */
-        Int1(1, 1),
+        Int8(1, 1),
         /**
-         * <code>Int2 = 2;</code>
+         * <code>Int16 = 2;</code>
          */
-        Int2(2, 2),
+        Int16(2, 2),
         /**
-         * <code>Int4 = 3;</code>
+         * <code>Int32 = 3;</code>
          */
-        Int4(3, 3),
+        Int32(3, 3),
         /**
-         * <code>Int8 = 4;</code>
+         * <code>Int64 = 4;</code>
          */
-        Int8(4, 4),
+        Int64(4, 4),
         /**
-         * <code>Float4 = 5;</code>
+         * <code>UInt8 = 5;</code>
          */
-        Float4(5, 5),
+        UInt8(5, 5),
         /**
-         * <code>Float8 = 6;</code>
+         * <code>UInt16 = 6;</code>
          */
-        Float8(6, 6),
+        UInt16(6, 6),
         /**
-         * <code>Boolean = 7;</code>
+         * <code>UInt32 = 7;</code>
          */
-        Boolean(7, 7),
+        UInt32(7, 7),
         /**
-         * <code>String = 8;</code>
+         * <code>UInt64 = 8;</code>
          */
-        String(8, 8),
+        UInt64(8, 8),
         /**
-         * <code>DateTime = 9;</code>
+         * <code>Float = 9;</code>
          */
-        DateTime(9, 9),
+        Float(9, 9),
         /**
-         * <code>Dataset = 10;</code>
+         * <code>Double = 10;</code>
          */
-        Dataset(10, 10),
+        Double(10, 10),
         /**
-         * <code>Text = 11;</code>
+         * <code>Boolean = 11;</code>
          */
-        Text(11, 11),
+        Boolean(11, 11),
         /**
-         * <code>Bytes = 12;</code>
+         * <code>String = 12;</code>
+         */
+        String(12, 12),
+        /**
+         * <code>DateTime = 13;</code>
+         */
+        DateTime(13, 13),
+        /**
+         * <code>Text = 14;</code>
+         */
+        Text(14, 14),
+        /**
+         * <code>Dataset = 15;</code>
          *
          * <pre>
          * Additional Data Types
          * </pre>
          */
-        Bytes(12, 12),
+        Dataset(15, 15),
         /**
-         * <code>File = 13;</code>
+         * <code>Bytes = 16;</code>
          */
-        File(13, 13),
+        Bytes(16, 16),
         /**
-         * <code>UDT = 14;</code>
+         * <code>File = 17;</code>
          */
-        UDT(14, 14),
+        File(17, 17),
         ;
 
         /**
@@ -831,69 +843,81 @@ public final class SparkplugBProto {
          */
         public static final int Unknown_VALUE = 0;
         /**
-         * <code>Int1 = 1;</code>
+         * <code>Int8 = 1;</code>
          *
          * <pre>
-         * Ignition Data Types
+         * Data Types
          * </pre>
          */
-        public static final int Int1_VALUE = 1;
+        public static final int Int8_VALUE = 1;
         /**
-         * <code>Int2 = 2;</code>
+         * <code>Int16 = 2;</code>
          */
-        public static final int Int2_VALUE = 2;
+        public static final int Int16_VALUE = 2;
         /**
-         * <code>Int4 = 3;</code>
+         * <code>Int32 = 3;</code>
          */
-        public static final int Int4_VALUE = 3;
+        public static final int Int32_VALUE = 3;
         /**
-         * <code>Int8 = 4;</code>
+         * <code>Int64 = 4;</code>
          */
-        public static final int Int8_VALUE = 4;
+        public static final int Int64_VALUE = 4;
         /**
-         * <code>Float4 = 5;</code>
+         * <code>UInt8 = 5;</code>
          */
-        public static final int Float4_VALUE = 5;
+        public static final int UInt8_VALUE = 5;
         /**
-         * <code>Float8 = 6;</code>
+         * <code>UInt16 = 6;</code>
          */
-        public static final int Float8_VALUE = 6;
+        public static final int UInt16_VALUE = 6;
         /**
-         * <code>Boolean = 7;</code>
+         * <code>UInt32 = 7;</code>
          */
-        public static final int Boolean_VALUE = 7;
+        public static final int UInt32_VALUE = 7;
         /**
-         * <code>String = 8;</code>
+         * <code>UInt64 = 8;</code>
          */
-        public static final int String_VALUE = 8;
+        public static final int UInt64_VALUE = 8;
         /**
-         * <code>DateTime = 9;</code>
+         * <code>Float = 9;</code>
          */
-        public static final int DateTime_VALUE = 9;
+        public static final int Float_VALUE = 9;
         /**
-         * <code>Dataset = 10;</code>
+         * <code>Double = 10;</code>
          */
-        public static final int Dataset_VALUE = 10;
+        public static final int Double_VALUE = 10;
         /**
-         * <code>Text = 11;</code>
+         * <code>Boolean = 11;</code>
          */
-        public static final int Text_VALUE = 11;
+        public static final int Boolean_VALUE = 11;
         /**
-         * <code>Bytes = 12;</code>
+         * <code>String = 12;</code>
+         */
+        public static final int String_VALUE = 12;
+        /**
+         * <code>DateTime = 13;</code>
+         */
+        public static final int DateTime_VALUE = 13;
+        /**
+         * <code>Text = 14;</code>
+         */
+        public static final int Text_VALUE = 14;
+        /**
+         * <code>Dataset = 15;</code>
          *
          * <pre>
          * Additional Data Types
          * </pre>
          */
-        public static final int Bytes_VALUE = 12;
+        public static final int Dataset_VALUE = 15;
         /**
-         * <code>File = 13;</code>
+         * <code>Bytes = 16;</code>
          */
-        public static final int File_VALUE = 13;
+        public static final int Bytes_VALUE = 16;
         /**
-         * <code>UDT = 14;</code>
+         * <code>File = 17;</code>
          */
-        public static final int UDT_VALUE = 14;
+        public static final int File_VALUE = 17;
 
 
         public final int getNumber() { return value; }
@@ -901,20 +925,23 @@ public final class SparkplugBProto {
         public static DataType valueOf(int value) {
           switch (value) {
             case 0: return Unknown;
-            case 1: return Int1;
-            case 2: return Int2;
-            case 3: return Int4;
-            case 4: return Int8;
-            case 5: return Float4;
-            case 6: return Float8;
-            case 7: return Boolean;
-            case 8: return String;
-            case 9: return DateTime;
-            case 10: return Dataset;
-            case 11: return Text;
-            case 12: return Bytes;
-            case 13: return File;
-            case 14: return UDT;
+            case 1: return Int8;
+            case 2: return Int16;
+            case 3: return Int32;
+            case 4: return Int64;
+            case 5: return UInt8;
+            case 6: return UInt16;
+            case 7: return UInt32;
+            case 8: return UInt64;
+            case 9: return Float;
+            case 10: return Double;
+            case 11: return Boolean;
+            case 12: return String;
+            case 13: return DateTime;
+            case 14: return Text;
+            case 15: return Dataset;
+            case 16: return Bytes;
+            case 17: return File;
             default: return null;
           }
         }
@@ -964,6 +991,3279 @@ public final class SparkplugBProto {
         }
 
         // @@protoc_insertion_point(enum_scope:com.cirruslink.sparkplug.protobuf.Payload.Metric.DataType)
+      }
+
+      public interface PropertyValueOrBuilder extends
+          // @@protoc_insertion_point(interface_extends:com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue)
+          com.google.protobuf.GeneratedMessage.
+              ExtendableMessageOrBuilder<PropertyValue> {
+
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataType type = 1;</code>
+         */
+        boolean hasType();
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataType type = 1;</code>
+         */
+        com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataType getType();
+
+        /**
+         * <code>optional uint32 int_value = 2;</code>
+         */
+        boolean hasIntValue();
+        /**
+         * <code>optional uint32 int_value = 2;</code>
+         */
+        int getIntValue();
+
+        /**
+         * <code>optional uint64 long_value = 3;</code>
+         */
+        boolean hasLongValue();
+        /**
+         * <code>optional uint64 long_value = 3;</code>
+         */
+        long getLongValue();
+
+        /**
+         * <code>optional float float_value = 4;</code>
+         */
+        boolean hasFloatValue();
+        /**
+         * <code>optional float float_value = 4;</code>
+         */
+        float getFloatValue();
+
+        /**
+         * <code>optional double double_value = 5;</code>
+         */
+        boolean hasDoubleValue();
+        /**
+         * <code>optional double double_value = 5;</code>
+         */
+        double getDoubleValue();
+
+        /**
+         * <code>optional bool boolean_value = 6;</code>
+         */
+        boolean hasBooleanValue();
+        /**
+         * <code>optional bool boolean_value = 6;</code>
+         */
+        boolean getBooleanValue();
+
+        /**
+         * <code>optional string string_value = 7;</code>
+         */
+        boolean hasStringValue();
+        /**
+         * <code>optional string string_value = 7;</code>
+         */
+        java.lang.String getStringValue();
+        /**
+         * <code>optional string string_value = 7;</code>
+         */
+        com.google.protobuf.ByteString
+            getStringValueBytes();
+
+        /**
+         * <code>optional bytes bytes_value = 8;</code>
+         */
+        boolean hasBytesValue();
+        /**
+         * <code>optional bytes bytes_value = 8;</code>
+         */
+        com.google.protobuf.ByteString getBytesValue();
+
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet dataset_value = 9;</code>
+         */
+        boolean hasDatasetValue();
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet dataset_value = 9;</code>
+         */
+        com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet getDatasetValue();
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet dataset_value = 9;</code>
+         */
+        com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSetOrBuilder getDatasetValueOrBuilder();
+
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet propertyset_value = 10;</code>
+         */
+        boolean hasPropertysetValue();
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet propertyset_value = 10;</code>
+         */
+        com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet getPropertysetValue();
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet propertyset_value = 10;</code>
+         */
+        com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetOrBuilder getPropertysetValueOrBuilder();
+
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList propertysetlist_value = 11;</code>
+         *
+         * <pre>
+         * List of Property Values
+         * </pre>
+         */
+        boolean hasPropertysetlistValue();
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList propertysetlist_value = 11;</code>
+         *
+         * <pre>
+         * List of Property Values
+         * </pre>
+         */
+        com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList getPropertysetlistValue();
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList propertysetlist_value = 11;</code>
+         *
+         * <pre>
+         * List of Property Values
+         * </pre>
+         */
+        com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetListOrBuilder getPropertysetlistValueOrBuilder();
+      }
+      /**
+       * Protobuf type {@code com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue}
+       */
+      public static final class PropertyValue extends
+          com.google.protobuf.GeneratedMessage.ExtendableMessage<
+            PropertyValue> implements
+          // @@protoc_insertion_point(message_implements:com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue)
+          PropertyValueOrBuilder {
+        // Use PropertyValue.newBuilder() to construct.
+        private PropertyValue(com.google.protobuf.GeneratedMessage.ExtendableBuilder<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue, ?> builder) {
+          super(builder);
+          this.unknownFields = builder.getUnknownFields();
+        }
+        private PropertyValue(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+        private static final PropertyValue defaultInstance;
+        public static PropertyValue getDefaultInstance() {
+          return defaultInstance;
+        }
+
+        public PropertyValue getDefaultInstanceForType() {
+          return defaultInstance;
+        }
+
+        private final com.google.protobuf.UnknownFieldSet unknownFields;
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+            getUnknownFields() {
+          return this.unknownFields;
+        }
+        private PropertyValue(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          initFields();
+          int mutable_bitField0_ = 0;
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+              com.google.protobuf.UnknownFieldSet.newBuilder();
+          try {
+            boolean done = false;
+            while (!done) {
+              int tag = input.readTag();
+              switch (tag) {
+                case 0:
+                  done = true;
+                  break;
+                default: {
+                  if (!parseUnknownField(input, unknownFields,
+                                         extensionRegistry, tag)) {
+                    done = true;
+                  }
+                  break;
+                }
+                case 8: {
+                  int rawValue = input.readEnum();
+                  com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataType value = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataType.valueOf(rawValue);
+                  if (value == null) {
+                    unknownFields.mergeVarintField(1, rawValue);
+                  } else {
+                    bitField0_ |= 0x00000001;
+                    type_ = value;
+                  }
+                  break;
+                }
+                case 16: {
+                  bitField0_ |= 0x00000002;
+                  intValue_ = input.readUInt32();
+                  break;
+                }
+                case 24: {
+                  bitField0_ |= 0x00000004;
+                  longValue_ = input.readUInt64();
+                  break;
+                }
+                case 37: {
+                  bitField0_ |= 0x00000008;
+                  floatValue_ = input.readFloat();
+                  break;
+                }
+                case 41: {
+                  bitField0_ |= 0x00000010;
+                  doubleValue_ = input.readDouble();
+                  break;
+                }
+                case 48: {
+                  bitField0_ |= 0x00000020;
+                  booleanValue_ = input.readBool();
+                  break;
+                }
+                case 58: {
+                  com.google.protobuf.ByteString bs = input.readBytes();
+                  bitField0_ |= 0x00000040;
+                  stringValue_ = bs;
+                  break;
+                }
+                case 66: {
+                  bitField0_ |= 0x00000080;
+                  bytesValue_ = input.readBytes();
+                  break;
+                }
+                case 74: {
+                  com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet.Builder subBuilder = null;
+                  if (((bitField0_ & 0x00000100) == 0x00000100)) {
+                    subBuilder = datasetValue_.toBuilder();
+                  }
+                  datasetValue_ = input.readMessage(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet.PARSER, extensionRegistry);
+                  if (subBuilder != null) {
+                    subBuilder.mergeFrom(datasetValue_);
+                    datasetValue_ = subBuilder.buildPartial();
+                  }
+                  bitField0_ |= 0x00000100;
+                  break;
+                }
+                case 82: {
+                  com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder subBuilder = null;
+                  if (((bitField0_ & 0x00000200) == 0x00000200)) {
+                    subBuilder = propertysetValue_.toBuilder();
+                  }
+                  propertysetValue_ = input.readMessage(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.PARSER, extensionRegistry);
+                  if (subBuilder != null) {
+                    subBuilder.mergeFrom(propertysetValue_);
+                    propertysetValue_ = subBuilder.buildPartial();
+                  }
+                  bitField0_ |= 0x00000200;
+                  break;
+                }
+                case 90: {
+                  com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.Builder subBuilder = null;
+                  if (((bitField0_ & 0x00000400) == 0x00000400)) {
+                    subBuilder = propertysetlistValue_.toBuilder();
+                  }
+                  propertysetlistValue_ = input.readMessage(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.PARSER, extensionRegistry);
+                  if (subBuilder != null) {
+                    subBuilder.mergeFrom(propertysetlistValue_);
+                    propertysetlistValue_ = subBuilder.buildPartial();
+                  }
+                  bitField0_ |= 0x00000400;
+                  break;
+                }
+              }
+            }
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            throw e.setUnfinishedMessage(this);
+          } catch (java.io.IOException e) {
+            throw new com.google.protobuf.InvalidProtocolBufferException(
+                e.getMessage()).setUnfinishedMessage(this);
+          } finally {
+            this.unknownFields = unknownFields.build();
+            makeExtensionsImmutable();
+          }
+        }
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return com.cirruslink.sparkplug.protobuf.SparkplugBProto.internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertyValue_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return com.cirruslink.sparkplug.protobuf.SparkplugBProto.internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertyValue_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.class, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.Builder.class);
+        }
+
+        public static com.google.protobuf.Parser<PropertyValue> PARSER =
+            new com.google.protobuf.AbstractParser<PropertyValue>() {
+          public PropertyValue parsePartialFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+            return new PropertyValue(input, extensionRegistry);
+          }
+        };
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<PropertyValue> getParserForType() {
+          return PARSER;
+        }
+
+        private int bitField0_;
+        public static final int TYPE_FIELD_NUMBER = 1;
+        private com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataType type_;
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataType type = 1;</code>
+         */
+        public boolean hasType() {
+          return ((bitField0_ & 0x00000001) == 0x00000001);
+        }
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataType type = 1;</code>
+         */
+        public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataType getType() {
+          return type_;
+        }
+
+        public static final int INT_VALUE_FIELD_NUMBER = 2;
+        private int intValue_;
+        /**
+         * <code>optional uint32 int_value = 2;</code>
+         */
+        public boolean hasIntValue() {
+          return ((bitField0_ & 0x00000002) == 0x00000002);
+        }
+        /**
+         * <code>optional uint32 int_value = 2;</code>
+         */
+        public int getIntValue() {
+          return intValue_;
+        }
+
+        public static final int LONG_VALUE_FIELD_NUMBER = 3;
+        private long longValue_;
+        /**
+         * <code>optional uint64 long_value = 3;</code>
+         */
+        public boolean hasLongValue() {
+          return ((bitField0_ & 0x00000004) == 0x00000004);
+        }
+        /**
+         * <code>optional uint64 long_value = 3;</code>
+         */
+        public long getLongValue() {
+          return longValue_;
+        }
+
+        public static final int FLOAT_VALUE_FIELD_NUMBER = 4;
+        private float floatValue_;
+        /**
+         * <code>optional float float_value = 4;</code>
+         */
+        public boolean hasFloatValue() {
+          return ((bitField0_ & 0x00000008) == 0x00000008);
+        }
+        /**
+         * <code>optional float float_value = 4;</code>
+         */
+        public float getFloatValue() {
+          return floatValue_;
+        }
+
+        public static final int DOUBLE_VALUE_FIELD_NUMBER = 5;
+        private double doubleValue_;
+        /**
+         * <code>optional double double_value = 5;</code>
+         */
+        public boolean hasDoubleValue() {
+          return ((bitField0_ & 0x00000010) == 0x00000010);
+        }
+        /**
+         * <code>optional double double_value = 5;</code>
+         */
+        public double getDoubleValue() {
+          return doubleValue_;
+        }
+
+        public static final int BOOLEAN_VALUE_FIELD_NUMBER = 6;
+        private boolean booleanValue_;
+        /**
+         * <code>optional bool boolean_value = 6;</code>
+         */
+        public boolean hasBooleanValue() {
+          return ((bitField0_ & 0x00000020) == 0x00000020);
+        }
+        /**
+         * <code>optional bool boolean_value = 6;</code>
+         */
+        public boolean getBooleanValue() {
+          return booleanValue_;
+        }
+
+        public static final int STRING_VALUE_FIELD_NUMBER = 7;
+        private java.lang.Object stringValue_;
+        /**
+         * <code>optional string string_value = 7;</code>
+         */
+        public boolean hasStringValue() {
+          return ((bitField0_ & 0x00000040) == 0x00000040);
+        }
+        /**
+         * <code>optional string string_value = 7;</code>
+         */
+        public java.lang.String getStringValue() {
+          java.lang.Object ref = stringValue_;
+          if (ref instanceof java.lang.String) {
+            return (java.lang.String) ref;
+          } else {
+            com.google.protobuf.ByteString bs = 
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              stringValue_ = s;
+            }
+            return s;
+          }
+        }
+        /**
+         * <code>optional string string_value = 7;</code>
+         */
+        public com.google.protobuf.ByteString
+            getStringValueBytes() {
+          java.lang.Object ref = stringValue_;
+          if (ref instanceof java.lang.String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            stringValue_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+
+        public static final int BYTES_VALUE_FIELD_NUMBER = 8;
+        private com.google.protobuf.ByteString bytesValue_;
+        /**
+         * <code>optional bytes bytes_value = 8;</code>
+         */
+        public boolean hasBytesValue() {
+          return ((bitField0_ & 0x00000080) == 0x00000080);
+        }
+        /**
+         * <code>optional bytes bytes_value = 8;</code>
+         */
+        public com.google.protobuf.ByteString getBytesValue() {
+          return bytesValue_;
+        }
+
+        public static final int DATASET_VALUE_FIELD_NUMBER = 9;
+        private com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet datasetValue_;
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet dataset_value = 9;</code>
+         */
+        public boolean hasDatasetValue() {
+          return ((bitField0_ & 0x00000100) == 0x00000100);
+        }
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet dataset_value = 9;</code>
+         */
+        public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet getDatasetValue() {
+          return datasetValue_;
+        }
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet dataset_value = 9;</code>
+         */
+        public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSetOrBuilder getDatasetValueOrBuilder() {
+          return datasetValue_;
+        }
+
+        public static final int PROPERTYSET_VALUE_FIELD_NUMBER = 10;
+        private com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet propertysetValue_;
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet propertyset_value = 10;</code>
+         */
+        public boolean hasPropertysetValue() {
+          return ((bitField0_ & 0x00000200) == 0x00000200);
+        }
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet propertyset_value = 10;</code>
+         */
+        public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet getPropertysetValue() {
+          return propertysetValue_;
+        }
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet propertyset_value = 10;</code>
+         */
+        public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetOrBuilder getPropertysetValueOrBuilder() {
+          return propertysetValue_;
+        }
+
+        public static final int PROPERTYSETLIST_VALUE_FIELD_NUMBER = 11;
+        private com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList propertysetlistValue_;
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList propertysetlist_value = 11;</code>
+         *
+         * <pre>
+         * List of Property Values
+         * </pre>
+         */
+        public boolean hasPropertysetlistValue() {
+          return ((bitField0_ & 0x00000400) == 0x00000400);
+        }
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList propertysetlist_value = 11;</code>
+         *
+         * <pre>
+         * List of Property Values
+         * </pre>
+         */
+        public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList getPropertysetlistValue() {
+          return propertysetlistValue_;
+        }
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList propertysetlist_value = 11;</code>
+         *
+         * <pre>
+         * List of Property Values
+         * </pre>
+         */
+        public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetListOrBuilder getPropertysetlistValueOrBuilder() {
+          return propertysetlistValue_;
+        }
+
+        private void initFields() {
+          type_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataType.Unknown;
+          intValue_ = 0;
+          longValue_ = 0L;
+          floatValue_ = 0F;
+          doubleValue_ = 0D;
+          booleanValue_ = false;
+          stringValue_ = "";
+          bytesValue_ = com.google.protobuf.ByteString.EMPTY;
+          datasetValue_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet.getDefaultInstance();
+          propertysetValue_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.getDefaultInstance();
+          propertysetlistValue_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.getDefaultInstance();
+        }
+        private byte memoizedIsInitialized = -1;
+        public final boolean isInitialized() {
+          byte isInitialized = memoizedIsInitialized;
+          if (isInitialized == 1) return true;
+          if (isInitialized == 0) return false;
+
+          if (hasDatasetValue()) {
+            if (!getDatasetValue().isInitialized()) {
+              memoizedIsInitialized = 0;
+              return false;
+            }
+          }
+          if (hasPropertysetValue()) {
+            if (!getPropertysetValue().isInitialized()) {
+              memoizedIsInitialized = 0;
+              return false;
+            }
+          }
+          if (hasPropertysetlistValue()) {
+            if (!getPropertysetlistValue().isInitialized()) {
+              memoizedIsInitialized = 0;
+              return false;
+            }
+          }
+          if (!extensionsAreInitialized()) {
+            memoizedIsInitialized = 0;
+            return false;
+          }
+          memoizedIsInitialized = 1;
+          return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                            throws java.io.IOException {
+          getSerializedSize();
+          com.google.protobuf.GeneratedMessage
+            .ExtendableMessage<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue>.ExtensionWriter extensionWriter =
+              newExtensionWriter();
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            output.writeEnum(1, type_.getNumber());
+          }
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            output.writeUInt32(2, intValue_);
+          }
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            output.writeUInt64(3, longValue_);
+          }
+          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+            output.writeFloat(4, floatValue_);
+          }
+          if (((bitField0_ & 0x00000010) == 0x00000010)) {
+            output.writeDouble(5, doubleValue_);
+          }
+          if (((bitField0_ & 0x00000020) == 0x00000020)) {
+            output.writeBool(6, booleanValue_);
+          }
+          if (((bitField0_ & 0x00000040) == 0x00000040)) {
+            output.writeBytes(7, getStringValueBytes());
+          }
+          if (((bitField0_ & 0x00000080) == 0x00000080)) {
+            output.writeBytes(8, bytesValue_);
+          }
+          if (((bitField0_ & 0x00000100) == 0x00000100)) {
+            output.writeMessage(9, datasetValue_);
+          }
+          if (((bitField0_ & 0x00000200) == 0x00000200)) {
+            output.writeMessage(10, propertysetValue_);
+          }
+          if (((bitField0_ & 0x00000400) == 0x00000400)) {
+            output.writeMessage(11, propertysetlistValue_);
+          }
+          extensionWriter.writeUntil(536870912, output);
+          getUnknownFields().writeTo(output);
+        }
+
+        private int memoizedSerializedSize = -1;
+        public int getSerializedSize() {
+          int size = memoizedSerializedSize;
+          if (size != -1) return size;
+
+          size = 0;
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeEnumSize(1, type_.getNumber());
+          }
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeUInt32Size(2, intValue_);
+          }
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeUInt64Size(3, longValue_);
+          }
+          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeFloatSize(4, floatValue_);
+          }
+          if (((bitField0_ & 0x00000010) == 0x00000010)) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeDoubleSize(5, doubleValue_);
+          }
+          if (((bitField0_ & 0x00000020) == 0x00000020)) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeBoolSize(6, booleanValue_);
+          }
+          if (((bitField0_ & 0x00000040) == 0x00000040)) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeBytesSize(7, getStringValueBytes());
+          }
+          if (((bitField0_ & 0x00000080) == 0x00000080)) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeBytesSize(8, bytesValue_);
+          }
+          if (((bitField0_ & 0x00000100) == 0x00000100)) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeMessageSize(9, datasetValue_);
+          }
+          if (((bitField0_ & 0x00000200) == 0x00000200)) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeMessageSize(10, propertysetValue_);
+          }
+          if (((bitField0_ & 0x00000400) == 0x00000400)) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeMessageSize(11, propertysetlistValue_);
+          }
+          size += extensionsSerializedSize();
+          size += getUnknownFields().getSerializedSize();
+          memoizedSerializedSize = size;
+          return size;
+        }
+
+        private static final long serialVersionUID = 0L;
+        @java.lang.Override
+        protected java.lang.Object writeReplace()
+            throws java.io.ObjectStreamException {
+          return super.writeReplace();
+        }
+
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data, extensionRegistry);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data, extensionRegistry);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
+          return PARSER.parseFrom(input);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return PARSER.parseFrom(input, extensionRegistry);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
+          return PARSER.parseDelimitedFrom(input);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return PARSER.parseDelimitedFrom(input, extensionRegistry);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
+          return PARSER.parseFrom(input);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return PARSER.parseFrom(input, extensionRegistry);
+        }
+
+        public static Builder newBuilder() { return Builder.create(); }
+        public Builder newBuilderForType() { return newBuilder(); }
+        public static Builder newBuilder(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue prototype) {
+          return newBuilder().mergeFrom(prototype);
+        }
+        public Builder toBuilder() { return newBuilder(this); }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          Builder builder = new Builder(parent);
+          return builder;
+        }
+        /**
+         * Protobuf type {@code com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue}
+         */
+        public static final class Builder extends
+            com.google.protobuf.GeneratedMessage.ExtendableBuilder<
+              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue, Builder> implements
+            // @@protoc_insertion_point(builder_implements:com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue)
+            com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValueOrBuilder {
+          public static final com.google.protobuf.Descriptors.Descriptor
+              getDescriptor() {
+            return com.cirruslink.sparkplug.protobuf.SparkplugBProto.internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertyValue_descriptor;
+          }
+
+          protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+              internalGetFieldAccessorTable() {
+            return com.cirruslink.sparkplug.protobuf.SparkplugBProto.internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertyValue_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                    com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.class, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.Builder.class);
+          }
+
+          // Construct using com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.newBuilder()
+          private Builder() {
+            maybeForceBuilderInitialization();
+          }
+
+          private Builder(
+              com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+            super(parent);
+            maybeForceBuilderInitialization();
+          }
+          private void maybeForceBuilderInitialization() {
+            if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+              getDatasetValueFieldBuilder();
+              getPropertysetValueFieldBuilder();
+              getPropertysetlistValueFieldBuilder();
+            }
+          }
+          private static Builder create() {
+            return new Builder();
+          }
+
+          public Builder clear() {
+            super.clear();
+            type_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataType.Unknown;
+            bitField0_ = (bitField0_ & ~0x00000001);
+            intValue_ = 0;
+            bitField0_ = (bitField0_ & ~0x00000002);
+            longValue_ = 0L;
+            bitField0_ = (bitField0_ & ~0x00000004);
+            floatValue_ = 0F;
+            bitField0_ = (bitField0_ & ~0x00000008);
+            doubleValue_ = 0D;
+            bitField0_ = (bitField0_ & ~0x00000010);
+            booleanValue_ = false;
+            bitField0_ = (bitField0_ & ~0x00000020);
+            stringValue_ = "";
+            bitField0_ = (bitField0_ & ~0x00000040);
+            bytesValue_ = com.google.protobuf.ByteString.EMPTY;
+            bitField0_ = (bitField0_ & ~0x00000080);
+            if (datasetValueBuilder_ == null) {
+              datasetValue_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet.getDefaultInstance();
+            } else {
+              datasetValueBuilder_.clear();
+            }
+            bitField0_ = (bitField0_ & ~0x00000100);
+            if (propertysetValueBuilder_ == null) {
+              propertysetValue_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.getDefaultInstance();
+            } else {
+              propertysetValueBuilder_.clear();
+            }
+            bitField0_ = (bitField0_ & ~0x00000200);
+            if (propertysetlistValueBuilder_ == null) {
+              propertysetlistValue_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.getDefaultInstance();
+            } else {
+              propertysetlistValueBuilder_.clear();
+            }
+            bitField0_ = (bitField0_ & ~0x00000400);
+            return this;
+          }
+
+          public Builder clone() {
+            return create().mergeFrom(buildPartial());
+          }
+
+          public com.google.protobuf.Descriptors.Descriptor
+              getDescriptorForType() {
+            return com.cirruslink.sparkplug.protobuf.SparkplugBProto.internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertyValue_descriptor;
+          }
+
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue getDefaultInstanceForType() {
+            return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.getDefaultInstance();
+          }
+
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue build() {
+            com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue result = buildPartial();
+            if (!result.isInitialized()) {
+              throw newUninitializedMessageException(result);
+            }
+            return result;
+          }
+
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue buildPartial() {
+            com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue result = new com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue(this);
+            int from_bitField0_ = bitField0_;
+            int to_bitField0_ = 0;
+            if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+              to_bitField0_ |= 0x00000001;
+            }
+            result.type_ = type_;
+            if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+              to_bitField0_ |= 0x00000002;
+            }
+            result.intValue_ = intValue_;
+            if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+              to_bitField0_ |= 0x00000004;
+            }
+            result.longValue_ = longValue_;
+            if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+              to_bitField0_ |= 0x00000008;
+            }
+            result.floatValue_ = floatValue_;
+            if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+              to_bitField0_ |= 0x00000010;
+            }
+            result.doubleValue_ = doubleValue_;
+            if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+              to_bitField0_ |= 0x00000020;
+            }
+            result.booleanValue_ = booleanValue_;
+            if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+              to_bitField0_ |= 0x00000040;
+            }
+            result.stringValue_ = stringValue_;
+            if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+              to_bitField0_ |= 0x00000080;
+            }
+            result.bytesValue_ = bytesValue_;
+            if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+              to_bitField0_ |= 0x00000100;
+            }
+            if (datasetValueBuilder_ == null) {
+              result.datasetValue_ = datasetValue_;
+            } else {
+              result.datasetValue_ = datasetValueBuilder_.build();
+            }
+            if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+              to_bitField0_ |= 0x00000200;
+            }
+            if (propertysetValueBuilder_ == null) {
+              result.propertysetValue_ = propertysetValue_;
+            } else {
+              result.propertysetValue_ = propertysetValueBuilder_.build();
+            }
+            if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
+              to_bitField0_ |= 0x00000400;
+            }
+            if (propertysetlistValueBuilder_ == null) {
+              result.propertysetlistValue_ = propertysetlistValue_;
+            } else {
+              result.propertysetlistValue_ = propertysetlistValueBuilder_.build();
+            }
+            result.bitField0_ = to_bitField0_;
+            onBuilt();
+            return result;
+          }
+
+          public Builder mergeFrom(com.google.protobuf.Message other) {
+            if (other instanceof com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue) {
+              return mergeFrom((com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue)other);
+            } else {
+              super.mergeFrom(other);
+              return this;
+            }
+          }
+
+          public Builder mergeFrom(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue other) {
+            if (other == com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.getDefaultInstance()) return this;
+            if (other.hasType()) {
+              setType(other.getType());
+            }
+            if (other.hasIntValue()) {
+              setIntValue(other.getIntValue());
+            }
+            if (other.hasLongValue()) {
+              setLongValue(other.getLongValue());
+            }
+            if (other.hasFloatValue()) {
+              setFloatValue(other.getFloatValue());
+            }
+            if (other.hasDoubleValue()) {
+              setDoubleValue(other.getDoubleValue());
+            }
+            if (other.hasBooleanValue()) {
+              setBooleanValue(other.getBooleanValue());
+            }
+            if (other.hasStringValue()) {
+              bitField0_ |= 0x00000040;
+              stringValue_ = other.stringValue_;
+              onChanged();
+            }
+            if (other.hasBytesValue()) {
+              setBytesValue(other.getBytesValue());
+            }
+            if (other.hasDatasetValue()) {
+              mergeDatasetValue(other.getDatasetValue());
+            }
+            if (other.hasPropertysetValue()) {
+              mergePropertysetValue(other.getPropertysetValue());
+            }
+            if (other.hasPropertysetlistValue()) {
+              mergePropertysetlistValue(other.getPropertysetlistValue());
+            }
+            this.mergeExtensionFields(other);
+            this.mergeUnknownFields(other.getUnknownFields());
+            return this;
+          }
+
+          public final boolean isInitialized() {
+            if (hasDatasetValue()) {
+              if (!getDatasetValue().isInitialized()) {
+                
+                return false;
+              }
+            }
+            if (hasPropertysetValue()) {
+              if (!getPropertysetValue().isInitialized()) {
+                
+                return false;
+              }
+            }
+            if (hasPropertysetlistValue()) {
+              if (!getPropertysetlistValue().isInitialized()) {
+                
+                return false;
+              }
+            }
+            if (!extensionsAreInitialized()) {
+              
+              return false;
+            }
+            return true;
+          }
+
+          public Builder mergeFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+            com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue parsedMessage = null;
+            try {
+              parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+              parsedMessage = (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue) e.getUnfinishedMessage();
+              throw e;
+            } finally {
+              if (parsedMessage != null) {
+                mergeFrom(parsedMessage);
+              }
+            }
+            return this;
+          }
+          private int bitField0_;
+
+          private com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataType type_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataType.Unknown;
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataType type = 1;</code>
+           */
+          public boolean hasType() {
+            return ((bitField0_ & 0x00000001) == 0x00000001);
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataType type = 1;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataType getType() {
+            return type_;
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataType type = 1;</code>
+           */
+          public Builder setType(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataType value) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            bitField0_ |= 0x00000001;
+            type_ = value;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataType type = 1;</code>
+           */
+          public Builder clearType() {
+            bitField0_ = (bitField0_ & ~0x00000001);
+            type_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataType.Unknown;
+            onChanged();
+            return this;
+          }
+
+          private int intValue_ ;
+          /**
+           * <code>optional uint32 int_value = 2;</code>
+           */
+          public boolean hasIntValue() {
+            return ((bitField0_ & 0x00000002) == 0x00000002);
+          }
+          /**
+           * <code>optional uint32 int_value = 2;</code>
+           */
+          public int getIntValue() {
+            return intValue_;
+          }
+          /**
+           * <code>optional uint32 int_value = 2;</code>
+           */
+          public Builder setIntValue(int value) {
+            bitField0_ |= 0x00000002;
+            intValue_ = value;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>optional uint32 int_value = 2;</code>
+           */
+          public Builder clearIntValue() {
+            bitField0_ = (bitField0_ & ~0x00000002);
+            intValue_ = 0;
+            onChanged();
+            return this;
+          }
+
+          private long longValue_ ;
+          /**
+           * <code>optional uint64 long_value = 3;</code>
+           */
+          public boolean hasLongValue() {
+            return ((bitField0_ & 0x00000004) == 0x00000004);
+          }
+          /**
+           * <code>optional uint64 long_value = 3;</code>
+           */
+          public long getLongValue() {
+            return longValue_;
+          }
+          /**
+           * <code>optional uint64 long_value = 3;</code>
+           */
+          public Builder setLongValue(long value) {
+            bitField0_ |= 0x00000004;
+            longValue_ = value;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>optional uint64 long_value = 3;</code>
+           */
+          public Builder clearLongValue() {
+            bitField0_ = (bitField0_ & ~0x00000004);
+            longValue_ = 0L;
+            onChanged();
+            return this;
+          }
+
+          private float floatValue_ ;
+          /**
+           * <code>optional float float_value = 4;</code>
+           */
+          public boolean hasFloatValue() {
+            return ((bitField0_ & 0x00000008) == 0x00000008);
+          }
+          /**
+           * <code>optional float float_value = 4;</code>
+           */
+          public float getFloatValue() {
+            return floatValue_;
+          }
+          /**
+           * <code>optional float float_value = 4;</code>
+           */
+          public Builder setFloatValue(float value) {
+            bitField0_ |= 0x00000008;
+            floatValue_ = value;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>optional float float_value = 4;</code>
+           */
+          public Builder clearFloatValue() {
+            bitField0_ = (bitField0_ & ~0x00000008);
+            floatValue_ = 0F;
+            onChanged();
+            return this;
+          }
+
+          private double doubleValue_ ;
+          /**
+           * <code>optional double double_value = 5;</code>
+           */
+          public boolean hasDoubleValue() {
+            return ((bitField0_ & 0x00000010) == 0x00000010);
+          }
+          /**
+           * <code>optional double double_value = 5;</code>
+           */
+          public double getDoubleValue() {
+            return doubleValue_;
+          }
+          /**
+           * <code>optional double double_value = 5;</code>
+           */
+          public Builder setDoubleValue(double value) {
+            bitField0_ |= 0x00000010;
+            doubleValue_ = value;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>optional double double_value = 5;</code>
+           */
+          public Builder clearDoubleValue() {
+            bitField0_ = (bitField0_ & ~0x00000010);
+            doubleValue_ = 0D;
+            onChanged();
+            return this;
+          }
+
+          private boolean booleanValue_ ;
+          /**
+           * <code>optional bool boolean_value = 6;</code>
+           */
+          public boolean hasBooleanValue() {
+            return ((bitField0_ & 0x00000020) == 0x00000020);
+          }
+          /**
+           * <code>optional bool boolean_value = 6;</code>
+           */
+          public boolean getBooleanValue() {
+            return booleanValue_;
+          }
+          /**
+           * <code>optional bool boolean_value = 6;</code>
+           */
+          public Builder setBooleanValue(boolean value) {
+            bitField0_ |= 0x00000020;
+            booleanValue_ = value;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>optional bool boolean_value = 6;</code>
+           */
+          public Builder clearBooleanValue() {
+            bitField0_ = (bitField0_ & ~0x00000020);
+            booleanValue_ = false;
+            onChanged();
+            return this;
+          }
+
+          private java.lang.Object stringValue_ = "";
+          /**
+           * <code>optional string string_value = 7;</code>
+           */
+          public boolean hasStringValue() {
+            return ((bitField0_ & 0x00000040) == 0x00000040);
+          }
+          /**
+           * <code>optional string string_value = 7;</code>
+           */
+          public java.lang.String getStringValue() {
+            java.lang.Object ref = stringValue_;
+            if (!(ref instanceof java.lang.String)) {
+              com.google.protobuf.ByteString bs =
+                  (com.google.protobuf.ByteString) ref;
+              java.lang.String s = bs.toStringUtf8();
+              if (bs.isValidUtf8()) {
+                stringValue_ = s;
+              }
+              return s;
+            } else {
+              return (java.lang.String) ref;
+            }
+          }
+          /**
+           * <code>optional string string_value = 7;</code>
+           */
+          public com.google.protobuf.ByteString
+              getStringValueBytes() {
+            java.lang.Object ref = stringValue_;
+            if (ref instanceof String) {
+              com.google.protobuf.ByteString b = 
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                      (java.lang.String) ref);
+              stringValue_ = b;
+              return b;
+            } else {
+              return (com.google.protobuf.ByteString) ref;
+            }
+          }
+          /**
+           * <code>optional string string_value = 7;</code>
+           */
+          public Builder setStringValue(
+              java.lang.String value) {
+            if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000040;
+            stringValue_ = value;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>optional string string_value = 7;</code>
+           */
+          public Builder clearStringValue() {
+            bitField0_ = (bitField0_ & ~0x00000040);
+            stringValue_ = getDefaultInstance().getStringValue();
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>optional string string_value = 7;</code>
+           */
+          public Builder setStringValueBytes(
+              com.google.protobuf.ByteString value) {
+            if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000040;
+            stringValue_ = value;
+            onChanged();
+            return this;
+          }
+
+          private com.google.protobuf.ByteString bytesValue_ = com.google.protobuf.ByteString.EMPTY;
+          /**
+           * <code>optional bytes bytes_value = 8;</code>
+           */
+          public boolean hasBytesValue() {
+            return ((bitField0_ & 0x00000080) == 0x00000080);
+          }
+          /**
+           * <code>optional bytes bytes_value = 8;</code>
+           */
+          public com.google.protobuf.ByteString getBytesValue() {
+            return bytesValue_;
+          }
+          /**
+           * <code>optional bytes bytes_value = 8;</code>
+           */
+          public Builder setBytesValue(com.google.protobuf.ByteString value) {
+            if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000080;
+            bytesValue_ = value;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>optional bytes bytes_value = 8;</code>
+           */
+          public Builder clearBytesValue() {
+            bitField0_ = (bitField0_ & ~0x00000080);
+            bytesValue_ = getDefaultInstance().getBytesValue();
+            onChanged();
+            return this;
+          }
+
+          private com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet datasetValue_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet.getDefaultInstance();
+          private com.google.protobuf.SingleFieldBuilder<
+              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSetOrBuilder> datasetValueBuilder_;
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet dataset_value = 9;</code>
+           */
+          public boolean hasDatasetValue() {
+            return ((bitField0_ & 0x00000100) == 0x00000100);
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet dataset_value = 9;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet getDatasetValue() {
+            if (datasetValueBuilder_ == null) {
+              return datasetValue_;
+            } else {
+              return datasetValueBuilder_.getMessage();
+            }
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet dataset_value = 9;</code>
+           */
+          public Builder setDatasetValue(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet value) {
+            if (datasetValueBuilder_ == null) {
+              if (value == null) {
+                throw new NullPointerException();
+              }
+              datasetValue_ = value;
+              onChanged();
+            } else {
+              datasetValueBuilder_.setMessage(value);
+            }
+            bitField0_ |= 0x00000100;
+            return this;
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet dataset_value = 9;</code>
+           */
+          public Builder setDatasetValue(
+              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet.Builder builderForValue) {
+            if (datasetValueBuilder_ == null) {
+              datasetValue_ = builderForValue.build();
+              onChanged();
+            } else {
+              datasetValueBuilder_.setMessage(builderForValue.build());
+            }
+            bitField0_ |= 0x00000100;
+            return this;
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet dataset_value = 9;</code>
+           */
+          public Builder mergeDatasetValue(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet value) {
+            if (datasetValueBuilder_ == null) {
+              if (((bitField0_ & 0x00000100) == 0x00000100) &&
+                  datasetValue_ != com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet.getDefaultInstance()) {
+                datasetValue_ =
+                  com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet.newBuilder(datasetValue_).mergeFrom(value).buildPartial();
+              } else {
+                datasetValue_ = value;
+              }
+              onChanged();
+            } else {
+              datasetValueBuilder_.mergeFrom(value);
+            }
+            bitField0_ |= 0x00000100;
+            return this;
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet dataset_value = 9;</code>
+           */
+          public Builder clearDatasetValue() {
+            if (datasetValueBuilder_ == null) {
+              datasetValue_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet.getDefaultInstance();
+              onChanged();
+            } else {
+              datasetValueBuilder_.clear();
+            }
+            bitField0_ = (bitField0_ & ~0x00000100);
+            return this;
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet dataset_value = 9;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet.Builder getDatasetValueBuilder() {
+            bitField0_ |= 0x00000100;
+            onChanged();
+            return getDatasetValueFieldBuilder().getBuilder();
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet dataset_value = 9;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSetOrBuilder getDatasetValueOrBuilder() {
+            if (datasetValueBuilder_ != null) {
+              return datasetValueBuilder_.getMessageOrBuilder();
+            } else {
+              return datasetValue_;
+            }
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet dataset_value = 9;</code>
+           */
+          private com.google.protobuf.SingleFieldBuilder<
+              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSetOrBuilder> 
+              getDatasetValueFieldBuilder() {
+            if (datasetValueBuilder_ == null) {
+              datasetValueBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+                  com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSet.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.DataSetOrBuilder>(
+                      getDatasetValue(),
+                      getParentForChildren(),
+                      isClean());
+              datasetValue_ = null;
+            }
+            return datasetValueBuilder_;
+          }
+
+          private com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet propertysetValue_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.getDefaultInstance();
+          private com.google.protobuf.SingleFieldBuilder<
+              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetOrBuilder> propertysetValueBuilder_;
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet propertyset_value = 10;</code>
+           */
+          public boolean hasPropertysetValue() {
+            return ((bitField0_ & 0x00000200) == 0x00000200);
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet propertyset_value = 10;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet getPropertysetValue() {
+            if (propertysetValueBuilder_ == null) {
+              return propertysetValue_;
+            } else {
+              return propertysetValueBuilder_.getMessage();
+            }
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet propertyset_value = 10;</code>
+           */
+          public Builder setPropertysetValue(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet value) {
+            if (propertysetValueBuilder_ == null) {
+              if (value == null) {
+                throw new NullPointerException();
+              }
+              propertysetValue_ = value;
+              onChanged();
+            } else {
+              propertysetValueBuilder_.setMessage(value);
+            }
+            bitField0_ |= 0x00000200;
+            return this;
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet propertyset_value = 10;</code>
+           */
+          public Builder setPropertysetValue(
+              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder builderForValue) {
+            if (propertysetValueBuilder_ == null) {
+              propertysetValue_ = builderForValue.build();
+              onChanged();
+            } else {
+              propertysetValueBuilder_.setMessage(builderForValue.build());
+            }
+            bitField0_ |= 0x00000200;
+            return this;
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet propertyset_value = 10;</code>
+           */
+          public Builder mergePropertysetValue(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet value) {
+            if (propertysetValueBuilder_ == null) {
+              if (((bitField0_ & 0x00000200) == 0x00000200) &&
+                  propertysetValue_ != com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.getDefaultInstance()) {
+                propertysetValue_ =
+                  com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.newBuilder(propertysetValue_).mergeFrom(value).buildPartial();
+              } else {
+                propertysetValue_ = value;
+              }
+              onChanged();
+            } else {
+              propertysetValueBuilder_.mergeFrom(value);
+            }
+            bitField0_ |= 0x00000200;
+            return this;
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet propertyset_value = 10;</code>
+           */
+          public Builder clearPropertysetValue() {
+            if (propertysetValueBuilder_ == null) {
+              propertysetValue_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.getDefaultInstance();
+              onChanged();
+            } else {
+              propertysetValueBuilder_.clear();
+            }
+            bitField0_ = (bitField0_ & ~0x00000200);
+            return this;
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet propertyset_value = 10;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder getPropertysetValueBuilder() {
+            bitField0_ |= 0x00000200;
+            onChanged();
+            return getPropertysetValueFieldBuilder().getBuilder();
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet propertyset_value = 10;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetOrBuilder getPropertysetValueOrBuilder() {
+            if (propertysetValueBuilder_ != null) {
+              return propertysetValueBuilder_.getMessageOrBuilder();
+            } else {
+              return propertysetValue_;
+            }
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet propertyset_value = 10;</code>
+           */
+          private com.google.protobuf.SingleFieldBuilder<
+              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetOrBuilder> 
+              getPropertysetValueFieldBuilder() {
+            if (propertysetValueBuilder_ == null) {
+              propertysetValueBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+                  com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetOrBuilder>(
+                      getPropertysetValue(),
+                      getParentForChildren(),
+                      isClean());
+              propertysetValue_ = null;
+            }
+            return propertysetValueBuilder_;
+          }
+
+          private com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList propertysetlistValue_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.getDefaultInstance();
+          private com.google.protobuf.SingleFieldBuilder<
+              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetListOrBuilder> propertysetlistValueBuilder_;
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList propertysetlist_value = 11;</code>
+           *
+           * <pre>
+           * List of Property Values
+           * </pre>
+           */
+          public boolean hasPropertysetlistValue() {
+            return ((bitField0_ & 0x00000400) == 0x00000400);
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList propertysetlist_value = 11;</code>
+           *
+           * <pre>
+           * List of Property Values
+           * </pre>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList getPropertysetlistValue() {
+            if (propertysetlistValueBuilder_ == null) {
+              return propertysetlistValue_;
+            } else {
+              return propertysetlistValueBuilder_.getMessage();
+            }
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList propertysetlist_value = 11;</code>
+           *
+           * <pre>
+           * List of Property Values
+           * </pre>
+           */
+          public Builder setPropertysetlistValue(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList value) {
+            if (propertysetlistValueBuilder_ == null) {
+              if (value == null) {
+                throw new NullPointerException();
+              }
+              propertysetlistValue_ = value;
+              onChanged();
+            } else {
+              propertysetlistValueBuilder_.setMessage(value);
+            }
+            bitField0_ |= 0x00000400;
+            return this;
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList propertysetlist_value = 11;</code>
+           *
+           * <pre>
+           * List of Property Values
+           * </pre>
+           */
+          public Builder setPropertysetlistValue(
+              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.Builder builderForValue) {
+            if (propertysetlistValueBuilder_ == null) {
+              propertysetlistValue_ = builderForValue.build();
+              onChanged();
+            } else {
+              propertysetlistValueBuilder_.setMessage(builderForValue.build());
+            }
+            bitField0_ |= 0x00000400;
+            return this;
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList propertysetlist_value = 11;</code>
+           *
+           * <pre>
+           * List of Property Values
+           * </pre>
+           */
+          public Builder mergePropertysetlistValue(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList value) {
+            if (propertysetlistValueBuilder_ == null) {
+              if (((bitField0_ & 0x00000400) == 0x00000400) &&
+                  propertysetlistValue_ != com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.getDefaultInstance()) {
+                propertysetlistValue_ =
+                  com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.newBuilder(propertysetlistValue_).mergeFrom(value).buildPartial();
+              } else {
+                propertysetlistValue_ = value;
+              }
+              onChanged();
+            } else {
+              propertysetlistValueBuilder_.mergeFrom(value);
+            }
+            bitField0_ |= 0x00000400;
+            return this;
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList propertysetlist_value = 11;</code>
+           *
+           * <pre>
+           * List of Property Values
+           * </pre>
+           */
+          public Builder clearPropertysetlistValue() {
+            if (propertysetlistValueBuilder_ == null) {
+              propertysetlistValue_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.getDefaultInstance();
+              onChanged();
+            } else {
+              propertysetlistValueBuilder_.clear();
+            }
+            bitField0_ = (bitField0_ & ~0x00000400);
+            return this;
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList propertysetlist_value = 11;</code>
+           *
+           * <pre>
+           * List of Property Values
+           * </pre>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.Builder getPropertysetlistValueBuilder() {
+            bitField0_ |= 0x00000400;
+            onChanged();
+            return getPropertysetlistValueFieldBuilder().getBuilder();
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList propertysetlist_value = 11;</code>
+           *
+           * <pre>
+           * List of Property Values
+           * </pre>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetListOrBuilder getPropertysetlistValueOrBuilder() {
+            if (propertysetlistValueBuilder_ != null) {
+              return propertysetlistValueBuilder_.getMessageOrBuilder();
+            } else {
+              return propertysetlistValue_;
+            }
+          }
+          /**
+           * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList propertysetlist_value = 11;</code>
+           *
+           * <pre>
+           * List of Property Values
+           * </pre>
+           */
+          private com.google.protobuf.SingleFieldBuilder<
+              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetListOrBuilder> 
+              getPropertysetlistValueFieldBuilder() {
+            if (propertysetlistValueBuilder_ == null) {
+              propertysetlistValueBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+                  com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetListOrBuilder>(
+                      getPropertysetlistValue(),
+                      getParentForChildren(),
+                      isClean());
+              propertysetlistValue_ = null;
+            }
+            return propertysetlistValueBuilder_;
+          }
+
+          // @@protoc_insertion_point(builder_scope:com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue)
+        }
+
+        static {
+          defaultInstance = new PropertyValue(true);
+          defaultInstance.initFields();
+        }
+
+        // @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue)
+      }
+
+      public interface PropertySetOrBuilder extends
+          // @@protoc_insertion_point(interface_extends:com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet)
+          com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <code>repeated string keys = 1;</code>
+         */
+        com.google.protobuf.ProtocolStringList
+            getKeysList();
+        /**
+         * <code>repeated string keys = 1;</code>
+         */
+        int getKeysCount();
+        /**
+         * <code>repeated string keys = 1;</code>
+         */
+        java.lang.String getKeys(int index);
+        /**
+         * <code>repeated string keys = 1;</code>
+         */
+        com.google.protobuf.ByteString
+            getKeysBytes(int index);
+
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+         */
+        java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue> 
+            getValuesList();
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+         */
+        com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue getValues(int index);
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+         */
+        int getValuesCount();
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+         */
+        java.util.List<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValueOrBuilder> 
+            getValuesOrBuilderList();
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+         */
+        com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValueOrBuilder getValuesOrBuilder(
+            int index);
+      }
+      /**
+       * Protobuf type {@code com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet}
+       */
+      public static final class PropertySet extends
+          com.google.protobuf.GeneratedMessage implements
+          // @@protoc_insertion_point(message_implements:com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet)
+          PropertySetOrBuilder {
+        // Use PropertySet.newBuilder() to construct.
+        private PropertySet(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+          super(builder);
+          this.unknownFields = builder.getUnknownFields();
+        }
+        private PropertySet(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+        private static final PropertySet defaultInstance;
+        public static PropertySet getDefaultInstance() {
+          return defaultInstance;
+        }
+
+        public PropertySet getDefaultInstanceForType() {
+          return defaultInstance;
+        }
+
+        private final com.google.protobuf.UnknownFieldSet unknownFields;
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+            getUnknownFields() {
+          return this.unknownFields;
+        }
+        private PropertySet(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          initFields();
+          int mutable_bitField0_ = 0;
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+              com.google.protobuf.UnknownFieldSet.newBuilder();
+          try {
+            boolean done = false;
+            while (!done) {
+              int tag = input.readTag();
+              switch (tag) {
+                case 0:
+                  done = true;
+                  break;
+                default: {
+                  if (!parseUnknownField(input, unknownFields,
+                                         extensionRegistry, tag)) {
+                    done = true;
+                  }
+                  break;
+                }
+                case 10: {
+                  com.google.protobuf.ByteString bs = input.readBytes();
+                  if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                    keys_ = new com.google.protobuf.LazyStringArrayList();
+                    mutable_bitField0_ |= 0x00000001;
+                  }
+                  keys_.add(bs);
+                  break;
+                }
+                case 18: {
+                  if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                    values_ = new java.util.ArrayList<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue>();
+                    mutable_bitField0_ |= 0x00000002;
+                  }
+                  values_.add(input.readMessage(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.PARSER, extensionRegistry));
+                  break;
+                }
+              }
+            }
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            throw e.setUnfinishedMessage(this);
+          } catch (java.io.IOException e) {
+            throw new com.google.protobuf.InvalidProtocolBufferException(
+                e.getMessage()).setUnfinishedMessage(this);
+          } finally {
+            if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              keys_ = keys_.getUnmodifiableView();
+            }
+            if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              values_ = java.util.Collections.unmodifiableList(values_);
+            }
+            this.unknownFields = unknownFields.build();
+            makeExtensionsImmutable();
+          }
+        }
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return com.cirruslink.sparkplug.protobuf.SparkplugBProto.internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySet_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return com.cirruslink.sparkplug.protobuf.SparkplugBProto.internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySet_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.class, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder.class);
+        }
+
+        public static com.google.protobuf.Parser<PropertySet> PARSER =
+            new com.google.protobuf.AbstractParser<PropertySet>() {
+          public PropertySet parsePartialFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+            return new PropertySet(input, extensionRegistry);
+          }
+        };
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<PropertySet> getParserForType() {
+          return PARSER;
+        }
+
+        public static final int KEYS_FIELD_NUMBER = 1;
+        private com.google.protobuf.LazyStringList keys_;
+        /**
+         * <code>repeated string keys = 1;</code>
+         */
+        public com.google.protobuf.ProtocolStringList
+            getKeysList() {
+          return keys_;
+        }
+        /**
+         * <code>repeated string keys = 1;</code>
+         */
+        public int getKeysCount() {
+          return keys_.size();
+        }
+        /**
+         * <code>repeated string keys = 1;</code>
+         */
+        public java.lang.String getKeys(int index) {
+          return keys_.get(index);
+        }
+        /**
+         * <code>repeated string keys = 1;</code>
+         */
+        public com.google.protobuf.ByteString
+            getKeysBytes(int index) {
+          return keys_.getByteString(index);
+        }
+
+        public static final int VALUES_FIELD_NUMBER = 2;
+        private java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue> values_;
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+         */
+        public java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue> getValuesList() {
+          return values_;
+        }
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+         */
+        public java.util.List<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValueOrBuilder> 
+            getValuesOrBuilderList() {
+          return values_;
+        }
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+         */
+        public int getValuesCount() {
+          return values_.size();
+        }
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+         */
+        public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue getValues(int index) {
+          return values_.get(index);
+        }
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+         */
+        public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValueOrBuilder getValuesOrBuilder(
+            int index) {
+          return values_.get(index);
+        }
+
+        private void initFields() {
+          keys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+          values_ = java.util.Collections.emptyList();
+        }
+        private byte memoizedIsInitialized = -1;
+        public final boolean isInitialized() {
+          byte isInitialized = memoizedIsInitialized;
+          if (isInitialized == 1) return true;
+          if (isInitialized == 0) return false;
+
+          for (int i = 0; i < getValuesCount(); i++) {
+            if (!getValues(i).isInitialized()) {
+              memoizedIsInitialized = 0;
+              return false;
+            }
+          }
+          memoizedIsInitialized = 1;
+          return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                            throws java.io.IOException {
+          getSerializedSize();
+          for (int i = 0; i < keys_.size(); i++) {
+            output.writeBytes(1, keys_.getByteString(i));
+          }
+          for (int i = 0; i < values_.size(); i++) {
+            output.writeMessage(2, values_.get(i));
+          }
+          getUnknownFields().writeTo(output);
+        }
+
+        private int memoizedSerializedSize = -1;
+        public int getSerializedSize() {
+          int size = memoizedSerializedSize;
+          if (size != -1) return size;
+
+          size = 0;
+          {
+            int dataSize = 0;
+            for (int i = 0; i < keys_.size(); i++) {
+              dataSize += com.google.protobuf.CodedOutputStream
+                .computeBytesSizeNoTag(keys_.getByteString(i));
+            }
+            size += dataSize;
+            size += 1 * getKeysList().size();
+          }
+          for (int i = 0; i < values_.size(); i++) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeMessageSize(2, values_.get(i));
+          }
+          size += getUnknownFields().getSerializedSize();
+          memoizedSerializedSize = size;
+          return size;
+        }
+
+        private static final long serialVersionUID = 0L;
+        @java.lang.Override
+        protected java.lang.Object writeReplace()
+            throws java.io.ObjectStreamException {
+          return super.writeReplace();
+        }
+
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data, extensionRegistry);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data, extensionRegistry);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
+          return PARSER.parseFrom(input);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return PARSER.parseFrom(input, extensionRegistry);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
+          return PARSER.parseDelimitedFrom(input);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return PARSER.parseDelimitedFrom(input, extensionRegistry);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
+          return PARSER.parseFrom(input);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return PARSER.parseFrom(input, extensionRegistry);
+        }
+
+        public static Builder newBuilder() { return Builder.create(); }
+        public Builder newBuilderForType() { return newBuilder(); }
+        public static Builder newBuilder(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet prototype) {
+          return newBuilder().mergeFrom(prototype);
+        }
+        public Builder toBuilder() { return newBuilder(this); }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          Builder builder = new Builder(parent);
+          return builder;
+        }
+        /**
+         * Protobuf type {@code com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet}
+         */
+        public static final class Builder extends
+            com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet)
+            com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetOrBuilder {
+          public static final com.google.protobuf.Descriptors.Descriptor
+              getDescriptor() {
+            return com.cirruslink.sparkplug.protobuf.SparkplugBProto.internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySet_descriptor;
+          }
+
+          protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+              internalGetFieldAccessorTable() {
+            return com.cirruslink.sparkplug.protobuf.SparkplugBProto.internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySet_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                    com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.class, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder.class);
+          }
+
+          // Construct using com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.newBuilder()
+          private Builder() {
+            maybeForceBuilderInitialization();
+          }
+
+          private Builder(
+              com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+            super(parent);
+            maybeForceBuilderInitialization();
+          }
+          private void maybeForceBuilderInitialization() {
+            if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+              getValuesFieldBuilder();
+            }
+          }
+          private static Builder create() {
+            return new Builder();
+          }
+
+          public Builder clear() {
+            super.clear();
+            keys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+            bitField0_ = (bitField0_ & ~0x00000001);
+            if (valuesBuilder_ == null) {
+              values_ = java.util.Collections.emptyList();
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              valuesBuilder_.clear();
+            }
+            return this;
+          }
+
+          public Builder clone() {
+            return create().mergeFrom(buildPartial());
+          }
+
+          public com.google.protobuf.Descriptors.Descriptor
+              getDescriptorForType() {
+            return com.cirruslink.sparkplug.protobuf.SparkplugBProto.internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySet_descriptor;
+          }
+
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet getDefaultInstanceForType() {
+            return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.getDefaultInstance();
+          }
+
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet build() {
+            com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet result = buildPartial();
+            if (!result.isInitialized()) {
+              throw newUninitializedMessageException(result);
+            }
+            return result;
+          }
+
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet buildPartial() {
+            com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet result = new com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet(this);
+            int from_bitField0_ = bitField0_;
+            if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              keys_ = keys_.getUnmodifiableView();
+              bitField0_ = (bitField0_ & ~0x00000001);
+            }
+            result.keys_ = keys_;
+            if (valuesBuilder_ == null) {
+              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                values_ = java.util.Collections.unmodifiableList(values_);
+                bitField0_ = (bitField0_ & ~0x00000002);
+              }
+              result.values_ = values_;
+            } else {
+              result.values_ = valuesBuilder_.build();
+            }
+            onBuilt();
+            return result;
+          }
+
+          public Builder mergeFrom(com.google.protobuf.Message other) {
+            if (other instanceof com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet) {
+              return mergeFrom((com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet)other);
+            } else {
+              super.mergeFrom(other);
+              return this;
+            }
+          }
+
+          public Builder mergeFrom(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet other) {
+            if (other == com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.getDefaultInstance()) return this;
+            if (!other.keys_.isEmpty()) {
+              if (keys_.isEmpty()) {
+                keys_ = other.keys_;
+                bitField0_ = (bitField0_ & ~0x00000001);
+              } else {
+                ensureKeysIsMutable();
+                keys_.addAll(other.keys_);
+              }
+              onChanged();
+            }
+            if (valuesBuilder_ == null) {
+              if (!other.values_.isEmpty()) {
+                if (values_.isEmpty()) {
+                  values_ = other.values_;
+                  bitField0_ = (bitField0_ & ~0x00000002);
+                } else {
+                  ensureValuesIsMutable();
+                  values_.addAll(other.values_);
+                }
+                onChanged();
+              }
+            } else {
+              if (!other.values_.isEmpty()) {
+                if (valuesBuilder_.isEmpty()) {
+                  valuesBuilder_.dispose();
+                  valuesBuilder_ = null;
+                  values_ = other.values_;
+                  bitField0_ = (bitField0_ & ~0x00000002);
+                  valuesBuilder_ = 
+                    com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                       getValuesFieldBuilder() : null;
+                } else {
+                  valuesBuilder_.addAllMessages(other.values_);
+                }
+              }
+            }
+            this.mergeUnknownFields(other.getUnknownFields());
+            return this;
+          }
+
+          public final boolean isInitialized() {
+            for (int i = 0; i < getValuesCount(); i++) {
+              if (!getValues(i).isInitialized()) {
+                
+                return false;
+              }
+            }
+            return true;
+          }
+
+          public Builder mergeFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+            com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet parsedMessage = null;
+            try {
+              parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+              parsedMessage = (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet) e.getUnfinishedMessage();
+              throw e;
+            } finally {
+              if (parsedMessage != null) {
+                mergeFrom(parsedMessage);
+              }
+            }
+            return this;
+          }
+          private int bitField0_;
+
+          private com.google.protobuf.LazyStringList keys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+          private void ensureKeysIsMutable() {
+            if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+              keys_ = new com.google.protobuf.LazyStringArrayList(keys_);
+              bitField0_ |= 0x00000001;
+             }
+          }
+          /**
+           * <code>repeated string keys = 1;</code>
+           */
+          public com.google.protobuf.ProtocolStringList
+              getKeysList() {
+            return keys_.getUnmodifiableView();
+          }
+          /**
+           * <code>repeated string keys = 1;</code>
+           */
+          public int getKeysCount() {
+            return keys_.size();
+          }
+          /**
+           * <code>repeated string keys = 1;</code>
+           */
+          public java.lang.String getKeys(int index) {
+            return keys_.get(index);
+          }
+          /**
+           * <code>repeated string keys = 1;</code>
+           */
+          public com.google.protobuf.ByteString
+              getKeysBytes(int index) {
+            return keys_.getByteString(index);
+          }
+          /**
+           * <code>repeated string keys = 1;</code>
+           */
+          public Builder setKeys(
+              int index, java.lang.String value) {
+            if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureKeysIsMutable();
+            keys_.set(index, value);
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>repeated string keys = 1;</code>
+           */
+          public Builder addKeys(
+              java.lang.String value) {
+            if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureKeysIsMutable();
+            keys_.add(value);
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>repeated string keys = 1;</code>
+           */
+          public Builder addAllKeys(
+              java.lang.Iterable<java.lang.String> values) {
+            ensureKeysIsMutable();
+            com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                values, keys_);
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>repeated string keys = 1;</code>
+           */
+          public Builder clearKeys() {
+            keys_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+            bitField0_ = (bitField0_ & ~0x00000001);
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>repeated string keys = 1;</code>
+           */
+          public Builder addKeysBytes(
+              com.google.protobuf.ByteString value) {
+            if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureKeysIsMutable();
+            keys_.add(value);
+            onChanged();
+            return this;
+          }
+
+          private java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue> values_ =
+            java.util.Collections.emptyList();
+          private void ensureValuesIsMutable() {
+            if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+              values_ = new java.util.ArrayList<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue>(values_);
+              bitField0_ |= 0x00000002;
+             }
+          }
+
+          private com.google.protobuf.RepeatedFieldBuilder<
+              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValueOrBuilder> valuesBuilder_;
+
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue> getValuesList() {
+            if (valuesBuilder_ == null) {
+              return java.util.Collections.unmodifiableList(values_);
+            } else {
+              return valuesBuilder_.getMessageList();
+            }
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public int getValuesCount() {
+            if (valuesBuilder_ == null) {
+              return values_.size();
+            } else {
+              return valuesBuilder_.getCount();
+            }
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue getValues(int index) {
+            if (valuesBuilder_ == null) {
+              return values_.get(index);
+            } else {
+              return valuesBuilder_.getMessage(index);
+            }
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public Builder setValues(
+              int index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue value) {
+            if (valuesBuilder_ == null) {
+              if (value == null) {
+                throw new NullPointerException();
+              }
+              ensureValuesIsMutable();
+              values_.set(index, value);
+              onChanged();
+            } else {
+              valuesBuilder_.setMessage(index, value);
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public Builder setValues(
+              int index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.Builder builderForValue) {
+            if (valuesBuilder_ == null) {
+              ensureValuesIsMutable();
+              values_.set(index, builderForValue.build());
+              onChanged();
+            } else {
+              valuesBuilder_.setMessage(index, builderForValue.build());
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public Builder addValues(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue value) {
+            if (valuesBuilder_ == null) {
+              if (value == null) {
+                throw new NullPointerException();
+              }
+              ensureValuesIsMutable();
+              values_.add(value);
+              onChanged();
+            } else {
+              valuesBuilder_.addMessage(value);
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public Builder addValues(
+              int index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue value) {
+            if (valuesBuilder_ == null) {
+              if (value == null) {
+                throw new NullPointerException();
+              }
+              ensureValuesIsMutable();
+              values_.add(index, value);
+              onChanged();
+            } else {
+              valuesBuilder_.addMessage(index, value);
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public Builder addValues(
+              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.Builder builderForValue) {
+            if (valuesBuilder_ == null) {
+              ensureValuesIsMutable();
+              values_.add(builderForValue.build());
+              onChanged();
+            } else {
+              valuesBuilder_.addMessage(builderForValue.build());
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public Builder addValues(
+              int index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.Builder builderForValue) {
+            if (valuesBuilder_ == null) {
+              ensureValuesIsMutable();
+              values_.add(index, builderForValue.build());
+              onChanged();
+            } else {
+              valuesBuilder_.addMessage(index, builderForValue.build());
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public Builder addAllValues(
+              java.lang.Iterable<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue> values) {
+            if (valuesBuilder_ == null) {
+              ensureValuesIsMutable();
+              com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                  values, values_);
+              onChanged();
+            } else {
+              valuesBuilder_.addAllMessages(values);
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public Builder clearValues() {
+            if (valuesBuilder_ == null) {
+              values_ = java.util.Collections.emptyList();
+              bitField0_ = (bitField0_ & ~0x00000002);
+              onChanged();
+            } else {
+              valuesBuilder_.clear();
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public Builder removeValues(int index) {
+            if (valuesBuilder_ == null) {
+              ensureValuesIsMutable();
+              values_.remove(index);
+              onChanged();
+            } else {
+              valuesBuilder_.remove(index);
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.Builder getValuesBuilder(
+              int index) {
+            return getValuesFieldBuilder().getBuilder(index);
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValueOrBuilder getValuesOrBuilder(
+              int index) {
+            if (valuesBuilder_ == null) {
+              return values_.get(index);  } else {
+              return valuesBuilder_.getMessageOrBuilder(index);
+            }
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public java.util.List<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValueOrBuilder> 
+               getValuesOrBuilderList() {
+            if (valuesBuilder_ != null) {
+              return valuesBuilder_.getMessageOrBuilderList();
+            } else {
+              return java.util.Collections.unmodifiableList(values_);
+            }
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.Builder addValuesBuilder() {
+            return getValuesFieldBuilder().addBuilder(
+                com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.getDefaultInstance());
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.Builder addValuesBuilder(
+              int index) {
+            return getValuesFieldBuilder().addBuilder(
+                index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.getDefaultInstance());
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertyValue values = 2;</code>
+           */
+          public java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.Builder> 
+               getValuesBuilderList() {
+            return getValuesFieldBuilder().getBuilderList();
+          }
+          private com.google.protobuf.RepeatedFieldBuilder<
+              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValueOrBuilder> 
+              getValuesFieldBuilder() {
+            if (valuesBuilder_ == null) {
+              valuesBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+                  com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValue.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertyValueOrBuilder>(
+                      values_,
+                      ((bitField0_ & 0x00000002) == 0x00000002),
+                      getParentForChildren(),
+                      isClean());
+              values_ = null;
+            }
+            return valuesBuilder_;
+          }
+
+          // @@protoc_insertion_point(builder_scope:com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet)
+        }
+
+        static {
+          defaultInstance = new PropertySet(true);
+          defaultInstance.initFields();
+        }
+
+        // @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet)
+      }
+
+      public interface PropertySetListOrBuilder extends
+          // @@protoc_insertion_point(interface_extends:com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList)
+          com.google.protobuf.MessageOrBuilder {
+
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+         */
+        java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet> 
+            getSetsList();
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+         */
+        com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet getSets(int index);
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+         */
+        int getSetsCount();
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+         */
+        java.util.List<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetOrBuilder> 
+            getSetsOrBuilderList();
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+         */
+        com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetOrBuilder getSetsOrBuilder(
+            int index);
+      }
+      /**
+       * Protobuf type {@code com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList}
+       */
+      public static final class PropertySetList extends
+          com.google.protobuf.GeneratedMessage implements
+          // @@protoc_insertion_point(message_implements:com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList)
+          PropertySetListOrBuilder {
+        // Use PropertySetList.newBuilder() to construct.
+        private PropertySetList(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+          super(builder);
+          this.unknownFields = builder.getUnknownFields();
+        }
+        private PropertySetList(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+        private static final PropertySetList defaultInstance;
+        public static PropertySetList getDefaultInstance() {
+          return defaultInstance;
+        }
+
+        public PropertySetList getDefaultInstanceForType() {
+          return defaultInstance;
+        }
+
+        private final com.google.protobuf.UnknownFieldSet unknownFields;
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+            getUnknownFields() {
+          return this.unknownFields;
+        }
+        private PropertySetList(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          initFields();
+          int mutable_bitField0_ = 0;
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+              com.google.protobuf.UnknownFieldSet.newBuilder();
+          try {
+            boolean done = false;
+            while (!done) {
+              int tag = input.readTag();
+              switch (tag) {
+                case 0:
+                  done = true;
+                  break;
+                default: {
+                  if (!parseUnknownField(input, unknownFields,
+                                         extensionRegistry, tag)) {
+                    done = true;
+                  }
+                  break;
+                }
+                case 10: {
+                  if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                    sets_ = new java.util.ArrayList<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet>();
+                    mutable_bitField0_ |= 0x00000001;
+                  }
+                  sets_.add(input.readMessage(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.PARSER, extensionRegistry));
+                  break;
+                }
+              }
+            }
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            throw e.setUnfinishedMessage(this);
+          } catch (java.io.IOException e) {
+            throw new com.google.protobuf.InvalidProtocolBufferException(
+                e.getMessage()).setUnfinishedMessage(this);
+          } finally {
+            if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+              sets_ = java.util.Collections.unmodifiableList(sets_);
+            }
+            this.unknownFields = unknownFields.build();
+            makeExtensionsImmutable();
+          }
+        }
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return com.cirruslink.sparkplug.protobuf.SparkplugBProto.internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySetList_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return com.cirruslink.sparkplug.protobuf.SparkplugBProto.internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySetList_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.class, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.Builder.class);
+        }
+
+        public static com.google.protobuf.Parser<PropertySetList> PARSER =
+            new com.google.protobuf.AbstractParser<PropertySetList>() {
+          public PropertySetList parsePartialFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+            return new PropertySetList(input, extensionRegistry);
+          }
+        };
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<PropertySetList> getParserForType() {
+          return PARSER;
+        }
+
+        public static final int SETS_FIELD_NUMBER = 1;
+        private java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet> sets_;
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+         */
+        public java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet> getSetsList() {
+          return sets_;
+        }
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+         */
+        public java.util.List<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetOrBuilder> 
+            getSetsOrBuilderList() {
+          return sets_;
+        }
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+         */
+        public int getSetsCount() {
+          return sets_.size();
+        }
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+         */
+        public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet getSets(int index) {
+          return sets_.get(index);
+        }
+        /**
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+         */
+        public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetOrBuilder getSetsOrBuilder(
+            int index) {
+          return sets_.get(index);
+        }
+
+        private void initFields() {
+          sets_ = java.util.Collections.emptyList();
+        }
+        private byte memoizedIsInitialized = -1;
+        public final boolean isInitialized() {
+          byte isInitialized = memoizedIsInitialized;
+          if (isInitialized == 1) return true;
+          if (isInitialized == 0) return false;
+
+          for (int i = 0; i < getSetsCount(); i++) {
+            if (!getSets(i).isInitialized()) {
+              memoizedIsInitialized = 0;
+              return false;
+            }
+          }
+          memoizedIsInitialized = 1;
+          return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                            throws java.io.IOException {
+          getSerializedSize();
+          for (int i = 0; i < sets_.size(); i++) {
+            output.writeMessage(1, sets_.get(i));
+          }
+          getUnknownFields().writeTo(output);
+        }
+
+        private int memoizedSerializedSize = -1;
+        public int getSerializedSize() {
+          int size = memoizedSerializedSize;
+          if (size != -1) return size;
+
+          size = 0;
+          for (int i = 0; i < sets_.size(); i++) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeMessageSize(1, sets_.get(i));
+          }
+          size += getUnknownFields().getSerializedSize();
+          memoizedSerializedSize = size;
+          return size;
+        }
+
+        private static final long serialVersionUID = 0L;
+        @java.lang.Override
+        protected java.lang.Object writeReplace()
+            throws java.io.ObjectStreamException {
+          return super.writeReplace();
+        }
+
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data, extensionRegistry);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data, extensionRegistry);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
+          return PARSER.parseFrom(input);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return PARSER.parseFrom(input, extensionRegistry);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
+          return PARSER.parseDelimitedFrom(input);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return PARSER.parseDelimitedFrom(input, extensionRegistry);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
+          return PARSER.parseFrom(input);
+        }
+        public static com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return PARSER.parseFrom(input, extensionRegistry);
+        }
+
+        public static Builder newBuilder() { return Builder.create(); }
+        public Builder newBuilderForType() { return newBuilder(); }
+        public static Builder newBuilder(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList prototype) {
+          return newBuilder().mergeFrom(prototype);
+        }
+        public Builder toBuilder() { return newBuilder(this); }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          Builder builder = new Builder(parent);
+          return builder;
+        }
+        /**
+         * Protobuf type {@code com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList}
+         */
+        public static final class Builder extends
+            com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+            // @@protoc_insertion_point(builder_implements:com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList)
+            com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetListOrBuilder {
+          public static final com.google.protobuf.Descriptors.Descriptor
+              getDescriptor() {
+            return com.cirruslink.sparkplug.protobuf.SparkplugBProto.internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySetList_descriptor;
+          }
+
+          protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+              internalGetFieldAccessorTable() {
+            return com.cirruslink.sparkplug.protobuf.SparkplugBProto.internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySetList_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                    com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.class, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.Builder.class);
+          }
+
+          // Construct using com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.newBuilder()
+          private Builder() {
+            maybeForceBuilderInitialization();
+          }
+
+          private Builder(
+              com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+            super(parent);
+            maybeForceBuilderInitialization();
+          }
+          private void maybeForceBuilderInitialization() {
+            if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+              getSetsFieldBuilder();
+            }
+          }
+          private static Builder create() {
+            return new Builder();
+          }
+
+          public Builder clear() {
+            super.clear();
+            if (setsBuilder_ == null) {
+              sets_ = java.util.Collections.emptyList();
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              setsBuilder_.clear();
+            }
+            return this;
+          }
+
+          public Builder clone() {
+            return create().mergeFrom(buildPartial());
+          }
+
+          public com.google.protobuf.Descriptors.Descriptor
+              getDescriptorForType() {
+            return com.cirruslink.sparkplug.protobuf.SparkplugBProto.internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySetList_descriptor;
+          }
+
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList getDefaultInstanceForType() {
+            return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.getDefaultInstance();
+          }
+
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList build() {
+            com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList result = buildPartial();
+            if (!result.isInitialized()) {
+              throw newUninitializedMessageException(result);
+            }
+            return result;
+          }
+
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList buildPartial() {
+            com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList result = new com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList(this);
+            int from_bitField0_ = bitField0_;
+            if (setsBuilder_ == null) {
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                sets_ = java.util.Collections.unmodifiableList(sets_);
+                bitField0_ = (bitField0_ & ~0x00000001);
+              }
+              result.sets_ = sets_;
+            } else {
+              result.sets_ = setsBuilder_.build();
+            }
+            onBuilt();
+            return result;
+          }
+
+          public Builder mergeFrom(com.google.protobuf.Message other) {
+            if (other instanceof com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList) {
+              return mergeFrom((com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList)other);
+            } else {
+              super.mergeFrom(other);
+              return this;
+            }
+          }
+
+          public Builder mergeFrom(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList other) {
+            if (other == com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList.getDefaultInstance()) return this;
+            if (setsBuilder_ == null) {
+              if (!other.sets_.isEmpty()) {
+                if (sets_.isEmpty()) {
+                  sets_ = other.sets_;
+                  bitField0_ = (bitField0_ & ~0x00000001);
+                } else {
+                  ensureSetsIsMutable();
+                  sets_.addAll(other.sets_);
+                }
+                onChanged();
+              }
+            } else {
+              if (!other.sets_.isEmpty()) {
+                if (setsBuilder_.isEmpty()) {
+                  setsBuilder_.dispose();
+                  setsBuilder_ = null;
+                  sets_ = other.sets_;
+                  bitField0_ = (bitField0_ & ~0x00000001);
+                  setsBuilder_ = 
+                    com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                       getSetsFieldBuilder() : null;
+                } else {
+                  setsBuilder_.addAllMessages(other.sets_);
+                }
+              }
+            }
+            this.mergeUnknownFields(other.getUnknownFields());
+            return this;
+          }
+
+          public final boolean isInitialized() {
+            for (int i = 0; i < getSetsCount(); i++) {
+              if (!getSets(i).isInitialized()) {
+                
+                return false;
+              }
+            }
+            return true;
+          }
+
+          public Builder mergeFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+            com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList parsedMessage = null;
+            try {
+              parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+              parsedMessage = (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetList) e.getUnfinishedMessage();
+              throw e;
+            } finally {
+              if (parsedMessage != null) {
+                mergeFrom(parsedMessage);
+              }
+            }
+            return this;
+          }
+          private int bitField0_;
+
+          private java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet> sets_ =
+            java.util.Collections.emptyList();
+          private void ensureSetsIsMutable() {
+            if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+              sets_ = new java.util.ArrayList<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet>(sets_);
+              bitField0_ |= 0x00000001;
+             }
+          }
+
+          private com.google.protobuf.RepeatedFieldBuilder<
+              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetOrBuilder> setsBuilder_;
+
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet> getSetsList() {
+            if (setsBuilder_ == null) {
+              return java.util.Collections.unmodifiableList(sets_);
+            } else {
+              return setsBuilder_.getMessageList();
+            }
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public int getSetsCount() {
+            if (setsBuilder_ == null) {
+              return sets_.size();
+            } else {
+              return setsBuilder_.getCount();
+            }
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet getSets(int index) {
+            if (setsBuilder_ == null) {
+              return sets_.get(index);
+            } else {
+              return setsBuilder_.getMessage(index);
+            }
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public Builder setSets(
+              int index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet value) {
+            if (setsBuilder_ == null) {
+              if (value == null) {
+                throw new NullPointerException();
+              }
+              ensureSetsIsMutable();
+              sets_.set(index, value);
+              onChanged();
+            } else {
+              setsBuilder_.setMessage(index, value);
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public Builder setSets(
+              int index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder builderForValue) {
+            if (setsBuilder_ == null) {
+              ensureSetsIsMutable();
+              sets_.set(index, builderForValue.build());
+              onChanged();
+            } else {
+              setsBuilder_.setMessage(index, builderForValue.build());
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public Builder addSets(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet value) {
+            if (setsBuilder_ == null) {
+              if (value == null) {
+                throw new NullPointerException();
+              }
+              ensureSetsIsMutable();
+              sets_.add(value);
+              onChanged();
+            } else {
+              setsBuilder_.addMessage(value);
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public Builder addSets(
+              int index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet value) {
+            if (setsBuilder_ == null) {
+              if (value == null) {
+                throw new NullPointerException();
+              }
+              ensureSetsIsMutable();
+              sets_.add(index, value);
+              onChanged();
+            } else {
+              setsBuilder_.addMessage(index, value);
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public Builder addSets(
+              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder builderForValue) {
+            if (setsBuilder_ == null) {
+              ensureSetsIsMutable();
+              sets_.add(builderForValue.build());
+              onChanged();
+            } else {
+              setsBuilder_.addMessage(builderForValue.build());
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public Builder addSets(
+              int index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder builderForValue) {
+            if (setsBuilder_ == null) {
+              ensureSetsIsMutable();
+              sets_.add(index, builderForValue.build());
+              onChanged();
+            } else {
+              setsBuilder_.addMessage(index, builderForValue.build());
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public Builder addAllSets(
+              java.lang.Iterable<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet> values) {
+            if (setsBuilder_ == null) {
+              ensureSetsIsMutable();
+              com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                  values, sets_);
+              onChanged();
+            } else {
+              setsBuilder_.addAllMessages(values);
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public Builder clearSets() {
+            if (setsBuilder_ == null) {
+              sets_ = java.util.Collections.emptyList();
+              bitField0_ = (bitField0_ & ~0x00000001);
+              onChanged();
+            } else {
+              setsBuilder_.clear();
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public Builder removeSets(int index) {
+            if (setsBuilder_ == null) {
+              ensureSetsIsMutable();
+              sets_.remove(index);
+              onChanged();
+            } else {
+              setsBuilder_.remove(index);
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder getSetsBuilder(
+              int index) {
+            return getSetsFieldBuilder().getBuilder(index);
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetOrBuilder getSetsOrBuilder(
+              int index) {
+            if (setsBuilder_ == null) {
+              return sets_.get(index);  } else {
+              return setsBuilder_.getMessageOrBuilder(index);
+            }
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public java.util.List<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetOrBuilder> 
+               getSetsOrBuilderList() {
+            if (setsBuilder_ != null) {
+              return setsBuilder_.getMessageOrBuilderList();
+            } else {
+              return java.util.Collections.unmodifiableList(sets_);
+            }
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder addSetsBuilder() {
+            return getSetsFieldBuilder().addBuilder(
+                com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.getDefaultInstance());
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder addSetsBuilder(
+              int index) {
+            return getSetsFieldBuilder().addBuilder(
+                index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.getDefaultInstance());
+          }
+          /**
+           * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySet sets = 1;</code>
+           */
+          public java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder> 
+               getSetsBuilderList() {
+            return getSetsFieldBuilder().getBuilderList();
+          }
+          private com.google.protobuf.RepeatedFieldBuilder<
+              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetOrBuilder> 
+              getSetsFieldBuilder() {
+            if (setsBuilder_ == null) {
+              setsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+                  com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySet.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PropertySetOrBuilder>(
+                      sets_,
+                      ((bitField0_ & 0x00000001) == 0x00000001),
+                      getParentForChildren(),
+                      isClean());
+              sets_ = null;
+            }
+            return setsBuilder_;
+          }
+
+          // @@protoc_insertion_point(builder_scope:com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList)
+        }
+
+        static {
+          defaultInstance = new PropertySetList(true);
+          defaultInstance.initFields();
+        }
+
+        // @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.Metric.PropertySetList)
       }
 
       public interface MetaDataOrBuilder extends
@@ -12477,6 +15777,21 @@ public final class SparkplugBProto {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertyValue_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertyValue_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySet_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySet_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySetList_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySetList_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_MetaData_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -12516,11 +15831,11 @@ public final class SparkplugBProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\035sparkplug_b/sparkplug_b.proto\022!com.cir" +
-      "ruslink.sparkplug.protobuf\"\354\020\n\007Payload\022\021" +
+      "ruslink.sparkplug.protobuf\"\352\026\n\007Payload\022\021" +
       "\n\ttimestamp\030\001 \001(\004\022A\n\006metric\030\002 \003(\01321.com." +
       "cirruslink.sparkplug.protobuf.Payload.Me" +
       "tric\022\013\n\003seq\030\003 \001(\004\022\014\n\004uuid\030\004 \001(\t\022\014\n\004body\030" +
-      "\005 \001(\014\032\331\016\n\006Metric\022\014\n\004name\030\001 \001(\t\022\r\n\005alias\030" +
+      "\005 \001(\014\032\327\024\n\006Metric\022\014\n\004name\030\001 \001(\t\022\r\n\005alias\030" +
       "\002 \001(\004\022\021\n\ttimestamp\030\003 \001(\004\022L\n\010datatype\030\004 \001" +
       "(\0162:.com.cirruslink.sparkplug.protobuf.P" +
       "ayload.Metric.DataType\022\022\n\nhistorical\030\005 \001" +
@@ -12532,46 +15847,66 @@ public final class SparkplugBProto {
       "\024\n\014string_value\030\r \001(\t\022\023\n\013bytes_value\030\016 \001" +
       "(\014\022P\n\rdataset_value\030\017 \001(\01329.com.cirrusli" +
       "nk.sparkplug.protobuf.Payload.Metric.Dat" +
-      "aSet\032\200\002\n\010MetaData\022\023\n\013isMultiPart\030\001 \001(\010\022\024" +
-      "\n\014content_type\030\002 \001(\t\022\014\n\004size\030\003 \001(\004\022\013\n\003se" +
-      "q\030\004 \001(\004\022\021\n\tfile_name\030\005 \001(\t\022\021\n\tfile_type\030",
-      "\006 \001(\t\022\013\n\003md5\030\007 \001(\t\022\016\n\006typeId\030\010 \001(\t\022\023\n\013de" +
-      "scription\030\t \001(\t\022L\n\007members\030\n \003(\0132;.com.c" +
-      "irruslink.sparkplug.protobuf.Payload.Met" +
-      "ric.MetaField*\010\010\013\020\200\200\200\200\002\032\327\002\n\tMetaField\022\014\n" +
-      "\004name\030\001 \001(\t\022L\n\010datatype\030\002 \001(\0162:.com.cirr" +
-      "uslink.sparkplug.protobuf.Payload.Metric" +
-      ".DataType\022\021\n\tint_value\030\003 \001(\r\022\022\n\nlong_val" +
-      "ue\030\004 \001(\004\022\023\n\013float_value\030\005 \001(\002\022\024\n\014double_" +
-      "value\030\006 \001(\001\022\025\n\rboolean_value\030\007 \001(\010\022\024\n\014st" +
-      "ring_value\030\010 \001(\t\022\023\n\013bytes_value\030\t \001(\014\022P\n",
-      "\rdataset_value\030\n \001(\01329.com.cirruslink.sp" +
-      "arkplug.protobuf.Payload.Metric.DataSet*" +
-      "\010\010\013\020\200\200\200\200\002\032\335\004\n\007DataSet\022\026\n\016num_of_columns\030" +
-      "\001 \001(\004\022\017\n\007columns\030\002 \003(\t\022Q\n\005types\030\003 \003(\0162B." +
-      "com.cirruslink.sparkplug.protobuf.Payloa" +
-      "d.Metric.DataSet.DataType\022K\n\004rows\030\004 \003(\0132" +
-      "=.com.cirruslink.sparkplug.protobuf.Payl" +
-      "oad.Metric.DataSet.Row\032\220\001\n\005Value\022\021\n\tint_" +
-      "value\030\001 \001(\r\022\022\n\nlong_value\030\002 \001(\004\022\023\n\013float" +
-      "_value\030\003 \001(\002\022\024\n\014double_value\030\004 \001(\001\022\025\n\rbo",
-      "olean_value\030\005 \001(\010\022\024\n\014string_value\030\006 \001(\t*" +
-      "\010\010\007\020\200\200\200\200\002\032a\n\003Row\022P\n\007element\030\001 \003(\0132?.com." +
+      "aSet\032\205\004\n\rPropertyValue\022H\n\004type\030\001 \001(\0162:.c" +
+      "om.cirruslink.sparkplug.protobuf.Payload" +
+      ".Metric.DataType\022\021\n\tint_value\030\002 \001(\r\022\022\n\nl",
+      "ong_value\030\003 \001(\004\022\023\n\013float_value\030\004 \001(\002\022\024\n\014" +
+      "double_value\030\005 \001(\001\022\025\n\rboolean_value\030\006 \001(" +
+      "\010\022\024\n\014string_value\030\007 \001(\t\022\023\n\013bytes_value\030\010" +
+      " \001(\014\022P\n\rdataset_value\030\t \001(\01329.com.cirrus" +
+      "link.sparkplug.protobuf.Payload.Metric.D" +
+      "ataSet\022X\n\021propertyset_value\030\n \001(\0132=.com." +
       "cirruslink.sparkplug.protobuf.Payload.Me" +
-      "tric.DataSet.Value*\010\010\002\020\200\200\200\200\002\"\210\001\n\010DataTyp" +
-      "e\022\013\n\007Unknown\020\000\022\010\n\004Int1\020\001\022\010\n\004Int2\020\002\022\010\n\004In" +
-      "t4\020\003\022\010\n\004Int8\020\004\022\n\n\006Float4\020\005\022\n\n\006Float8\020\006\022\013" +
-      "\n\007Boolean\020\007\022\n\n\006String\020\010\022\014\n\010DateTime\020\t\022\010\n" +
-      "\004Text\020\n*\010\010\005\020\200\200\200\200\002\"\263\001\n\010DataType\022\013\n\007Unknow" +
-      "n\020\000\022\010\n\004Int1\020\001\022\010\n\004Int2\020\002\022\010\n\004Int4\020\003\022\010\n\004Int" +
-      "8\020\004\022\n\n\006Float4\020\005\022\n\n\006Float8\020\006\022\013\n\007Boolean\020\007",
-      "\022\n\n\006String\020\010\022\014\n\010DateTime\020\t\022\013\n\007Dataset\020\n\022" +
-      "\010\n\004Text\020\013\022\t\n\005Bytes\020\014\022\010\n\004File\020\r\022\007\n\003UDT\020\016*" +
-      "\010\010\020\020\200\200\200\200\002\032|\n\rUdtDefinition\022\014\n\004name\030\001 \001(\t" +
-      "\022\017\n\007version\030\002 \001(\t\022B\n\007members\030\003 \003(\01321.com" +
-      ".cirruslink.sparkplug.protobuf.Payload.M" +
-      "etric*\010\010\004\020\200\200\200\200\002*\010\010\006\020\200\200\200\200\002B4\n!com.cirrusl" +
-      "ink.sparkplug.protobufB\017SparkplugBProto"
+      "tric.PropertySet\022`\n\025propertysetlist_valu" +
+      "e\030\013 \001(\0132A.com.cirruslink.sparkplug.proto" +
+      "buf.Payload.Metric.PropertySetList*\010\010\014\020\200",
+      "\200\200\200\002\032l\n\013PropertySet\022\014\n\004keys\030\001 \003(\t\022O\n\006val" +
+      "ues\030\002 \003(\0132?.com.cirruslink.sparkplug.pro" +
+      "tobuf.Payload.Metric.PropertyValue\032^\n\017Pr" +
+      "opertySetList\022K\n\004sets\030\001 \003(\0132=.com.cirrus" +
+      "link.sparkplug.protobuf.Payload.Metric.P" +
+      "ropertySet\032\200\002\n\010MetaData\022\023\n\013isMultiPart\030\001" +
+      " \001(\010\022\024\n\014content_type\030\002 \001(\t\022\014\n\004size\030\003 \001(\004" +
+      "\022\013\n\003seq\030\004 \001(\004\022\021\n\tfile_name\030\005 \001(\t\022\021\n\tfile" +
+      "_type\030\006 \001(\t\022\013\n\003md5\030\007 \001(\t\022\016\n\006typeId\030\010 \001(\t" +
+      "\022\023\n\013description\030\t \001(\t\022L\n\007members\030\n \003(\0132;",
+      ".com.cirruslink.sparkplug.protobuf.Paylo" +
+      "ad.Metric.MetaField*\010\010\013\020\200\200\200\200\002\032\327\002\n\tMetaFi" +
+      "eld\022\014\n\004name\030\001 \001(\t\022L\n\010datatype\030\002 \001(\0162:.co" +
+      "m.cirruslink.sparkplug.protobuf.Payload." +
+      "Metric.DataType\022\021\n\tint_value\030\003 \001(\r\022\022\n\nlo" +
+      "ng_value\030\004 \001(\004\022\023\n\013float_value\030\005 \001(\002\022\024\n\014d" +
+      "ouble_value\030\006 \001(\001\022\025\n\rboolean_value\030\007 \001(\010" +
+      "\022\024\n\014string_value\030\010 \001(\t\022\023\n\013bytes_value\030\t " +
+      "\001(\014\022P\n\rdataset_value\030\n \001(\01329.com.cirrusl" +
+      "ink.sparkplug.protobuf.Payload.Metric.Da",
+      "taSet*\010\010\013\020\200\200\200\200\002\032\335\004\n\007DataSet\022\026\n\016num_of_co" +
+      "lumns\030\001 \001(\004\022\017\n\007columns\030\002 \003(\t\022Q\n\005types\030\003 " +
+      "\003(\0162B.com.cirruslink.sparkplug.protobuf." +
+      "Payload.Metric.DataSet.DataType\022K\n\004rows\030" +
+      "\004 \003(\0132=.com.cirruslink.sparkplug.protobu" +
+      "f.Payload.Metric.DataSet.Row\032\220\001\n\005Value\022\021" +
+      "\n\tint_value\030\001 \001(\r\022\022\n\nlong_value\030\002 \001(\004\022\023\n" +
+      "\013float_value\030\003 \001(\002\022\024\n\014double_value\030\004 \001(\001" +
+      "\022\025\n\rboolean_value\030\005 \001(\010\022\024\n\014string_value\030" +
+      "\006 \001(\t*\010\010\007\020\200\200\200\200\002\032a\n\003Row\022P\n\007element\030\001 \003(\0132",
+      "?.com.cirruslink.sparkplug.protobuf.Payl" +
+      "oad.Metric.DataSet.Value*\010\010\002\020\200\200\200\200\002\"\210\001\n\010D" +
+      "ataType\022\013\n\007Unknown\020\000\022\010\n\004Int1\020\001\022\010\n\004Int2\020\002" +
+      "\022\010\n\004Int4\020\003\022\010\n\004Int8\020\004\022\n\n\006Float4\020\005\022\n\n\006Floa" +
+      "t8\020\006\022\013\n\007Boolean\020\007\022\n\n\006String\020\010\022\014\n\010DateTim" +
+      "e\020\t\022\010\n\004Text\020\n*\010\010\005\020\200\200\200\200\002\"\333\001\n\010DataType\022\013\n\007" +
+      "Unknown\020\000\022\010\n\004Int8\020\001\022\t\n\005Int16\020\002\022\t\n\005Int32\020" +
+      "\003\022\t\n\005Int64\020\004\022\t\n\005UInt8\020\005\022\n\n\006UInt16\020\006\022\n\n\006U" +
+      "Int32\020\007\022\n\n\006UInt64\020\010\022\t\n\005Float\020\t\022\n\n\006Double" +
+      "\020\n\022\013\n\007Boolean\020\013\022\n\n\006String\020\014\022\014\n\010DateTime\020",
+      "\r\022\010\n\004Text\020\016\022\013\n\007Dataset\020\017\022\t\n\005Bytes\020\020\022\010\n\004F" +
+      "ile\020\021*\010\010\020\020\200\200\200\200\002\032|\n\rUdtDefinition\022\014\n\004name" +
+      "\030\001 \001(\t\022\017\n\007version\030\002 \001(\t\022B\n\007members\030\003 \003(\013" +
+      "21.com.cirruslink.sparkplug.protobuf.Pay" +
+      "load.Metric*\010\010\004\020\200\200\200\200\002*\010\010\006\020\200\200\200\200\002B4\n!com.c" +
+      "irruslink.sparkplug.protobufB\017SparkplugB" +
+      "Proto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -12597,20 +15932,38 @@ public final class SparkplugBProto {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_descriptor,
         new java.lang.String[] { "Name", "Alias", "Timestamp", "Datatype", "Historical", "Null", "Metadata", "IntValue", "LongValue", "FloatValue", "DoubleValue", "BooleanValue", "StringValue", "BytesValue", "DatasetValue", });
-    internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_MetaData_descriptor =
+    internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertyValue_descriptor =
       internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_descriptor.getNestedTypes().get(0);
+    internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertyValue_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertyValue_descriptor,
+        new java.lang.String[] { "Type", "IntValue", "LongValue", "FloatValue", "DoubleValue", "BooleanValue", "StringValue", "BytesValue", "DatasetValue", "PropertysetValue", "PropertysetlistValue", });
+    internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySet_descriptor =
+      internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_descriptor.getNestedTypes().get(1);
+    internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySet_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySet_descriptor,
+        new java.lang.String[] { "Keys", "Values", });
+    internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySetList_descriptor =
+      internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_descriptor.getNestedTypes().get(2);
+    internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySetList_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_PropertySetList_descriptor,
+        new java.lang.String[] { "Sets", });
+    internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_MetaData_descriptor =
+      internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_descriptor.getNestedTypes().get(3);
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_MetaData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_MetaData_descriptor,
         new java.lang.String[] { "IsMultiPart", "ContentType", "Size", "Seq", "FileName", "FileType", "Md5", "TypeId", "Description", "Members", });
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_MetaField_descriptor =
-      internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_descriptor.getNestedTypes().get(1);
+      internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_descriptor.getNestedTypes().get(4);
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_MetaField_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_MetaField_descriptor,
         new java.lang.String[] { "Name", "Datatype", "IntValue", "LongValue", "FloatValue", "DoubleValue", "BooleanValue", "StringValue", "BytesValue", "DatasetValue", });
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_DataSet_descriptor =
-      internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_descriptor.getNestedTypes().get(2);
+      internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_descriptor.getNestedTypes().get(5);
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_DataSet_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_DataSet_descriptor,

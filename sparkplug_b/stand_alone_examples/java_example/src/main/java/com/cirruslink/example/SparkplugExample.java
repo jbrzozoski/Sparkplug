@@ -49,7 +49,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 	private static final String NAMESPACE = "spBv1.0";
 
 	// Configuration
-	private static final boolean USING_REAL_TLS = true;
+	private static final boolean USING_REAL_TLS = false;
 	private String serverUrl = "tcp://localhost:1883";
 	private String groupId = "Sparkplug B Devices";
 	private String edgeNode = "Java Edge Node";
