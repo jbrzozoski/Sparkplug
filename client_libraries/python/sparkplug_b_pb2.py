@@ -18,258 +18,20 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='sparkplug_b.proto',
   package='com.cirruslink.sparkplug.protobuf',
-  serialized_pb=_b('\n\x11sparkplug_b.proto\x12!com.cirruslink.sparkplug.protobuf\"\xea\r\n\x07Payload\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x41\n\x06metric\x18\x02 \x03(\x0b\x32\x31.com.cirruslink.sparkplug.protobuf.Payload.Metric\x12\x0b\n\x03seq\x18\x03 \x01(\x04\x12\x0c\n\x04uuid\x18\x04 \x01(\t\x12\x0c\n\x04\x62ody\x18\x05 \x01(\x0c\x1a\xd5\x0c\n\x06Metric\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x61lias\x18\x02 \x01(\x04\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12L\n\x08\x64\x61tatype\x18\x04 \x01(\x0e\x32:.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataType\x12\x12\n\nhistorical\x18\x05 \x01(\x08\x12L\n\x08metadata\x18\x06 \x01(\x0b\x32:.com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData\x12\x11\n\tint_value\x18\x07 \x01(\r\x12\x12\n\nlong_value\x18\x08 \x01(\x04\x12\x13\n\x0b\x66loat_value\x18\t \x01(\x02\x12\x14\n\x0c\x64ouble_value\x18\n \x01(\x01\x12\x15\n\rboolean_value\x18\x0b \x01(\x08\x12\x14\n\x0cstring_value\x18\x0c \x01(\t\x12\x13\n\x0b\x62ytes_value\x18\r \x01(\x0c\x12P\n\rdataset_value\x18\x0e \x01(\x0b\x32\x39.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet\x12\x42\n\x07members\x18\x0f \x03(\x0b\x32\x31.com.cirruslink.sparkplug.protobuf.Payload.Metric\x1a\x86\x02\n\x08MetaData\x12\x13\n\x0bisMultiPart\x18\x01 \x01(\x08\x12\x10\n\x08isScript\x18\x02 \x01(\x08\x12\r\n\x05units\x18\x03 \x01(\t\x12\x14\n\x0c\x63ontent_type\x18\x04 \x01(\t\x12\x0c\n\x04size\x18\x05 \x01(\x04\x12\x11\n\talgorithm\x18\x06 \x01(\t\x12\x0e\n\x06\x66ormat\x18\x07 \x01(\t\x12\x0b\n\x03seq\x18\x08 \x01(\x04\x12\x11\n\tfile_name\x18\t \x01(\t\x12\x11\n\tfile_type\x18\n \x01(\t\x12\x0b\n\x03md5\x18\x0b \x01(\t\x12\x0e\n\x06remove\x18\x0c \x01(\x08\x12\x0e\n\x06typeId\x18\r \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x0e \x01(\t*\x08\x08\x0f\x10\x80\x80\x80\x80\x02\x1a\xe7\x04\n\x07\x44\x61taSet\x12\x16\n\x0enum_of_columns\x18\x01 \x01(\x04\x12\x0f\n\x07\x63olumns\x18\x02 \x03(\t\x12Q\n\x05types\x18\x03 \x03(\x0e\x32\x42.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.DataType\x12K\n\x04rows\x18\x04 \x03(\x0b\x32=.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Row\x1a\x90\x01\n\x05Value\x12\x11\n\tint_value\x18\x02 \x01(\r\x12\x12\n\nlong_value\x18\x03 \x01(\x04\x12\x13\n\x0b\x66loat_value\x18\x04 \x01(\x02\x12\x14\n\x0c\x64ouble_value\x18\x05 \x01(\x01\x12\x15\n\rboolean_value\x18\x06 \x01(\x08\x12\x14\n\x0cstring_value\x18\x07 \x01(\t*\x08\x08\x08\x10\x80\x80\x80\x80\x02\x1a\x61\n\x03Row\x12P\n\x07\x65lement\x18\x01 \x03(\x0b\x32?.com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value*\x08\x08\x02\x10\x80\x80\x80\x80\x02\"\x92\x01\n\x08\x44\x61taType\x12\x0b\n\x07Unknown\x10\x00\x12\x08\n\x04Int1\x10\x01\x12\x08\n\x04Int2\x10\x02\x12\x08\n\x04Int4\x10\x03\x12\x08\n\x04Int8\x10\x04\x12\n\n\x06\x46loat4\x10\x05\x12\n\n\x06\x46loat8\x10\x06\x12\x0b\n\x07\x42oolean\x10\x07\x12\n\n\x06String\x10\x08\x12\x0c\n\x08\x44\x61teTime\x10\t\x12\x08\n\x04Text\x10\n\x12\x08\n\x04Null\x10\x0b*\x08\x08\x05\x10\x80\x80\x80\x80\x02\"\xc3\x01\n\x08\x44\x61taType\x12\x0b\n\x07Unknown\x10\x00\x12\x08\n\x04Int1\x10\x01\x12\x08\n\x04Int2\x10\x02\x12\x08\n\x04Int4\x10\x03\x12\x08\n\x04Int8\x10\x04\x12\n\n\x06\x46loat4\x10\x05\x12\n\n\x06\x46loat8\x10\x06\x12\x0b\n\x07\x42oolean\x10\x07\x12\n\n\x06String\x10\x08\x12\x0c\n\x08\x44\x61teTime\x10\t\x12\x0b\n\x07\x44\x61taset\x10\n\x12\x08\n\x04Text\x10\x0b\x12\t\n\x05\x42ytes\x10\x0c\x12\x08\n\x04\x46ile\x10\r\x12\n\n\x06UdtDef\x10\x0e\x12\x0b\n\x07UdtInst\x10\x0f*\x08\x08\x10\x10\x80\x80\x80\x80\x02*\x08\x08\x06\x10\x80\x80\x80\x80\x02\x42\x34\n!com.cirruslink.sparkplug.protobufB\x0fSparkplugBProto')
+  serialized_pb=_b('\n\x11sparkplug_b.proto\x12!com.cirruslink.sparkplug.protobuf\"\xce\x15\n\x07Payload\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x41\n\x06metric\x18\x02 \x03(\x0b\x32\x31.com.cirruslink.sparkplug.protobuf.Payload.Metric\x12\x46\n\ttemplates\x18\x03 \x03(\x0b\x32\x33.com.cirruslink.sparkplug.protobuf.Payload.Template\x12\x0b\n\x03seq\x18\x04 \x01(\x04\x12\x0c\n\x04uuid\x18\x05 \x01(\t\x12\x0c\n\x04\x62ody\x18\x06 \x01(\x0c\x1a\x9a\x04\n\x08Template\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07version\x18\x02 \x01(\t\x12\x42\n\x07metrics\x18\x03 \x03(\x0b\x32\x31.com.cirruslink.sparkplug.protobuf.Payload.Metric\x12P\n\nproperties\x18\x04 \x03(\x0b\x32<.com.cirruslink.sparkplug.protobuf.Payload.Template.Property\x1a\xce\x02\n\x08Property\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\r\x12\x13\n\tint_value\x18\x03 \x01(\rH\x00\x12\x14\n\nlong_value\x18\x04 \x01(\x04H\x00\x12\x15\n\x0b\x66loat_value\x18\x05 \x01(\x02H\x00\x12\x16\n\x0c\x64ouble_value\x18\x06 \x01(\x01H\x00\x12\x17\n\rboolean_value\x18\x07 \x01(\x08H\x00\x12\x16\n\x0cstring_value\x18\x08 \x01(\tH\x00\x12n\n\x0f\x65xtension_value\x18\t \x01(\x0b\x32S.com.cirruslink.sparkplug.protobuf.Payload.Template.Property.PropertyValueExtensionH\x00\x1a\"\n\x16PropertyValueExtension*\x08\x08\x01\x10\x80\x80\x80\x80\x02\x42\x07\n\x05value*\x08\x08\x05\x10\x80\x80\x80\x80\x02\x1a\xae\x04\n\x07\x44\x61taSet\x12\x16\n\x0enum_of_columns\x18\x01 \x01(\x04\x12\x0f\n\x07\x63olumns\x18\x02 \x03(\t\x12\x0c\n\x04type\x18\x03 \x03(\r\x12\x44\n\x04rows\x18\x04 \x03(\x0b\x32\x36.com.cirruslink.sparkplug.protobuf.Payload.DataSet.Row\x1a\xb7\x02\n\x0c\x44\x61taSetValue\x12\x13\n\tint_value\x18\x01 \x01(\rH\x00\x12\x14\n\nlong_value\x18\x02 \x01(\x04H\x00\x12\x15\n\x0b\x66loat_value\x18\x03 \x01(\x02H\x00\x12\x16\n\x0c\x64ouble_value\x18\x04 \x01(\x01H\x00\x12\x17\n\rboolean_value\x18\x05 \x01(\x08H\x00\x12\x16\n\x0cstring_value\x18\x06 \x01(\tH\x00\x12p\n\x0f\x65xtension_value\x18\x07 \x01(\x0b\x32U.com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue.DataSetValueExtensionH\x00\x1a!\n\x15\x44\x61taSetValueExtension*\x08\x08\x01\x10\x80\x80\x80\x80\x02\x42\x07\n\x05value\x1a\x62\n\x03Row\x12Q\n\x08\x65lements\x18\x01 \x03(\x0b\x32?.com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue*\x08\x08\x02\x10\x80\x80\x80\x80\x02*\x08\x08\x05\x10\x80\x80\x80\x80\x02\x1a\xf0\x03\n\rPropertyValue\x12\x0c\n\x04type\x18\x01 \x01(\r\x12\x13\n\tint_value\x18\x02 \x01(\rH\x00\x12\x14\n\nlong_value\x18\x03 \x01(\x04H\x00\x12\x15\n\x0b\x66loat_value\x18\x04 \x01(\x02H\x00\x12\x16\n\x0c\x64ouble_value\x18\x05 \x01(\x01H\x00\x12\x17\n\rboolean_value\x18\x06 \x01(\x08H\x00\x12\x16\n\x0cstring_value\x18\x07 \x01(\tH\x00\x12S\n\x11propertyset_value\x18\x08 \x01(\x0b\x32\x36.com.cirruslink.sparkplug.protobuf.Payload.PropertySetH\x00\x12X\n\x12propertysets_value\x18\t \x01(\x0b\x32:.com.cirruslink.sparkplug.protobuf.Payload.PropertySetListH\x00\x12j\n\x0f\x65xtension_value\x18\n \x01(\x0b\x32O.com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.PropertyValueExtensionH\x00\x1a\"\n\x16PropertyValueExtension*\x08\x08\x01\x10\x80\x80\x80\x80\x02\x42\x07\n\x05value\x1ao\n\x0bPropertySet\x12\x0c\n\x04keys\x18\x01 \x03(\t\x12H\n\x06values\x18\x02 \x03(\x0b\x32\x38.com.cirruslink.sparkplug.protobuf.Payload.PropertyValue*\x08\x08\x03\x10\x80\x80\x80\x80\x02\x1ah\n\x0fPropertySetList\x12K\n\x0bpropertyset\x18\x01 \x03(\x0b\x32\x36.com.cirruslink.sparkplug.protobuf.Payload.PropertySet*\x08\x08\x02\x10\x80\x80\x80\x80\x02\x1a\xa2\x01\n\x08MetaData\x12\x13\n\x0bisMultiPart\x18\x01 \x01(\x08\x12\x14\n\x0c\x63ontent_type\x18\x02 \x01(\t\x12\x0c\n\x04size\x18\x03 \x01(\x04\x12\x0b\n\x03seq\x18\x04 \x01(\x04\x12\x11\n\tfile_name\x18\x05 \x01(\t\x12\x11\n\tfile_type\x18\x06 \x01(\t\x12\x0b\n\x03md5\x18\x07 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x08 \x01(\t*\x08\x08\t\x10\x80\x80\x80\x80\x02\x1a\xb0\x04\n\x06Metric\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x61lias\x18\x02 \x01(\x04\x12\x11\n\ttimestamp\x18\x03 \x01(\x04\x12\x10\n\x08\x64\x61tatype\x18\x04 \x01(\r\x12\x12\n\nhistorical\x18\x05 \x01(\x08\x12\x0c\n\x04null\x18\x06 \x01(\x08\x12\x45\n\x08metadata\x18\x07 \x01(\x0b\x32\x33.com.cirruslink.sparkplug.protobuf.Payload.MetaData\x12\x13\n\tint_value\x18\x08 \x01(\rH\x00\x12\x14\n\nlong_value\x18\t \x01(\x04H\x00\x12\x15\n\x0b\x66loat_value\x18\n \x01(\x02H\x00\x12\x16\n\x0c\x64ouble_value\x18\x0b \x01(\x01H\x00\x12\x17\n\rboolean_value\x18\x0c \x01(\x08H\x00\x12\x16\n\x0cstring_value\x18\r \x01(\tH\x00\x12\x15\n\x0b\x62ytes_value\x18\x0e \x01(\x0cH\x00\x12K\n\rdataset_value\x18\x0f \x01(\x0b\x32\x32.com.cirruslink.sparkplug.protobuf.Payload.DataSetH\x00\x12\x61\n\x0f\x65xtension_value\x18\x10 \x01(\x0b\x32\x46.com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtensionH\x00\x1a \n\x14MetricValueExtension*\x08\x08\x01\x10\x80\x80\x80\x80\x02\x42\x07\n\x05value*\x08\x08\x07\x10\x80\x80\x80\x80\x02\x42\x34\n!com.cirruslink.sparkplug.protobufB\x0fSparkplugBProto')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
-_PAYLOAD_METRIC_DATASET_DATATYPE = _descriptor.EnumDescriptor(
-  name='DataType',
-  full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.DataType',
-  filename=None,
-  file=DESCRIPTOR,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='Unknown', index=0, number=0,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Int1', index=1, number=1,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Int2', index=2, number=2,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Int4', index=3, number=3,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Int8', index=4, number=4,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Float4', index=5, number=5,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Float8', index=6, number=6,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Boolean', index=7, number=7,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='String', index=8, number=8,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='DateTime', index=9, number=9,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Text', index=10, number=10,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Null', index=11, number=11,
-      options=None,
-      type=None),
-  ],
-  containing_type=None,
-  options=None,
-  serialized_start=1453,
-  serialized_end=1599,
-)
-_sym_db.RegisterEnumDescriptor(_PAYLOAD_METRIC_DATASET_DATATYPE)
 
-_PAYLOAD_METRIC_DATATYPE = _descriptor.EnumDescriptor(
-  name='DataType',
-  full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataType',
-  filename=None,
-  file=DESCRIPTOR,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='Unknown', index=0, number=0,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Int1', index=1, number=1,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Int2', index=2, number=2,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Int4', index=3, number=3,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Int8', index=4, number=4,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Float4', index=5, number=5,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Float8', index=6, number=6,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Boolean', index=7, number=7,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='String', index=8, number=8,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='DateTime', index=9, number=9,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Dataset', index=10, number=10,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Text', index=11, number=11,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='Bytes', index=12, number=12,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='File', index=13, number=13,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='UdtDef', index=14, number=14,
-      options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='UdtInst', index=15, number=15,
-      options=None,
-      type=None),
-  ],
-  containing_type=None,
-  options=None,
-  serialized_start=1612,
-  serialized_end=1807,
-)
-_sym_db.RegisterEnumDescriptor(_PAYLOAD_METRIC_DATATYPE)
-
-
-_PAYLOAD_METRIC_METADATA = _descriptor.Descriptor(
-  name='MetaData',
-  full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData',
+_PAYLOAD_TEMPLATE_PROPERTY_PROPERTYVALUEEXTENSION = _descriptor.Descriptor(
+  name='PropertyValueExtension',
+  full_name='com.cirruslink.sparkplug.protobuf.Payload.Template.Property.PropertyValueExtension',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
-    _descriptor.FieldDescriptor(
-      name='isMultiPart', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.isMultiPart', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='isScript', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.isScript', index=1,
-      number=2, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='units', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.units', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='content_type', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.content_type', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='size', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.size', index=4,
-      number=5, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='algorithm', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.algorithm', index=5,
-      number=6, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='format', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.format', index=6,
-      number=7, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='seq', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.seq', index=7,
-      number=8, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='file_name', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.file_name', index=8,
-      number=9, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='file_type', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.file_type', index=9,
-      number=10, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='md5', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.md5', index=10,
-      number=11, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='remove', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.remove', index=11,
-      number=12, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='typeId', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.typeId', index=12,
-      number=13, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData.description', index=13,
-      number=14, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
   ],
   extensions=[
   ],
@@ -278,62 +40,158 @@ _PAYLOAD_METRIC_METADATA = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=True,
-  extension_ranges=[(15, 536870912), ],
+  extension_ranges=[(1, 536870912), ],
   oneofs=[
   ],
-  serialized_start=729,
-  serialized_end=991,
+  serialized_start=753,
+  serialized_end=787,
 )
 
-_PAYLOAD_METRIC_DATASET_VALUE = _descriptor.Descriptor(
-  name='Value',
-  full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value',
+_PAYLOAD_TEMPLATE_PROPERTY = _descriptor.Descriptor(
+  name='Property',
+  full_name='com.cirruslink.sparkplug.protobuf.Payload.Template.Property',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='int_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value.int_value', index=0,
+      name='name', full_name='com.cirruslink.sparkplug.protobuf.Payload.Template.Property.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='type', full_name='com.cirruslink.sparkplug.protobuf.Payload.Template.Property.type', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='long_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value.long_value', index=1,
-      number=3, type=4, cpp_type=4, label=1,
+      name='int_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Template.Property.int_value', index=2,
+      number=3, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='float_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value.float_value', index=2,
-      number=4, type=2, cpp_type=6, label=1,
+      name='long_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Template.Property.long_value', index=3,
+      number=4, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='double_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value.double_value', index=3,
-      number=5, type=1, cpp_type=5, label=1,
+      name='float_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Template.Property.float_value', index=4,
+      number=5, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='boolean_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value.boolean_value', index=4,
-      number=6, type=8, cpp_type=7, label=1,
+      name='double_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Template.Property.double_value', index=5,
+      number=6, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='boolean_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Template.Property.boolean_value', index=6,
+      number=7, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='string_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value.string_value', index=5,
-      number=7, type=9, cpp_type=9, label=1,
+      name='string_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Template.Property.string_value', index=7,
+      number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='extension_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Template.Property.extension_value', index=8,
+      number=9, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[_PAYLOAD_TEMPLATE_PROPERTY_PROPERTYVALUEEXTENSION, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Template.Property.value',
+      index=0, containing_type=None, fields=[]),
+  ],
+  serialized_start=462,
+  serialized_end=796,
+)
+
+_PAYLOAD_TEMPLATE = _descriptor.Descriptor(
+  name='Template',
+  full_name='com.cirruslink.sparkplug.protobuf.Payload.Template',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='com.cirruslink.sparkplug.protobuf.Payload.Template.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='version', full_name='com.cirruslink.sparkplug.protobuf.Payload.Template.version', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='metrics', full_name='com.cirruslink.sparkplug.protobuf.Payload.Template.metrics', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='properties', full_name='com.cirruslink.sparkplug.protobuf.Payload.Template.properties', index=3,
+      number=4, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[_PAYLOAD_TEMPLATE_PROPERTY, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=True,
+  extension_ranges=[(5, 536870912), ],
+  oneofs=[
+  ],
+  serialized_start=268,
+  serialized_end=806,
+)
+
+_PAYLOAD_DATASET_DATASETVALUE_DATASETVALUEEXTENSION = _descriptor.Descriptor(
+  name='DataSetValueExtension',
+  full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue.DataSetValueExtension',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
   ],
   extensions=[
   ],
@@ -342,22 +200,96 @@ _PAYLOAD_METRIC_DATASET_VALUE = _descriptor.Descriptor(
   ],
   options=None,
   is_extendable=True,
-  extension_ranges=[(8, 536870912), ],
+  extension_ranges=[(1, 536870912), ],
   oneofs=[
   ],
-  serialized_start=1207,
-  serialized_end=1351,
+  serialized_start=1215,
+  serialized_end=1248,
 )
 
-_PAYLOAD_METRIC_DATASET_ROW = _descriptor.Descriptor(
-  name='Row',
-  full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Row',
+_PAYLOAD_DATASET_DATASETVALUE = _descriptor.Descriptor(
+  name='DataSetValue',
+  full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='element', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Row.element', index=0,
+      name='int_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue.int_value', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='long_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue.long_value', index=1,
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='float_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue.float_value', index=2,
+      number=3, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='double_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue.double_value', index=3,
+      number=4, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='boolean_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue.boolean_value', index=4,
+      number=5, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='string_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue.string_value', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='extension_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue.extension_value', index=6,
+      number=7, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[_PAYLOAD_DATASET_DATASETVALUE_DATASETVALUEEXTENSION, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='value', full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue.value',
+      index=0, containing_type=None, fields=[]),
+  ],
+  serialized_start=946,
+  serialized_end=1257,
+)
+
+_PAYLOAD_DATASET_ROW = _descriptor.Descriptor(
+  name='Row',
+  full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet.Row',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='elements', full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet.Row.elements', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -374,40 +306,40 @@ _PAYLOAD_METRIC_DATASET_ROW = _descriptor.Descriptor(
   extension_ranges=[(2, 536870912), ],
   oneofs=[
   ],
-  serialized_start=1353,
-  serialized_end=1450,
+  serialized_start=1259,
+  serialized_end=1357,
 )
 
-_PAYLOAD_METRIC_DATASET = _descriptor.Descriptor(
+_PAYLOAD_DATASET = _descriptor.Descriptor(
   name='DataSet',
-  full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet',
+  full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='num_of_columns', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.num_of_columns', index=0,
+      name='num_of_columns', full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet.num_of_columns', index=0,
       number=1, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='columns', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.columns', index=1,
+      name='columns', full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet.columns', index=1,
       number=2, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='types', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.types', index=2,
-      number=3, type=14, cpp_type=8, label=3,
+      name='type', full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet.type', index=2,
+      number=3, type=13, cpp_type=3, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='rows', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.rows', index=3,
+      name='rows', full_name='com.cirruslink.sparkplug.protobuf.Payload.DataSet.rows', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -416,17 +348,298 @@ _PAYLOAD_METRIC_DATASET = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_PAYLOAD_METRIC_DATASET_VALUE, _PAYLOAD_METRIC_DATASET_ROW, ],
+  nested_types=[_PAYLOAD_DATASET_DATASETVALUE, _PAYLOAD_DATASET_ROW, ],
   enum_types=[
-    _PAYLOAD_METRIC_DATASET_DATATYPE,
   ],
   options=None,
   is_extendable=True,
   extension_ranges=[(5, 536870912), ],
   oneofs=[
   ],
-  serialized_start=994,
-  serialized_end=1609,
+  serialized_start=809,
+  serialized_end=1367,
+)
+
+_PAYLOAD_PROPERTYVALUE_PROPERTYVALUEEXTENSION = _descriptor.Descriptor(
+  name='PropertyValueExtension',
+  full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.PropertyValueExtension',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=True,
+  extension_ranges=[(1, 536870912), ],
+  oneofs=[
+  ],
+  serialized_start=753,
+  serialized_end=787,
+)
+
+_PAYLOAD_PROPERTYVALUE = _descriptor.Descriptor(
+  name='PropertyValue',
+  full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertyValue',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='type', full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.type', index=0,
+      number=1, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='int_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.int_value', index=1,
+      number=2, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='long_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.long_value', index=2,
+      number=3, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='float_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.float_value', index=3,
+      number=4, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='double_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.double_value', index=4,
+      number=5, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='boolean_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.boolean_value', index=5,
+      number=6, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='string_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.string_value', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='propertyset_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.propertyset_value', index=7,
+      number=8, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='propertysets_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.propertysets_value', index=8,
+      number=9, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='extension_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.extension_value', index=9,
+      number=10, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[_PAYLOAD_PROPERTYVALUE_PROPERTYVALUEEXTENSION, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  oneofs=[
+    _descriptor.OneofDescriptor(
+      name='value', full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.value',
+      index=0, containing_type=None, fields=[]),
+  ],
+  serialized_start=1370,
+  serialized_end=1866,
+)
+
+_PAYLOAD_PROPERTYSET = _descriptor.Descriptor(
+  name='PropertySet',
+  full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertySet',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='keys', full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertySet.keys', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='values', full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertySet.values', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=True,
+  extension_ranges=[(3, 536870912), ],
+  oneofs=[
+  ],
+  serialized_start=1868,
+  serialized_end=1979,
+)
+
+_PAYLOAD_PROPERTYSETLIST = _descriptor.Descriptor(
+  name='PropertySetList',
+  full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertySetList',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='propertyset', full_name='com.cirruslink.sparkplug.protobuf.Payload.PropertySetList.propertyset', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=True,
+  extension_ranges=[(2, 536870912), ],
+  oneofs=[
+  ],
+  serialized_start=1981,
+  serialized_end=2085,
+)
+
+_PAYLOAD_METADATA = _descriptor.Descriptor(
+  name='MetaData',
+  full_name='com.cirruslink.sparkplug.protobuf.Payload.MetaData',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='isMultiPart', full_name='com.cirruslink.sparkplug.protobuf.Payload.MetaData.isMultiPart', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='content_type', full_name='com.cirruslink.sparkplug.protobuf.Payload.MetaData.content_type', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='size', full_name='com.cirruslink.sparkplug.protobuf.Payload.MetaData.size', index=2,
+      number=3, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='seq', full_name='com.cirruslink.sparkplug.protobuf.Payload.MetaData.seq', index=3,
+      number=4, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='file_name', full_name='com.cirruslink.sparkplug.protobuf.Payload.MetaData.file_name', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='file_type', full_name='com.cirruslink.sparkplug.protobuf.Payload.MetaData.file_type', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='md5', full_name='com.cirruslink.sparkplug.protobuf.Payload.MetaData.md5', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='description', full_name='com.cirruslink.sparkplug.protobuf.Payload.MetaData.description', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=True,
+  extension_ranges=[(9, 536870912), ],
+  oneofs=[
+  ],
+  serialized_start=2088,
+  serialized_end=2250,
+)
+
+_PAYLOAD_METRIC_METRICVALUEEXTENSION = _descriptor.Descriptor(
+  name='MetricValueExtension',
+  full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=True,
+  extension_ranges=[(1, 536870912), ],
+  oneofs=[
+  ],
+  serialized_start=2772,
+  serialized_end=2804,
 )
 
 _PAYLOAD_METRIC = _descriptor.Descriptor(
@@ -459,7 +672,7 @@ _PAYLOAD_METRIC = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='datatype', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.datatype', index=3,
-      number=4, type=14, cpp_type=8, label=1,
+      number=4, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -472,89 +685,98 @@ _PAYLOAD_METRIC = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='metadata', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.metadata', index=5,
-      number=6, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='int_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.int_value', index=6,
-      number=7, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='long_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.long_value', index=7,
-      number=8, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='float_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.float_value', index=8,
-      number=9, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='double_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.double_value', index=9,
-      number=10, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='boolean_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.boolean_value', index=10,
-      number=11, type=8, cpp_type=7, label=1,
+      name='null', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.null', index=5,
+      number=6, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='string_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.string_value', index=11,
-      number=12, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='bytes_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.bytes_value', index=12,
-      number=13, type=12, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b(""),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='dataset_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.dataset_value', index=13,
-      number=14, type=11, cpp_type=10, label=1,
+      name='metadata', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.metadata', index=6,
+      number=7, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='members', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.members', index=14,
-      number=15, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
+      name='int_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.int_value', index=7,
+      number=8, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='long_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.long_value', index=8,
+      number=9, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='float_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.float_value', index=9,
+      number=10, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='double_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.double_value', index=10,
+      number=11, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='boolean_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.boolean_value', index=11,
+      number=12, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='string_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.string_value', index=12,
+      number=13, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='bytes_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.bytes_value', index=13,
+      number=14, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='dataset_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.dataset_value', index=14,
+      number=15, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='extension_value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.extension_value', index=15,
+      number=16, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
   ],
   extensions=[
   ],
-  nested_types=[_PAYLOAD_METRIC_METADATA, _PAYLOAD_METRIC_DATASET, ],
+  nested_types=[_PAYLOAD_METRIC_METRICVALUEEXTENSION, ],
   enum_types=[
-    _PAYLOAD_METRIC_DATATYPE,
   ],
   options=None,
-  is_extendable=True,
-  extension_ranges=[(16, 536870912), ],
+  is_extendable=False,
+  extension_ranges=[],
   oneofs=[
+    _descriptor.OneofDescriptor(
+      name='value', full_name='com.cirruslink.sparkplug.protobuf.Payload.Metric.value',
+      index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=196,
-  serialized_end=1817,
+  serialized_start=2253,
+  serialized_end=2813,
 )
 
 _PAYLOAD = _descriptor.Descriptor(
@@ -579,22 +801,29 @@ _PAYLOAD = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='seq', full_name='com.cirruslink.sparkplug.protobuf.Payload.seq', index=2,
-      number=3, type=4, cpp_type=4, label=1,
+      name='templates', full_name='com.cirruslink.sparkplug.protobuf.Payload.templates', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='seq', full_name='com.cirruslink.sparkplug.protobuf.Payload.seq', index=3,
+      number=4, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='uuid', full_name='com.cirruslink.sparkplug.protobuf.Payload.uuid', index=3,
-      number=4, type=9, cpp_type=9, label=1,
+      name='uuid', full_name='com.cirruslink.sparkplug.protobuf.Payload.uuid', index=4,
+      number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='body', full_name='com.cirruslink.sparkplug.protobuf.Payload.body', index=4,
-      number=5, type=12, cpp_type=9, label=1,
+      name='body', full_name='com.cirruslink.sparkplug.protobuf.Payload.body', index=5,
+      number=6, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -602,64 +831,238 @@ _PAYLOAD = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_PAYLOAD_METRIC, ],
+  nested_types=[_PAYLOAD_TEMPLATE, _PAYLOAD_DATASET, _PAYLOAD_PROPERTYVALUE, _PAYLOAD_PROPERTYSET, _PAYLOAD_PROPERTYSETLIST, _PAYLOAD_METADATA, _PAYLOAD_METRIC, ],
   enum_types=[
   ],
   options=None,
   is_extendable=True,
-  extension_ranges=[(6, 536870912), ],
+  extension_ranges=[(7, 536870912), ],
   oneofs=[
   ],
   serialized_start=57,
-  serialized_end=1827,
+  serialized_end=2823,
 )
 
-_PAYLOAD_METRIC_METADATA.containing_type = _PAYLOAD_METRIC
-_PAYLOAD_METRIC_DATASET_VALUE.containing_type = _PAYLOAD_METRIC_DATASET
-_PAYLOAD_METRIC_DATASET_ROW.fields_by_name['element'].message_type = _PAYLOAD_METRIC_DATASET_VALUE
-_PAYLOAD_METRIC_DATASET_ROW.containing_type = _PAYLOAD_METRIC_DATASET
-_PAYLOAD_METRIC_DATASET.fields_by_name['types'].enum_type = _PAYLOAD_METRIC_DATASET_DATATYPE
-_PAYLOAD_METRIC_DATASET.fields_by_name['rows'].message_type = _PAYLOAD_METRIC_DATASET_ROW
-_PAYLOAD_METRIC_DATASET.containing_type = _PAYLOAD_METRIC
-_PAYLOAD_METRIC_DATASET_DATATYPE.containing_type = _PAYLOAD_METRIC_DATASET
-_PAYLOAD_METRIC.fields_by_name['datatype'].enum_type = _PAYLOAD_METRIC_DATATYPE
-_PAYLOAD_METRIC.fields_by_name['metadata'].message_type = _PAYLOAD_METRIC_METADATA
-_PAYLOAD_METRIC.fields_by_name['dataset_value'].message_type = _PAYLOAD_METRIC_DATASET
-_PAYLOAD_METRIC.fields_by_name['members'].message_type = _PAYLOAD_METRIC
+_PAYLOAD_TEMPLATE_PROPERTY_PROPERTYVALUEEXTENSION.containing_type = _PAYLOAD_TEMPLATE_PROPERTY
+_PAYLOAD_TEMPLATE_PROPERTY.fields_by_name['extension_value'].message_type = _PAYLOAD_TEMPLATE_PROPERTY_PROPERTYVALUEEXTENSION
+_PAYLOAD_TEMPLATE_PROPERTY.containing_type = _PAYLOAD_TEMPLATE
+_PAYLOAD_TEMPLATE_PROPERTY.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_TEMPLATE_PROPERTY.fields_by_name['int_value'])
+_PAYLOAD_TEMPLATE_PROPERTY.fields_by_name['int_value'].containing_oneof = _PAYLOAD_TEMPLATE_PROPERTY.oneofs_by_name['value']
+_PAYLOAD_TEMPLATE_PROPERTY.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_TEMPLATE_PROPERTY.fields_by_name['long_value'])
+_PAYLOAD_TEMPLATE_PROPERTY.fields_by_name['long_value'].containing_oneof = _PAYLOAD_TEMPLATE_PROPERTY.oneofs_by_name['value']
+_PAYLOAD_TEMPLATE_PROPERTY.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_TEMPLATE_PROPERTY.fields_by_name['float_value'])
+_PAYLOAD_TEMPLATE_PROPERTY.fields_by_name['float_value'].containing_oneof = _PAYLOAD_TEMPLATE_PROPERTY.oneofs_by_name['value']
+_PAYLOAD_TEMPLATE_PROPERTY.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_TEMPLATE_PROPERTY.fields_by_name['double_value'])
+_PAYLOAD_TEMPLATE_PROPERTY.fields_by_name['double_value'].containing_oneof = _PAYLOAD_TEMPLATE_PROPERTY.oneofs_by_name['value']
+_PAYLOAD_TEMPLATE_PROPERTY.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_TEMPLATE_PROPERTY.fields_by_name['boolean_value'])
+_PAYLOAD_TEMPLATE_PROPERTY.fields_by_name['boolean_value'].containing_oneof = _PAYLOAD_TEMPLATE_PROPERTY.oneofs_by_name['value']
+_PAYLOAD_TEMPLATE_PROPERTY.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_TEMPLATE_PROPERTY.fields_by_name['string_value'])
+_PAYLOAD_TEMPLATE_PROPERTY.fields_by_name['string_value'].containing_oneof = _PAYLOAD_TEMPLATE_PROPERTY.oneofs_by_name['value']
+_PAYLOAD_TEMPLATE_PROPERTY.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_TEMPLATE_PROPERTY.fields_by_name['extension_value'])
+_PAYLOAD_TEMPLATE_PROPERTY.fields_by_name['extension_value'].containing_oneof = _PAYLOAD_TEMPLATE_PROPERTY.oneofs_by_name['value']
+_PAYLOAD_TEMPLATE.fields_by_name['metrics'].message_type = _PAYLOAD_METRIC
+_PAYLOAD_TEMPLATE.fields_by_name['properties'].message_type = _PAYLOAD_TEMPLATE_PROPERTY
+_PAYLOAD_TEMPLATE.containing_type = _PAYLOAD
+_PAYLOAD_DATASET_DATASETVALUE_DATASETVALUEEXTENSION.containing_type = _PAYLOAD_DATASET_DATASETVALUE
+_PAYLOAD_DATASET_DATASETVALUE.fields_by_name['extension_value'].message_type = _PAYLOAD_DATASET_DATASETVALUE_DATASETVALUEEXTENSION
+_PAYLOAD_DATASET_DATASETVALUE.containing_type = _PAYLOAD_DATASET
+_PAYLOAD_DATASET_DATASETVALUE.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_DATASET_DATASETVALUE.fields_by_name['int_value'])
+_PAYLOAD_DATASET_DATASETVALUE.fields_by_name['int_value'].containing_oneof = _PAYLOAD_DATASET_DATASETVALUE.oneofs_by_name['value']
+_PAYLOAD_DATASET_DATASETVALUE.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_DATASET_DATASETVALUE.fields_by_name['long_value'])
+_PAYLOAD_DATASET_DATASETVALUE.fields_by_name['long_value'].containing_oneof = _PAYLOAD_DATASET_DATASETVALUE.oneofs_by_name['value']
+_PAYLOAD_DATASET_DATASETVALUE.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_DATASET_DATASETVALUE.fields_by_name['float_value'])
+_PAYLOAD_DATASET_DATASETVALUE.fields_by_name['float_value'].containing_oneof = _PAYLOAD_DATASET_DATASETVALUE.oneofs_by_name['value']
+_PAYLOAD_DATASET_DATASETVALUE.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_DATASET_DATASETVALUE.fields_by_name['double_value'])
+_PAYLOAD_DATASET_DATASETVALUE.fields_by_name['double_value'].containing_oneof = _PAYLOAD_DATASET_DATASETVALUE.oneofs_by_name['value']
+_PAYLOAD_DATASET_DATASETVALUE.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_DATASET_DATASETVALUE.fields_by_name['boolean_value'])
+_PAYLOAD_DATASET_DATASETVALUE.fields_by_name['boolean_value'].containing_oneof = _PAYLOAD_DATASET_DATASETVALUE.oneofs_by_name['value']
+_PAYLOAD_DATASET_DATASETVALUE.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_DATASET_DATASETVALUE.fields_by_name['string_value'])
+_PAYLOAD_DATASET_DATASETVALUE.fields_by_name['string_value'].containing_oneof = _PAYLOAD_DATASET_DATASETVALUE.oneofs_by_name['value']
+_PAYLOAD_DATASET_DATASETVALUE.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_DATASET_DATASETVALUE.fields_by_name['extension_value'])
+_PAYLOAD_DATASET_DATASETVALUE.fields_by_name['extension_value'].containing_oneof = _PAYLOAD_DATASET_DATASETVALUE.oneofs_by_name['value']
+_PAYLOAD_DATASET_ROW.fields_by_name['elements'].message_type = _PAYLOAD_DATASET_DATASETVALUE
+_PAYLOAD_DATASET_ROW.containing_type = _PAYLOAD_DATASET
+_PAYLOAD_DATASET.fields_by_name['rows'].message_type = _PAYLOAD_DATASET_ROW
+_PAYLOAD_DATASET.containing_type = _PAYLOAD
+_PAYLOAD_PROPERTYVALUE_PROPERTYVALUEEXTENSION.containing_type = _PAYLOAD_PROPERTYVALUE
+_PAYLOAD_PROPERTYVALUE.fields_by_name['propertyset_value'].message_type = _PAYLOAD_PROPERTYSET
+_PAYLOAD_PROPERTYVALUE.fields_by_name['propertysets_value'].message_type = _PAYLOAD_PROPERTYSETLIST
+_PAYLOAD_PROPERTYVALUE.fields_by_name['extension_value'].message_type = _PAYLOAD_PROPERTYVALUE_PROPERTYVALUEEXTENSION
+_PAYLOAD_PROPERTYVALUE.containing_type = _PAYLOAD
+_PAYLOAD_PROPERTYVALUE.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_PROPERTYVALUE.fields_by_name['int_value'])
+_PAYLOAD_PROPERTYVALUE.fields_by_name['int_value'].containing_oneof = _PAYLOAD_PROPERTYVALUE.oneofs_by_name['value']
+_PAYLOAD_PROPERTYVALUE.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_PROPERTYVALUE.fields_by_name['long_value'])
+_PAYLOAD_PROPERTYVALUE.fields_by_name['long_value'].containing_oneof = _PAYLOAD_PROPERTYVALUE.oneofs_by_name['value']
+_PAYLOAD_PROPERTYVALUE.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_PROPERTYVALUE.fields_by_name['float_value'])
+_PAYLOAD_PROPERTYVALUE.fields_by_name['float_value'].containing_oneof = _PAYLOAD_PROPERTYVALUE.oneofs_by_name['value']
+_PAYLOAD_PROPERTYVALUE.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_PROPERTYVALUE.fields_by_name['double_value'])
+_PAYLOAD_PROPERTYVALUE.fields_by_name['double_value'].containing_oneof = _PAYLOAD_PROPERTYVALUE.oneofs_by_name['value']
+_PAYLOAD_PROPERTYVALUE.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_PROPERTYVALUE.fields_by_name['boolean_value'])
+_PAYLOAD_PROPERTYVALUE.fields_by_name['boolean_value'].containing_oneof = _PAYLOAD_PROPERTYVALUE.oneofs_by_name['value']
+_PAYLOAD_PROPERTYVALUE.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_PROPERTYVALUE.fields_by_name['string_value'])
+_PAYLOAD_PROPERTYVALUE.fields_by_name['string_value'].containing_oneof = _PAYLOAD_PROPERTYVALUE.oneofs_by_name['value']
+_PAYLOAD_PROPERTYVALUE.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_PROPERTYVALUE.fields_by_name['propertyset_value'])
+_PAYLOAD_PROPERTYVALUE.fields_by_name['propertyset_value'].containing_oneof = _PAYLOAD_PROPERTYVALUE.oneofs_by_name['value']
+_PAYLOAD_PROPERTYVALUE.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_PROPERTYVALUE.fields_by_name['propertysets_value'])
+_PAYLOAD_PROPERTYVALUE.fields_by_name['propertysets_value'].containing_oneof = _PAYLOAD_PROPERTYVALUE.oneofs_by_name['value']
+_PAYLOAD_PROPERTYVALUE.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_PROPERTYVALUE.fields_by_name['extension_value'])
+_PAYLOAD_PROPERTYVALUE.fields_by_name['extension_value'].containing_oneof = _PAYLOAD_PROPERTYVALUE.oneofs_by_name['value']
+_PAYLOAD_PROPERTYSET.fields_by_name['values'].message_type = _PAYLOAD_PROPERTYVALUE
+_PAYLOAD_PROPERTYSET.containing_type = _PAYLOAD
+_PAYLOAD_PROPERTYSETLIST.fields_by_name['propertyset'].message_type = _PAYLOAD_PROPERTYSET
+_PAYLOAD_PROPERTYSETLIST.containing_type = _PAYLOAD
+_PAYLOAD_METADATA.containing_type = _PAYLOAD
+_PAYLOAD_METRIC_METRICVALUEEXTENSION.containing_type = _PAYLOAD_METRIC
+_PAYLOAD_METRIC.fields_by_name['metadata'].message_type = _PAYLOAD_METADATA
+_PAYLOAD_METRIC.fields_by_name['dataset_value'].message_type = _PAYLOAD_DATASET
+_PAYLOAD_METRIC.fields_by_name['extension_value'].message_type = _PAYLOAD_METRIC_METRICVALUEEXTENSION
 _PAYLOAD_METRIC.containing_type = _PAYLOAD
-_PAYLOAD_METRIC_DATATYPE.containing_type = _PAYLOAD_METRIC
+_PAYLOAD_METRIC.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_METRIC.fields_by_name['int_value'])
+_PAYLOAD_METRIC.fields_by_name['int_value'].containing_oneof = _PAYLOAD_METRIC.oneofs_by_name['value']
+_PAYLOAD_METRIC.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_METRIC.fields_by_name['long_value'])
+_PAYLOAD_METRIC.fields_by_name['long_value'].containing_oneof = _PAYLOAD_METRIC.oneofs_by_name['value']
+_PAYLOAD_METRIC.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_METRIC.fields_by_name['float_value'])
+_PAYLOAD_METRIC.fields_by_name['float_value'].containing_oneof = _PAYLOAD_METRIC.oneofs_by_name['value']
+_PAYLOAD_METRIC.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_METRIC.fields_by_name['double_value'])
+_PAYLOAD_METRIC.fields_by_name['double_value'].containing_oneof = _PAYLOAD_METRIC.oneofs_by_name['value']
+_PAYLOAD_METRIC.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_METRIC.fields_by_name['boolean_value'])
+_PAYLOAD_METRIC.fields_by_name['boolean_value'].containing_oneof = _PAYLOAD_METRIC.oneofs_by_name['value']
+_PAYLOAD_METRIC.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_METRIC.fields_by_name['string_value'])
+_PAYLOAD_METRIC.fields_by_name['string_value'].containing_oneof = _PAYLOAD_METRIC.oneofs_by_name['value']
+_PAYLOAD_METRIC.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_METRIC.fields_by_name['bytes_value'])
+_PAYLOAD_METRIC.fields_by_name['bytes_value'].containing_oneof = _PAYLOAD_METRIC.oneofs_by_name['value']
+_PAYLOAD_METRIC.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_METRIC.fields_by_name['dataset_value'])
+_PAYLOAD_METRIC.fields_by_name['dataset_value'].containing_oneof = _PAYLOAD_METRIC.oneofs_by_name['value']
+_PAYLOAD_METRIC.oneofs_by_name['value'].fields.append(
+  _PAYLOAD_METRIC.fields_by_name['extension_value'])
+_PAYLOAD_METRIC.fields_by_name['extension_value'].containing_oneof = _PAYLOAD_METRIC.oneofs_by_name['value']
 _PAYLOAD.fields_by_name['metric'].message_type = _PAYLOAD_METRIC
+_PAYLOAD.fields_by_name['templates'].message_type = _PAYLOAD_TEMPLATE
 DESCRIPTOR.message_types_by_name['Payload'] = _PAYLOAD
 
 Payload = _reflection.GeneratedProtocolMessageType('Payload', (_message.Message,), dict(
 
-  Metric = _reflection.GeneratedProtocolMessageType('Metric', (_message.Message,), dict(
+  Template = _reflection.GeneratedProtocolMessageType('Template', (_message.Message,), dict(
 
-    MetaData = _reflection.GeneratedProtocolMessageType('MetaData', (_message.Message,), dict(
-      DESCRIPTOR = _PAYLOAD_METRIC_METADATA,
+    Property = _reflection.GeneratedProtocolMessageType('Property', (_message.Message,), dict(
+
+      PropertyValueExtension = _reflection.GeneratedProtocolMessageType('PropertyValueExtension', (_message.Message,), dict(
+        DESCRIPTOR = _PAYLOAD_TEMPLATE_PROPERTY_PROPERTYVALUEEXTENSION,
+        __module__ = 'sparkplug_b_pb2'
+        # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.Template.Property.PropertyValueExtension)
+        ))
+      ,
+      DESCRIPTOR = _PAYLOAD_TEMPLATE_PROPERTY,
       __module__ = 'sparkplug_b_pb2'
-      # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.Metric.MetaData)
+      # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.Template.Property)
+      ))
+    ,
+    DESCRIPTOR = _PAYLOAD_TEMPLATE,
+    __module__ = 'sparkplug_b_pb2'
+    # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.Template)
+    ))
+  ,
+
+  DataSet = _reflection.GeneratedProtocolMessageType('DataSet', (_message.Message,), dict(
+
+    DataSetValue = _reflection.GeneratedProtocolMessageType('DataSetValue', (_message.Message,), dict(
+
+      DataSetValueExtension = _reflection.GeneratedProtocolMessageType('DataSetValueExtension', (_message.Message,), dict(
+        DESCRIPTOR = _PAYLOAD_DATASET_DATASETVALUE_DATASETVALUEEXTENSION,
+        __module__ = 'sparkplug_b_pb2'
+        # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue.DataSetValueExtension)
+        ))
+      ,
+      DESCRIPTOR = _PAYLOAD_DATASET_DATASETVALUE,
+      __module__ = 'sparkplug_b_pb2'
+      # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue)
       ))
     ,
 
-    DataSet = _reflection.GeneratedProtocolMessageType('DataSet', (_message.Message,), dict(
-
-      Value = _reflection.GeneratedProtocolMessageType('Value', (_message.Message,), dict(
-        DESCRIPTOR = _PAYLOAD_METRIC_DATASET_VALUE,
-        __module__ = 'sparkplug_b_pb2'
-        # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Value)
-        ))
-      ,
-
-      Row = _reflection.GeneratedProtocolMessageType('Row', (_message.Message,), dict(
-        DESCRIPTOR = _PAYLOAD_METRIC_DATASET_ROW,
-        __module__ = 'sparkplug_b_pb2'
-        # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet.Row)
-        ))
-      ,
-      DESCRIPTOR = _PAYLOAD_METRIC_DATASET,
+    Row = _reflection.GeneratedProtocolMessageType('Row', (_message.Message,), dict(
+      DESCRIPTOR = _PAYLOAD_DATASET_ROW,
       __module__ = 'sparkplug_b_pb2'
-      # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.Metric.DataSet)
+      # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.DataSet.Row)
+      ))
+    ,
+    DESCRIPTOR = _PAYLOAD_DATASET,
+    __module__ = 'sparkplug_b_pb2'
+    # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.DataSet)
+    ))
+  ,
+
+  PropertyValue = _reflection.GeneratedProtocolMessageType('PropertyValue', (_message.Message,), dict(
+
+    PropertyValueExtension = _reflection.GeneratedProtocolMessageType('PropertyValueExtension', (_message.Message,), dict(
+      DESCRIPTOR = _PAYLOAD_PROPERTYVALUE_PROPERTYVALUEEXTENSION,
+      __module__ = 'sparkplug_b_pb2'
+      # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.PropertyValueExtension)
+      ))
+    ,
+    DESCRIPTOR = _PAYLOAD_PROPERTYVALUE,
+    __module__ = 'sparkplug_b_pb2'
+    # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.PropertyValue)
+    ))
+  ,
+
+  PropertySet = _reflection.GeneratedProtocolMessageType('PropertySet', (_message.Message,), dict(
+    DESCRIPTOR = _PAYLOAD_PROPERTYSET,
+    __module__ = 'sparkplug_b_pb2'
+    # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.PropertySet)
+    ))
+  ,
+
+  PropertySetList = _reflection.GeneratedProtocolMessageType('PropertySetList', (_message.Message,), dict(
+    DESCRIPTOR = _PAYLOAD_PROPERTYSETLIST,
+    __module__ = 'sparkplug_b_pb2'
+    # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.PropertySetList)
+    ))
+  ,
+
+  MetaData = _reflection.GeneratedProtocolMessageType('MetaData', (_message.Message,), dict(
+    DESCRIPTOR = _PAYLOAD_METADATA,
+    __module__ = 'sparkplug_b_pb2'
+    # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.MetaData)
+    ))
+  ,
+
+  Metric = _reflection.GeneratedProtocolMessageType('Metric', (_message.Message,), dict(
+
+    MetricValueExtension = _reflection.GeneratedProtocolMessageType('MetricValueExtension', (_message.Message,), dict(
+      DESCRIPTOR = _PAYLOAD_METRIC_METRICVALUEEXTENSION,
+      __module__ = 'sparkplug_b_pb2'
+      # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension)
       ))
     ,
     DESCRIPTOR = _PAYLOAD_METRIC,
@@ -672,11 +1075,20 @@ Payload = _reflection.GeneratedProtocolMessageType('Payload', (_message.Message,
   # @@protoc_insertion_point(class_scope:com.cirruslink.sparkplug.protobuf.Payload)
   ))
 _sym_db.RegisterMessage(Payload)
+_sym_db.RegisterMessage(Payload.Template)
+_sym_db.RegisterMessage(Payload.Template.Property)
+_sym_db.RegisterMessage(Payload.Template.Property.PropertyValueExtension)
+_sym_db.RegisterMessage(Payload.DataSet)
+_sym_db.RegisterMessage(Payload.DataSet.DataSetValue)
+_sym_db.RegisterMessage(Payload.DataSet.DataSetValue.DataSetValueExtension)
+_sym_db.RegisterMessage(Payload.DataSet.Row)
+_sym_db.RegisterMessage(Payload.PropertyValue)
+_sym_db.RegisterMessage(Payload.PropertyValue.PropertyValueExtension)
+_sym_db.RegisterMessage(Payload.PropertySet)
+_sym_db.RegisterMessage(Payload.PropertySetList)
+_sym_db.RegisterMessage(Payload.MetaData)
 _sym_db.RegisterMessage(Payload.Metric)
-_sym_db.RegisterMessage(Payload.Metric.MetaData)
-_sym_db.RegisterMessage(Payload.Metric.DataSet)
-_sym_db.RegisterMessage(Payload.Metric.DataSet.Value)
-_sym_db.RegisterMessage(Payload.Metric.DataSet.Row)
+_sym_db.RegisterMessage(Payload.Metric.MetricValueExtension)
 
 
 DESCRIPTOR.has_options = True
