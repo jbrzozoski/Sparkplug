@@ -1,0 +1,5 @@
+com.cirruslink.sparkplug.protobuf.Payload.Template.Property.string_value max_size:1048576
+com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue.string_value max_size:1048576
+com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.string_value max_size:1048576
+com.cirruslink.sparkplug.protobuf.Payload.Metric.string_value max_size:1048576
+com.cirruslink.sparkplug.protobuf.Payload.Metric.bytes_value max_size:1048576

@@ -12,171 +12,176 @@ option java_outer_classname = "SparkplugBProto";
 
 message Payload {
 
-    message Metric {
-
+    /*
         enum DataType {
             // Unknown placeholder for future expansion.
             Unknown     = 0;
 
             // Data Types
-            Int8	= 1;
-            Int16	= 2;
-            Int32	= 3;
-            Int64	= 4;
-            UInt8	= 5;
-            UInt16	= 6;
-            UInt32	= 7;
-            UInt64	= 8;
-            Float	= 9;
-            Double	= 10;
-            Boolean	= 11;
-            String	= 12;
-            DateTime	= 13;
+            Int8        = 1;
+            Int16       = 2;
+            Int32       = 3;
+            Int64       = 4;
+            UInt8       = 5;
+            UInt16      = 6;
+            UInt32      = 7;
+            UInt64      = 8;
+            Float       = 9;
+            Double      = 10;
+            Boolean     = 11;
+            String      = 12;
+            DateTime    = 13;
             Text        = 14;
+            UUID        = 15;
 
             // Additional Data Types
-            Dataset     = 15;
-            Bytes       = 16;
-            File        = 17;
-        }
+            Dataset     = 16;
+            Bytes       = 17;
+            File        = 18;
+        }*/
 
-        message PropertyValue {
-            optional DataType type          = 1;
+    message Template {
+        
+        message Property {
+            optional string name        = 1;
+            optional uint32 type        = 2;
 
-            optional uint32 int_value       = 2;
-            optional uint64 long_value      = 3;
-            optional float  float_value     = 4;
-            optional double double_value    = 5;
-            optional bool   boolean_value   = 6;
-            optional string string_value    = 7;
-            optional bytes  bytes_value     = 8;
-            optional DataSet dataset_value  = 9;
-            optional PropertySet propertyset_value  = 10;
-            optional PropertySetList propertysetlist_value  = 11;	// List of Property Values
-            extensions                      12 to max;  // For third party extensions
-        }
-
-        message PropertySet {
-            repeated string keys            = 1;
-            repeated PropertyValue values    = 2;
-        }
-
-        message PropertySetList {
-            repeated PropertySet sets        = 1;
-        }
-
-        message MetaData {
-            // Bytes specific metadata
-            optional bool isMultiPart       = 1;
-
-            // General metadata
-            optional string content_type    = 2;        // Content/Media type
-            optional uint64 size            = 3;        // File size, String size, Multi-part size, etc
-            optional uint64 seq             = 4;        // Sequence number for multi-part messages
-
-            // File metadata
-            optional string file_name       = 5;        // File name
-            optional string file_type       = 6;        // File type (i.e. xml, json, txt, cpp, etc)
-            optional string md5             = 7;        // md5 of data
-
-            // Catchalls and future expansion
-            optional string description     = 8;        // Could be anything such as json or xml of custom properties
-            repeated MetaField members      = 9;
-                // Add remove=true/false
-                // Add qualities
-            extensions                      11 to max;  // For third party extensions
-        }
-
-        message MetaField {
-            optional string   name          = 1;        // Metric name - should only be included on birth
-            optional DataType datatype      = 2;        // DataType of the metric/tag value
-
-            optional uint32 int_value       = 3;        // Int1, Int2, Int4
-            optional uint64 long_value      = 4;        // Int8, DateTime
-            optional float  float_value     = 5;        // Float4
-            optional double double_value    = 6;        // Float8
-            optional bool   boolean_value   = 7;        // Boolean
-            optional string string_value    = 8;        // String, Text
-            optional bytes  bytes_value     = 9;        // Bytes, File, Script
-            optional DataSet dataset_value  = 10;       // DataSet
-            extensions                      11 to max;  // For third party extensions
-        }
-
-        message DataSet {
-            
-            enum DataType {
-                // Unknown placeholder for future expansion.
-                Unknown     = 0;
-
-                // Data Types
-                Int8	 = 1;
-                Int16	 = 2;
-                Int32	 = 3;
-                Int64	 = 4;
-                UInt8	 = 5;
-                UInt16	 = 6;
-                UInt32	 = 7;
-                UInt64	 = 8;
-                Float	 = 9;
-                Double	 = 10;
-                Boolean	 = 11;
-                String	 = 12;
-                DateTime = 13;
-                Text     = 14;
-            }
-            
-            message Value {
-                optional uint32 int_value      = 1;        // Int1, Int2, Int4
-                optional uint64 long_value     = 2;        // Int8, DateTime
-                optional float  float_value    = 3;        // Float4
-                optional double double_value   = 4;        // Float8
-                optional bool   boolean_value  = 5;        // Boolean 
-                optional string string_value   = 6;        // String, Text
-                extensions                     7 to max;   // For third party extensions
+            oneof value {
+                uint32 int_value        = 3;
+                uint64 long_value       = 4;
+                float  float_value      = 5;
+                double double_value     = 6;
+                bool   boolean_value    = 7;
+                string string_value     = 8;
+                PropertyValueExtension extension_value = 9;
             }
 
-            message Row {
-                repeated Value element  = 1;
-                extensions              2 to max;   // For third party extensions
+            message PropertyValueExtension {
+                extensions              1 to max;
+            }
+        }
+
+        optional string name            = 1;          // The name of the Template definition
+        optional string version         = 2;          // The version of the Template to prevent mismatches
+        repeated Metric metrics         = 3;          // Each metric is the name of the metric and the datatype of the member but does not contain a value
+        repeated Property properties    = 4;
+        extensions                      5 to max;
+    }
+
+    message DataSet {
+
+        message DataSetValue {
+
+            oneof value {
+                uint32 int_value      = 1;
+                uint64 long_value     = 2;
+                float  float_value    = 3;
+                double double_value   = 4;
+                bool   boolean_value  = 5;
+                string string_value   = 6;
+                DataSetValueExtension extension_value = 7;
             }
 
-            optional uint64 num_of_columns  = 1;
-            repeated string columns         = 2;
-            repeated DataType types         = 3;
-            repeated Row rows               = 4;
-            extensions                      5 to max;   // For third party extensions
+            message DataSetValueExtension {
+                extensions            1 to max;
+            }
         }
+
+        message Row {
+            repeated DataSetValue elements = 1;
+            extensions                     2 to max;   // For third party extensions
+        }
+
+        optional uint64   num_of_columns   = 1;
+        repeated string   columns          = 2;
+        repeated uint32   type             = 3;
+        repeated Row      rows             = 4;
+        extensions                         5 to max;   // For third party extensions
+    }
+
+    message PropertyValue {
+
+        optional uint32     type                   = 1;       // FIXME - should we reduce the datatype set from those we use for metrics
+
+        oneof value {
+            uint32          int_value              = 2;
+            uint64          long_value             = 3;
+            float           float_value            = 4;
+            double          double_value           = 5;
+            bool            boolean_value          = 6;
+            string          string_value           = 7;
+            PropertySet     propertyset_value      = 8;
+            PropertySetList propertysets_value     = 9;      // List of Property Values
+            PropertyValueExtension extension_value = 10;
+        }
+
+        message PropertyValueExtension {
+            extensions                             1 to max;
+        }
+    }
+
+    message PropertySet {
+        repeated string        keys     = 1;         // Names of the properties
+        repeated PropertyValue values   = 2;
+        extensions                      3 to max;
+    }
+
+    message PropertySetList {
+        repeated PropertySet propertyset = 1;
+        extensions                       2 to max;
+    }
+
+    message MetaData {
+        // Bytes specific metadata
+        optional bool   isMultiPart     = 1;
+
+        // General metadata
+        optional string content_type    = 2;        // Content/Media type
+        optional uint64 size            = 3;        // File size, String size, Multi-part size, etc
+        optional uint64 seq             = 4;        // Sequence number for multi-part messages
+
+        // File metadata
+        optional string file_name       = 5;        // File name
+        optional string file_type       = 6;        // File type (i.e. xml, json, txt, cpp, etc)
+        optional string md5             = 7;        // md5 of data
+
+        // Catchalls and future expansion
+        optional string description     = 8;        // Could be anything such as json or xml of custom properties
+        extensions                      9 to max;
+    }
+
+    message Metric {
 
         optional string   name          = 1;        // Metric name - should only be included on birth
         optional uint64   alias         = 2;        // Metric alias - tied to name on birth and included in all later DATA messages
         optional uint64   timestamp     = 3;        // Timestamp associated with data acquisition time
-        optional DataType datatype      = 4;        // DataType of the metric/tag value
+        optional uint32   datatype      = 4;        // DataType of the metric/tag value
         optional bool     historical    = 5;        // If this is historical data and should not update real time tag
         optional bool     null          = 6;        // If this is null - explicitly say so
         optional MetaData metadata      = 7;        // Metadata for the payload
 
-        optional uint32 int_value       = 8;        // Int1, Int2, Int4
-        optional uint64 long_value      = 9;        // Int8, DateTime
-        optional float  float_value     = 10;        // Float4
-        optional double double_value    = 11;       // Float8
-        optional bool   boolean_value   = 12;       // Boolean
-        optional string string_value    = 13;       // String, Text
-        optional bytes  bytes_value     = 14;       // Bytes, File, Script
-        optional DataSet dataset_value  = 15;       // DataSet
-        extensions                      16 to max;  // For third party extensions
+        oneof value {
+            uint32  int_value           = 8;
+            uint64  long_value          = 9;
+            float   float_value         = 10;
+            double  double_value        = 11;
+            bool    boolean_value       = 12;
+            string  string_value        = 13;
+            bytes   bytes_value         = 14;       // Bytes, File, Script
+            DataSet dataset_value       = 15;
+            MetricValueExtension extension_value = 16;
+        }
+
+        message MetricValueExtension {
+            extensions                  1 to max;
+        }
     }
 
-    message UdtDefinition {
-        optional string name    = 1;        // The name of the UDT definition
-        optional string version = 2;        // The version of the UDT definition to prevent mismatches
-        repeated Metric members = 3;        // Each metric is the name of the member and the datatype of the member but does not contain a value
-        extensions              4 to max;
-    }
-
-    optional uint64 timestamp   = 1;        // Timestamp at message sending time
-    repeated Metric metric      = 2;        // Repeated forever - no limit in Google Protobufs
-    optional uint64 seq         = 3;        // Sequence number
-    optional string uuid        = 4;        // UUID to track message type in terms of schema definitions
-    optional bytes  body        = 5;        // To optionally bypass the whole definition above
-    extensions                  6 to max;   // For third party extensions
+    optional uint64   timestamp  = 1;        // Timestamp at message sending time
+    repeated Metric   metric     = 2;        // Repeated forever - no limit in Google Protobufs
+    repeated Template templates  = 3;        // For UDTs
+    optional uint64   seq        = 4;        // Sequence number
+    optional string   uuid       = 5;        // UUID to track message type in terms of schema definitions
+    optional bytes    body       = 6;        // To optionally bypass the whole definition above
+    extensions                   7 to max;   // For third party extensions
 }
