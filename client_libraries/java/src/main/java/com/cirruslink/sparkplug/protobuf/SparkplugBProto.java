@@ -75,51 +75,7 @@ public final class SparkplugBProto {
         int index);
 
     /**
-     * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-     *
-     * <pre>
-     * For UDTs
-     * </pre>
-     */
-    java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template> 
-        getTemplatesList();
-    /**
-     * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-     *
-     * <pre>
-     * For UDTs
-     * </pre>
-     */
-    com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template getTemplates(int index);
-    /**
-     * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-     *
-     * <pre>
-     * For UDTs
-     * </pre>
-     */
-    int getTemplatesCount();
-    /**
-     * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-     *
-     * <pre>
-     * For UDTs
-     * </pre>
-     */
-    java.util.List<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.TemplateOrBuilder> 
-        getTemplatesOrBuilderList();
-    /**
-     * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-     *
-     * <pre>
-     * For UDTs
-     * </pre>
-     */
-    com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.TemplateOrBuilder getTemplatesOrBuilder(
-        int index);
-
-    /**
-     * <code>optional uint64 seq = 4;</code>
+     * <code>optional uint64 seq = 3;</code>
      *
      * <pre>
      * Sequence number
@@ -127,7 +83,7 @@ public final class SparkplugBProto {
      */
     boolean hasSeq();
     /**
-     * <code>optional uint64 seq = 4;</code>
+     * <code>optional uint64 seq = 3;</code>
      *
      * <pre>
      * Sequence number
@@ -136,7 +92,7 @@ public final class SparkplugBProto {
     long getSeq();
 
     /**
-     * <code>optional string uuid = 5;</code>
+     * <code>optional string uuid = 4;</code>
      *
      * <pre>
      * UUID to track message type in terms of schema definitions
@@ -144,7 +100,7 @@ public final class SparkplugBProto {
      */
     boolean hasUuid();
     /**
-     * <code>optional string uuid = 5;</code>
+     * <code>optional string uuid = 4;</code>
      *
      * <pre>
      * UUID to track message type in terms of schema definitions
@@ -152,7 +108,7 @@ public final class SparkplugBProto {
      */
     java.lang.String getUuid();
     /**
-     * <code>optional string uuid = 5;</code>
+     * <code>optional string uuid = 4;</code>
      *
      * <pre>
      * UUID to track message type in terms of schema definitions
@@ -162,7 +118,7 @@ public final class SparkplugBProto {
         getUuidBytes();
 
     /**
-     * <code>optional bytes body = 6;</code>
+     * <code>optional bytes body = 5;</code>
      *
      * <pre>
      * To optionally bypass the whole definition above
@@ -170,7 +126,7 @@ public final class SparkplugBProto {
      */
     boolean hasBody();
     /**
-     * <code>optional bytes body = 6;</code>
+     * <code>optional bytes body = 5;</code>
      *
      * <pre>
      * To optionally bypass the whole definition above
@@ -244,26 +200,18 @@ public final class SparkplugBProto {
               metric_.add(input.readMessage(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PARSER, extensionRegistry));
               break;
             }
-            case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
-                templates_ = new java.util.ArrayList<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template>();
-                mutable_bitField0_ |= 0x00000004;
-              }
-              templates_.add(input.readMessage(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.PARSER, extensionRegistry));
-              break;
-            }
-            case 32: {
+            case 24: {
               bitField0_ |= 0x00000002;
               seq_ = input.readUInt64();
               break;
             }
-            case 42: {
+            case 34: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
               uuid_ = bs;
               break;
             }
-            case 50: {
+            case 42: {
               bitField0_ |= 0x00000008;
               body_ = input.readBytes();
               break;
@@ -278,9 +226,6 @@ public final class SparkplugBProto {
       } finally {
         if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
           metric_ = java.util.Collections.unmodifiableList(metric_);
-        }
-        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
-          templates_ = java.util.Collections.unmodifiableList(templates_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -322,7 +267,7 @@ public final class SparkplugBProto {
        * <code>optional string name = 1;</code>
        *
        * <pre>
-       * The name of the Template definition
+       * The name of this Template definition
        * </pre>
        */
       boolean hasName();
@@ -330,7 +275,7 @@ public final class SparkplugBProto {
        * <code>optional string name = 1;</code>
        *
        * <pre>
-       * The name of the Template definition
+       * The name of this Template definition
        * </pre>
        */
       java.lang.String getName();
@@ -338,7 +283,7 @@ public final class SparkplugBProto {
        * <code>optional string name = 1;</code>
        *
        * <pre>
-       * The name of the Template definition
+       * The name of this Template definition
        * </pre>
        */
       com.google.protobuf.ByteString
@@ -437,6 +382,41 @@ public final class SparkplugBProto {
        */
       com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.PropertyOrBuilder getPropertiesOrBuilder(
           int index);
+
+      /**
+       * <code>optional string template_ref = 5;</code>
+       *
+       * <pre>
+       * Reference to a template if this is extending a Template or an instance - must exist if an instance
+       * </pre>
+       */
+      boolean hasTemplateRef();
+      /**
+       * <code>optional string template_ref = 5;</code>
+       *
+       * <pre>
+       * Reference to a template if this is extending a Template or an instance - must exist if an instance
+       * </pre>
+       */
+      java.lang.String getTemplateRef();
+      /**
+       * <code>optional string template_ref = 5;</code>
+       *
+       * <pre>
+       * Reference to a template if this is extending a Template or an instance - must exist if an instance
+       * </pre>
+       */
+      com.google.protobuf.ByteString
+          getTemplateRefBytes();
+
+      /**
+       * <code>optional bool is_definition = 6;</code>
+       */
+      boolean hasIsDefinition();
+      /**
+       * <code>optional bool is_definition = 6;</code>
+       */
+      boolean getIsDefinition();
     }
     /**
      * Protobuf type {@code com.cirruslink.sparkplug.protobuf.Payload.Template}
@@ -517,6 +497,17 @@ public final class SparkplugBProto {
                   mutable_bitField0_ |= 0x00000008;
                 }
                 properties_.add(input.readMessage(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Property.PARSER, extensionRegistry));
+                break;
+              }
+              case 42: {
+                com.google.protobuf.ByteString bs = input.readBytes();
+                bitField0_ |= 0x00000004;
+                templateRef_ = bs;
+                break;
+              }
+              case 48: {
+                bitField0_ |= 0x00000008;
+                isDefinition_ = input.readBool();
                 break;
               }
             }
@@ -2323,7 +2314,7 @@ public final class SparkplugBProto {
        * <code>optional string name = 1;</code>
        *
        * <pre>
-       * The name of the Template definition
+       * The name of this Template definition
        * </pre>
        */
       public boolean hasName() {
@@ -2333,7 +2324,7 @@ public final class SparkplugBProto {
        * <code>optional string name = 1;</code>
        *
        * <pre>
-       * The name of the Template definition
+       * The name of this Template definition
        * </pre>
        */
       public java.lang.String getName() {
@@ -2354,7 +2345,7 @@ public final class SparkplugBProto {
        * <code>optional string name = 1;</code>
        *
        * <pre>
-       * The name of the Template definition
+       * The name of this Template definition
        * </pre>
        */
       public com.google.protobuf.ByteString
@@ -2515,11 +2506,82 @@ public final class SparkplugBProto {
         return properties_.get(index);
       }
 
+      public static final int TEMPLATE_REF_FIELD_NUMBER = 5;
+      private java.lang.Object templateRef_;
+      /**
+       * <code>optional string template_ref = 5;</code>
+       *
+       * <pre>
+       * Reference to a template if this is extending a Template or an instance - must exist if an instance
+       * </pre>
+       */
+      public boolean hasTemplateRef() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional string template_ref = 5;</code>
+       *
+       * <pre>
+       * Reference to a template if this is extending a Template or an instance - must exist if an instance
+       * </pre>
+       */
+      public java.lang.String getTemplateRef() {
+        java.lang.Object ref = templateRef_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            templateRef_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string template_ref = 5;</code>
+       *
+       * <pre>
+       * Reference to a template if this is extending a Template or an instance - must exist if an instance
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getTemplateRefBytes() {
+        java.lang.Object ref = templateRef_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          templateRef_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      public static final int IS_DEFINITION_FIELD_NUMBER = 6;
+      private boolean isDefinition_;
+      /**
+       * <code>optional bool is_definition = 6;</code>
+       */
+      public boolean hasIsDefinition() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional bool is_definition = 6;</code>
+       */
+      public boolean getIsDefinition() {
+        return isDefinition_;
+      }
+
       private void initFields() {
         name_ = "";
         version_ = "";
         metrics_ = java.util.Collections.emptyList();
         properties_ = java.util.Collections.emptyList();
+        templateRef_ = "";
+        isDefinition_ = false;
       }
       private byte memoizedIsInitialized = -1;
       public final boolean isInitialized() {
@@ -2565,6 +2627,12 @@ public final class SparkplugBProto {
         for (int i = 0; i < properties_.size(); i++) {
           output.writeMessage(4, properties_.get(i));
         }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          output.writeBytes(5, getTemplateRefBytes());
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          output.writeBool(6, isDefinition_);
+        }
         extensionWriter.writeUntil(536870912, output);
         getUnknownFields().writeTo(output);
       }
@@ -2590,6 +2658,14 @@ public final class SparkplugBProto {
         for (int i = 0; i < properties_.size(); i++) {
           size += com.google.protobuf.CodedOutputStream
             .computeMessageSize(4, properties_.get(i));
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBytesSize(5, getTemplateRefBytes());
+        }
+        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBoolSize(6, isDefinition_);
         }
         size += extensionsSerializedSize();
         size += getUnknownFields().getSerializedSize();
@@ -2728,6 +2804,10 @@ public final class SparkplugBProto {
           } else {
             propertiesBuilder_.clear();
           }
+          templateRef_ = "";
+          bitField0_ = (bitField0_ & ~0x00000010);
+          isDefinition_ = false;
+          bitField0_ = (bitField0_ & ~0x00000020);
           return this;
         }
 
@@ -2782,6 +2862,14 @@ public final class SparkplugBProto {
           } else {
             result.properties_ = propertiesBuilder_.build();
           }
+          if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+            to_bitField0_ |= 0x00000004;
+          }
+          result.templateRef_ = templateRef_;
+          if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+            to_bitField0_ |= 0x00000008;
+          }
+          result.isDefinition_ = isDefinition_;
           result.bitField0_ = to_bitField0_;
           onBuilt();
           return result;
@@ -2860,6 +2948,14 @@ public final class SparkplugBProto {
               }
             }
           }
+          if (other.hasTemplateRef()) {
+            bitField0_ |= 0x00000010;
+            templateRef_ = other.templateRef_;
+            onChanged();
+          }
+          if (other.hasIsDefinition()) {
+            setIsDefinition(other.getIsDefinition());
+          }
           this.mergeExtensionFields(other);
           this.mergeUnknownFields(other.getUnknownFields());
           return this;
@@ -2909,7 +3005,7 @@ public final class SparkplugBProto {
          * <code>optional string name = 1;</code>
          *
          * <pre>
-         * The name of the Template definition
+         * The name of this Template definition
          * </pre>
          */
         public boolean hasName() {
@@ -2919,7 +3015,7 @@ public final class SparkplugBProto {
          * <code>optional string name = 1;</code>
          *
          * <pre>
-         * The name of the Template definition
+         * The name of this Template definition
          * </pre>
          */
         public java.lang.String getName() {
@@ -2940,7 +3036,7 @@ public final class SparkplugBProto {
          * <code>optional string name = 1;</code>
          *
          * <pre>
-         * The name of the Template definition
+         * The name of this Template definition
          * </pre>
          */
         public com.google.protobuf.ByteString
@@ -2960,7 +3056,7 @@ public final class SparkplugBProto {
          * <code>optional string name = 1;</code>
          *
          * <pre>
-         * The name of the Template definition
+         * The name of this Template definition
          * </pre>
          */
         public Builder setName(
@@ -2977,7 +3073,7 @@ public final class SparkplugBProto {
          * <code>optional string name = 1;</code>
          *
          * <pre>
-         * The name of the Template definition
+         * The name of this Template definition
          * </pre>
          */
         public Builder clearName() {
@@ -2990,7 +3086,7 @@ public final class SparkplugBProto {
          * <code>optional string name = 1;</code>
          *
          * <pre>
-         * The name of the Template definition
+         * The name of this Template definition
          * </pre>
          */
         public Builder setNameBytes(
@@ -3654,6 +3750,138 @@ public final class SparkplugBProto {
             properties_ = null;
           }
           return propertiesBuilder_;
+        }
+
+        private java.lang.Object templateRef_ = "";
+        /**
+         * <code>optional string template_ref = 5;</code>
+         *
+         * <pre>
+         * Reference to a template if this is extending a Template or an instance - must exist if an instance
+         * </pre>
+         */
+        public boolean hasTemplateRef() {
+          return ((bitField0_ & 0x00000010) == 0x00000010);
+        }
+        /**
+         * <code>optional string template_ref = 5;</code>
+         *
+         * <pre>
+         * Reference to a template if this is extending a Template or an instance - must exist if an instance
+         * </pre>
+         */
+        public java.lang.String getTemplateRef() {
+          java.lang.Object ref = templateRef_;
+          if (!(ref instanceof java.lang.String)) {
+            com.google.protobuf.ByteString bs =
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              templateRef_ = s;
+            }
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string template_ref = 5;</code>
+         *
+         * <pre>
+         * Reference to a template if this is extending a Template or an instance - must exist if an instance
+         * </pre>
+         */
+        public com.google.protobuf.ByteString
+            getTemplateRefBytes() {
+          java.lang.Object ref = templateRef_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            templateRef_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string template_ref = 5;</code>
+         *
+         * <pre>
+         * Reference to a template if this is extending a Template or an instance - must exist if an instance
+         * </pre>
+         */
+        public Builder setTemplateRef(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+          templateRef_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string template_ref = 5;</code>
+         *
+         * <pre>
+         * Reference to a template if this is extending a Template or an instance - must exist if an instance
+         * </pre>
+         */
+        public Builder clearTemplateRef() {
+          bitField0_ = (bitField0_ & ~0x00000010);
+          templateRef_ = getDefaultInstance().getTemplateRef();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string template_ref = 5;</code>
+         *
+         * <pre>
+         * Reference to a template if this is extending a Template or an instance - must exist if an instance
+         * </pre>
+         */
+        public Builder setTemplateRefBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+          templateRef_ = value;
+          onChanged();
+          return this;
+        }
+
+        private boolean isDefinition_ ;
+        /**
+         * <code>optional bool is_definition = 6;</code>
+         */
+        public boolean hasIsDefinition() {
+          return ((bitField0_ & 0x00000020) == 0x00000020);
+        }
+        /**
+         * <code>optional bool is_definition = 6;</code>
+         */
+        public boolean getIsDefinition() {
+          return isDefinition_;
+        }
+        /**
+         * <code>optional bool is_definition = 6;</code>
+         */
+        public Builder setIsDefinition(boolean value) {
+          bitField0_ |= 0x00000020;
+          isDefinition_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional bool is_definition = 6;</code>
+         */
+        public Builder clearIsDefinition() {
+          bitField0_ = (bitField0_ & ~0x00000020);
+          isDefinition_ = false;
+          onChanged();
+          return this;
         }
 
         // @@protoc_insertion_point(builder_scope:com.cirruslink.sparkplug.protobuf.Payload.Template)
@@ -12589,24 +12817,41 @@ public final class SparkplugBProto {
       boolean getHistorical();
 
       /**
-       * <code>optional bool null = 6;</code>
+       * <code>optional bool transient = 6;</code>
        *
        * <pre>
-       * If this is null - explicitly say so
+       * Tells consuming clients such as MQTT Engine to not store this as a tag
+       * </pre>
+       */
+      boolean hasTransient();
+      /**
+       * <code>optional bool transient = 6;</code>
+       *
+       * <pre>
+       * Tells consuming clients such as MQTT Engine to not store this as a tag
+       * </pre>
+       */
+      boolean getTransient();
+
+      /**
+       * <code>optional bool null = 7;</code>
+       *
+       * <pre>
+       * If this is null - explicitly say so rather than using -1, false, etc for some datatypes.
        * </pre>
        */
       boolean hasNull();
       /**
-       * <code>optional bool null = 6;</code>
+       * <code>optional bool null = 7;</code>
        *
        * <pre>
-       * If this is null - explicitly say so
+       * If this is null - explicitly say so rather than using -1, false, etc for some datatypes.
        * </pre>
        */
       boolean getNull();
 
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 7;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 8;</code>
        *
        * <pre>
        * Metadata for the payload
@@ -12614,7 +12859,7 @@ public final class SparkplugBProto {
        */
       boolean hasMetadata();
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 7;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 8;</code>
        *
        * <pre>
        * Metadata for the payload
@@ -12622,7 +12867,7 @@ public final class SparkplugBProto {
        */
       com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetaData getMetadata();
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 7;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 8;</code>
        *
        * <pre>
        * Metadata for the payload
@@ -12631,66 +12876,66 @@ public final class SparkplugBProto {
       com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetaDataOrBuilder getMetadataOrBuilder();
 
       /**
-       * <code>optional uint32 int_value = 8;</code>
+       * <code>optional uint32 int_value = 9;</code>
        */
       boolean hasIntValue();
       /**
-       * <code>optional uint32 int_value = 8;</code>
+       * <code>optional uint32 int_value = 9;</code>
        */
       int getIntValue();
 
       /**
-       * <code>optional uint64 long_value = 9;</code>
+       * <code>optional uint64 long_value = 10;</code>
        */
       boolean hasLongValue();
       /**
-       * <code>optional uint64 long_value = 9;</code>
+       * <code>optional uint64 long_value = 10;</code>
        */
       long getLongValue();
 
       /**
-       * <code>optional float float_value = 10;</code>
+       * <code>optional float float_value = 11;</code>
        */
       boolean hasFloatValue();
       /**
-       * <code>optional float float_value = 10;</code>
+       * <code>optional float float_value = 11;</code>
        */
       float getFloatValue();
 
       /**
-       * <code>optional double double_value = 11;</code>
+       * <code>optional double double_value = 12;</code>
        */
       boolean hasDoubleValue();
       /**
-       * <code>optional double double_value = 11;</code>
+       * <code>optional double double_value = 12;</code>
        */
       double getDoubleValue();
 
       /**
-       * <code>optional bool boolean_value = 12;</code>
+       * <code>optional bool boolean_value = 13;</code>
        */
       boolean hasBooleanValue();
       /**
-       * <code>optional bool boolean_value = 12;</code>
+       * <code>optional bool boolean_value = 13;</code>
        */
       boolean getBooleanValue();
 
       /**
-       * <code>optional string string_value = 13;</code>
+       * <code>optional string string_value = 14;</code>
        */
       boolean hasStringValue();
       /**
-       * <code>optional string string_value = 13;</code>
+       * <code>optional string string_value = 14;</code>
        */
       java.lang.String getStringValue();
       /**
-       * <code>optional string string_value = 13;</code>
+       * <code>optional string string_value = 14;</code>
        */
       com.google.protobuf.ByteString
           getStringValueBytes();
 
       /**
-       * <code>optional bytes bytes_value = 14;</code>
+       * <code>optional bytes bytes_value = 15;</code>
        *
        * <pre>
        * Bytes, File, Script
@@ -12698,7 +12943,7 @@ public final class SparkplugBProto {
        */
       boolean hasBytesValue();
       /**
-       * <code>optional bytes bytes_value = 14;</code>
+       * <code>optional bytes bytes_value = 15;</code>
        *
        * <pre>
        * Bytes, File, Script
@@ -12707,28 +12952,41 @@ public final class SparkplugBProto {
       com.google.protobuf.ByteString getBytesValue();
 
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 15;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 16;</code>
        */
       boolean hasDatasetValue();
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 15;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 16;</code>
        */
       com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet getDatasetValue();
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 15;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 16;</code>
        */
       com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSetOrBuilder getDatasetValueOrBuilder();
 
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 16;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Template template_value = 17;</code>
+       */
+      boolean hasTemplateValue();
+      /**
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Template template_value = 17;</code>
+       */
+      com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template getTemplateValue();
+      /**
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Template template_value = 17;</code>
+       */
+      com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.TemplateOrBuilder getTemplateValueOrBuilder();
+
+      /**
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 18;</code>
        */
       boolean hasExtensionValue();
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 16;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 18;</code>
        */
       com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension getExtensionValue();
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 16;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 18;</code>
        */
       com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtensionOrBuilder getExtensionValueOrBuilder();
     }
@@ -12812,12 +13070,17 @@ public final class SparkplugBProto {
               }
               case 48: {
                 bitField0_ |= 0x00000020;
+                transient_ = input.readBool();
+                break;
+              }
+              case 56: {
+                bitField0_ |= 0x00000040;
                 null_ = input.readBool();
                 break;
               }
-              case 58: {
+              case 66: {
                 com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetaData.Builder subBuilder = null;
-                if (((bitField0_ & 0x00000040) == 0x00000040)) {
+                if (((bitField0_ & 0x00000080) == 0x00000080)) {
                   subBuilder = metadata_.toBuilder();
                 }
                 metadata_ = input.readMessage(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetaData.PARSER, extensionRegistry);
@@ -12825,48 +13088,48 @@ public final class SparkplugBProto {
                   subBuilder.mergeFrom(metadata_);
                   metadata_ = subBuilder.buildPartial();
                 }
-                bitField0_ |= 0x00000040;
-                break;
-              }
-              case 64: {
-                valueCase_ = 8;
-                value_ = input.readUInt32();
+                bitField0_ |= 0x00000080;
                 break;
               }
               case 72: {
                 valueCase_ = 9;
+                value_ = input.readUInt32();
+                break;
+              }
+              case 80: {
+                valueCase_ = 10;
                 value_ = input.readUInt64();
                 break;
               }
-              case 85: {
-                valueCase_ = 10;
+              case 93: {
+                valueCase_ = 11;
                 value_ = input.readFloat();
                 break;
               }
-              case 89: {
-                valueCase_ = 11;
+              case 97: {
+                valueCase_ = 12;
                 value_ = input.readDouble();
                 break;
               }
-              case 96: {
-                valueCase_ = 12;
+              case 104: {
+                valueCase_ = 13;
                 value_ = input.readBool();
                 break;
               }
-              case 106: {
+              case 114: {
                 com.google.protobuf.ByteString bs = input.readBytes();
-                valueCase_ = 13;
+                valueCase_ = 14;
                 value_ = bs;
                 break;
               }
-              case 114: {
-                valueCase_ = 14;
+              case 122: {
+                valueCase_ = 15;
                 value_ = input.readBytes();
                 break;
               }
-              case 122: {
+              case 130: {
                 com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet.Builder subBuilder = null;
-                if (valueCase_ == 15) {
+                if (valueCase_ == 16) {
                   subBuilder = ((com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet) value_).toBuilder();
                 }
                 value_ = input.readMessage(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet.PARSER, extensionRegistry);
@@ -12874,12 +13137,25 @@ public final class SparkplugBProto {
                   subBuilder.mergeFrom((com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet) value_);
                   value_ = subBuilder.buildPartial();
                 }
-                valueCase_ = 15;
+                valueCase_ = 16;
                 break;
               }
-              case 130: {
+              case 138: {
+                com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Builder subBuilder = null;
+                if (valueCase_ == 17) {
+                  subBuilder = ((com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template) value_).toBuilder();
+                }
+                value_ = input.readMessage(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.PARSER, extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom((com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template) value_);
+                  value_ = subBuilder.buildPartial();
+                }
+                valueCase_ = 17;
+                break;
+              }
+              case 146: {
                 com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension.Builder subBuilder = null;
-                if (valueCase_ == 16) {
+                if (valueCase_ == 18) {
                   subBuilder = ((com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension) value_).toBuilder();
                 }
                 value_ = input.readMessage(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension.PARSER, extensionRegistry);
@@ -12887,7 +13163,7 @@ public final class SparkplugBProto {
                   subBuilder.mergeFrom((com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension) value_);
                   value_ = subBuilder.buildPartial();
                 }
-                valueCase_ = 16;
+                valueCase_ = 18;
                 break;
               }
             }
@@ -13264,15 +13540,16 @@ public final class SparkplugBProto {
       private java.lang.Object value_;
       public enum ValueCase
           implements com.google.protobuf.Internal.EnumLite {
-        INT_VALUE(8),
-        LONG_VALUE(9),
-        FLOAT_VALUE(10),
-        DOUBLE_VALUE(11),
-        BOOLEAN_VALUE(12),
-        STRING_VALUE(13),
-        BYTES_VALUE(14),
-        DATASET_VALUE(15),
-        EXTENSION_VALUE(16),
+        INT_VALUE(9),
+        LONG_VALUE(10),
+        FLOAT_VALUE(11),
+        DOUBLE_VALUE(12),
+        BOOLEAN_VALUE(13),
+        STRING_VALUE(14),
+        BYTES_VALUE(15),
+        DATASET_VALUE(16),
+        TEMPLATE_VALUE(17),
+        EXTENSION_VALUE(18),
         VALUE_NOT_SET(0);
         private int value = 0;
         private ValueCase(int value) {
@@ -13280,15 +13557,16 @@ public final class SparkplugBProto {
         }
         public static ValueCase valueOf(int value) {
           switch (value) {
-            case 8: return INT_VALUE;
-            case 9: return LONG_VALUE;
-            case 10: return FLOAT_VALUE;
-            case 11: return DOUBLE_VALUE;
-            case 12: return BOOLEAN_VALUE;
-            case 13: return STRING_VALUE;
-            case 14: return BYTES_VALUE;
-            case 15: return DATASET_VALUE;
-            case 16: return EXTENSION_VALUE;
+            case 9: return INT_VALUE;
+            case 10: return LONG_VALUE;
+            case 11: return FLOAT_VALUE;
+            case 12: return DOUBLE_VALUE;
+            case 13: return BOOLEAN_VALUE;
+            case 14: return STRING_VALUE;
+            case 15: return BYTES_VALUE;
+            case 16: return DATASET_VALUE;
+            case 17: return TEMPLATE_VALUE;
+            case 18: return EXTENSION_VALUE;
             case 0: return VALUE_NOT_SET;
             default: throw new java.lang.IllegalArgumentException(
               "Value is undefined for this oneof enum.");
@@ -13451,43 +13729,66 @@ public final class SparkplugBProto {
         return historical_;
       }
 
-      public static final int NULL_FIELD_NUMBER = 6;
-      private boolean null_;
+      public static final int TRANSIENT_FIELD_NUMBER = 6;
+      private boolean transient_;
       /**
-       * <code>optional bool null = 6;</code>
+       * <code>optional bool transient = 6;</code>
        *
        * <pre>
-       * If this is null - explicitly say so
+       * Tells consuming clients such as MQTT Engine to not store this as a tag
        * </pre>
        */
-      public boolean hasNull() {
+      public boolean hasTransient() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>optional bool null = 6;</code>
+       * <code>optional bool transient = 6;</code>
        *
        * <pre>
-       * If this is null - explicitly say so
+       * Tells consuming clients such as MQTT Engine to not store this as a tag
+       * </pre>
+       */
+      public boolean getTransient() {
+        return transient_;
+      }
+
+      public static final int NULL_FIELD_NUMBER = 7;
+      private boolean null_;
+      /**
+       * <code>optional bool null = 7;</code>
+       *
+       * <pre>
+       * If this is null - explicitly say so rather than using -1, false, etc for some datatypes.
+       * </pre>
+       */
+      public boolean hasNull() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      /**
+       * <code>optional bool null = 7;</code>
+       *
+       * <pre>
+       * If this is null - explicitly say so rather than using -1, false, etc for some datatypes.
        * </pre>
        */
       public boolean getNull() {
         return null_;
       }
 
-      public static final int METADATA_FIELD_NUMBER = 7;
+      public static final int METADATA_FIELD_NUMBER = 8;
       private com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetaData metadata_;
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 7;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 8;</code>
        *
        * <pre>
        * Metadata for the payload
        * </pre>
        */
       public boolean hasMetadata() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
+        return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 7;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 8;</code>
        *
        * <pre>
        * Metadata for the payload
@@ -13497,7 +13798,7 @@ public final class SparkplugBProto {
         return metadata_;
       }
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 7;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 8;</code>
        *
        * <pre>
        * Metadata for the payload
@@ -13507,104 +13808,104 @@ public final class SparkplugBProto {
         return metadata_;
       }
 
-      public static final int INT_VALUE_FIELD_NUMBER = 8;
+      public static final int INT_VALUE_FIELD_NUMBER = 9;
       /**
-       * <code>optional uint32 int_value = 8;</code>
+       * <code>optional uint32 int_value = 9;</code>
        */
       public boolean hasIntValue() {
-        return valueCase_ == 8;
+        return valueCase_ == 9;
       }
       /**
-       * <code>optional uint32 int_value = 8;</code>
+       * <code>optional uint32 int_value = 9;</code>
        */
       public int getIntValue() {
-        if (valueCase_ == 8) {
+        if (valueCase_ == 9) {
           return (java.lang.Integer) value_;
         }
         return 0;
       }
 
-      public static final int LONG_VALUE_FIELD_NUMBER = 9;
+      public static final int LONG_VALUE_FIELD_NUMBER = 10;
       /**
-       * <code>optional uint64 long_value = 9;</code>
+       * <code>optional uint64 long_value = 10;</code>
        */
       public boolean hasLongValue() {
-        return valueCase_ == 9;
+        return valueCase_ == 10;
       }
       /**
-       * <code>optional uint64 long_value = 9;</code>
+       * <code>optional uint64 long_value = 10;</code>
        */
       public long getLongValue() {
-        if (valueCase_ == 9) {
+        if (valueCase_ == 10) {
           return (java.lang.Long) value_;
         }
         return 0L;
       }
 
-      public static final int FLOAT_VALUE_FIELD_NUMBER = 10;
+      public static final int FLOAT_VALUE_FIELD_NUMBER = 11;
       /**
-       * <code>optional float float_value = 10;</code>
+       * <code>optional float float_value = 11;</code>
        */
       public boolean hasFloatValue() {
-        return valueCase_ == 10;
+        return valueCase_ == 11;
       }
       /**
-       * <code>optional float float_value = 10;</code>
+       * <code>optional float float_value = 11;</code>
        */
       public float getFloatValue() {
-        if (valueCase_ == 10) {
+        if (valueCase_ == 11) {
           return (java.lang.Float) value_;
         }
         return 0F;
       }
 
-      public static final int DOUBLE_VALUE_FIELD_NUMBER = 11;
+      public static final int DOUBLE_VALUE_FIELD_NUMBER = 12;
       /**
-       * <code>optional double double_value = 11;</code>
+       * <code>optional double double_value = 12;</code>
        */
       public boolean hasDoubleValue() {
-        return valueCase_ == 11;
+        return valueCase_ == 12;
       }
       /**
-       * <code>optional double double_value = 11;</code>
+       * <code>optional double double_value = 12;</code>
        */
       public double getDoubleValue() {
-        if (valueCase_ == 11) {
+        if (valueCase_ == 12) {
           return (java.lang.Double) value_;
         }
         return 0D;
       }
 
-      public static final int BOOLEAN_VALUE_FIELD_NUMBER = 12;
+      public static final int BOOLEAN_VALUE_FIELD_NUMBER = 13;
       /**
-       * <code>optional bool boolean_value = 12;</code>
+       * <code>optional bool boolean_value = 13;</code>
        */
       public boolean hasBooleanValue() {
-        return valueCase_ == 12;
+        return valueCase_ == 13;
       }
       /**
-       * <code>optional bool boolean_value = 12;</code>
+       * <code>optional bool boolean_value = 13;</code>
        */
       public boolean getBooleanValue() {
-        if (valueCase_ == 12) {
+        if (valueCase_ == 13) {
           return (java.lang.Boolean) value_;
         }
         return false;
       }
 
-      public static final int STRING_VALUE_FIELD_NUMBER = 13;
+      public static final int STRING_VALUE_FIELD_NUMBER = 14;
       /**
-       * <code>optional string string_value = 13;</code>
+       * <code>optional string string_value = 14;</code>
        */
       public boolean hasStringValue() {
-        return valueCase_ == 13;
+        return valueCase_ == 14;
       }
       /**
-       * <code>optional string string_value = 13;</code>
+       * <code>optional string string_value = 14;</code>
        */
       public java.lang.String getStringValue() {
         java.lang.Object ref = "";
-        if (valueCase_ == 13) {
+        if (valueCase_ == 14) {
           ref = value_;
         }
         if (ref instanceof java.lang.String) {
@@ -13613,26 +13914,26 @@ public final class SparkplugBProto {
           com.google.protobuf.ByteString bs = 
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8() && (valueCase_ == 13)) {
+          if (bs.isValidUtf8() && (valueCase_ == 14)) {
             value_ = s;
           }
           return s;
         }
       }
       /**
-       * <code>optional string string_value = 13;</code>
+       * <code>optional string string_value = 14;</code>
        */
       public com.google.protobuf.ByteString
           getStringValueBytes() {
         java.lang.Object ref = "";
-        if (valueCase_ == 13) {
+        if (valueCase_ == 14) {
           ref = value_;
         }
         if (ref instanceof java.lang.String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          if (valueCase_ == 13) {
+          if (valueCase_ == 14) {
             value_ = b;
           }
           return b;
@@ -13641,78 +13942,104 @@ public final class SparkplugBProto {
         }
       }
 
-      public static final int BYTES_VALUE_FIELD_NUMBER = 14;
+      public static final int BYTES_VALUE_FIELD_NUMBER = 15;
       /**
-       * <code>optional bytes bytes_value = 14;</code>
+       * <code>optional bytes bytes_value = 15;</code>
        *
        * <pre>
        * Bytes, File, Script
        * </pre>
        */
       public boolean hasBytesValue() {
-        return valueCase_ == 14;
+        return valueCase_ == 15;
       }
       /**
-       * <code>optional bytes bytes_value = 14;</code>
+       * <code>optional bytes bytes_value = 15;</code>
        *
        * <pre>
        * Bytes, File, Script
        * </pre>
        */
       public com.google.protobuf.ByteString getBytesValue() {
-        if (valueCase_ == 14) {
+        if (valueCase_ == 15) {
           return (com.google.protobuf.ByteString) value_;
         }
         return com.google.protobuf.ByteString.EMPTY;
       }
 
-      public static final int DATASET_VALUE_FIELD_NUMBER = 15;
+      public static final int DATASET_VALUE_FIELD_NUMBER = 16;
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 15;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 16;</code>
        */
       public boolean hasDatasetValue() {
-        return valueCase_ == 15;
+        return valueCase_ == 16;
       }
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 15;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 16;</code>
        */
       public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet getDatasetValue() {
-        if (valueCase_ == 15) {
+        if (valueCase_ == 16) {
            return (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet) value_;
         }
         return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet.getDefaultInstance();
       }
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 15;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 16;</code>
        */
       public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSetOrBuilder getDatasetValueOrBuilder() {
-        if (valueCase_ == 15) {
+        if (valueCase_ == 16) {
            return (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet) value_;
         }
         return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet.getDefaultInstance();
       }
 
-      public static final int EXTENSION_VALUE_FIELD_NUMBER = 16;
+      public static final int TEMPLATE_VALUE_FIELD_NUMBER = 17;
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 16;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Template template_value = 17;</code>
        */
-      public boolean hasExtensionValue() {
-        return valueCase_ == 16;
+      public boolean hasTemplateValue() {
+        return valueCase_ == 17;
       }
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 16;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Template template_value = 17;</code>
+       */
+      public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template getTemplateValue() {
+        if (valueCase_ == 17) {
+           return (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template) value_;
+        }
+        return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.getDefaultInstance();
+      }
+      /**
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Template template_value = 17;</code>
+       */
+      public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.TemplateOrBuilder getTemplateValueOrBuilder() {
+        if (valueCase_ == 17) {
+           return (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template) value_;
+        }
+        return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.getDefaultInstance();
+      }
+
+      public static final int EXTENSION_VALUE_FIELD_NUMBER = 18;
+      /**
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 18;</code>
+       */
+      public boolean hasExtensionValue() {
+        return valueCase_ == 18;
+      }
+      /**
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 18;</code>
        */
       public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension getExtensionValue() {
-        if (valueCase_ == 16) {
+        if (valueCase_ == 18) {
            return (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension) value_;
         }
         return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension.getDefaultInstance();
       }
       /**
-       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 16;</code>
+       * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 18;</code>
        */
       public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtensionOrBuilder getExtensionValueOrBuilder() {
-        if (valueCase_ == 16) {
+        if (valueCase_ == 18) {
            return (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension) value_;
         }
         return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension.getDefaultInstance();
@@ -13724,6 +14051,7 @@ public final class SparkplugBProto {
         timestamp_ = 0L;
         datatype_ = 0;
         historical_ = false;
+        transient_ = false;
         null_ = false;
         metadata_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetaData.getDefaultInstance();
       }
@@ -13741,6 +14069,12 @@ public final class SparkplugBProto {
         }
         if (hasDatasetValue()) {
           if (!getDatasetValue().isInitialized()) {
+            memoizedIsInitialized = 0;
+            return false;
+          }
+        }
+        if (hasTemplateValue()) {
+          if (!getTemplateValue().isInitialized()) {
             memoizedIsInitialized = 0;
             return false;
           }
@@ -13774,43 +14108,49 @@ public final class SparkplugBProto {
           output.writeBool(5, historical_);
         }
         if (((bitField0_ & 0x00000020) == 0x00000020)) {
-          output.writeBool(6, null_);
+          output.writeBool(6, transient_);
         }
         if (((bitField0_ & 0x00000040) == 0x00000040)) {
-          output.writeMessage(7, metadata_);
+          output.writeBool(7, null_);
         }
-        if (valueCase_ == 8) {
-          output.writeUInt32(
-              8, (int)((java.lang.Integer) value_));
+        if (((bitField0_ & 0x00000080) == 0x00000080)) {
+          output.writeMessage(8, metadata_);
         }
         if (valueCase_ == 9) {
-          output.writeUInt64(
-              9, (long)((java.lang.Long) value_));
+          output.writeUInt32(
+              9, (int)((java.lang.Integer) value_));
         }
         if (valueCase_ == 10) {
-          output.writeFloat(
-              10, (float)((java.lang.Float) value_));
+          output.writeUInt64(
+              10, (long)((java.lang.Long) value_));
         }
         if (valueCase_ == 11) {
-          output.writeDouble(
-              11, (double)((java.lang.Double) value_));
+          output.writeFloat(
+              11, (float)((java.lang.Float) value_));
         }
         if (valueCase_ == 12) {
-          output.writeBool(
-              12, (boolean)((java.lang.Boolean) value_));
+          output.writeDouble(
+              12, (double)((java.lang.Double) value_));
         }
         if (valueCase_ == 13) {
-          output.writeBytes(13, getStringValueBytes());
+          output.writeBool(
+              13, (boolean)((java.lang.Boolean) value_));
         }
         if (valueCase_ == 14) {
-          output.writeBytes(
-              14, (com.google.protobuf.ByteString)((com.google.protobuf.ByteString) value_));
+          output.writeBytes(14, getStringValueBytes());
         }
         if (valueCase_ == 15) {
-          output.writeMessage(15, (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet) value_);
+          output.writeBytes(
+              15, (com.google.protobuf.ByteString)((com.google.protobuf.ByteString) value_));
         }
         if (valueCase_ == 16) {
-          output.writeMessage(16, (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension) value_);
+          output.writeMessage(16, (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet) value_);
+        }
+        if (valueCase_ == 17) {
+          output.writeMessage(17, (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template) value_);
+        }
+        if (valueCase_ == 18) {
+          output.writeMessage(18, (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension) value_);
         }
         getUnknownFields().writeTo(output);
       }
@@ -13843,53 +14183,61 @@ public final class SparkplugBProto {
         }
         if (((bitField0_ & 0x00000020) == 0x00000020)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeBoolSize(6, null_);
+            .computeBoolSize(6, transient_);
         }
         if (((bitField0_ & 0x00000040) == 0x00000040)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(7, metadata_);
+            .computeBoolSize(7, null_);
         }
-        if (valueCase_ == 8) {
+        if (((bitField0_ & 0x00000080) == 0x00000080)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeUInt32Size(
-                8, (int)((java.lang.Integer) value_));
+            .computeMessageSize(8, metadata_);
         }
         if (valueCase_ == 9) {
           size += com.google.protobuf.CodedOutputStream
-            .computeUInt64Size(
-                9, (long)((java.lang.Long) value_));
+            .computeUInt32Size(
+                9, (int)((java.lang.Integer) value_));
         }
         if (valueCase_ == 10) {
           size += com.google.protobuf.CodedOutputStream
-            .computeFloatSize(
-                10, (float)((java.lang.Float) value_));
+            .computeUInt64Size(
+                10, (long)((java.lang.Long) value_));
         }
         if (valueCase_ == 11) {
           size += com.google.protobuf.CodedOutputStream
-            .computeDoubleSize(
-                11, (double)((java.lang.Double) value_));
+            .computeFloatSize(
+                11, (float)((java.lang.Float) value_));
         }
         if (valueCase_ == 12) {
           size += com.google.protobuf.CodedOutputStream
-            .computeBoolSize(
-                12, (boolean)((java.lang.Boolean) value_));
+            .computeDoubleSize(
+                12, (double)((java.lang.Double) value_));
         }
         if (valueCase_ == 13) {
           size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(13, getStringValueBytes());
+            .computeBoolSize(
+                13, (boolean)((java.lang.Boolean) value_));
         }
         if (valueCase_ == 14) {
           size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(
-                14, (com.google.protobuf.ByteString)((com.google.protobuf.ByteString) value_));
+            .computeBytesSize(14, getStringValueBytes());
         }
         if (valueCase_ == 15) {
           size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(15, (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet) value_);
+            .computeBytesSize(
+                15, (com.google.protobuf.ByteString)((com.google.protobuf.ByteString) value_));
         }
         if (valueCase_ == 16) {
           size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(16, (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension) value_);
+            .computeMessageSize(16, (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet) value_);
+        }
+        if (valueCase_ == 17) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(17, (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template) value_);
+        }
+        if (valueCase_ == 18) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(18, (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension) value_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSerializedSize = size;
@@ -14019,14 +14367,16 @@ public final class SparkplugBProto {
           bitField0_ = (bitField0_ & ~0x00000008);
           historical_ = false;
           bitField0_ = (bitField0_ & ~0x00000010);
-          null_ = false;
+          transient_ = false;
           bitField0_ = (bitField0_ & ~0x00000020);
+          null_ = false;
+          bitField0_ = (bitField0_ & ~0x00000040);
           if (metadataBuilder_ == null) {
             metadata_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetaData.getDefaultInstance();
           } else {
             metadataBuilder_.clear();
           }
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00000080);
           valueCase_ = 0;
           value_ = null;
           return this;
@@ -14080,17 +14430,18 @@ public final class SparkplugBProto {
           if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
             to_bitField0_ |= 0x00000020;
           }
-          result.null_ = null_;
+          result.transient_ = transient_;
           if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
             to_bitField0_ |= 0x00000040;
+          }
+          result.null_ = null_;
+          if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+            to_bitField0_ |= 0x00000080;
           }
           if (metadataBuilder_ == null) {
             result.metadata_ = metadata_;
           } else {
             result.metadata_ = metadataBuilder_.build();
-          }
-          if (valueCase_ == 8) {
-            result.value_ = value_;
           }
           if (valueCase_ == 9) {
             result.value_ = value_;
@@ -14111,13 +14462,23 @@ public final class SparkplugBProto {
             result.value_ = value_;
           }
           if (valueCase_ == 15) {
+            result.value_ = value_;
+          }
+          if (valueCase_ == 16) {
             if (datasetValueBuilder_ == null) {
               result.value_ = value_;
             } else {
               result.value_ = datasetValueBuilder_.build();
             }
           }
-          if (valueCase_ == 16) {
+          if (valueCase_ == 17) {
+            if (templateValueBuilder_ == null) {
+              result.value_ = value_;
+            } else {
+              result.value_ = templateValueBuilder_.build();
+            }
+          }
+          if (valueCase_ == 18) {
             if (extensionValueBuilder_ == null) {
               result.value_ = value_;
             } else {
@@ -14158,6 +14519,9 @@ public final class SparkplugBProto {
           if (other.hasHistorical()) {
             setHistorical(other.getHistorical());
           }
+          if (other.hasTransient()) {
+            setTransient(other.getTransient());
+          }
           if (other.hasNull()) {
             setNull(other.getNull());
           }
@@ -14186,7 +14550,7 @@ public final class SparkplugBProto {
               break;
             }
             case STRING_VALUE: {
-              valueCase_ = 13;
+              valueCase_ = 14;
               value_ = other.value_;
               onChanged();
               break;
@@ -14197,6 +14561,10 @@ public final class SparkplugBProto {
             }
             case DATASET_VALUE: {
               mergeDatasetValue(other.getDatasetValue());
+              break;
+            }
+            case TEMPLATE_VALUE: {
+              mergeTemplateValue(other.getTemplateValue());
               break;
             }
             case EXTENSION_VALUE: {
@@ -14220,6 +14588,12 @@ public final class SparkplugBProto {
           }
           if (hasDatasetValue()) {
             if (!getDatasetValue().isInitialized()) {
+              
+              return false;
+            }
+          }
+          if (hasTemplateValue()) {
+            if (!getTemplateValue().isInitialized()) {
               
               return false;
             }
@@ -14559,49 +14933,97 @@ public final class SparkplugBProto {
           return this;
         }
 
-        private boolean null_ ;
+        private boolean transient_ ;
         /**
-         * <code>optional bool null = 6;</code>
+         * <code>optional bool transient = 6;</code>
          *
          * <pre>
-         * If this is null - explicitly say so
+         * Tells consuming clients such as MQTT Engine to not store this as a tag
          * </pre>
          */
-        public boolean hasNull() {
+        public boolean hasTransient() {
           return ((bitField0_ & 0x00000020) == 0x00000020);
         }
         /**
-         * <code>optional bool null = 6;</code>
+         * <code>optional bool transient = 6;</code>
          *
          * <pre>
-         * If this is null - explicitly say so
+         * Tells consuming clients such as MQTT Engine to not store this as a tag
+         * </pre>
+         */
+        public boolean getTransient() {
+          return transient_;
+        }
+        /**
+         * <code>optional bool transient = 6;</code>
+         *
+         * <pre>
+         * Tells consuming clients such as MQTT Engine to not store this as a tag
+         * </pre>
+         */
+        public Builder setTransient(boolean value) {
+          bitField0_ |= 0x00000020;
+          transient_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional bool transient = 6;</code>
+         *
+         * <pre>
+         * Tells consuming clients such as MQTT Engine to not store this as a tag
+         * </pre>
+         */
+        public Builder clearTransient() {
+          bitField0_ = (bitField0_ & ~0x00000020);
+          transient_ = false;
+          onChanged();
+          return this;
+        }
+
+        private boolean null_ ;
+        /**
+         * <code>optional bool null = 7;</code>
+         *
+         * <pre>
+         * If this is null - explicitly say so rather than using -1, false, etc for some datatypes.
+         * </pre>
+         */
+        public boolean hasNull() {
+          return ((bitField0_ & 0x00000040) == 0x00000040);
+        }
+        /**
+         * <code>optional bool null = 7;</code>
+         *
+         * <pre>
+         * If this is null - explicitly say so rather than using -1, false, etc for some datatypes.
          * </pre>
          */
         public boolean getNull() {
           return null_;
         }
         /**
-         * <code>optional bool null = 6;</code>
+         * <code>optional bool null = 7;</code>
          *
          * <pre>
-         * If this is null - explicitly say so
+         * If this is null - explicitly say so rather than using -1, false, etc for some datatypes.
          * </pre>
          */
         public Builder setNull(boolean value) {
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000040;
           null_ = value;
           onChanged();
           return this;
         }
         /**
-         * <code>optional bool null = 6;</code>
+         * <code>optional bool null = 7;</code>
          *
          * <pre>
-         * If this is null - explicitly say so
+         * If this is null - explicitly say so rather than using -1, false, etc for some datatypes.
          * </pre>
          */
         public Builder clearNull() {
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000040);
           null_ = false;
           onChanged();
           return this;
@@ -14611,17 +15033,17 @@ public final class SparkplugBProto {
         private com.google.protobuf.SingleFieldBuilder<
             com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetaData, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetaData.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetaDataOrBuilder> metadataBuilder_;
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 7;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 8;</code>
          *
          * <pre>
          * Metadata for the payload
          * </pre>
          */
         public boolean hasMetadata() {
-          return ((bitField0_ & 0x00000040) == 0x00000040);
+          return ((bitField0_ & 0x00000080) == 0x00000080);
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 7;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 8;</code>
          *
          * <pre>
          * Metadata for the payload
@@ -14635,7 +15057,7 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 7;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 8;</code>
          *
          * <pre>
          * Metadata for the payload
@@ -14651,11 +15073,11 @@ public final class SparkplugBProto {
           } else {
             metadataBuilder_.setMessage(value);
           }
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000080;
           return this;
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 7;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 8;</code>
          *
          * <pre>
          * Metadata for the payload
@@ -14669,11 +15091,11 @@ public final class SparkplugBProto {
           } else {
             metadataBuilder_.setMessage(builderForValue.build());
           }
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000080;
           return this;
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 7;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 8;</code>
          *
          * <pre>
          * Metadata for the payload
@@ -14681,7 +15103,7 @@ public final class SparkplugBProto {
          */
         public Builder mergeMetadata(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetaData value) {
           if (metadataBuilder_ == null) {
-            if (((bitField0_ & 0x00000040) == 0x00000040) &&
+            if (((bitField0_ & 0x00000080) == 0x00000080) &&
                 metadata_ != com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetaData.getDefaultInstance()) {
               metadata_ =
                 com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetaData.newBuilder(metadata_).mergeFrom(value).buildPartial();
@@ -14692,11 +15114,11 @@ public final class SparkplugBProto {
           } else {
             metadataBuilder_.mergeFrom(value);
           }
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000080;
           return this;
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 7;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 8;</code>
          *
          * <pre>
          * Metadata for the payload
@@ -14709,23 +15131,23 @@ public final class SparkplugBProto {
           } else {
             metadataBuilder_.clear();
           }
-          bitField0_ = (bitField0_ & ~0x00000040);
+          bitField0_ = (bitField0_ & ~0x00000080);
           return this;
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 7;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 8;</code>
          *
          * <pre>
          * Metadata for the payload
          * </pre>
          */
         public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetaData.Builder getMetadataBuilder() {
-          bitField0_ |= 0x00000040;
+          bitField0_ |= 0x00000080;
           onChanged();
           return getMetadataFieldBuilder().getBuilder();
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 7;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 8;</code>
          *
          * <pre>
          * Metadata for the payload
@@ -14739,7 +15161,7 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 7;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.MetaData metadata = 8;</code>
          *
          * <pre>
          * Metadata for the payload
@@ -14760,69 +15182,33 @@ public final class SparkplugBProto {
         }
 
         /**
-         * <code>optional uint32 int_value = 8;</code>
+         * <code>optional uint32 int_value = 9;</code>
          */
         public boolean hasIntValue() {
-          return valueCase_ == 8;
+          return valueCase_ == 9;
         }
         /**
-         * <code>optional uint32 int_value = 8;</code>
+         * <code>optional uint32 int_value = 9;</code>
          */
         public int getIntValue() {
-          if (valueCase_ == 8) {
+          if (valueCase_ == 9) {
             return (java.lang.Integer) value_;
           }
           return 0;
         }
         /**
-         * <code>optional uint32 int_value = 8;</code>
+         * <code>optional uint32 int_value = 9;</code>
          */
         public Builder setIntValue(int value) {
-          valueCase_ = 8;
-          value_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>optional uint32 int_value = 8;</code>
-         */
-        public Builder clearIntValue() {
-          if (valueCase_ == 8) {
-            valueCase_ = 0;
-            value_ = null;
-            onChanged();
-          }
-          return this;
-        }
-
-        /**
-         * <code>optional uint64 long_value = 9;</code>
-         */
-        public boolean hasLongValue() {
-          return valueCase_ == 9;
-        }
-        /**
-         * <code>optional uint64 long_value = 9;</code>
-         */
-        public long getLongValue() {
-          if (valueCase_ == 9) {
-            return (java.lang.Long) value_;
-          }
-          return 0L;
-        }
-        /**
-         * <code>optional uint64 long_value = 9;</code>
-         */
-        public Builder setLongValue(long value) {
           valueCase_ = 9;
           value_ = value;
           onChanged();
           return this;
         }
         /**
-         * <code>optional uint64 long_value = 9;</code>
+         * <code>optional uint32 int_value = 9;</code>
          */
-        public Builder clearLongValue() {
+        public Builder clearIntValue() {
           if (valueCase_ == 9) {
             valueCase_ = 0;
             value_ = null;
@@ -14832,33 +15218,33 @@ public final class SparkplugBProto {
         }
 
         /**
-         * <code>optional float float_value = 10;</code>
+         * <code>optional uint64 long_value = 10;</code>
          */
-        public boolean hasFloatValue() {
+        public boolean hasLongValue() {
           return valueCase_ == 10;
         }
         /**
-         * <code>optional float float_value = 10;</code>
+         * <code>optional uint64 long_value = 10;</code>
          */
-        public float getFloatValue() {
+        public long getLongValue() {
           if (valueCase_ == 10) {
-            return (java.lang.Float) value_;
+            return (java.lang.Long) value_;
           }
-          return 0F;
+          return 0L;
         }
         /**
-         * <code>optional float float_value = 10;</code>
+         * <code>optional uint64 long_value = 10;</code>
          */
-        public Builder setFloatValue(float value) {
+        public Builder setLongValue(long value) {
           valueCase_ = 10;
           value_ = value;
           onChanged();
           return this;
         }
         /**
-         * <code>optional float float_value = 10;</code>
+         * <code>optional uint64 long_value = 10;</code>
          */
-        public Builder clearFloatValue() {
+        public Builder clearLongValue() {
           if (valueCase_ == 10) {
             valueCase_ = 0;
             value_ = null;
@@ -14868,33 +15254,33 @@ public final class SparkplugBProto {
         }
 
         /**
-         * <code>optional double double_value = 11;</code>
+         * <code>optional float float_value = 11;</code>
          */
-        public boolean hasDoubleValue() {
+        public boolean hasFloatValue() {
           return valueCase_ == 11;
         }
         /**
-         * <code>optional double double_value = 11;</code>
+         * <code>optional float float_value = 11;</code>
          */
-        public double getDoubleValue() {
+        public float getFloatValue() {
           if (valueCase_ == 11) {
-            return (java.lang.Double) value_;
+            return (java.lang.Float) value_;
           }
-          return 0D;
+          return 0F;
         }
         /**
-         * <code>optional double double_value = 11;</code>
+         * <code>optional float float_value = 11;</code>
          */
-        public Builder setDoubleValue(double value) {
+        public Builder setFloatValue(float value) {
           valueCase_ = 11;
           value_ = value;
           onChanged();
           return this;
         }
         /**
-         * <code>optional double double_value = 11;</code>
+         * <code>optional float float_value = 11;</code>
          */
-        public Builder clearDoubleValue() {
+        public Builder clearFloatValue() {
           if (valueCase_ == 11) {
             valueCase_ = 0;
             value_ = null;
@@ -14904,33 +15290,33 @@ public final class SparkplugBProto {
         }
 
         /**
-         * <code>optional bool boolean_value = 12;</code>
+         * <code>optional double double_value = 12;</code>
          */
-        public boolean hasBooleanValue() {
+        public boolean hasDoubleValue() {
           return valueCase_ == 12;
         }
         /**
-         * <code>optional bool boolean_value = 12;</code>
+         * <code>optional double double_value = 12;</code>
          */
-        public boolean getBooleanValue() {
+        public double getDoubleValue() {
           if (valueCase_ == 12) {
-            return (java.lang.Boolean) value_;
+            return (java.lang.Double) value_;
           }
-          return false;
+          return 0D;
         }
         /**
-         * <code>optional bool boolean_value = 12;</code>
+         * <code>optional double double_value = 12;</code>
          */
-        public Builder setBooleanValue(boolean value) {
+        public Builder setDoubleValue(double value) {
           valueCase_ = 12;
           value_ = value;
           onChanged();
           return this;
         }
         /**
-         * <code>optional bool boolean_value = 12;</code>
+         * <code>optional double double_value = 12;</code>
          */
-        public Builder clearBooleanValue() {
+        public Builder clearDoubleValue() {
           if (valueCase_ == 12) {
             valueCase_ = 0;
             value_ = null;
@@ -14940,24 +15326,60 @@ public final class SparkplugBProto {
         }
 
         /**
-         * <code>optional string string_value = 13;</code>
+         * <code>optional bool boolean_value = 13;</code>
          */
-        public boolean hasStringValue() {
+        public boolean hasBooleanValue() {
           return valueCase_ == 13;
         }
         /**
-         * <code>optional string string_value = 13;</code>
+         * <code>optional bool boolean_value = 13;</code>
+         */
+        public boolean getBooleanValue() {
+          if (valueCase_ == 13) {
+            return (java.lang.Boolean) value_;
+          }
+          return false;
+        }
+        /**
+         * <code>optional bool boolean_value = 13;</code>
+         */
+        public Builder setBooleanValue(boolean value) {
+          valueCase_ = 13;
+          value_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional bool boolean_value = 13;</code>
+         */
+        public Builder clearBooleanValue() {
+          if (valueCase_ == 13) {
+            valueCase_ = 0;
+            value_ = null;
+            onChanged();
+          }
+          return this;
+        }
+
+        /**
+         * <code>optional string string_value = 14;</code>
+         */
+        public boolean hasStringValue() {
+          return valueCase_ == 14;
+        }
+        /**
+         * <code>optional string string_value = 14;</code>
          */
         public java.lang.String getStringValue() {
           java.lang.Object ref = "";
-          if (valueCase_ == 13) {
+          if (valueCase_ == 14) {
             ref = value_;
           }
           if (!(ref instanceof java.lang.String)) {
             com.google.protobuf.ByteString bs =
                 (com.google.protobuf.ByteString) ref;
             java.lang.String s = bs.toStringUtf8();
-            if (valueCase_ == 13) {
+            if (valueCase_ == 14) {
               if (bs.isValidUtf8()) {
                 value_ = s;
               }
@@ -14968,19 +15390,19 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>optional string string_value = 13;</code>
+         * <code>optional string string_value = 14;</code>
          */
         public com.google.protobuf.ByteString
             getStringValueBytes() {
           java.lang.Object ref = "";
-          if (valueCase_ == 13) {
+          if (valueCase_ == 14) {
             ref = value_;
           }
           if (ref instanceof String) {
             com.google.protobuf.ByteString b = 
                 com.google.protobuf.ByteString.copyFromUtf8(
                     (java.lang.String) ref);
-            if (valueCase_ == 13) {
+            if (valueCase_ == 14) {
               value_ = b;
             }
             return b;
@@ -14989,74 +15411,10 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>optional string string_value = 13;</code>
+         * <code>optional string string_value = 14;</code>
          */
         public Builder setStringValue(
             java.lang.String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  valueCase_ = 13;
-          value_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>optional string string_value = 13;</code>
-         */
-        public Builder clearStringValue() {
-          if (valueCase_ == 13) {
-            valueCase_ = 0;
-            value_ = null;
-            onChanged();
-          }
-          return this;
-        }
-        /**
-         * <code>optional string string_value = 13;</code>
-         */
-        public Builder setStringValueBytes(
-            com.google.protobuf.ByteString value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  valueCase_ = 13;
-          value_ = value;
-          onChanged();
-          return this;
-        }
-
-        /**
-         * <code>optional bytes bytes_value = 14;</code>
-         *
-         * <pre>
-         * Bytes, File, Script
-         * </pre>
-         */
-        public boolean hasBytesValue() {
-          return valueCase_ == 14;
-        }
-        /**
-         * <code>optional bytes bytes_value = 14;</code>
-         *
-         * <pre>
-         * Bytes, File, Script
-         * </pre>
-         */
-        public com.google.protobuf.ByteString getBytesValue() {
-          if (valueCase_ == 14) {
-            return (com.google.protobuf.ByteString) value_;
-          }
-          return com.google.protobuf.ByteString.EMPTY;
-        }
-        /**
-         * <code>optional bytes bytes_value = 14;</code>
-         *
-         * <pre>
-         * Bytes, File, Script
-         * </pre>
-         */
-        public Builder setBytesValue(com.google.protobuf.ByteString value) {
           if (value == null) {
     throw new NullPointerException();
   }
@@ -15066,14 +15424,78 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>optional bytes bytes_value = 14;</code>
+         * <code>optional string string_value = 14;</code>
+         */
+        public Builder clearStringValue() {
+          if (valueCase_ == 14) {
+            valueCase_ = 0;
+            value_ = null;
+            onChanged();
+          }
+          return this;
+        }
+        /**
+         * <code>optional string string_value = 14;</code>
+         */
+        public Builder setStringValueBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  valueCase_ = 14;
+          value_ = value;
+          onChanged();
+          return this;
+        }
+
+        /**
+         * <code>optional bytes bytes_value = 15;</code>
+         *
+         * <pre>
+         * Bytes, File, Script
+         * </pre>
+         */
+        public boolean hasBytesValue() {
+          return valueCase_ == 15;
+        }
+        /**
+         * <code>optional bytes bytes_value = 15;</code>
+         *
+         * <pre>
+         * Bytes, File, Script
+         * </pre>
+         */
+        public com.google.protobuf.ByteString getBytesValue() {
+          if (valueCase_ == 15) {
+            return (com.google.protobuf.ByteString) value_;
+          }
+          return com.google.protobuf.ByteString.EMPTY;
+        }
+        /**
+         * <code>optional bytes bytes_value = 15;</code>
+         *
+         * <pre>
+         * Bytes, File, Script
+         * </pre>
+         */
+        public Builder setBytesValue(com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  valueCase_ = 15;
+          value_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional bytes bytes_value = 15;</code>
          *
          * <pre>
          * Bytes, File, Script
          * </pre>
          */
         public Builder clearBytesValue() {
-          if (valueCase_ == 14) {
+          if (valueCase_ == 15) {
             valueCase_ = 0;
             value_ = null;
             onChanged();
@@ -15084,29 +15506,29 @@ public final class SparkplugBProto {
         private com.google.protobuf.SingleFieldBuilder<
             com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSetOrBuilder> datasetValueBuilder_;
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 15;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 16;</code>
          */
         public boolean hasDatasetValue() {
-          return valueCase_ == 15;
+          return valueCase_ == 16;
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 15;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 16;</code>
          */
         public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet getDatasetValue() {
           if (datasetValueBuilder_ == null) {
-            if (valueCase_ == 15) {
+            if (valueCase_ == 16) {
               return (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet) value_;
             }
             return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet.getDefaultInstance();
           } else {
-            if (valueCase_ == 15) {
+            if (valueCase_ == 16) {
               return datasetValueBuilder_.getMessage();
             }
             return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet.getDefaultInstance();
           }
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 15;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 16;</code>
          */
         public Builder setDatasetValue(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet value) {
           if (datasetValueBuilder_ == null) {
@@ -15118,11 +15540,11 @@ public final class SparkplugBProto {
           } else {
             datasetValueBuilder_.setMessage(value);
           }
-          valueCase_ = 15;
+          valueCase_ = 16;
           return this;
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 15;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 16;</code>
          */
         public Builder setDatasetValue(
             com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet.Builder builderForValue) {
@@ -15132,15 +15554,15 @@ public final class SparkplugBProto {
           } else {
             datasetValueBuilder_.setMessage(builderForValue.build());
           }
-          valueCase_ = 15;
+          valueCase_ = 16;
           return this;
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 15;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 16;</code>
          */
         public Builder mergeDatasetValue(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet value) {
           if (datasetValueBuilder_ == null) {
-            if (valueCase_ == 15 &&
+            if (valueCase_ == 16 &&
                 value_ != com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet.getDefaultInstance()) {
               value_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet.newBuilder((com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet) value_)
                   .mergeFrom(value).buildPartial();
@@ -15149,26 +15571,26 @@ public final class SparkplugBProto {
             }
             onChanged();
           } else {
-            if (valueCase_ == 15) {
+            if (valueCase_ == 16) {
               datasetValueBuilder_.mergeFrom(value);
             }
             datasetValueBuilder_.setMessage(value);
           }
-          valueCase_ = 15;
+          valueCase_ = 16;
           return this;
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 15;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 16;</code>
          */
         public Builder clearDatasetValue() {
           if (datasetValueBuilder_ == null) {
-            if (valueCase_ == 15) {
+            if (valueCase_ == 16) {
               valueCase_ = 0;
               value_ = null;
               onChanged();
             }
           } else {
-            if (valueCase_ == 15) {
+            if (valueCase_ == 16) {
               valueCase_ = 0;
               value_ = null;
             }
@@ -15177,32 +15599,32 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 15;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 16;</code>
          */
         public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet.Builder getDatasetValueBuilder() {
           return getDatasetValueFieldBuilder().getBuilder();
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 15;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 16;</code>
          */
         public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSetOrBuilder getDatasetValueOrBuilder() {
-          if ((valueCase_ == 15) && (datasetValueBuilder_ != null)) {
+          if ((valueCase_ == 16) && (datasetValueBuilder_ != null)) {
             return datasetValueBuilder_.getMessageOrBuilder();
           } else {
-            if (valueCase_ == 15) {
+            if (valueCase_ == 16) {
               return (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet) value_;
             }
             return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet.getDefaultInstance();
           }
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 15;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.DataSet dataset_value = 16;</code>
          */
         private com.google.protobuf.SingleFieldBuilder<
             com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSetOrBuilder> 
             getDatasetValueFieldBuilder() {
           if (datasetValueBuilder_ == null) {
-            if (!(valueCase_ == 15)) {
+            if (!(valueCase_ == 16)) {
               value_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.DataSet.getDefaultInstance();
             }
             datasetValueBuilder_ = new com.google.protobuf.SingleFieldBuilder<
@@ -15212,36 +15634,171 @@ public final class SparkplugBProto {
                     isClean());
             value_ = null;
           }
-          valueCase_ = 15;
+          valueCase_ = 16;
           return datasetValueBuilder_;
+        }
+
+        private com.google.protobuf.SingleFieldBuilder<
+            com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.TemplateOrBuilder> templateValueBuilder_;
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Template template_value = 17;</code>
+         */
+        public boolean hasTemplateValue() {
+          return valueCase_ == 17;
+        }
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Template template_value = 17;</code>
+         */
+        public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template getTemplateValue() {
+          if (templateValueBuilder_ == null) {
+            if (valueCase_ == 17) {
+              return (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template) value_;
+            }
+            return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.getDefaultInstance();
+          } else {
+            if (valueCase_ == 17) {
+              return templateValueBuilder_.getMessage();
+            }
+            return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.getDefaultInstance();
+          }
+        }
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Template template_value = 17;</code>
+         */
+        public Builder setTemplateValue(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template value) {
+          if (templateValueBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            value_ = value;
+            onChanged();
+          } else {
+            templateValueBuilder_.setMessage(value);
+          }
+          valueCase_ = 17;
+          return this;
+        }
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Template template_value = 17;</code>
+         */
+        public Builder setTemplateValue(
+            com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Builder builderForValue) {
+          if (templateValueBuilder_ == null) {
+            value_ = builderForValue.build();
+            onChanged();
+          } else {
+            templateValueBuilder_.setMessage(builderForValue.build());
+          }
+          valueCase_ = 17;
+          return this;
+        }
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Template template_value = 17;</code>
+         */
+        public Builder mergeTemplateValue(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template value) {
+          if (templateValueBuilder_ == null) {
+            if (valueCase_ == 17 &&
+                value_ != com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.getDefaultInstance()) {
+              value_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.newBuilder((com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template) value_)
+                  .mergeFrom(value).buildPartial();
+            } else {
+              value_ = value;
+            }
+            onChanged();
+          } else {
+            if (valueCase_ == 17) {
+              templateValueBuilder_.mergeFrom(value);
+            }
+            templateValueBuilder_.setMessage(value);
+          }
+          valueCase_ = 17;
+          return this;
+        }
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Template template_value = 17;</code>
+         */
+        public Builder clearTemplateValue() {
+          if (templateValueBuilder_ == null) {
+            if (valueCase_ == 17) {
+              valueCase_ = 0;
+              value_ = null;
+              onChanged();
+            }
+          } else {
+            if (valueCase_ == 17) {
+              valueCase_ = 0;
+              value_ = null;
+            }
+            templateValueBuilder_.clear();
+          }
+          return this;
+        }
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Template template_value = 17;</code>
+         */
+        public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Builder getTemplateValueBuilder() {
+          return getTemplateValueFieldBuilder().getBuilder();
+        }
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Template template_value = 17;</code>
+         */
+        public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.TemplateOrBuilder getTemplateValueOrBuilder() {
+          if ((valueCase_ == 17) && (templateValueBuilder_ != null)) {
+            return templateValueBuilder_.getMessageOrBuilder();
+          } else {
+            if (valueCase_ == 17) {
+              return (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template) value_;
+            }
+            return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.getDefaultInstance();
+          }
+        }
+        /**
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Template template_value = 17;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilder<
+            com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.TemplateOrBuilder> 
+            getTemplateValueFieldBuilder() {
+          if (templateValueBuilder_ == null) {
+            if (!(valueCase_ == 17)) {
+              value_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.getDefaultInstance();
+            }
+            templateValueBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+                com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.TemplateOrBuilder>(
+                    (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template) value_,
+                    getParentForChildren(),
+                    isClean());
+            value_ = null;
+          }
+          valueCase_ = 17;
+          return templateValueBuilder_;
         }
 
         private com.google.protobuf.SingleFieldBuilder<
             com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtensionOrBuilder> extensionValueBuilder_;
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 16;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 18;</code>
          */
         public boolean hasExtensionValue() {
-          return valueCase_ == 16;
+          return valueCase_ == 18;
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 16;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 18;</code>
          */
         public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension getExtensionValue() {
           if (extensionValueBuilder_ == null) {
-            if (valueCase_ == 16) {
+            if (valueCase_ == 18) {
               return (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension) value_;
             }
             return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension.getDefaultInstance();
           } else {
-            if (valueCase_ == 16) {
+            if (valueCase_ == 18) {
               return extensionValueBuilder_.getMessage();
             }
             return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension.getDefaultInstance();
           }
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 16;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 18;</code>
          */
         public Builder setExtensionValue(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension value) {
           if (extensionValueBuilder_ == null) {
@@ -15253,11 +15810,11 @@ public final class SparkplugBProto {
           } else {
             extensionValueBuilder_.setMessage(value);
           }
-          valueCase_ = 16;
+          valueCase_ = 18;
           return this;
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 16;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 18;</code>
          */
         public Builder setExtensionValue(
             com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension.Builder builderForValue) {
@@ -15267,15 +15824,15 @@ public final class SparkplugBProto {
           } else {
             extensionValueBuilder_.setMessage(builderForValue.build());
           }
-          valueCase_ = 16;
+          valueCase_ = 18;
           return this;
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 16;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 18;</code>
          */
         public Builder mergeExtensionValue(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension value) {
           if (extensionValueBuilder_ == null) {
-            if (valueCase_ == 16 &&
+            if (valueCase_ == 18 &&
                 value_ != com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension.getDefaultInstance()) {
               value_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension.newBuilder((com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension) value_)
                   .mergeFrom(value).buildPartial();
@@ -15284,26 +15841,26 @@ public final class SparkplugBProto {
             }
             onChanged();
           } else {
-            if (valueCase_ == 16) {
+            if (valueCase_ == 18) {
               extensionValueBuilder_.mergeFrom(value);
             }
             extensionValueBuilder_.setMessage(value);
           }
-          valueCase_ = 16;
+          valueCase_ = 18;
           return this;
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 16;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 18;</code>
          */
         public Builder clearExtensionValue() {
           if (extensionValueBuilder_ == null) {
-            if (valueCase_ == 16) {
+            if (valueCase_ == 18) {
               valueCase_ = 0;
               value_ = null;
               onChanged();
             }
           } else {
-            if (valueCase_ == 16) {
+            if (valueCase_ == 18) {
               valueCase_ = 0;
               value_ = null;
             }
@@ -15312,32 +15869,32 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 16;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 18;</code>
          */
         public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension.Builder getExtensionValueBuilder() {
           return getExtensionValueFieldBuilder().getBuilder();
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 16;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 18;</code>
          */
         public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtensionOrBuilder getExtensionValueOrBuilder() {
-          if ((valueCase_ == 16) && (extensionValueBuilder_ != null)) {
+          if ((valueCase_ == 18) && (extensionValueBuilder_ != null)) {
             return extensionValueBuilder_.getMessageOrBuilder();
           } else {
-            if (valueCase_ == 16) {
+            if (valueCase_ == 18) {
               return (com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension) value_;
             }
             return com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension.getDefaultInstance();
           }
         }
         /**
-         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 16;</code>
+         * <code>optional .com.cirruslink.sparkplug.protobuf.Payload.Metric.MetricValueExtension extension_value = 18;</code>
          */
         private com.google.protobuf.SingleFieldBuilder<
             com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtensionOrBuilder> 
             getExtensionValueFieldBuilder() {
           if (extensionValueBuilder_ == null) {
-            if (!(valueCase_ == 16)) {
+            if (!(valueCase_ == 18)) {
               value_ = com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.MetricValueExtension.getDefaultInstance();
             }
             extensionValueBuilder_ = new com.google.protobuf.SingleFieldBuilder<
@@ -15347,7 +15904,7 @@ public final class SparkplugBProto {
                     isClean());
             value_ = null;
           }
-          valueCase_ = 16;
+          valueCase_ = 18;
           return extensionValueBuilder_;
         }
 
@@ -15441,65 +15998,10 @@ public final class SparkplugBProto {
       return metric_.get(index);
     }
 
-    public static final int TEMPLATES_FIELD_NUMBER = 3;
-    private java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template> templates_;
-    /**
-     * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-     *
-     * <pre>
-     * For UDTs
-     * </pre>
-     */
-    public java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template> getTemplatesList() {
-      return templates_;
-    }
-    /**
-     * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-     *
-     * <pre>
-     * For UDTs
-     * </pre>
-     */
-    public java.util.List<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.TemplateOrBuilder> 
-        getTemplatesOrBuilderList() {
-      return templates_;
-    }
-    /**
-     * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-     *
-     * <pre>
-     * For UDTs
-     * </pre>
-     */
-    public int getTemplatesCount() {
-      return templates_.size();
-    }
-    /**
-     * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-     *
-     * <pre>
-     * For UDTs
-     * </pre>
-     */
-    public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template getTemplates(int index) {
-      return templates_.get(index);
-    }
-    /**
-     * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-     *
-     * <pre>
-     * For UDTs
-     * </pre>
-     */
-    public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.TemplateOrBuilder getTemplatesOrBuilder(
-        int index) {
-      return templates_.get(index);
-    }
-
-    public static final int SEQ_FIELD_NUMBER = 4;
+    public static final int SEQ_FIELD_NUMBER = 3;
     private long seq_;
     /**
-     * <code>optional uint64 seq = 4;</code>
+     * <code>optional uint64 seq = 3;</code>
      *
      * <pre>
      * Sequence number
@@ -15509,7 +16011,7 @@ public final class SparkplugBProto {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional uint64 seq = 4;</code>
+     * <code>optional uint64 seq = 3;</code>
      *
      * <pre>
      * Sequence number
@@ -15519,10 +16021,10 @@ public final class SparkplugBProto {
       return seq_;
     }
 
-    public static final int UUID_FIELD_NUMBER = 5;
+    public static final int UUID_FIELD_NUMBER = 4;
     private java.lang.Object uuid_;
     /**
-     * <code>optional string uuid = 5;</code>
+     * <code>optional string uuid = 4;</code>
      *
      * <pre>
      * UUID to track message type in terms of schema definitions
@@ -15532,7 +16034,7 @@ public final class SparkplugBProto {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional string uuid = 5;</code>
+     * <code>optional string uuid = 4;</code>
      *
      * <pre>
      * UUID to track message type in terms of schema definitions
@@ -15553,7 +16055,7 @@ public final class SparkplugBProto {
       }
     }
     /**
-     * <code>optional string uuid = 5;</code>
+     * <code>optional string uuid = 4;</code>
      *
      * <pre>
      * UUID to track message type in terms of schema definitions
@@ -15573,10 +16075,10 @@ public final class SparkplugBProto {
       }
     }
 
-    public static final int BODY_FIELD_NUMBER = 6;
+    public static final int BODY_FIELD_NUMBER = 5;
     private com.google.protobuf.ByteString body_;
     /**
-     * <code>optional bytes body = 6;</code>
+     * <code>optional bytes body = 5;</code>
      *
      * <pre>
      * To optionally bypass the whole definition above
@@ -15586,7 +16088,7 @@ public final class SparkplugBProto {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional bytes body = 6;</code>
+     * <code>optional bytes body = 5;</code>
      *
      * <pre>
      * To optionally bypass the whole definition above
@@ -15599,7 +16101,6 @@ public final class SparkplugBProto {
     private void initFields() {
       timestamp_ = 0L;
       metric_ = java.util.Collections.emptyList();
-      templates_ = java.util.Collections.emptyList();
       seq_ = 0L;
       uuid_ = "";
       body_ = com.google.protobuf.ByteString.EMPTY;
@@ -15612,12 +16113,6 @@ public final class SparkplugBProto {
 
       for (int i = 0; i < getMetricCount(); i++) {
         if (!getMetric(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getTemplatesCount(); i++) {
-        if (!getTemplates(i).isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -15642,17 +16137,14 @@ public final class SparkplugBProto {
       for (int i = 0; i < metric_.size(); i++) {
         output.writeMessage(2, metric_.get(i));
       }
-      for (int i = 0; i < templates_.size(); i++) {
-        output.writeMessage(3, templates_.get(i));
-      }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeUInt64(4, seq_);
+        output.writeUInt64(3, seq_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(5, getUuidBytes());
+        output.writeBytes(4, getUuidBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeBytes(6, body_);
+        output.writeBytes(5, body_);
       }
       extensionWriter.writeUntil(536870912, output);
       getUnknownFields().writeTo(output);
@@ -15672,21 +16164,17 @@ public final class SparkplugBProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, metric_.get(i));
       }
-      for (int i = 0; i < templates_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, templates_.get(i));
-      }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(4, seq_);
+          .computeUInt64Size(3, seq_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(5, getUuidBytes());
+          .computeBytesSize(4, getUuidBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(6, body_);
+          .computeBytesSize(5, body_);
       }
       size += extensionsSerializedSize();
       size += getUnknownFields().getSerializedSize();
@@ -15800,7 +16288,6 @@ public final class SparkplugBProto {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getMetricFieldBuilder();
-          getTemplatesFieldBuilder();
         }
       }
       private static Builder create() {
@@ -15817,18 +16304,12 @@ public final class SparkplugBProto {
         } else {
           metricBuilder_.clear();
         }
-        if (templatesBuilder_ == null) {
-          templates_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
-        } else {
-          templatesBuilder_.clear();
-        }
         seq_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000004);
         uuid_ = "";
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000008);
         body_ = com.google.protobuf.ByteString.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -15870,24 +16351,15 @@ public final class SparkplugBProto {
         } else {
           result.metric_ = metricBuilder_.build();
         }
-        if (templatesBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004)) {
-            templates_ = java.util.Collections.unmodifiableList(templates_);
-            bitField0_ = (bitField0_ & ~0x00000004);
-          }
-          result.templates_ = templates_;
-        } else {
-          result.templates_ = templatesBuilder_.build();
-        }
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000002;
         }
         result.seq_ = seq_;
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000004;
         }
         result.uuid_ = uuid_;
-        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000008;
         }
         result.body_ = body_;
@@ -15936,37 +16408,11 @@ public final class SparkplugBProto {
             }
           }
         }
-        if (templatesBuilder_ == null) {
-          if (!other.templates_.isEmpty()) {
-            if (templates_.isEmpty()) {
-              templates_ = other.templates_;
-              bitField0_ = (bitField0_ & ~0x00000004);
-            } else {
-              ensureTemplatesIsMutable();
-              templates_.addAll(other.templates_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.templates_.isEmpty()) {
-            if (templatesBuilder_.isEmpty()) {
-              templatesBuilder_.dispose();
-              templatesBuilder_ = null;
-              templates_ = other.templates_;
-              bitField0_ = (bitField0_ & ~0x00000004);
-              templatesBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getTemplatesFieldBuilder() : null;
-            } else {
-              templatesBuilder_.addAllMessages(other.templates_);
-            }
-          }
-        }
         if (other.hasSeq()) {
           setSeq(other.getSeq());
         }
         if (other.hasUuid()) {
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000008;
           uuid_ = other.uuid_;
           onChanged();
         }
@@ -15981,12 +16427,6 @@ public final class SparkplugBProto {
       public final boolean isInitialized() {
         for (int i = 0; i < getMetricCount(); i++) {
           if (!getMetric(i).isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getTemplatesCount(); i++) {
-          if (!getTemplates(i).isInitialized()) {
             
             return false;
           }
@@ -16377,331 +16817,19 @@ public final class SparkplugBProto {
         return metricBuilder_;
       }
 
-      private java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template> templates_ =
-        java.util.Collections.emptyList();
-      private void ensureTemplatesIsMutable() {
-        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
-          templates_ = new java.util.ArrayList<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template>(templates_);
-          bitField0_ |= 0x00000004;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilder<
-          com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.TemplateOrBuilder> templatesBuilder_;
-
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template> getTemplatesList() {
-        if (templatesBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(templates_);
-        } else {
-          return templatesBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public int getTemplatesCount() {
-        if (templatesBuilder_ == null) {
-          return templates_.size();
-        } else {
-          return templatesBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template getTemplates(int index) {
-        if (templatesBuilder_ == null) {
-          return templates_.get(index);
-        } else {
-          return templatesBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public Builder setTemplates(
-          int index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template value) {
-        if (templatesBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureTemplatesIsMutable();
-          templates_.set(index, value);
-          onChanged();
-        } else {
-          templatesBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public Builder setTemplates(
-          int index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Builder builderForValue) {
-        if (templatesBuilder_ == null) {
-          ensureTemplatesIsMutable();
-          templates_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          templatesBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public Builder addTemplates(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template value) {
-        if (templatesBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureTemplatesIsMutable();
-          templates_.add(value);
-          onChanged();
-        } else {
-          templatesBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public Builder addTemplates(
-          int index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template value) {
-        if (templatesBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureTemplatesIsMutable();
-          templates_.add(index, value);
-          onChanged();
-        } else {
-          templatesBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public Builder addTemplates(
-          com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Builder builderForValue) {
-        if (templatesBuilder_ == null) {
-          ensureTemplatesIsMutable();
-          templates_.add(builderForValue.build());
-          onChanged();
-        } else {
-          templatesBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public Builder addTemplates(
-          int index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Builder builderForValue) {
-        if (templatesBuilder_ == null) {
-          ensureTemplatesIsMutable();
-          templates_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          templatesBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public Builder addAllTemplates(
-          java.lang.Iterable<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template> values) {
-        if (templatesBuilder_ == null) {
-          ensureTemplatesIsMutable();
-          com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, templates_);
-          onChanged();
-        } else {
-          templatesBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public Builder clearTemplates() {
-        if (templatesBuilder_ == null) {
-          templates_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
-          onChanged();
-        } else {
-          templatesBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public Builder removeTemplates(int index) {
-        if (templatesBuilder_ == null) {
-          ensureTemplatesIsMutable();
-          templates_.remove(index);
-          onChanged();
-        } else {
-          templatesBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Builder getTemplatesBuilder(
-          int index) {
-        return getTemplatesFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.TemplateOrBuilder getTemplatesOrBuilder(
-          int index) {
-        if (templatesBuilder_ == null) {
-          return templates_.get(index);  } else {
-          return templatesBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public java.util.List<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.TemplateOrBuilder> 
-           getTemplatesOrBuilderList() {
-        if (templatesBuilder_ != null) {
-          return templatesBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(templates_);
-        }
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Builder addTemplatesBuilder() {
-        return getTemplatesFieldBuilder().addBuilder(
-            com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Builder addTemplatesBuilder(
-          int index) {
-        return getTemplatesFieldBuilder().addBuilder(
-            index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template templates = 3;</code>
-       *
-       * <pre>
-       * For UDTs
-       * </pre>
-       */
-      public java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Builder> 
-           getTemplatesBuilderList() {
-        return getTemplatesFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilder<
-          com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.TemplateOrBuilder> 
-          getTemplatesFieldBuilder() {
-        if (templatesBuilder_ == null) {
-          templatesBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.TemplateOrBuilder>(
-                  templates_,
-                  ((bitField0_ & 0x00000004) == 0x00000004),
-                  getParentForChildren(),
-                  isClean());
-          templates_ = null;
-        }
-        return templatesBuilder_;
-      }
-
       private long seq_ ;
       /**
-       * <code>optional uint64 seq = 4;</code>
+       * <code>optional uint64 seq = 3;</code>
        *
        * <pre>
        * Sequence number
        * </pre>
        */
       public boolean hasSeq() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional uint64 seq = 4;</code>
+       * <code>optional uint64 seq = 3;</code>
        *
        * <pre>
        * Sequence number
@@ -16711,27 +16839,27 @@ public final class SparkplugBProto {
         return seq_;
       }
       /**
-       * <code>optional uint64 seq = 4;</code>
+       * <code>optional uint64 seq = 3;</code>
        *
        * <pre>
        * Sequence number
        * </pre>
        */
       public Builder setSeq(long value) {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000004;
         seq_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional uint64 seq = 4;</code>
+       * <code>optional uint64 seq = 3;</code>
        *
        * <pre>
        * Sequence number
        * </pre>
        */
       public Builder clearSeq() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000004);
         seq_ = 0L;
         onChanged();
         return this;
@@ -16739,17 +16867,17 @@ public final class SparkplugBProto {
 
       private java.lang.Object uuid_ = "";
       /**
-       * <code>optional string uuid = 5;</code>
+       * <code>optional string uuid = 4;</code>
        *
        * <pre>
        * UUID to track message type in terms of schema definitions
        * </pre>
        */
       public boolean hasUuid() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional string uuid = 5;</code>
+       * <code>optional string uuid = 4;</code>
        *
        * <pre>
        * UUID to track message type in terms of schema definitions
@@ -16770,7 +16898,7 @@ public final class SparkplugBProto {
         }
       }
       /**
-       * <code>optional string uuid = 5;</code>
+       * <code>optional string uuid = 4;</code>
        *
        * <pre>
        * UUID to track message type in terms of schema definitions
@@ -16790,7 +16918,7 @@ public final class SparkplugBProto {
         }
       }
       /**
-       * <code>optional string uuid = 5;</code>
+       * <code>optional string uuid = 4;</code>
        *
        * <pre>
        * UUID to track message type in terms of schema definitions
@@ -16801,26 +16929,26 @@ public final class SparkplugBProto {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000010;
+  bitField0_ |= 0x00000008;
         uuid_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string uuid = 5;</code>
+       * <code>optional string uuid = 4;</code>
        *
        * <pre>
        * UUID to track message type in terms of schema definitions
        * </pre>
        */
       public Builder clearUuid() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000008);
         uuid_ = getDefaultInstance().getUuid();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string uuid = 5;</code>
+       * <code>optional string uuid = 4;</code>
        *
        * <pre>
        * UUID to track message type in terms of schema definitions
@@ -16831,7 +16959,7 @@ public final class SparkplugBProto {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000010;
+  bitField0_ |= 0x00000008;
         uuid_ = value;
         onChanged();
         return this;
@@ -16839,17 +16967,17 @@ public final class SparkplugBProto {
 
       private com.google.protobuf.ByteString body_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>optional bytes body = 6;</code>
+       * <code>optional bytes body = 5;</code>
        *
        * <pre>
        * To optionally bypass the whole definition above
        * </pre>
        */
       public boolean hasBody() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>optional bytes body = 6;</code>
+       * <code>optional bytes body = 5;</code>
        *
        * <pre>
        * To optionally bypass the whole definition above
@@ -16859,7 +16987,7 @@ public final class SparkplugBProto {
         return body_;
       }
       /**
-       * <code>optional bytes body = 6;</code>
+       * <code>optional bytes body = 5;</code>
        *
        * <pre>
        * To optionally bypass the whole definition above
@@ -16869,20 +16997,20 @@ public final class SparkplugBProto {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000020;
+  bitField0_ |= 0x00000010;
         body_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional bytes body = 6;</code>
+       * <code>optional bytes body = 5;</code>
        *
        * <pre>
        * To optionally bypass the whole definition above
        * </pre>
        */
       public Builder clearBody() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000010);
         body_ = getDefaultInstance().getBody();
         onChanged();
         return this;
@@ -16984,78 +17112,79 @@ public final class SparkplugBProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\035sparkplug_b/sparkplug_b.proto\022!com.cir" +
-      "ruslink.sparkplug.protobuf\"\316\025\n\007Payload\022\021" +
+      "ruslink.sparkplug.protobuf\"\225\026\n\007Payload\022\021" +
       "\n\ttimestamp\030\001 \001(\004\022A\n\006metric\030\002 \003(\01321.com." +
       "cirruslink.sparkplug.protobuf.Payload.Me" +
-      "tric\022F\n\ttemplates\030\003 \003(\01323.com.cirruslink" +
-      ".sparkplug.protobuf.Payload.Template\022\013\n\003" +
-      "seq\030\004 \001(\004\022\014\n\004uuid\030\005 \001(\t\022\014\n\004body\030\006 \001(\014\032\232\004" +
-      "\n\010Template\022\014\n\004name\030\001 \001(\t\022\017\n\007version\030\002 \001(" +
-      "\t\022B\n\007metrics\030\003 \003(\01321.com.cirruslink.spar" +
-      "kplug.protobuf.Payload.Metric\022P\n\npropert",
-      "ies\030\004 \003(\0132<.com.cirruslink.sparkplug.pro" +
-      "tobuf.Payload.Template.Property\032\316\002\n\010Prop" +
-      "erty\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001(\r\022\023\n\tint_" +
-      "value\030\003 \001(\rH\000\022\024\n\nlong_value\030\004 \001(\004H\000\022\025\n\013f" +
-      "loat_value\030\005 \001(\002H\000\022\026\n\014double_value\030\006 \001(\001" +
-      "H\000\022\027\n\rboolean_value\030\007 \001(\010H\000\022\026\n\014string_va" +
-      "lue\030\010 \001(\tH\000\022n\n\017extension_value\030\t \001(\0132S.c" +
-      "om.cirruslink.sparkplug.protobuf.Payload" +
-      ".Template.Property.PropertyValueExtensio" +
-      "nH\000\032\"\n\026PropertyValueExtension*\010\010\001\020\200\200\200\200\002B",
-      "\007\n\005value*\010\010\005\020\200\200\200\200\002\032\256\004\n\007DataSet\022\026\n\016num_of" +
-      "_columns\030\001 \001(\004\022\017\n\007columns\030\002 \003(\t\022\014\n\004type\030" +
-      "\003 \003(\r\022D\n\004rows\030\004 \003(\01326.com.cirruslink.spa" +
-      "rkplug.protobuf.Payload.DataSet.Row\032\267\002\n\014" +
-      "DataSetValue\022\023\n\tint_value\030\001 \001(\rH\000\022\024\n\nlon" +
-      "g_value\030\002 \001(\004H\000\022\025\n\013float_value\030\003 \001(\002H\000\022\026" +
-      "\n\014double_value\030\004 \001(\001H\000\022\027\n\rboolean_value\030" +
-      "\005 \001(\010H\000\022\026\n\014string_value\030\006 \001(\tH\000\022p\n\017exten" +
-      "sion_value\030\007 \001(\0132U.com.cirruslink.sparkp" +
-      "lug.protobuf.Payload.DataSet.DataSetValu",
-      "e.DataSetValueExtensionH\000\032!\n\025DataSetValu" +
-      "eExtension*\010\010\001\020\200\200\200\200\002B\007\n\005value\032b\n\003Row\022Q\n\010" +
-      "elements\030\001 \003(\0132?.com.cirruslink.sparkplu" +
-      "g.protobuf.Payload.DataSet.DataSetValue*" +
-      "\010\010\002\020\200\200\200\200\002*\010\010\005\020\200\200\200\200\002\032\360\003\n\rPropertyValue\022\014\n" +
-      "\004type\030\001 \001(\r\022\023\n\tint_value\030\002 \001(\rH\000\022\024\n\nlong" +
-      "_value\030\003 \001(\004H\000\022\025\n\013float_value\030\004 \001(\002H\000\022\026\n" +
-      "\014double_value\030\005 \001(\001H\000\022\027\n\rboolean_value\030\006" +
-      " \001(\010H\000\022\026\n\014string_value\030\007 \001(\tH\000\022S\n\021proper" +
-      "tyset_value\030\010 \001(\01326.com.cirruslink.spark",
-      "plug.protobuf.Payload.PropertySetH\000\022X\n\022p" +
-      "ropertysets_value\030\t \001(\0132:.com.cirruslink" +
-      ".sparkplug.protobuf.Payload.PropertySetL" +
-      "istH\000\022j\n\017extension_value\030\n \001(\0132O.com.cir" +
-      "ruslink.sparkplug.protobuf.Payload.Prope" +
-      "rtyValue.PropertyValueExtensionH\000\032\"\n\026Pro" +
-      "pertyValueExtension*\010\010\001\020\200\200\200\200\002B\007\n\005value\032o" +
-      "\n\013PropertySet\022\014\n\004keys\030\001 \003(\t\022H\n\006values\030\002 " +
-      "\003(\01328.com.cirruslink.sparkplug.protobuf." +
-      "Payload.PropertyValue*\010\010\003\020\200\200\200\200\002\032h\n\017Prope",
-      "rtySetList\022K\n\013propertyset\030\001 \003(\01326.com.ci" +
-      "rruslink.sparkplug.protobuf.Payload.Prop" +
-      "ertySet*\010\010\002\020\200\200\200\200\002\032\242\001\n\010MetaData\022\023\n\013isMult" +
-      "iPart\030\001 \001(\010\022\024\n\014content_type\030\002 \001(\t\022\014\n\004siz" +
-      "e\030\003 \001(\004\022\013\n\003seq\030\004 \001(\004\022\021\n\tfile_name\030\005 \001(\t\022" +
-      "\021\n\tfile_type\030\006 \001(\t\022\013\n\003md5\030\007 \001(\t\022\023\n\013descr" +
-      "iption\030\010 \001(\t*\010\010\t\020\200\200\200\200\002\032\260\004\n\006Metric\022\014\n\004nam" +
-      "e\030\001 \001(\t\022\r\n\005alias\030\002 \001(\004\022\021\n\ttimestamp\030\003 \001(" +
-      "\004\022\020\n\010datatype\030\004 \001(\r\022\022\n\nhistorical\030\005 \001(\010\022" +
-      "\014\n\004null\030\006 \001(\010\022E\n\010metadata\030\007 \001(\01323.com.ci",
-      "rruslink.sparkplug.protobuf.Payload.Meta" +
-      "Data\022\023\n\tint_value\030\010 \001(\rH\000\022\024\n\nlong_value\030" +
-      "\t \001(\004H\000\022\025\n\013float_value\030\n \001(\002H\000\022\026\n\014double" +
-      "_value\030\013 \001(\001H\000\022\027\n\rboolean_value\030\014 \001(\010H\000\022" +
-      "\026\n\014string_value\030\r \001(\tH\000\022\025\n\013bytes_value\030\016" +
-      " \001(\014H\000\022K\n\rdataset_value\030\017 \001(\01322.com.cirr" +
+      "tric\022\013\n\003seq\030\003 \001(\004\022\014\n\004uuid\030\004 \001(\t\022\014\n\004body\030" +
+      "\005 \001(\014\032\307\004\n\010Template\022\014\n\004name\030\001 \001(\t\022\017\n\007vers" +
+      "ion\030\002 \001(\t\022B\n\007metrics\030\003 \003(\01321.com.cirrusl" +
+      "ink.sparkplug.protobuf.Payload.Metric\022P\n" +
+      "\nproperties\030\004 \003(\0132<.com.cirruslink.spark" +
+      "plug.protobuf.Payload.Template.Property\022",
+      "\024\n\014template_ref\030\005 \001(\t\022\025\n\ris_definition\030\006" +
+      " \001(\010\032\316\002\n\010Property\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030" +
+      "\002 \001(\r\022\023\n\tint_value\030\003 \001(\rH\000\022\024\n\nlong_value" +
+      "\030\004 \001(\004H\000\022\025\n\013float_value\030\005 \001(\002H\000\022\026\n\014doubl" +
+      "e_value\030\006 \001(\001H\000\022\027\n\rboolean_value\030\007 \001(\010H\000" +
+      "\022\026\n\014string_value\030\010 \001(\tH\000\022n\n\017extension_va" +
+      "lue\030\t \001(\0132S.com.cirruslink.sparkplug.pro" +
+      "tobuf.Payload.Template.Property.Property" +
+      "ValueExtensionH\000\032\"\n\026PropertyValueExtensi" +
+      "on*\010\010\001\020\200\200\200\200\002B\007\n\005value*\010\010\007\020\200\200\200\200\002\032\256\004\n\007Data",
+      "Set\022\026\n\016num_of_columns\030\001 \001(\004\022\017\n\007columns\030\002" +
+      " \003(\t\022\014\n\004type\030\003 \003(\r\022D\n\004rows\030\004 \003(\01326.com.c" +
+      "irruslink.sparkplug.protobuf.Payload.Dat" +
+      "aSet.Row\032\267\002\n\014DataSetValue\022\023\n\tint_value\030\001" +
+      " \001(\rH\000\022\024\n\nlong_value\030\002 \001(\004H\000\022\025\n\013float_va" +
+      "lue\030\003 \001(\002H\000\022\026\n\014double_value\030\004 \001(\001H\000\022\027\n\rb" +
+      "oolean_value\030\005 \001(\010H\000\022\026\n\014string_value\030\006 \001" +
+      "(\tH\000\022p\n\017extension_value\030\007 \001(\0132U.com.cirr" +
       "uslink.sparkplug.protobuf.Payload.DataSe" +
-      "tH\000\022a\n\017extension_value\030\020 \001(\0132F.com.cirru" +
-      "slink.sparkplug.protobuf.Payload.Metric." +
-      "MetricValueExtensionH\000\032 \n\024MetricValueExt",
-      "ension*\010\010\001\020\200\200\200\200\002B\007\n\005value*\010\010\007\020\200\200\200\200\002B4\n!c" +
-      "om.cirruslink.sparkplug.protobufB\017Sparkp" +
-      "lugBProto"
+      "t.DataSetValue.DataSetValueExtensionH\000\032!",
+      "\n\025DataSetValueExtension*\010\010\001\020\200\200\200\200\002B\007\n\005val" +
+      "ue\032b\n\003Row\022Q\n\010elements\030\001 \003(\0132?.com.cirrus" +
+      "link.sparkplug.protobuf.Payload.DataSet." +
+      "DataSetValue*\010\010\002\020\200\200\200\200\002*\010\010\005\020\200\200\200\200\002\032\360\003\n\rPro" +
+      "pertyValue\022\014\n\004type\030\001 \001(\r\022\023\n\tint_value\030\002 " +
+      "\001(\rH\000\022\024\n\nlong_value\030\003 \001(\004H\000\022\025\n\013float_val" +
+      "ue\030\004 \001(\002H\000\022\026\n\014double_value\030\005 \001(\001H\000\022\027\n\rbo" +
+      "olean_value\030\006 \001(\010H\000\022\026\n\014string_value\030\007 \001(" +
+      "\tH\000\022S\n\021propertyset_value\030\010 \001(\01326.com.cir" +
+      "ruslink.sparkplug.protobuf.Payload.Prope",
+      "rtySetH\000\022X\n\022propertysets_value\030\t \001(\0132:.c" +
+      "om.cirruslink.sparkplug.protobuf.Payload" +
+      ".PropertySetListH\000\022j\n\017extension_value\030\n " +
+      "\001(\0132O.com.cirruslink.sparkplug.protobuf." +
+      "Payload.PropertyValue.PropertyValueExten" +
+      "sionH\000\032\"\n\026PropertyValueExtension*\010\010\001\020\200\200\200" +
+      "\200\002B\007\n\005value\032o\n\013PropertySet\022\014\n\004keys\030\001 \003(\t" +
+      "\022H\n\006values\030\002 \003(\01328.com.cirruslink.sparkp" +
+      "lug.protobuf.Payload.PropertyValue*\010\010\003\020\200" +
+      "\200\200\200\002\032h\n\017PropertySetList\022K\n\013propertyset\030\001",
+      " \003(\01326.com.cirruslink.sparkplug.protobuf" +
+      ".Payload.PropertySet*\010\010\002\020\200\200\200\200\002\032\242\001\n\010MetaD" +
+      "ata\022\023\n\013isMultiPart\030\001 \001(\010\022\024\n\014content_type" +
+      "\030\002 \001(\t\022\014\n\004size\030\003 \001(\004\022\013\n\003seq\030\004 \001(\004\022\021\n\tfil" +
+      "e_name\030\005 \001(\t\022\021\n\tfile_type\030\006 \001(\t\022\013\n\003md5\030\007" +
+      " \001(\t\022\023\n\013description\030\010 \001(\t*\010\010\t\020\200\200\200\200\002\032\222\005\n\006" +
+      "Metric\022\014\n\004name\030\001 \001(\t\022\r\n\005alias\030\002 \001(\004\022\021\n\tt" +
+      "imestamp\030\003 \001(\004\022\020\n\010datatype\030\004 \001(\r\022\022\n\nhist" +
+      "orical\030\005 \001(\010\022\021\n\ttransient\030\006 \001(\010\022\014\n\004null\030" +
+      "\007 \001(\010\022E\n\010metadata\030\010 \001(\01323.com.cirruslink",
+      ".sparkplug.protobuf.Payload.MetaData\022\023\n\t" +
+      "int_value\030\t \001(\rH\000\022\024\n\nlong_value\030\n \001(\004H\000\022" +
+      "\025\n\013float_value\030\013 \001(\002H\000\022\026\n\014double_value\030\014" +
+      " \001(\001H\000\022\027\n\rboolean_value\030\r \001(\010H\000\022\026\n\014strin" +
+      "g_value\030\016 \001(\tH\000\022\025\n\013bytes_value\030\017 \001(\014H\000\022K" +
+      "\n\rdataset_value\030\020 \001(\01322.com.cirruslink.s" +
+      "parkplug.protobuf.Payload.DataSetH\000\022M\n\016t" +
+      "emplate_value\030\021 \001(\01323.com.cirruslink.spa" +
+      "rkplug.protobuf.Payload.TemplateH\000\022a\n\017ex" +
+      "tension_value\030\022 \001(\0132F.com.cirruslink.spa",
+      "rkplug.protobuf.Payload.Metric.MetricVal" +
+      "ueExtensionH\000\032 \n\024MetricValueExtension*\010\010" +
+      "\001\020\200\200\200\200\002B\007\n\005value*\010\010\006\020\200\200\200\200\002B4\n!com.cirrus" +
+      "link.sparkplug.protobufB\017SparkplugBProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -17074,13 +17203,13 @@ public final class SparkplugBProto {
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_com_cirruslink_sparkplug_protobuf_Payload_descriptor,
-        new java.lang.String[] { "Timestamp", "Metric", "Templates", "Seq", "Uuid", "Body", });
+        new java.lang.String[] { "Timestamp", "Metric", "Seq", "Uuid", "Body", });
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_Template_descriptor =
       internal_static_com_cirruslink_sparkplug_protobuf_Payload_descriptor.getNestedTypes().get(0);
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_Template_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_com_cirruslink_sparkplug_protobuf_Payload_Template_descriptor,
-        new java.lang.String[] { "Name", "Version", "Metrics", "Properties", });
+        new java.lang.String[] { "Name", "Version", "Metrics", "Properties", "TemplateRef", "IsDefinition", });
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_Template_Property_descriptor =
       internal_static_com_cirruslink_sparkplug_protobuf_Payload_Template_descriptor.getNestedTypes().get(0);
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_Template_Property_fieldAccessorTable = new
@@ -17152,7 +17281,7 @@ public final class SparkplugBProto {
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_descriptor,
-        new java.lang.String[] { "Name", "Alias", "Timestamp", "Datatype", "Historical", "Null", "Metadata", "IntValue", "LongValue", "FloatValue", "DoubleValue", "BooleanValue", "StringValue", "BytesValue", "DatasetValue", "ExtensionValue", "Value", });
+        new java.lang.String[] { "Name", "Alias", "Timestamp", "Datatype", "Historical", "Transient", "Null", "Metadata", "IntValue", "LongValue", "FloatValue", "DoubleValue", "BooleanValue", "StringValue", "BytesValue", "DatasetValue", "TemplateValue", "ExtensionValue", "Value", });
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_MetricValueExtension_descriptor =
       internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_descriptor.getNestedTypes().get(0);
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_Metric_MetricValueExtension_fieldAccessorTable = new
