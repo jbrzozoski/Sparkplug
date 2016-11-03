@@ -63,7 +63,7 @@ public class SparkplugTest extends TestCase {
 			metric.setName("Name");
 			metric.setAlias(0);
 			metric.setTimestamp(currentTime);
-			metric.setDataType(MetricDataType.Int1);
+			metric.setDataType(MetricDataType.Int8);
 			metric.setHistorical(false);
 			metric.setValue(65);
 			MetaData metaData = new MetaData();
@@ -115,8 +115,8 @@ public class SparkplugTest extends TestCase {
 			assertEquals("Name", decodedMetric.getName());
 			assertEquals(new Long(0), decodedMetric.getAlias());
 			assertEquals(currentTime, decodedMetric.getTimestamp());
-			assertEquals(MetricDataType.Int1, decodedMetric.getDataType());
-			assertEquals(false, decodedMetric.isHistorical());
+			assertEquals(MetricDataType.Int8, decodedMetric.getDataType());
+			assertEquals(Boolean.FALSE, decodedMetric.isHistorical());
 			assertEquals(65, decodedMetric.getValue());
 			assertNotNull(decodedMetric.getMetaData());
 			MetaData decodedMetaData = decodedMetric.getMetaData();
@@ -141,124 +141,7 @@ public class SparkplugTest extends TestCase {
 			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
-			Metric metric = new Metric("MyName", MetricDataType.Int1, 65);
-			sparkplugBPayload.addMetric(metric);
-			
-			// Encode
-			SparkplugBPayloadEncoder encoder = new SparkplugBPayloadEncoder();
-			byte[] bytes = encoder.getBytes(sparkplugBPayload);
-			
-			// Decode
-			PayloadDecoder<SparkplugBPayload> decoder = new SparkplugBPayloadDecoder();
-			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
-			
-			// SparkplugBPayload checks
-			assertEquals(currentTime, decodedPayload.getTimestamp());
-			assertEquals(-1, decodedPayload.getSeq());
-			assertNull(decodedPayload.getBody());
-			
-			// Metric checks
-			assertEquals(1, decodedPayload.getMetrics().size());
-			Metric decodedMetric = decodedPayload.getMetrics().get(0);
-			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(MetricDataType.Int1, decodedMetric.getDataType());
-			assertEquals(false, decodedMetric.isHistorical());
-			assertEquals(65, decodedMetric.getValue());
-			assertNull(decodedMetric.getMetaData());
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-	
-	public void testInt2Payload() {
-		try {
-			// Now test a minimal payload
-			Date currentTime = new Date();
-			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
-			sparkplugBPayload.setTimestamp(currentTime);
-			
-			// Create one metric
-			Metric metric = new Metric("MyName", MetricDataType.Int2, 65);
-			sparkplugBPayload.addMetric(metric);
-			
-			// Encode
-			SparkplugBPayloadEncoder encoder = new SparkplugBPayloadEncoder();
-			byte[] bytes = encoder.getBytes(sparkplugBPayload);
-			
-			// Decode
-			PayloadDecoder<SparkplugBPayload> decoder = new SparkplugBPayloadDecoder();
-			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
-			
-			// SparkplugBPayload checks
-			assertEquals(currentTime, decodedPayload.getTimestamp());
-			assertEquals(-1, decodedPayload.getSeq());
-			assertNull(decodedPayload.getBody());
-			
-			// Metric checks
-			assertEquals(1, decodedPayload.getMetrics().size());
-			Metric decodedMetric = decodedPayload.getMetrics().get(0);
-			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(MetricDataType.Int2, decodedMetric.getDataType());
-			assertEquals(false, decodedMetric.isHistorical());
-			assertEquals(65, decodedMetric.getValue());
-			assertNull(decodedMetric.getMetaData());
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-	
-	public void testInt4Payload() {
-		try {
-			// Now test a minimal payload
-			Date currentTime = new Date();
-			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
-			sparkplugBPayload.setTimestamp(currentTime);
-			
-			// Create one metric
-			Metric metric = new Metric("MyName", MetricDataType.Int4, 65);
-			sparkplugBPayload.addMetric(metric);
-			
-			// Encode
-			SparkplugBPayloadEncoder encoder = new SparkplugBPayloadEncoder();
-			byte[] bytes = encoder.getBytes(sparkplugBPayload);
-			
-			// Decode
-			PayloadDecoder<SparkplugBPayload> decoder = new SparkplugBPayloadDecoder();
-			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
-			
-			// SparkplugBPayload checks
-			assertEquals(currentTime, decodedPayload.getTimestamp());
-			assertEquals(-1, decodedPayload.getSeq());
-			assertNull(decodedPayload.getBody());
-			
-			// Metric checks
-			assertEquals(1, decodedPayload.getMetrics().size());
-			Metric decodedMetric = decodedPayload.getMetrics().get(0);
-			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(MetricDataType.Int4, decodedMetric.getDataType());
-			assertEquals(false, decodedMetric.isHistorical());
-			assertEquals(65, decodedMetric.getValue());
-			assertNull(decodedMetric.getMetaData());
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-	
-	public void testInt8Payload() {
-		try {
-			// Now test a minimal payload
-			Date currentTime = new Date();
-			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
-			sparkplugBPayload.setTimestamp(currentTime);
-			
-			// Create one metric
-			Metric metric = new Metric("MyName", MetricDataType.Int8, 65L);
+			Metric metric = new Metric("MyName", MetricDataType.Int8, 65);
 			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
@@ -279,7 +162,124 @@ public class SparkplugTest extends TestCase {
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
 			assertEquals(MetricDataType.Int8, decodedMetric.getDataType());
-			assertEquals(false, decodedMetric.isHistorical());
+			assertEquals(Boolean.FALSE, decodedMetric.isHistorical());
+			assertEquals(65, decodedMetric.getValue());
+			assertNull(decodedMetric.getMetaData());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+	
+	public void testInt16Payload() {
+		try {
+			// Now test a minimal payload
+			Date currentTime = new Date();
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
+			
+			// Create one metric
+			Metric metric = new Metric("MyName", MetricDataType.Int16, 65);
+			sparkplugBPayload.addMetric(metric);
+			
+			// Encode
+			SparkplugBPayloadEncoder encoder = new SparkplugBPayloadEncoder();
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
+			
+			// Decode
+			PayloadDecoder<SparkplugBPayload> decoder = new SparkplugBPayloadDecoder();
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
+			
+			// SparkplugBPayload checks
+			assertEquals(currentTime, decodedPayload.getTimestamp());
+			assertEquals(-1, decodedPayload.getSeq());
+			assertNull(decodedPayload.getBody());
+			
+			// Metric checks
+			assertEquals(1, decodedPayload.getMetrics().size());
+			Metric decodedMetric = decodedPayload.getMetrics().get(0);
+			assertEquals("MyName", decodedMetric.getName());
+			assertEquals(MetricDataType.Int16, decodedMetric.getDataType());
+			assertEquals(Boolean.FALSE, decodedMetric.isHistorical());
+			assertEquals(65, decodedMetric.getValue());
+			assertNull(decodedMetric.getMetaData());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+	
+	public void testInt32Payload() {
+		try {
+			// Now test a minimal payload
+			Date currentTime = new Date();
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
+			
+			// Create one metric
+			Metric metric = new Metric("MyName", MetricDataType.Int32, 65);
+			sparkplugBPayload.addMetric(metric);
+			
+			// Encode
+			SparkplugBPayloadEncoder encoder = new SparkplugBPayloadEncoder();
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
+			
+			// Decode
+			PayloadDecoder<SparkplugBPayload> decoder = new SparkplugBPayloadDecoder();
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
+			
+			// SparkplugBPayload checks
+			assertEquals(currentTime, decodedPayload.getTimestamp());
+			assertEquals(-1, decodedPayload.getSeq());
+			assertNull(decodedPayload.getBody());
+			
+			// Metric checks
+			assertEquals(1, decodedPayload.getMetrics().size());
+			Metric decodedMetric = decodedPayload.getMetrics().get(0);
+			assertEquals("MyName", decodedMetric.getName());
+			assertEquals(MetricDataType.Int32, decodedMetric.getDataType());
+			assertEquals(Boolean.FALSE, decodedMetric.isHistorical());
+			assertEquals(65, decodedMetric.getValue());
+			assertNull(decodedMetric.getMetaData());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+	
+	public void testInt64Payload() {
+		try {
+			// Now test a minimal payload
+			Date currentTime = new Date();
+			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+			sparkplugBPayload.setTimestamp(currentTime);
+			
+			// Create one metric
+			Metric metric = new Metric("MyName", MetricDataType.Int64, 65L);
+			sparkplugBPayload.addMetric(metric);
+			
+			// Encode
+			SparkplugBPayloadEncoder encoder = new SparkplugBPayloadEncoder();
+			byte[] bytes = encoder.getBytes(sparkplugBPayload);
+			
+			// Decode
+			PayloadDecoder<SparkplugBPayload> decoder = new SparkplugBPayloadDecoder();
+			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
+			
+			// SparkplugBPayload checks
+			assertEquals(currentTime, decodedPayload.getTimestamp());
+			assertEquals(-1, decodedPayload.getSeq());
+			assertNull(decodedPayload.getBody());
+			
+			// Metric checks
+			assertEquals(1, decodedPayload.getMetrics().size());
+			Metric decodedMetric = decodedPayload.getMetrics().get(0);
+			assertEquals("MyName", decodedMetric.getName());
+			assertEquals(MetricDataType.Int64, decodedMetric.getDataType());
+			assertEquals(Boolean.FALSE, decodedMetric.isHistorical());
 			assertEquals(65L, decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
 			
@@ -289,7 +289,7 @@ public class SparkplugTest extends TestCase {
 		}
 	}
 	
-	public void testFloat4Payload() {
+	public void testFloatPayload() {
 		try {
 			// Now test a minimal payload
 			Date currentTime = new Date();
@@ -297,7 +297,7 @@ public class SparkplugTest extends TestCase {
 			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
-			Metric metric = new Metric("MyName", MetricDataType.Float4, 6.5F);
+			Metric metric = new Metric("MyName", MetricDataType.Float, 6.5F);
 			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
@@ -317,8 +317,8 @@ public class SparkplugTest extends TestCase {
 			assertEquals(1, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(MetricDataType.Float4, decodedMetric.getDataType());
-			assertEquals(false, decodedMetric.isHistorical());
+			assertEquals(MetricDataType.Float, decodedMetric.getDataType());
+			assertEquals(Boolean.FALSE, decodedMetric.isHistorical());
 			assertEquals(6.5F, decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
 			
@@ -328,7 +328,7 @@ public class SparkplugTest extends TestCase {
 		}
 	}
 	
-	public void testFloat8Payload() {
+	public void testDoublePayload() {
 		try {
 			// Now test a minimal payload
 			Date currentTime = new Date();
@@ -336,7 +336,7 @@ public class SparkplugTest extends TestCase {
 			sparkplugBPayload.setTimestamp(currentTime);
 			
 			// Create one metric
-			Metric metric = new Metric("MyName", MetricDataType.Float8, 6.5);
+			Metric metric = new Metric("MyName", MetricDataType.Double, 6.5);
 			sparkplugBPayload.addMetric(metric);
 			
 			// Encode
@@ -356,8 +356,8 @@ public class SparkplugTest extends TestCase {
 			assertEquals(1, decodedPayload.getMetrics().size());
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
-			assertEquals(MetricDataType.Float8, decodedMetric.getDataType());
-			assertEquals(false, decodedMetric.isHistorical());
+			assertEquals(MetricDataType.Double, decodedMetric.getDataType());
+			assertEquals(Boolean.FALSE, decodedMetric.isHistorical());
 			assertEquals(6.5, decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
 			
@@ -396,7 +396,7 @@ public class SparkplugTest extends TestCase {
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
 			assertEquals(MetricDataType.Boolean, decodedMetric.getDataType());
-			assertEquals(false, decodedMetric.isHistorical());
+			assertEquals(Boolean.FALSE, decodedMetric.isHistorical());
 			assertEquals(true, decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
 			
@@ -435,7 +435,7 @@ public class SparkplugTest extends TestCase {
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
 			assertEquals(MetricDataType.String, decodedMetric.getDataType());
-			assertEquals(false, decodedMetric.isHistorical());
+			assertEquals(Boolean.FALSE, decodedMetric.isHistorical());
 			assertEquals("MyString", decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
 			
@@ -474,7 +474,7 @@ public class SparkplugTest extends TestCase {
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
 			assertEquals(MetricDataType.DateTime, decodedMetric.getDataType());
-			assertEquals(false, decodedMetric.isHistorical());
+			assertEquals(Boolean.FALSE, decodedMetric.isHistorical());
 			assertEquals(currentTime, decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
 			
@@ -497,31 +497,31 @@ public class SparkplugTest extends TestCase {
 			
 			List<String> columnNames = new ArrayList<String>();
 			columnNames.add("Booleans");
-			columnNames.add("Int4s");
+			columnNames.add("Int32s");
 			columnNames.add("Floats");
 			dataSet.setColumnNames(columnNames);
 			
 			List<DataSetDataType> columnTypes = new ArrayList<DataSetDataType>();
 			columnTypes.add(DataSetDataType.Boolean);
-			columnTypes.add(DataSetDataType.Int4);
-			columnTypes.add(DataSetDataType.Float4);
+			columnTypes.add(DataSetDataType.Int32);
+			columnTypes.add(DataSetDataType.Float);
 			dataSet.setTypes(columnTypes);
 			
 			List<Row> rows = new ArrayList<Row>();
 			List<Value<?>> rowValues = new ArrayList<Value<?>>();
 			rowValues.add(new Value<Boolean>(DataSetDataType.Boolean, false));
-			rowValues.add(new Value<Integer>(DataSetDataType.Int4, 1));
-			rowValues.add(new Value<Float>(DataSetDataType.Float4, 1.1F));
+			rowValues.add(new Value<Integer>(DataSetDataType.Int32, 1));
+			rowValues.add(new Value<Float>(DataSetDataType.Float, 1.1F));
 			rows.add(new Row(rowValues));
 			rowValues = new ArrayList<Value<?>>();
 			rowValues.add(new Value<Boolean>(DataSetDataType.Boolean, true));
-			rowValues.add(new Value<Integer>(DataSetDataType.Int4, 2));
-			rowValues.add(new Value<Float>(DataSetDataType.Float4, 1.2F));
+			rowValues.add(new Value<Integer>(DataSetDataType.Int32, 2));
+			rowValues.add(new Value<Float>(DataSetDataType.Float, 1.2F));
 			rows.add(new Row(rowValues));
 			rowValues = new ArrayList<Value<?>>();
 			rowValues.add(new Value<Boolean>(DataSetDataType.Boolean, false));
-			rowValues.add(new Value<Integer>(DataSetDataType.Int4, 3));
-			rowValues.add(new Value<Float>(DataSetDataType.Float4, 1.3F));
+			rowValues.add(new Value<Integer>(DataSetDataType.Int32, 3));
+			rowValues.add(new Value<Float>(DataSetDataType.Float, 1.3F));
 			rows.add(new Row(rowValues));
 			dataSet.setRows(rows);
 			
@@ -547,7 +547,7 @@ public class SparkplugTest extends TestCase {
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
 			assertEquals(MetricDataType.DataSet, decodedMetric.getDataType());
-			assertEquals(false, decodedMetric.isHistorical());
+			assertEquals(Boolean.FALSE, decodedMetric.isHistorical());
 			assertNull(decodedMetric.getMetaData());
 			
 			// DataSet Checks
@@ -556,7 +556,7 @@ public class SparkplugTest extends TestCase {
 			List<String> decodedColumns = decodedDataSet.getColumnNames();
 			assertNotNull(decodedColumns);
 			assertEquals("Booleans", decodedColumns.get(0));
-			assertEquals("Int4s", decodedColumns.get(1));
+			assertEquals("Int32s", decodedColumns.get(1));
 			assertEquals("Floats", decodedColumns.get(2));
 			
 			// DataSet row checks
@@ -565,8 +565,8 @@ public class SparkplugTest extends TestCase {
 			Row row1 = decodedRows.get(0);
 			List<Value<?>> row1Values = row1.getValues();
 			assertEquals(DataSetDataType.Boolean, row1Values.get(0).getType());
-			assertEquals(DataSetDataType.Int4, row1Values.get(1).getType());
-			assertEquals(DataSetDataType.Float4, row1Values.get(2).getType());
+			assertEquals(DataSetDataType.Int32, row1Values.get(1).getType());
+			assertEquals(DataSetDataType.Float, row1Values.get(2).getType());
 			assertEquals(false, row1Values.get(0).getValue());
 			assertEquals(1, row1Values.get(1).getValue());
 			assertEquals(1.1F, row1Values.get(2).getValue());
@@ -574,8 +574,8 @@ public class SparkplugTest extends TestCase {
 			Row row2 = decodedRows.get(1);
 			List<Value<?>> row2Values = row2.getValues();
 			assertEquals(DataSetDataType.Boolean, row2Values.get(0).getType());
-			assertEquals(DataSetDataType.Int4, row2Values.get(1).getType());
-			assertEquals(DataSetDataType.Float4, row2Values.get(2).getType());
+			assertEquals(DataSetDataType.Int32, row2Values.get(1).getType());
+			assertEquals(DataSetDataType.Float, row2Values.get(2).getType());
 			assertEquals(true, row2Values.get(0).getValue());
 			assertEquals(2, row2Values.get(1).getValue());
 			assertEquals(1.2F, row2Values.get(2).getValue());
@@ -583,8 +583,8 @@ public class SparkplugTest extends TestCase {
 			Row row3 = decodedRows.get(2);
 			List<Value<?>> row3Values = row3.getValues();
 			assertEquals(DataSetDataType.Boolean, row3Values.get(0).getType());
-			assertEquals(DataSetDataType.Int4, row3Values.get(1).getType());
-			assertEquals(DataSetDataType.Float4, row3Values.get(2).getType());
+			assertEquals(DataSetDataType.Int32, row3Values.get(1).getType());
+			assertEquals(DataSetDataType.Float, row3Values.get(2).getType());
 			assertEquals(false, row3Values.get(0).getValue());
 			assertEquals(3, row3Values.get(1).getValue());
 			assertEquals(1.3F, row3Values.get(2).getValue());
@@ -624,7 +624,7 @@ public class SparkplugTest extends TestCase {
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyText", decodedMetric.getName());
 			assertEquals(MetricDataType.Text, decodedMetric.getDataType());
-			assertEquals(false, decodedMetric.isHistorical());
+			assertEquals(Boolean.FALSE, decodedMetric.isHistorical());
 			assertEquals("MyText", decodedMetric.getValue());
 			assertNull(decodedMetric.getMetaData());
 			
@@ -664,7 +664,7 @@ public class SparkplugTest extends TestCase {
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
 			assertEquals(MetricDataType.Bytes, decodedMetric.getDataType());
-			assertEquals(false, decodedMetric.isHistorical());
+			assertEquals(Boolean.FALSE, decodedMetric.isHistorical());
 			
 			byte[] decodedBytes = (byte[]) decodedMetric.getValue();
 			assertEquals(5, decodedBytes.length);
@@ -717,7 +717,7 @@ public class SparkplugTest extends TestCase {
 			Metric decodedMetric = decodedPayload.getMetrics().get(0);
 			assertEquals("MyName", decodedMetric.getName());
 			assertEquals(MetricDataType.File, decodedMetric.getDataType());
-			assertEquals(false, decodedMetric.isHistorical());
+			assertEquals(Boolean.FALSE, decodedMetric.isHistorical());
 			
 			File decodedFile = (File) decodedMetric.getValue();
 			assertEquals("/tmp/.testfile", decodedFile.getFileName());
@@ -730,7 +730,6 @@ public class SparkplugTest extends TestCase {
 			assertNotNull(decodedMetric.getMetaData());
 			assertEquals("/tmp/.testfile", decodedMetric.getMetaData().getFileName());
 			assertEquals(false, decodedMetric.getMetaData().isMultiPart());
-			assertEquals(false, decodedMetric.getMetaData().isScript());
 			assertEquals("bin", decodedMetric.getMetaData().getFileType());
 			
 		} catch (Exception e) {

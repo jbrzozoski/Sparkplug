@@ -68,7 +68,7 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 				if(metric.hasAlias()) {
 					metricBuilder.setAlias(metric.getAlias());
 				}
-				metricBuilder.setDatatype(convertMetricDataType(metric.getDataType()));
+				metricBuilder.setDatatype(metric.getDataType().toIntValue());
 				if (metric.getTimestamp() != null) {
 					metricBuilder.setTimestamp(metric.getTimestamp().getTime());
 				}
@@ -101,10 +101,10 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 			Metric metric) throws Exception {
 
 		// Set the datatype
-		metricBuilder.setDatatype(convertMetricDataType(metric.getDataType()));
+		metricBuilder.setDatatype(metric.getDataType().toIntValue());
 
 		if (metric.getValue() == null) {
-			metricBuilder.setNull(true);
+			metricBuilder.setIsNull(true);
 		} else {
 			switch (metric.getDataType()) {
 				case Boolean:
@@ -115,27 +115,32 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 					break;
 				case File:
 					metricBuilder.setBytesValue(ByteString.copyFrom(((File) metric.getValue()).getBytes()));
-					SparkplugBProto.Payload.Metric.MetaData.Builder metaDataBuilder = 
-							SparkplugBProto.Payload.Metric.MetaData.newBuilder();
+					SparkplugBProto.Payload.MetaData.Builder metaDataBuilder = 
+							SparkplugBProto.Payload.MetaData.newBuilder();
 					metaDataBuilder.setFileName(((File) metric.getValue()).getFileName());
 					metricBuilder.setMetadata(metaDataBuilder);
 					break;
-				case Float4:
+				case Float:
 					metricBuilder.setFloatValue((Float) metric.getValue());
 					break;
-				case Float8:
+				case Double:
 					metricBuilder.setDoubleValue((Double) metric.getValue());
 					break;
-				case Int1:
-				case Int2:
-				case Int4:
+				case Int8:
+				case Int16:
+				case Int32:
+				case UInt8:
+				case UInt16:
+				case UInt32:
 					metricBuilder.setIntValue((Integer) metric.getValue());
 					break;
-				case Int8:
+				case Int64:
+				case UInt64:
 					metricBuilder.setLongValue((Long) metric.getValue());
 					break;
 				case String:
 				case Text:
+				case UUID:
 					metricBuilder.setStringValue((String) metric.getValue());
 					break;
 				case Bytes:
@@ -143,8 +148,8 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 					break;
 				case DataSet:
 					DataSet dataSet = (DataSet) metric.getValue();
-					SparkplugBProto.Payload.Metric.DataSet.Builder protoDataSetBuilder = 
-							SparkplugBProto.Payload.Metric.DataSet.newBuilder();
+					SparkplugBProto.Payload.DataSet.Builder protoDataSetBuilder = 
+							SparkplugBProto.Payload.DataSet.newBuilder();
 
 					protoDataSetBuilder.setNumOfColumns(dataSet.getNumOfColumns());
 
@@ -164,7 +169,7 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 					if (columnTypes != null && !columnTypes.isEmpty()) {
 						for (DataSetDataType type : columnTypes) {
 							// Add the column type
-							protoDataSetBuilder.addTypes(convertDataSetDataType(type));
+							protoDataSetBuilder.addTypes(type.toIntValue());
 						}
 					} else {
 						throw new Exception("Invalid DataSet");
@@ -174,13 +179,13 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 					List<Row> rows = dataSet.getRows();
 					if (rows != null && !rows.isEmpty()) {
 						for (Row row : rows) {
-							SparkplugBProto.Payload.Metric.DataSet.Row.Builder protoRowBuilder = 
-									SparkplugBProto.Payload.Metric.DataSet.Row.newBuilder();
+							SparkplugBProto.Payload.DataSet.Row.Builder protoRowBuilder = 
+									SparkplugBProto.Payload.DataSet.Row.newBuilder();
 							List<Value<?>> values = row.getValues();
 							if (values != null && !values.isEmpty()) {
 								for (Value<?> value : values) {
 									// Add the converted element
-									protoRowBuilder.addElement(convertDataSetValue(value));
+									protoRowBuilder.addElements(convertDataSetValue(value));
 								}
 
 								logger.debug("Adding row");
@@ -196,7 +201,7 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 					metricBuilder.setDatasetValue(protoDataSetBuilder);
 
 					break;
-				case UDT:
+				case Template:
 					break;
 				case Unknown:
 				default:
@@ -212,11 +217,11 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 			Metric metric) throws Exception {
 		
 		// If the builder has been built already - use it
-		SparkplugBProto.Payload.Metric.MetaData.Builder metaDataBuilder;
+		SparkplugBProto.Payload.MetaData.Builder metaDataBuilder;
 		if (metricBuilder.getMetadataBuilder() != null) {
 			metaDataBuilder = metricBuilder.getMetadataBuilder();
 		} else {
-			metaDataBuilder = SparkplugBProto.Payload.Metric.MetaData.newBuilder();
+			metaDataBuilder = SparkplugBProto.Payload.MetaData.newBuilder();
 		}
 		
 		MetaData metaData = metric.getMetaData();
@@ -242,24 +247,29 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 		return metricBuilder;
 	}
 	
-	private SparkplugBProto.Payload.Metric.DataSet.Value.Builder convertDataSetValue(Value<?> value) throws Exception {
-		SparkplugBProto.Payload.Metric.DataSet.Value.Builder protoValueBuilder = 
-				SparkplugBProto.Payload.Metric.DataSet.Value.newBuilder();
+	private SparkplugBProto.Payload.DataSet.DataSetValue.Builder convertDataSetValue(Value<?> value) throws Exception {
+		SparkplugBProto.Payload.DataSet.DataSetValue.Builder protoValueBuilder = 
+				SparkplugBProto.Payload.DataSet.DataSetValue.newBuilder();
 
 		// Set the value
-		switch (value.getType()) {
-			case Int1:
-			case Int2:
-			case Int4:
+		DataSetDataType type = value.getType();
+		switch (type) {
+			case Int8:
+			case Int16:
+			case Int32:
+			case UInt8:
+			case UInt16:
+			case UInt32:
 				protoValueBuilder.setIntValue((Integer) value.getValue());
 				break;
-			case Int8:
+			case Int64:
+			case UInt64:
 				protoValueBuilder.setLongValue((Long) value.getValue());
 				break;
-			case Float4:
+			case Float:
 				protoValueBuilder.setFloatValue((Float) value.getValue());
 				break;
-			case Float8:
+			case Double:
 				protoValueBuilder.setDoubleValue((Double) value.getValue());
 				break;
 			case String:
@@ -278,68 +288,6 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 		}
 
 		return protoValueBuilder;
-	}
-	
-	private SparkplugBProto.Payload.Metric.DataSet.DataType convertDataSetDataType(DataSetDataType type) {
-		switch (type) {
-			case Boolean:
-				return SparkplugBProto.Payload.Metric.DataSet.DataType.Boolean;
-			case DateTime:
-				return SparkplugBProto.Payload.Metric.DataSet.DataType.DateTime;
-			case Float4:
-				return SparkplugBProto.Payload.Metric.DataSet.DataType.Float4;
-			case Float8:
-				return SparkplugBProto.Payload.Metric.DataSet.DataType.Float8;
-			case Int1:
-				return SparkplugBProto.Payload.Metric.DataSet.DataType.Int1;
-			case Int2:
-				return SparkplugBProto.Payload.Metric.DataSet.DataType.Int2;
-			case Int4:
-				return SparkplugBProto.Payload.Metric.DataSet.DataType.Int4;
-			case Int8:
-				return SparkplugBProto.Payload.Metric.DataSet.DataType.Int8;
-			case String:
-				return SparkplugBProto.Payload.Metric.DataSet.DataType.String;
-			case Text:
-				return SparkplugBProto.Payload.Metric.DataSet.DataType.Text;
-			default:
-				return SparkplugBProto.Payload.Metric.DataSet.DataType.Unknown;
-		}
-	}
-	
-	private SparkplugBProto.Payload.Metric.DataType convertMetricDataType(MetricDataType type) {
-		switch (type) {
-			case Boolean:
-				return SparkplugBProto.Payload.Metric.DataType.Boolean;
-			case DateTime:
-				return SparkplugBProto.Payload.Metric.DataType.DateTime;
-			case Float4:
-				return SparkplugBProto.Payload.Metric.DataType.Float4;
-			case Float8:
-				return SparkplugBProto.Payload.Metric.DataType.Float8;
-			case Int1:
-				return SparkplugBProto.Payload.Metric.DataType.Int1;
-			case Int2:
-				return SparkplugBProto.Payload.Metric.DataType.Int2;
-			case Int4:
-				return SparkplugBProto.Payload.Metric.DataType.Int4;
-			case Int8:
-				return SparkplugBProto.Payload.Metric.DataType.Int8;
-			case String:
-				return SparkplugBProto.Payload.Metric.DataType.String;
-			case Text:
-				return SparkplugBProto.Payload.Metric.DataType.Text;
-			case Bytes:
-				return SparkplugBProto.Payload.Metric.DataType.Bytes;
-			case DataSet:
-				return SparkplugBProto.Payload.Metric.DataType.Dataset;
-			case File:
-				return SparkplugBProto.Payload.Metric.DataType.File;
-			case UDT:
-				return SparkplugBProto.Payload.Metric.DataType.UDT;
-			default:
-				return SparkplugBProto.Payload.Metric.DataType.Unknown;
-		}
 	}
 	
 	private Boolean toBoolean(Object value) {

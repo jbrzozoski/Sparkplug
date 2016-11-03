@@ -63,17 +63,27 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 			
 			// Set the other tag data
 			metric.setName(protoMetric.getName());
-			if(protoMetric.hasAlias()) {
+			
+			if (protoMetric.hasAlias()) {
 				metric.setAlias(protoMetric.getAlias());
 			}
+
+			metric.setHistorical(protoMetric.getIsHistorical());
+
+			metric.setHistorical(protoMetric.getIsTransient());
+
+			metric.setHistorical(protoMetric.getIsNull());
+
+			// Set the timestamp
 			metric.setTimestamp(new Date(protoMetric.getTimestamp()));
-			metric.setDataType(convertMetricType(protoMetric.getDatatype()));
-			metric.setHistorical(protoMetric.getHistorical());
+
+			// Get and convert the metric data type
+			metric.setDataType(MetricDataType.fromInteger((protoMetric.getDatatype())));
 			
 			// Set the metadata
 			if (protoMetric.hasMetadata()) {
 				logger.debug("Metadata is not null");
-				SparkplugBProto.Payload.Metric.MetaData protoMetaData = protoMetric.getMetadata();
+				SparkplugBProto.Payload.MetaData protoMetaData = protoMetric.getMetadata();
 				MetaData metaData = new MetaData();
 				metaData.setContentType(protoMetaData.getContentType());
 				metaData.setSize(protoMetaData.getSize());
@@ -99,11 +109,11 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 	
 	private Object getValue(SparkplugBProto.Payload.Metric protoMetric) throws Exception {
 		// Check if the null flag has been set indicating that the value is null
-		if (protoMetric.getNull()) {
+		if (protoMetric.getIsNull()) {
 			return null;
 		}
 		// Otherwise convert the value based on the type
-		switch (protoMetric.getDatatype()) {
+		switch (MetricDataType.fromInteger(protoMetric.getDatatype())) {
 			case Boolean:
 				return protoMetric.getBooleanValue();
 			case DateTime:
@@ -112,27 +122,32 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 				String filename = protoMetric.getMetadata().getFileName();
 				byte [] fileBytes = protoMetric.getBytesValue().toByteArray();
 				return new File(filename, fileBytes);
-			case Float4:
+			case Float:
 				return protoMetric.getFloatValue();
-			case Float8:
+			case Double:
 				return protoMetric.getDoubleValue();
-			case Int1:
-			case Int2:
-			case Int4:
-				return protoMetric.getIntValue();
 			case Int8:
+			case Int16:
+			case Int32:
+			case UInt8:
+			case UInt16:
+			case UInt32:
+				return protoMetric.getIntValue();
+			case Int64:
+			case UInt64:
 				return protoMetric.getLongValue();
 			case String:
 			case Text:
+			case UUID:
 				return protoMetric.getStringValue();
 			case Bytes:
 				return protoMetric.getBytesValue().toByteArray();
-			case Dataset:
+			case DataSet:
 				DataSet dataSet = new DataSet();
-				SparkplugBProto.Payload.Metric.DataSet protoDataSet = protoMetric.getDatasetValue();
+				SparkplugBProto.Payload.DataSet protoDataSet = protoMetric.getDatasetValue();
 				List<String> protoColumns = protoDataSet.getColumnsList();
-				List<SparkplugBProto.Payload.Metric.DataSet.DataType> protoTypes;
-				List<SparkplugBProto.Payload.Metric.DataSet.Row> protoRows = protoDataSet.getRowsList();
+				List<Integer> protoTypes;
+				List<SparkplugBProto.Payload.DataSet.Row> protoRows = protoDataSet.getRowsList();
 				long numOfColumns = protoDataSet.getNumOfColumns();
 				dataSet.setNumOfColumns(numOfColumns);
 
@@ -155,8 +170,8 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 					// Build up a List of column types
 					protoTypes = protoDataSet.getTypesList();
 					List<DataSetDataType> types = new ArrayList<DataSetDataType>();
-					for (SparkplugBProto.Payload.Metric.DataSet.DataType type : protoTypes) {
-						types.add(convertValueType(type));
+					for (int type : protoTypes) {
+						types.add(DataSetDataType.fromInteger(type));
 					}
 
 					// Set the column types
@@ -168,12 +183,12 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 				// Set the rows
 				if (protoDataSet.getRowsCount() > 0) {
 					List<Row> rows = new ArrayList<Row>();
-					for (SparkplugBProto.Payload.Metric.DataSet.Row protoRow : protoRows) {
-						if (protoRow.getElementCount() > 0) {
-							List<SparkplugBProto.Payload.Metric.DataSet.Value> protoValues = protoRow.getElementList();
+					for (SparkplugBProto.Payload.DataSet.Row protoRow : protoRows) {
+						if (protoRow.getElementsCount() > 0) {
+							List<SparkplugBProto.Payload.DataSet.DataSetValue> protoValues = protoRow.getElementsList();
 							List<Value<?>> values = new ArrayList<Value<?>>();
 							for (int index = 0; index < numOfColumns; index++) {
-								SparkplugBProto.Payload.Metric.DataSet.Value protoValue = protoValues.get(index);
+								SparkplugBProto.Payload.DataSet.DataSetValue protoValue = protoValues.get(index);
 								values.add(convertDataSetValue(protoTypes.get(index), protoValue));
 							}
 
@@ -189,7 +204,7 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 
 				// Finally set the metric value
 				return dataSet;	
-			case UDT:
+			case Template:
 				return null;
 			case Unknown:
 			default:
@@ -198,102 +213,39 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 		}
 	}
 	
-	private Value<?> convertDataSetValue(SparkplugBProto.Payload.Metric.DataSet.DataType protoType, 
-			SparkplugBProto.Payload.Metric.DataSet.Value protoValue) throws Exception {
+	private Value<?> convertDataSetValue(int protoType, SparkplugBProto.Payload.DataSet.DataSetValue protoValue) 
+			throws Exception {
 		
-		switch (protoType) {
-			case Boolean:
-				return new Value<Boolean>(DataSetDataType.Boolean, protoValue.getBooleanValue());
-			case DateTime:
-				return new Value<Date>(DataSetDataType.DateTime, new Date(protoValue.getLongValue()));
-			case Float4:
-				return new Value<Float>(DataSetDataType.Float4, protoValue.getFloatValue());
-			case Float8:
-				return new Value<Double>(DataSetDataType.Float8, protoValue.getDoubleValue());
-			case Int1:
-				return new Value<Integer>(DataSetDataType.Int1, protoValue.getIntValue());
-			case Int2:
-				return new Value<Integer>(DataSetDataType.Int2, protoValue.getIntValue());
-			case Int4:
-				return new Value<Integer>(DataSetDataType.Int4, protoValue.getIntValue());
-			case Int8:
-				return new Value<Long>(DataSetDataType.Int8, protoValue.getLongValue());
-			case String:
-				return new Value<String>(DataSetDataType.String, protoValue.getStringValue());
-			case Text:
-				return new Value<String>(DataSetDataType.Text, protoValue.getStringValue());
-			case Unknown:
-			default:
-			logger.error("Unknown DataType: " + protoType.getValueDescriptor());
-			throw new Exception("Failed to decode");	
-		}
-	}
-	
-	private DataSetDataType convertValueType(SparkplugBProto.Payload.Metric.DataSet.DataType type) throws Exception {
+		DataSetDataType type = DataSetDataType.fromInteger(protoType);
 		switch (type) {
 			case Boolean:
-				return DataSetDataType.Boolean;
+				return new Value<Boolean>(type, protoValue.getBooleanValue());
 			case DateTime:
-				return DataSetDataType.DateTime;
-			case Float4:
-				return DataSetDataType.Float4;
-			case Float8:
-				return DataSetDataType.Float8;
-			case Int1:
-				return DataSetDataType.Int1;
-			case Int2:
-				return DataSetDataType.Int2;
-			case Int4:
-				return DataSetDataType.Int4;
+				return new Value<Date>(type, new Date(protoValue.getLongValue()));
+			case Float:
+				return new Value<Float>(type, protoValue.getFloatValue());
+			case Double:
+				return new Value<Double>(type, protoValue.getDoubleValue());
 			case Int8:
-				return DataSetDataType.Int8;
+			case UInt8:
+				return new Value<Integer>(type, protoValue.getIntValue());
+			case Int16:
+			case UInt16:
+				return new Value<Integer>(type, protoValue.getIntValue());
+			case Int32:
+			case UInt32:
+				return new Value<Integer>(type, protoValue.getIntValue());
+			case Int64:
+			case UInt64:
+				return new Value<Long>(type, protoValue.getLongValue());
 			case String:
-				return DataSetDataType.String;
+				return new Value<String>(type, protoValue.getStringValue());
 			case Text:
-				return DataSetDataType.Text;
+				return new Value<String>(type, protoValue.getStringValue());
 			case Unknown:
 			default:
-				logger.error("Unknown DataType: " + type);
-				throw new Exception("Failed to decode");
-			
-		}
-	}
-	
-	private MetricDataType convertMetricType(SparkplugBProto.Payload.Metric.DataType type) throws Exception {
-		switch (type) {
-			case Bytes:
-				return MetricDataType.Bytes;
-			case Dataset:
-				return MetricDataType.DataSet;
-			case File:
-				return MetricDataType.File;
-			case UDT:
-				return MetricDataType.UDT;
-			case Boolean:
-				return MetricDataType.Boolean;
-			case DateTime:
-				return MetricDataType.DateTime;
-			case Float4:
-				return MetricDataType.Float4;
-			case Float8:
-				return MetricDataType.Float8;
-			case Int1:
-				return MetricDataType.Int1;
-			case Int2:
-				return MetricDataType.Int2;
-			case Int4:
-				return MetricDataType.Int4;
-			case Int8:
-				return MetricDataType.Int8;
-			case String:
-				return MetricDataType.String;
-			case Text:
-				return MetricDataType.Text;
-			case Unknown:
-			default:
-				logger.error("Unknown DataType: " + type);
-				throw new Exception("Failed to decode");
-			
+				logger.error("Unknown DataType: " + protoType);
+				throw new Exception("Failed to decode");	
 		}
 	}
 }

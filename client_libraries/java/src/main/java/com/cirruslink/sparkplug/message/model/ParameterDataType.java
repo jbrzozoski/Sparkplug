@@ -8,9 +8,9 @@
 package com.cirruslink.sparkplug.message.model;
 
 /**
- * A enumeration of data types associated with a DataSet
+ * A Data Type for a Parameter of a Template
  */
-public enum DataSetDataType {
+public enum ParameterDataType {	
 	
 	// Basic Types
 	Int8(1),
@@ -33,10 +33,10 @@ public enum DataSetDataType {
 	
 	private int intValue = 0;
 	
-	private DataSetDataType() {
+	private ParameterDataType() {
 	}
 	
-	private DataSetDataType(int intValue) {
+	private ParameterDataType(int intValue) {
 		this.intValue = intValue;
 	}
 	
@@ -44,7 +44,7 @@ public enum DataSetDataType {
 		return this.intValue;
 	}
 	
-	public static DataSetDataType fromInteger(int i) {
+	public static ParameterDataType fromInteger(int i) {
 		switch(i) {
 			case 1:
 				return Int8;

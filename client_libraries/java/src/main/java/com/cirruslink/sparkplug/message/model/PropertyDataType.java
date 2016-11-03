@@ -8,9 +8,9 @@
 package com.cirruslink.sparkplug.message.model;
 
 /**
- * A enumeration of data types associated with a DataSet
+ * 
  */
-public enum DataSetDataType {
+public enum PropertyDataType {
 	
 	// Basic Types
 	Int8(1),
@@ -28,15 +28,19 @@ public enum DataSetDataType {
 	DateTime(13),
 	Text(14),
 	
+	// Custom Types for PropertySets
+	PropertySet(20),
+	PropertySetList(21),
+	
 	// Unknown
 	Unknown(0);
 	
 	private int intValue = 0;
 	
-	private DataSetDataType() {
+	private PropertyDataType() {
 	}
 	
-	private DataSetDataType(int intValue) {
+	private PropertyDataType(int intValue) {
 		this.intValue = intValue;
 	}
 	
@@ -44,7 +48,7 @@ public enum DataSetDataType {
 		return this.intValue;
 	}
 	
-	public static DataSetDataType fromInteger(int i) {
+	public static PropertyDataType fromInteger(int i) {
 		switch(i) {
 			case 1:
 				return Int8;
@@ -74,6 +78,10 @@ public enum DataSetDataType {
 				return DateTime;
 			case 14:
 				return Text;
+			case 20:
+				return PropertySet;
+			case 21:
+				return PropertySetList;
 			default:
 				return Unknown;
 		}

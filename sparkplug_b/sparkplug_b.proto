@@ -11,39 +11,44 @@ option java_package         = "com.cirruslink.sparkplug.protobuf";
 option java_outer_classname = "SparkplugBProto";
 
 message Payload {
+    /*
+        // Indexes of Data Types
 
-        /*
-        enum DataType {
-            // Unknown placeholder for future expansion.
-            Unknown     = 0;
+        // Unknown placeholder for future expansion.
+        Unknown         = 0;
 
-            // Data Types
-            Int8        = 1;
-            Int16       = 2;
-            Int32       = 3;
-            Int64       = 4;
-            UInt8       = 5;
-            UInt16      = 6;
-            UInt32      = 7;
-            UInt64      = 8;
-            Float       = 9;
-            Double      = 10;
-            Boolean     = 11;
-            String      = 12;
-            DateTime    = 13;
-            Text        = 14;
-            UUID        = 15;
+        // Basic Types
+        Int8            = 1;
+        Int16           = 2;
+        Int32           = 3;
+        Int64           = 4;
+        UInt8           = 5;
+        UInt16          = 6;
+        UInt32          = 7;
+        UInt64          = 8;
+        Float           = 9;
+        Double          = 10;
+        Boolean         = 11;
+        String          = 12;
+        DateTime        = 13;
+        Text            = 14;
 
-            // Additional Data Types
-            Dataset     = 16;
-            Bytes       = 17;
-            File        = 18;
-            Template    = 19;
-        }*/
+        // Additional Metric Types
+        UUID            = 15;
+        DataSet         = 16;
+        Bytes           = 17;
+        File            = 18;
+        Template        = 19;
+        
+        // Additional PropertyValue Types
+        PropertySet     = 20;
+        PropertySetList = 21;
+
+    */
 
     message Template {
         
-        message Property {
+        message Parameter {
             optional string name        = 1;
             optional uint32 type        = 2;
 
@@ -54,10 +59,10 @@ message Payload {
                 double double_value     = 6;
                 bool   boolean_value    = 7;
                 string string_value     = 8;
-                PropertyValueExtension extension_value = 9;
+                ParameterValueExtension extension_value = 9;
             }
 
-            message PropertyValueExtension {
+            message ParameterValueExtension {
                 extensions              1 to max;
             }
         }
@@ -65,7 +70,7 @@ message Payload {
         optional string name            = 1;          // The name of this Template definition
         optional string version         = 2;          // The version of the Template to prevent mismatches
         repeated Metric metrics         = 3;          // Each metric is the name of the metric and the datatype of the member but does not contain a value
-        repeated Property properties    = 4;
+        repeated Parameter parameters   = 4;
         optional string template_ref    = 5;          // Reference to a template if this is extending a Template or an instance - must exist if an instance
         optional bool is_definition     = 6;
         extensions                      7 to max;
@@ -76,30 +81,30 @@ message Payload {
         message DataSetValue {
 
             oneof value {
-                uint32 int_value      = 1;
-                uint64 long_value     = 2;
-                float  float_value    = 3;
-                double double_value   = 4;
-                bool   boolean_value  = 5;
-                string string_value   = 6;
-                DataSetValueExtension extension_value = 7;
+                uint32 int_value                        = 1;
+                uint64 long_value                       = 2;
+                float  float_value                      = 3;
+                double double_value                     = 4;
+                bool   boolean_value                    = 5;
+                string string_value                     = 6;
+                DataSetValueExtension extension_value   = 7;
             }
 
             message DataSetValueExtension {
-                extensions            1 to max;
+                extensions  1 to max;
             }
         }
 
         message Row {
-            repeated DataSetValue elements = 1;
-            extensions                     2 to max;   // For third party extensions
+            repeated DataSetValue elements  = 1;
+            extensions                      2 to max;   // For third party extensions
         }
 
-        optional uint64   num_of_columns   = 1;
-        repeated string   columns          = 2;
-        repeated uint32   type             = 3;
-        repeated Row      rows             = 4;
-        extensions                         5 to max;   // For third party extensions
+        optional uint64   num_of_columns    = 1;
+        repeated string   columns           = 2;
+        repeated uint32   types             = 3;
+        repeated Row      rows              = 4;
+        extensions                          5 to max;   // For third party extensions
     }
 
     message PropertyValue {
@@ -159,33 +164,33 @@ message Payload {
         optional uint64   alias         = 2;        // Metric alias - tied to name on birth and included in all later DATA messages
         optional uint64   timestamp     = 3;        // Timestamp associated with data acquisition time
         optional uint32   datatype      = 4;        // DataType of the metric/tag value
-        optional bool     historical    = 5;        // If this is historical data and should not update real time tag
-        optional bool     transient     = 6;        // Tells consuming clients such as MQTT Engine to not store this as a tag
-        optional bool     null          = 7;        // If this is null - explicitly say so rather than using -1, false, etc for some datatypes.
+        optional bool     is_historical = 5;        // If this is historical data and should not update real time tag
+        optional bool     is_transient  = 6;        // Tells consuming clients such as MQTT Engine to not store this as a tag
+        optional bool     is_null       = 7;        // If this is null - explicitly say so rather than using -1, false, etc for some datatypes.
         optional MetaData metadata      = 8;        // Metadata for the payload
 
         oneof value {
-            uint32   int_value          = 9;
-            uint64   long_value         = 10;
-            float    float_value        = 11;
-            double   double_value       = 12;
-            bool     boolean_value      = 13;
-            string   string_value       = 14;
-            bytes    bytes_value        = 15;       // Bytes, File, Script
-            DataSet  dataset_value      = 16;
-            Template template_value     = 17;
-            MetricValueExtension extension_value = 18;
+            uint32   int_value                      = 9;
+            uint64   long_value                     = 10;
+            float    float_value                    = 11;
+            double   double_value                   = 12;
+            bool     boolean_value                  = 13;
+            string   string_value                   = 14;
+            bytes    bytes_value                    = 15;       // Bytes, File
+            DataSet  dataset_value                  = 16;
+            Template template_value                 = 17;
+            MetricValueExtension extension_value    = 18;
         }
 
         message MetricValueExtension {
-            extensions                  1 to max;
+            extensions  1 to max;
         }
     }
 
-    optional uint64   timestamp  = 1;        // Timestamp at message sending time
-    repeated Metric   metric     = 2;        // Repeated forever - no limit in Google Protobufs
-    optional uint64   seq        = 3;        // Sequence number
-    optional string   uuid       = 4;        // UUID to track message type in terms of schema definitions
-    optional bytes    body       = 5;        // To optionally bypass the whole definition above
-    extensions                   6 to max;   // For third party extensions
+    optional uint64   timestamp     = 1;        // Timestamp at message sending time
+    repeated Metric   metric        = 2;        // Repeated forever - no limit in Google Protobufs
+    optional uint64   seq           = 3;        // Sequence number
+    optional string   uuid          = 4;        // UUID to track message type in terms of schema definitions
+    optional bytes    body          = 5;        // To optionally bypass the whole definition above
+    extensions                      6 to max;   // For third party extensions
 }

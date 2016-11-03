@@ -10,13 +10,18 @@ package com.cirruslink.sparkplug.message.model;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * A Metric of a Sparkplug Payload.
+ */
 public class Metric {
-
+	
 	private String name;
 	private Long alias;
 	private Date timestamp;
 	private MetricDataType dataType;
-	private Boolean historical;
+	private Boolean isHistorical = null;
+	private Boolean isTransient = null;
+	private Boolean isNull = null;
 	private MetaData metaData;
 	private List<Metric> members;
 	
@@ -32,19 +37,21 @@ public class Metric {
 		this.alias = null;
 		this.timestamp = new Date();
 		this.dataType = dataType;
-		this.historical = null;
+		this.isHistorical = null;
 		this.metaData = null;
 		this.value = value;
 	}
 
-	public Metric(String name, long alias, Date timestamp, MetricDataType dataType, boolean historical, MetaData metaData,
-			Object metricValue, List<Metric> members) {
+	public Metric(String name, long alias, Date timestamp, MetricDataType dataType, boolean isHistorical, 
+			boolean isTransient, boolean isNull, MetaData metaData, Object metricValue, List<Metric> members) {
 		super();
 		this.name = name;
 		this.alias = alias;
 		this.timestamp = timestamp;
 		this.dataType = dataType;
-		this.historical = historical;
+		this.isHistorical = isHistorical;
+		this.isTransient = isTransient;
+		this.isNull = isNull;
 		this.metaData = metaData;
 		this.value = metricValue;
 		this.members = members;
@@ -86,22 +93,6 @@ public class Metric {
 		this.dataType = dataType;
 	}
 
-	public boolean isHistorical() {
-		return historical == null 
-				? false 
-				: historical;
-	}
-	
-	public Boolean getHistorical() {
-		return this.historical;
-	}
-
-	public void setHistorical(boolean historical) {
-		this.historical = historical 
-				? Boolean.TRUE 
-				: null;
-	}
-
 	public MetaData getMetaData() {
 		return metaData;
 	}
@@ -126,10 +117,34 @@ public class Metric {
 		this.members = members;
 	}
 
+	public Boolean isHistorical() {
+		return isHistorical;
+	}
+
+	public void setHistorical(Boolean isHistorical) {
+		this.isHistorical = isHistorical;
+	}
+
+	public Boolean isTransient() {
+		return isTransient;
+	}
+
+	public void setTransient(Boolean isTransient) {
+		this.isTransient = isTransient;
+	}
+
+	public Boolean isNull() {
+		return isNull;
+	}
+
+	public void setNull(Boolean isNull) {
+		this.isNull = isNull;
+	}
+
 	@Override
 	public String toString() {
 		return "Metric [name=" + name + ", alias=" + alias + ", timestamp=" + timestamp + ", dataType=" + dataType
-				+ ", historical=" + historical + ", metaData=" + metaData + ", members=" + members + ", value=" + value
+				+ ", historical=" + isHistorical + ", metaData=" + metaData + ", members=" + members + ", value=" + value
 				+ "]";
 	}
 }
