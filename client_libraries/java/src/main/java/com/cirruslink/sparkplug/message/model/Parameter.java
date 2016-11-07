@@ -16,8 +16,19 @@ import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
  */
 public class Parameter {
 	
+	/**
+	 * The name of the parameter
+	 */
 	private String name;
+	
+	/**
+	 * The data type of the parameter
+	 */
 	private ParameterDataType type;
+	
+	/**
+	 * The value of the parameter
+	 */
 	private Object value;
 	
 	

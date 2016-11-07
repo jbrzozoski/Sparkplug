@@ -13,7 +13,7 @@ import java.util.Date;
 import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
 
 /**
- * A Data Type for a Parameter of a Template
+ * An enumeration of data types for the value of a {@link Parameter} for a {@link Template}
  */
 public enum ParameterDataType {	
 	
@@ -45,15 +45,26 @@ public enum ParameterDataType {
 	}
 	
 	public void checkType(Object value) throws SparkplugInvalidTypeException {
-		if (!value.getClass().equals(clazz)) {
+		if (value != null && !value.getClass().equals(clazz)) {
 			throw new SparkplugInvalidTypeException(value.getClass());
 		}
 	}
 	
+	/**
+	 * Returns an integer representation of the data type.
+	 * 
+	 * @return an integer representation of the data type.
+	 */
 	public int toIntValue() {
 		return this.intValue;
 	}
 	
+	/**
+	 * Converts the integer representation of the data type into a {@link ParameterDataType} instance.
+	 * 
+	 * @param i the integer representation of the data type.
+	 * @return a {@link ParameterDataType} instance.
+	 */
 	public static ParameterDataType fromInteger(int i) {
 		switch(i) {
 			case 1:

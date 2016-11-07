@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * A class that maintains a set of properties associated with a metric.
+ * A class that maintains a set of properties associated with a {@link Metric}.
  */
 public class PropertySet {
 	

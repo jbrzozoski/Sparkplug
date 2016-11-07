@@ -17,9 +17,9 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import com.cirruslink.sparkplug.message.SparkplugBPayloadDecoder;
+import com.cirruslink.sparkplug.message.model.SparkplugBPayload;
 import com.cirruslink.sparkplug.message.model.Topic;
-import com.cirruslink.sparkplug.message.payload.SparkplugBPayload;
-import com.cirruslink.sparkplug.message.payload.SparkplugBPayloadDecoder;
 import com.cirruslink.sparkplug.util.TopicUtil;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;

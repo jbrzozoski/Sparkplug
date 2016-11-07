@@ -5,15 +5,19 @@
  * Proprietary and confidential
  */
 
-package com.cirruslink.sparkplug.message.payload;
+package com.cirruslink.sparkplug.message.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import com.cirruslink.sparkplug.message.model.Metric;
+import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
 
+/**
+ * A class representing a Sparkplug B payload
+ */
 public class SparkplugBPayload {
 
 	private Date timestamp;
@@ -21,14 +25,8 @@ public class SparkplugBPayload {
 	private long seq = -1;
 	private String uuid;
 	private byte[] body;
-	
-	public SparkplugBPayload() {
-		super();
-		metrics = new ArrayList<Metric>();
-	}
 
 	public SparkplugBPayload(Date timestamp, List<Metric> metrics, long seq, String uuid, byte[] body) {
-		super();
 		this.timestamp = timestamp;
 		this.metrics = metrics;
 		this.seq = seq;
@@ -96,5 +94,60 @@ public class SparkplugBPayload {
 	public String toString() {
 		return "SparkplugBPayload [timestamp=" + timestamp + ", metrics=" + metrics + ", seq=" + seq + ", uuid=" + uuid
 				+ ", body=" + Arrays.toString(body) + "]";
+	}
+	
+	/**
+	 * A builder for creating a {@link SparkplugBPayload} instance.
+	 */
+	public static class SparkplugBPayloadBuilder {
+
+		private Date timestamp;
+		private List<Metric> metrics;
+		private long seq = -1;
+		private String uuid;
+		private byte[] body;
+
+		public SparkplugBPayloadBuilder(long sequenceNumber) {
+			this.seq = sequenceNumber;
+			metrics = new ArrayList<Metric>();
+		}
+
+		public SparkplugBPayloadBuilder() {
+			metrics = new ArrayList<Metric>();
+		}
+		
+		public SparkplugBPayloadBuilder addMetric(Metric metric) {
+			this.metrics.add(metric);
+			return this;
+		}
+
+		public SparkplugBPayloadBuilder addMetrics(Collection<Metric> metrics) {
+			this.metrics.addAll(metrics);
+			return this;
+		}
+
+		public SparkplugBPayloadBuilder setTimestamp(Date timestamp) {
+			this.timestamp = timestamp;
+			return this;
+		}
+
+		public SparkplugBPayloadBuilder setSeq(long seq) {
+			this.seq = seq;
+			return this;
+		}
+
+		public SparkplugBPayloadBuilder setUuid(String uuid) {
+			this.uuid = uuid;
+			return this;
+		}
+
+		public SparkplugBPayloadBuilder setBody(byte[] body) {
+			this.body = body;
+			return this;
+		}
+		
+		public SparkplugBPayload createPayload() {
+			return new SparkplugBPayload(timestamp, metrics, seq, uuid, body);
+		}
 	}
 }

@@ -32,15 +32,16 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 
 import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
+import com.cirruslink.sparkplug.message.SparkplugBPayloadDecoder;
+import com.cirruslink.sparkplug.message.SparkplugBPayloadEncoder;
 import com.cirruslink.sparkplug.message.model.DataSet;
 import com.cirruslink.sparkplug.message.model.DataSetDataType;
 import com.cirruslink.sparkplug.message.model.Metric;
 import com.cirruslink.sparkplug.message.model.Metric.MetricBuilder;
 import com.cirruslink.sparkplug.message.model.Row;
+import com.cirruslink.sparkplug.message.model.SparkplugBPayload;
+import com.cirruslink.sparkplug.message.model.SparkplugBPayload.SparkplugBPayloadBuilder;
 import com.cirruslink.sparkplug.message.model.Value;
-import com.cirruslink.sparkplug.message.payload.SparkplugBPayload;
-import com.cirruslink.sparkplug.message.payload.SparkplugBPayloadDecoder;
-import com.cirruslink.sparkplug.message.payload.SparkplugBPayloadEncoder;
 
 public class SparkplugExample implements MqttCallbackExtended {
 
@@ -79,10 +80,9 @@ public class SparkplugExample implements MqttCallbackExtended {
 			executor = Executors.newFixedThreadPool(1);
 			
 			// Build up DEATH payload - note DEATH payloads don't have a regular sequence number
-			SparkplugBPayload deathPayload = new SparkplugBPayload();
-			deathPayload.setTimestamp(new Date());
+			SparkplugBPayloadBuilder deathPayload = new SparkplugBPayloadBuilder().setTimestamp(new Date());
 			deathPayload = addBdSeqNum(deathPayload);
-			byte [] deathBytes = new SparkplugBPayloadEncoder().getBytes(deathPayload);
+			byte [] deathBytes = new SparkplugBPayloadEncoder().getBytes(deathPayload.createPayload());
 			
 			MqttConnectOptions options = new MqttConnectOptions();
 			
@@ -245,9 +245,9 @@ public class SparkplugExample implements MqttCallbackExtended {
 	}
 	
 	// Used to add the birth/death sequence number
-	private SparkplugBPayload addBdSeqNum(SparkplugBPayload payload) throws Exception {
+	private SparkplugBPayloadBuilder addBdSeqNum(SparkplugBPayloadBuilder payload) throws Exception {
 		if (payload == null) {
-			payload = new SparkplugBPayload();
+			payload = new SparkplugBPayloadBuilder();
 		}
 		if (bdSeq == 256) {
 			bdSeq = 0;

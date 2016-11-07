@@ -13,7 +13,7 @@ import java.util.Date;
 import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
 
 /**
- * A enumeration of data types associated with a DataSet
+ * A enumeration of data types of values in a {@link DataSet}
  */
 public enum DataSetDataType {
 	
@@ -45,15 +45,26 @@ public enum DataSetDataType {
 	}
 	
 	public void checkType(Object value) throws SparkplugInvalidTypeException {
-		if (!value.getClass().equals(clazz)) {
+		if (value != null && !value.getClass().equals(clazz)) {
 			throw new SparkplugInvalidTypeException(value.getClass());
 		}
 	}
 	
+	/**
+	 * Returns an integer representation of the data type.
+	 * 
+	 * @return an integer representation of the data type.
+	 */
 	public int toIntValue() {
 		return this.intValue;
 	}
 	
+	/**
+	 * Converts the integer representation of the data type into a {@link DataSetDataType} instance.
+	 * 
+	 * @param i the integer representation of the data type.
+	 * @return a {@link DataSetDataType} instance.
+	 */
 	public static DataSetDataType fromInteger(int i) {
 		switch(i) {
 			case 1:

@@ -12,7 +12,7 @@ import java.util.Objects;
 import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
 
 /**
- * The value of a property in a Property Set.
+ * The value of a property in a {@link PropertySet}.
  */
 public class PropertyValue {
 	

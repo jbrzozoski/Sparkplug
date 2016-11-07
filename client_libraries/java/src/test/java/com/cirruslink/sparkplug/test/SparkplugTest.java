@@ -27,6 +27,9 @@ import org.testng.annotations.Test;
 
 import com.cirruslink.sparkplug.SparkplugException;
 import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
+import com.cirruslink.sparkplug.message.PayloadDecoder;
+import com.cirruslink.sparkplug.message.SparkplugBPayloadDecoder;
+import com.cirruslink.sparkplug.message.SparkplugBPayloadEncoder;
 import com.cirruslink.sparkplug.message.model.*;
 import com.cirruslink.sparkplug.message.model.DataSet.DataSetBuilder;
 import com.cirruslink.sparkplug.message.model.MetaData.MetaDataBuilder;
@@ -34,10 +37,6 @@ import com.cirruslink.sparkplug.message.model.Metric.MetricBuilder;
 import com.cirruslink.sparkplug.message.model.PropertySet.PropertySetBuilder;
 import com.cirruslink.sparkplug.message.model.Row.RowBuilder;
 import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
-import com.cirruslink.sparkplug.message.payload.PayloadDecoder;
-import com.cirruslink.sparkplug.message.payload.SparkplugBPayload;
-import com.cirruslink.sparkplug.message.payload.SparkplugBPayloadDecoder;
-import com.cirruslink.sparkplug.message.payload.SparkplugBPayloadEncoder;
 
 public class SparkplugTest {
 	

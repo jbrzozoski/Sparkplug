@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.cirruslink.sparkplug.message.payload;
+package com.cirruslink.sparkplug.message;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -25,9 +25,13 @@ import com.cirruslink.sparkplug.message.model.MetaData.MetaDataBuilder;
 import com.cirruslink.sparkplug.message.model.Metric.MetricBuilder;
 import com.cirruslink.sparkplug.message.model.PropertySet.PropertySetBuilder;
 import com.cirruslink.sparkplug.message.model.Row.RowBuilder;
+import com.cirruslink.sparkplug.message.model.SparkplugBPayload.SparkplugBPayloadBuilder;
 import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
 import com.cirruslink.sparkplug.protobuf.SparkplugBProto;
 
+/**
+ * A {@link PayloadDecode} implementation for decoding Sparkplug B payloads.
+ */
 public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPayload> {
 	
 	private static Logger logger = LogManager.getLogger(SparkplugBPayloadDecoder.class.getName());
@@ -38,32 +42,32 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 	
 	public SparkplugBPayload buildFromByteArray(byte[] bytes) throws Exception {
 		SparkplugBProto.Payload protoPayload = SparkplugBProto.Payload.parseFrom(bytes);
-		SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
+		SparkplugBPayloadBuilder builder = new SparkplugBPayloadBuilder(protoPayload.getSeq());
 		
 		// Set the timestamp
 		if (protoPayload.hasTimestamp()) {
 			logger.trace("Setting time " + new Date(protoPayload.getTimestamp()));
-			sparkplugBPayload.setTimestamp(new Date(protoPayload.getTimestamp()));
+			builder.setTimestamp(new Date(protoPayload.getTimestamp()));
 		}
 		
 		// Set the sequence number
 		if (protoPayload.hasSeq()) {
 			logger.trace("Setting sequence number " + protoPayload.getSeq());
-			sparkplugBPayload.setSeq(protoPayload.getSeq());
+			builder.setSeq(protoPayload.getSeq());
 		}
 		
 		// Set the Metrics
 		for (SparkplugBProto.Payload.Metric protoMetric : protoPayload.getMetricList()) {
-			sparkplugBPayload.addMetric(convertMetric(protoMetric));
+			builder.addMetric(convertMetric(protoMetric));
 		}
 		
 		// Set the body
 		if (protoPayload.hasBody()) {
 			logger.trace("Setting the body " + new String(protoPayload.getBody().toByteArray()));
-			sparkplugBPayload.setBody(protoPayload.getBody().toByteArray());
+			builder.setBody(protoPayload.getBody().toByteArray());
 		}
 		
-		return sparkplugBPayload;
+		return builder.createPayload();
 	}
 	
 	private Metric convertMetric(SparkplugBProto.Payload.Metric protoMetric) throws Exception {

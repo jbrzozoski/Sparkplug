@@ -14,7 +14,7 @@ import java.util.Date;
 import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
 
 /**
- * An enumeration of data types for property values
+ * An enumeration of data types for values of a {@link PropertySet}
  */
 public enum PropertyDataType {
 	
@@ -55,10 +55,21 @@ public enum PropertyDataType {
 		}
 	}
 	
+	/**
+	 * Returns an integer representation of the data type.
+	 * 
+	 * @return an integer representation of the data type.
+	 */
 	public int toIntValue() {
 		return this.intValue;
 	}
 	
+	/**
+	 * Converts the integer representation of the data type into a {@link PropertyDataType} instance.
+	 * 
+	 * @param i the integer representation of the data type.
+	 * @return a {@link PropertyDataType} instance.
+	 */
 	public static PropertyDataType fromInteger(int i) {
 		switch(i) {
 			case 1:

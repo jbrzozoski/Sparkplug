@@ -13,7 +13,7 @@ import java.util.Date;
 import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
 
 /**
- * An enumeration of data types associated with a Metric
+ * An enumeration of data types associated with the value of a {@link Metric}
  */
 public enum MetricDataType {
 	
@@ -57,10 +57,21 @@ public enum MetricDataType {
 		}
 	}
 	
+	/**
+	 * Returns an integer representation of the data type.
+	 * 
+	 * @return an integer representation of the data type.
+	 */
 	public int toIntValue() {
 		return this.intValue;
 	}
 	
+	/**
+	 * Converts the integer representation of the data type into a {@link MetricDataType} instance.
+	 * 
+	 * @param i the integer representation of the data type.
+	 * @return a {@link MetricDataType} instance.
+	 */
 	public static MetricDataType fromInteger(int i) {
 		switch(i) {
 			case 1:

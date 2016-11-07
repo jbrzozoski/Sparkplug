@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.cirruslink.sparkplug.message.payload;
+package com.cirruslink.sparkplug.message;
 
 /**
  * An interface for decoding payloads.

@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.cirruslink.sparkplug.message.payload;
+package com.cirruslink.sparkplug.message;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -20,6 +20,9 @@ import com.cirruslink.sparkplug.message.model.*;
 import com.cirruslink.sparkplug.protobuf.SparkplugBProto;
 import com.google.protobuf.ByteString;
 
+/**
+ * A {@link PayloadDecode} implementation for encoding Sparkplug B payloads.
+ */
 public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPayload> {
 	
 	private static Logger logger = LogManager.getLogger(SparkplugBPayloadEncoder.class.getName());
