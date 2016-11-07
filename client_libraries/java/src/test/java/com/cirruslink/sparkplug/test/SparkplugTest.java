@@ -36,6 +36,7 @@ import com.cirruslink.sparkplug.message.model.MetaData.MetaDataBuilder;
 import com.cirruslink.sparkplug.message.model.Metric.MetricBuilder;
 import com.cirruslink.sparkplug.message.model.PropertySet.PropertySetBuilder;
 import com.cirruslink.sparkplug.message.model.Row.RowBuilder;
+import com.cirruslink.sparkplug.message.model.SparkplugBPayload.SparkplugBPayloadBuilder;
 import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
 
 public class SparkplugTest {
@@ -171,10 +172,10 @@ public class SparkplugTest {
     @Test
     public void testEnDeCode() throws SparkplugInvalidTypeException {
     	Date currentTime = new Date();
-    	SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
-    	sparkplugBPayload.setTimestamp(currentTime);
-    	sparkplugBPayload.setSeq(0);
-    	sparkplugBPayload.setBody("Hello".getBytes());
+    	SparkplugBPayloadBuilder payloadBuilder = new SparkplugBPayloadBuilder()
+    			.setTimestamp(currentTime)
+    			.setSeq(0)
+    			.setBody("Hello".getBytes());
 
     	// Create MetaData
     	MetaData metaData = new MetaDataBuilder()
@@ -187,7 +188,7 @@ public class SparkplugTest {
     			.description("none").createMetaData();
     	
     	// Create one metric
-    	sparkplugBPayload.addMetric(new MetricBuilder("Name", MetricDataType.Int8, (byte)65)
+    	payloadBuilder.addMetric(new MetricBuilder("Name", MetricDataType.Int8, (byte)65)
     			.alias(0L)
     			.timestamp(currentTime)
     			.isHistorical(false)
@@ -195,7 +196,7 @@ public class SparkplugTest {
     			.createMetric());
 
     	// Create null metric
-    	sparkplugBPayload.addMetric(new MetricBuilder("Null", MetricDataType.String, null)
+    	payloadBuilder.addMetric(new MetricBuilder("Null", MetricDataType.String, null)
     			.alias(0L)
     			.timestamp(currentTime)
     			.isHistorical(false)
@@ -206,7 +207,7 @@ public class SparkplugTest {
     	SparkplugBPayloadEncoder encoder = new SparkplugBPayloadEncoder();
     	byte[] bytes = null;
     	try {
-    		bytes = encoder.getBytes(sparkplugBPayload);
+    		bytes = encoder.getBytes(payloadBuilder.createPayload());
     	} catch (IOException e) {
     		e.printStackTrace();
     		fail(e.getMessage());
@@ -270,19 +271,16 @@ public class SparkplugTest {
 	public void testMetricPayload(String name, MetricDataType type, Object value, MetaData metaData) 
 			throws SparkplugException{
 		try {
-			// Now test a minimal payload
+			SparkplugBPayloadEncoder encoder = new SparkplugBPayloadEncoder();
 			Date currentTime = new Date();
-			SparkplugBPayload sparkplugBPayload = new SparkplugBPayload();
-			sparkplugBPayload.setTimestamp(currentTime);
-			
-			// Create one metric
-			sparkplugBPayload.addMetric(new MetricBuilder(name, type, value)
-					.metaData(metaData)
-					.createMetric());
 			
 			// Encode
-			SparkplugBPayloadEncoder encoder = new SparkplugBPayloadEncoder();
-			byte[] bytes = encoder.getBytes(sparkplugBPayload);
+			byte[] bytes = encoder.getBytes(new SparkplugBPayloadBuilder()
+					.setTimestamp(currentTime)
+					.addMetric(new MetricBuilder(name, type, value)
+							.metaData(metaData)
+							.createMetric())
+					.createPayload());
 			
 			// Decode
 			PayloadDecoder<SparkplugBPayload> decoder = new SparkplugBPayloadDecoder();
