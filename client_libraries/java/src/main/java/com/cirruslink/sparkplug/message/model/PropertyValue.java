@@ -7,6 +7,10 @@
 
 package com.cirruslink.sparkplug.message.model;
 
+import java.util.Objects;
+
+import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
+
 /**
  * The value of a property in a Property Set.
  */
@@ -16,13 +20,16 @@ public class PropertyValue {
 	private Object value;
 	
 	/**
-	 * @param type
-	 * @param value
+	 * A constructor.
+	 * 
+	 * @param type the property type
+	 * @param value the property value
+	 * @throws SparkplugInvalidTypeException 
 	 */
-	public PropertyValue(PropertyDataType type, Object value) {
-		super();
+	public PropertyValue(PropertyDataType type, Object value) throws SparkplugInvalidTypeException {
 		this.type = type;
 		this.value = value;
+		type.checkType(value);
 	}
 
 	public PropertyDataType getType() {
@@ -41,5 +48,16 @@ public class PropertyValue {
 		this.value = value;
 	}
 	
-
+	@Override
+	public boolean equals(Object object) {
+		if (this == object) {
+			return true;
+		}
+		if (object == null || this.getClass() != object.getClass()) {
+			return false;
+		}
+		PropertyValue propValue = (PropertyValue) object;
+		return Objects.equals(type, propValue.getType())
+				&& Objects.equals(value, propValue.getValue());
+	}
 }

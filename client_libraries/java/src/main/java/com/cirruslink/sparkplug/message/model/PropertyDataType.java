@@ -7,41 +7,52 @@
 
 package com.cirruslink.sparkplug.message.model;
 
+import java.awt.List;
+import java.math.BigInteger;
+import java.util.Date;
+
+import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
+
 /**
- * 
+ * An enumeration of data types for property values
  */
 public enum PropertyDataType {
 	
 	// Basic Types
-	Int8(1),
-	Int16(2),
-	Int32(3),
-	Int64(4),
-	UInt8(5),
-	UInt16(6),
-	UInt32(7),
-	UInt64(8),
-	Float(9),
-	Double(10),
-	Boolean(11),
-	String(12),
-	DateTime(13),
-	Text(14),
+	Int8(1, Byte.class),
+	Int16(2, Short.class),
+	Int32(3, Integer.class),
+	Int64(4, Long.class),
+	UInt8(5, Short.class),
+	UInt16(6, Integer.class),
+	UInt32(7, Long.class),
+	UInt64(8, BigInteger.class),
+	Float(9, Float.class),
+	Double(10, Double.class),
+	Boolean(11, Boolean.class),
+	String(12, String.class),
+	DateTime(13, Date.class),
+	Text(14, String.class),
 	
 	// Custom Types for PropertySets
-	PropertySet(20),
-	PropertySetList(21),
+	PropertySet(20, PropertySet.class),
+	PropertySetList(21, List.class),
 	
 	// Unknown
-	Unknown(0);
+	Unknown(0, Object.class);
 	
+	private Class<?> clazz = null;
 	private int intValue = 0;
 	
-	private PropertyDataType() {
+	private PropertyDataType(int intValue, Class<?> clazz) {
+		this.intValue = intValue;
+		this.clazz = clazz;
 	}
 	
-	private PropertyDataType(int intValue) {
-		this.intValue = intValue;
+	public void checkType(Object value) throws SparkplugInvalidTypeException {
+		if (value != null && !value.getClass().equals(clazz)) {
+			throw new SparkplugInvalidTypeException(value.getClass());
+		}
 	}
 	
 	public int toIntValue() {

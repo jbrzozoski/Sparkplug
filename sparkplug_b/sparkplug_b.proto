@@ -109,18 +109,19 @@ message Payload {
 
     message PropertyValue {
 
-        optional uint32     type                   = 1;       // FIXME - should we reduce the datatype set from those we use for metrics
+        optional uint32     type                    = 1;       // FIXME - should we reduce the datatype set from those we use for metrics
+        optional bool       is_null                 = 2; 
 
         oneof value {
-            uint32          int_value              = 2;
-            uint64          long_value             = 3;
-            float           float_value            = 4;
-            double          double_value           = 5;
-            bool            boolean_value          = 6;
-            string          string_value           = 7;
-            PropertySet     propertyset_value      = 8;
-            PropertySetList propertysets_value     = 9;      // List of Property Values
-            PropertyValueExtension extension_value = 10;
+            uint32          int_value               = 3;
+            uint64          long_value              = 4;
+            float           float_value             = 5;
+            double          double_value            = 6;
+            bool            boolean_value           = 7;
+            string          string_value            = 8;
+            PropertySet     propertyset_value       = 9;
+            PropertySetList propertysets_value      = 10;      // List of Property Values
+            PropertyValueExtension extension_value  = 11;
         }
 
         message PropertyValueExtension {
@@ -168,18 +169,19 @@ message Payload {
         optional bool     is_transient  = 6;        // Tells consuming clients such as MQTT Engine to not store this as a tag
         optional bool     is_null       = 7;        // If this is null - explicitly say so rather than using -1, false, etc for some datatypes.
         optional MetaData metadata      = 8;        // Metadata for the payload
+        optional PropertySet properties = 9;
 
         oneof value {
-            uint32   int_value                      = 9;
-            uint64   long_value                     = 10;
-            float    float_value                    = 11;
-            double   double_value                   = 12;
-            bool     boolean_value                  = 13;
-            string   string_value                   = 14;
-            bytes    bytes_value                    = 15;       // Bytes, File
-            DataSet  dataset_value                  = 16;
-            Template template_value                 = 17;
-            MetricValueExtension extension_value    = 18;
+            uint32   int_value                      = 10;
+            uint64   long_value                     = 11;
+            float    float_value                    = 12;
+            double   double_value                   = 13;
+            bool     boolean_value                  = 14;
+            string   string_value                   = 15;
+            bytes    bytes_value                    = 16;       // Bytes, File
+            DataSet  dataset_value                  = 17;
+            Template template_value                 = 18;
+            MetricValueExtension extension_value    = 19;
         }
 
         message MetricValueExtension {

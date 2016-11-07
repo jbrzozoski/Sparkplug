@@ -7,10 +7,12 @@
 
 package com.cirruslink.sparkplug.message.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
- * A Template
+ * A class representing a template associated with a metric
  */
 public class Template {
 
@@ -33,7 +35,6 @@ public class Template {
 	 */
 	public Template(String name, String version, String templateRef, boolean isDefinition, List<Metric> metrics,
 			List<Parameter> parameters) {
-		super();
 		this.name = name;
 		this.version = version;
 		this.templateRef = templateRef;
@@ -81,6 +82,10 @@ public class Template {
 	public void setMetrics(List<Metric> metrics) {
 		this.metrics = metrics;
 	}
+	
+	public void addMetric(Metric metric) {
+		this.metrics.add(metric);
+	}
 
 	public List<Parameter> getParameters() {
 		return parameters;
@@ -88,5 +93,81 @@ public class Template {
 
 	public void setParameters(List<Parameter> parameters) {
 		this.parameters = parameters;
+	}
+	
+	public void addParameter(Parameter parameter) {
+		this.parameters.add(parameter);
+	}
+	
+	/**
+	 * A builder for creating a {@link Template} instance.
+	 */
+	public static class TemplateBuilder {
+
+		private String name;
+		private String version;
+		private String templateRef;
+		private boolean isDefinition;
+		private List<Metric> metrics;
+		private List<Parameter> parameters;
+		
+		/**
+		 * @param name
+		 * @param version
+		 * @param templateRef
+		 * @param isDefinition
+		 * @param metrics
+		 * @param parameters
+		 */
+		public TemplateBuilder(String name) {
+			super();
+			this.name = name;
+			this.metrics = new ArrayList<Metric>();
+			this.parameters = new ArrayList<Parameter>();
+		}
+
+		public TemplateBuilder name(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public TemplateBuilder version(String version) {
+			this.version = version;
+			return this;
+		}
+
+		public TemplateBuilder templateRef(String templateRef) {
+			this.templateRef = templateRef;
+			return this;
+		}
+
+		public TemplateBuilder definition(boolean isDefinition) {
+			this.isDefinition = isDefinition;
+			return this;
+		}
+
+		public TemplateBuilder addMetric(Metric metric) {
+			this.metrics.add(metric);
+			return this;
+		}
+
+		public TemplateBuilder addMetrics(Collection<Metric> metrics) {
+			this.metrics.addAll(metrics);
+			return this;
+		}
+
+		public TemplateBuilder addParameter(Parameter parameter) {
+			this.parameters.add(parameter);
+			return this;
+		}
+
+		public TemplateBuilder addParameters(Collection<Parameter> parameters) {
+			this.parameters.addAll(parameters);
+			return this;
+		}
+		
+		public Template createTemplate() {
+			return new Template(name, version, templateRef, isDefinition, metrics, parameters);
+		}
 	}
 }

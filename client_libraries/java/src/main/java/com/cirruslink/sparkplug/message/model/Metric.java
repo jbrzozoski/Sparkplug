@@ -8,10 +8,11 @@
 package com.cirruslink.sparkplug.message.model;
 
 import java.util.Date;
-import java.util.List;
+
+import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
 
 /**
- * A Metric of a Sparkplug Payload.
+ * A metric of a Sparkplug Payload.
  */
 public class Metric {
 	
@@ -23,27 +24,25 @@ public class Metric {
 	private Boolean isTransient = null;
 	private Boolean isNull = null;
 	private MetaData metaData;
-	private List<Metric> members;
-	
+	private PropertySet propertySet;
 	private Object value;
-	
-	public Metric() {
-		super();
-	}
-	
-	public Metric(String name, MetricDataType dataType, Object value) {
-		super();
-		this.name = name;
-		this.alias = null;
-		this.timestamp = new Date();
-		this.dataType = dataType;
-		this.isHistorical = null;
-		this.metaData = null;
-		this.value = value;
-	}
 
-	public Metric(String name, long alias, Date timestamp, MetricDataType dataType, boolean isHistorical, 
-			boolean isTransient, boolean isNull, MetaData metaData, Object metricValue, List<Metric> members) {
+	/**
+	 * @param name
+	 * @param alias
+	 * @param timestamp
+	 * @param dataType
+	 * @param isHistorical
+	 * @param isTransient
+	 * @param isNull
+	 * @param metaData
+	 * @param propertySet
+	 * @param value
+	 * @throws SparkplugInvalidTypeException 
+	 */
+	public Metric(String name, Long alias, Date timestamp, MetricDataType dataType, Boolean isHistorical,
+			Boolean isTransient, Boolean isNull, MetaData metaData, PropertySet propertySet, Object value) 
+					throws SparkplugInvalidTypeException {
 		super();
 		this.name = name;
 		this.alias = alias;
@@ -53,10 +52,13 @@ public class Metric {
 		this.isTransient = isTransient;
 		this.isNull = isNull;
 		this.metaData = metaData;
-		this.value = metricValue;
-		this.members = members;
+		this.propertySet = propertySet;
+		this.value = value;
+		this.dataType.checkType(value);
 	}
 
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -108,13 +110,13 @@ public class Metric {
 	public void setValue(Object value) {
 		this.value = value;
 	}
-	
-	public List<Metric> getMembers() {
-		return members;
+
+	public PropertySet getPropertySet() {
+		return this.propertySet;
 	}
 
-	public void setMembers(List<Metric> members) {
-		this.members = members;
+	public void setPropertySet(PropertySet propertySet) {
+		this.propertySet = propertySet;
 	}
 
 	public Boolean isHistorical() {
@@ -144,7 +146,86 @@ public class Metric {
 	@Override
 	public String toString() {
 		return "Metric [name=" + name + ", alias=" + alias + ", timestamp=" + timestamp + ", dataType=" + dataType
-				+ ", historical=" + isHistorical + ", metaData=" + metaData + ", members=" + members + ", value=" + value
+				+ ", historical=" + isHistorical + ", metaData=" + metaData + ", value=" + value
 				+ "]";
+	}
+	
+	/**
+	 * A builder for creating a {@link Metric} instance.
+	 */
+	public static class MetricBuilder {
+
+		private String name;
+		private Long alias;
+		private Date timestamp;
+		private MetricDataType dataType;
+		private Boolean isHistorical = null;
+		private Boolean isTransient = null;
+		private Boolean isNull = null;
+		private MetaData metaData = null;
+		private PropertySet propertySet = null;
+		private Object value;
+		
+		public MetricBuilder(String name, MetricDataType dataType, Object value) {
+			this.name = name;
+			this.timestamp = new Date();
+			this.dataType = dataType;
+			this.value = value;
+		}
+
+		public MetricBuilder name(String name) {
+			this.name = name;
+			return this;
+		}
+
+		public MetricBuilder alias(Long alias) {
+			this.alias = alias;
+			return this;
+		}
+
+		public MetricBuilder timestamp(Date timestamp) {
+			this.timestamp = timestamp;
+			return this;
+		}
+
+		public MetricBuilder dataType(MetricDataType dataType) {
+			this.dataType = dataType;
+			return this;
+		}
+
+		public MetricBuilder isHistorical(Boolean isHistorical) {
+			this.isHistorical = isHistorical;
+			return this;
+		}
+
+		public MetricBuilder isTransient(Boolean isTransient) {
+			this.isTransient = isTransient;
+			return this;
+		}
+
+		public MetricBuilder isNull(Boolean isNull) {
+			this.isNull = isNull;
+			return this;
+		}
+
+		public MetricBuilder metaData(MetaData metaData) {
+			this.metaData = metaData;
+			return this;
+		}
+
+		public MetricBuilder propertySet(PropertySet propertySet) {
+			this.propertySet = propertySet;
+			return this;
+		}
+
+		public MetricBuilder value(Object value) {
+			this.value = value;
+			return this;
+		}
+		
+		public Metric createMetric() throws SparkplugInvalidTypeException {
+			return new Metric(name, alias, timestamp, dataType, isHistorical, isTransient, isNull, metaData, 
+					propertySet, value);
+		}
 	}
 }

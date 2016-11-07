@@ -7,22 +7,25 @@
 
 package com.cirruslink.sparkplug.message.payload;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.cirruslink.sparkplug.message.model.DataSet;
-import com.cirruslink.sparkplug.message.model.DataSetDataType;
-import com.cirruslink.sparkplug.message.model.File;
-import com.cirruslink.sparkplug.message.model.MetaData;
-import com.cirruslink.sparkplug.message.model.Metric;
-import com.cirruslink.sparkplug.message.model.MetricDataType;
-import com.cirruslink.sparkplug.message.model.Row;
-import com.cirruslink.sparkplug.message.model.Value;
+import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
+import com.cirruslink.sparkplug.message.model.*;
+import com.cirruslink.sparkplug.message.model.DataSet.DataSetBuilder;
+import com.cirruslink.sparkplug.message.model.MetaData.MetaDataBuilder;
+import com.cirruslink.sparkplug.message.model.Metric.MetricBuilder;
+import com.cirruslink.sparkplug.message.model.PropertySet.PropertySetBuilder;
+import com.cirruslink.sparkplug.message.model.Row.RowBuilder;
+import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
 import com.cirruslink.sparkplug.protobuf.SparkplugBProto;
 
 public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPayload> {
@@ -39,81 +42,132 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 		
 		// Set the timestamp
 		if (protoPayload.hasTimestamp()) {
-			logger.debug("Setting time " + new Date(protoPayload.getTimestamp()));
+			logger.trace("Setting time " + new Date(protoPayload.getTimestamp()));
 			sparkplugBPayload.setTimestamp(new Date(protoPayload.getTimestamp()));
 		}
 		
 		// Set the sequence number
 		if (protoPayload.hasSeq()) {
-			logger.debug("Setting sequence number " + protoPayload.getSeq());
+			logger.trace("Setting sequence number " + protoPayload.getSeq());
 			sparkplugBPayload.setSeq(protoPayload.getSeq());
 		}
 		
 		// Set the Metrics
-		for (int i = 0; i < protoPayload.getMetricCount(); i++) {
-		
-			// Get the Metric from protobuf
-			SparkplugBProto.Payload.Metric protoMetric = protoPayload.getMetric(i);
-
-			// Create a new Metric object
-			Metric metric = new Metric();
-			
-			// Get the value
-			metric.setValue(getValue(protoMetric));
-			
-			// Set the other tag data
-			metric.setName(protoMetric.getName());
-			
-			if (protoMetric.hasAlias()) {
-				metric.setAlias(protoMetric.getAlias());
-			}
-
-			metric.setHistorical(protoMetric.getIsHistorical());
-
-			metric.setHistorical(protoMetric.getIsTransient());
-
-			metric.setHistorical(protoMetric.getIsNull());
-
-			// Set the timestamp
-			metric.setTimestamp(new Date(protoMetric.getTimestamp()));
-
-			// Get and convert the metric data type
-			metric.setDataType(MetricDataType.fromInteger((protoMetric.getDatatype())));
-			
-			// Set the metadata
-			if (protoMetric.hasMetadata()) {
-				logger.debug("Metadata is not null");
-				SparkplugBProto.Payload.MetaData protoMetaData = protoMetric.getMetadata();
-				MetaData metaData = new MetaData();
-				metaData.setContentType(protoMetaData.getContentType());
-				metaData.setSize(protoMetaData.getSize());
-				metaData.setSeq(protoMetaData.getSeq());
-				metaData.setFileName(protoMetaData.getFileName());
-				metaData.setFileType(protoMetaData.getFileType());
-				metaData.setMd5(protoMetaData.getMd5());
-				metaData.setDescription(protoMetaData.getDescription());			
-				metric.setMetaData(metaData);
-			}
-			
-			sparkplugBPayload.addMetric(metric);
+		for (SparkplugBProto.Payload.Metric protoMetric : protoPayload.getMetricList()) {
+			sparkplugBPayload.addMetric(convertMetric(protoMetric));
 		}
 		
 		// Set the body
 		if (protoPayload.hasBody()) {
-			logger.debug("Setting the body " + new String(protoPayload.getBody().toByteArray()));
+			logger.trace("Setting the body " + new String(protoPayload.getBody().toByteArray()));
 			sparkplugBPayload.setBody(protoPayload.getBody().toByteArray());
 		}
 		
 		return sparkplugBPayload;
 	}
 	
-	private Object getValue(SparkplugBProto.Payload.Metric protoMetric) throws Exception {
+	private Metric convertMetric(SparkplugBProto.Payload.Metric protoMetric) throws Exception {
+		// Convert the dataType
+		MetricDataType dataType = MetricDataType.fromInteger((protoMetric.getDatatype()));
+		
+		// Build and return the Metric
+		return new MetricBuilder(protoMetric.getName(), dataType, getMetricValue(protoMetric))
+				.isHistorical(protoMetric.getIsHistorical())
+				.isTransient(protoMetric.getIsTransient())
+				.isNull(protoMetric.getIsNull())
+				.timestamp(new Date(protoMetric.getTimestamp()))
+				.alias(protoMetric.hasAlias() 
+						? protoMetric.getAlias() 
+						: null)
+				.metaData(protoMetric.hasMetadata() 
+						? new MetaDataBuilder()
+								.contentType(protoMetric.getMetadata().getContentType())
+								.size(protoMetric.getMetadata().getSize())
+								.seq(protoMetric.getMetadata().getSeq())
+								.fileName(protoMetric.getMetadata().getFileName())
+								.fileType(protoMetric.getMetadata().getFileType())
+								.md5(protoMetric.getMetadata().getMd5())
+								.description(protoMetric.getMetadata().getDescription())
+								.createMetaData()
+						: null)
+				.propertySet(protoMetric.hasProperties()
+						? new PropertySetBuilder()
+								.addProperties(convertProperties(protoMetric.getProperties()))
+								.createPropertySet()
+						: null)
+				.createMetric();
+	}
+	
+	private Map<String, PropertyValue> convertProperties(SparkplugBProto.Payload.PropertySet decodedPropSet) 
+			throws SparkplugInvalidTypeException, Exception {
+		Map<String, PropertyValue> map = new HashMap<String, PropertyValue>();
+		List<String> keys = decodedPropSet.getKeysList();
+		List<SparkplugBProto.Payload.PropertyValue> values = decodedPropSet.getValuesList();
+		for (int i = 0; i < keys.size(); i++) {
+			SparkplugBProto.Payload.PropertyValue value = values.get(i);
+			map.put(keys.get(i), new PropertyValue(PropertyDataType.fromInteger(value.getType()), 
+					getPropertyValue(value)));
+		}
+		return map;
+	}
+	
+	private Object getPropertyValue(SparkplugBProto.Payload.PropertyValue value) throws Exception {
+		PropertyDataType type = PropertyDataType.fromInteger(value.getType());
+		if (value.getIsNull()) {
+			return null;
+		}
+		switch (type) {
+			case Boolean:
+				return value.getBooleanValue();
+			case DateTime:
+				return new Date(value.getLongValue());
+			case Float:
+				return value.getFloatValue();
+			case Double:
+				return value.getDoubleValue();
+			case Int8:
+				return (byte) value.getIntValue();
+			case Int16:
+			case UInt8:
+				return (short) value.getIntValue();
+			case Int32:
+			case UInt16:
+				return value.getIntValue();
+			case UInt32:
+			case Int64:
+				return value.getLongValue();
+			case UInt64:
+				return BigInteger.valueOf(value.getLongValue());
+			case String:
+			case Text:
+				return value.getStringValue();
+			case PropertySet:
+				return new PropertySetBuilder()
+						.addProperties(convertProperties(value.getPropertysetValue()))
+						.createPropertySet();
+			case PropertySetList:
+				List<PropertySet> propertySetList = new ArrayList<PropertySet>();
+				List<SparkplugBProto.Payload.PropertySet> list = value.getPropertysetsValue().getPropertysetList();
+				for (SparkplugBProto.Payload.PropertySet decodedPropSet : list) {
+					propertySetList.add(new PropertySetBuilder()
+							.addProperties(convertProperties(decodedPropSet))
+							.createPropertySet());
+				}
+				return propertySetList;
+			case Unknown:
+			default:
+				throw new Exception("Failed to decode: Unknown Property Data Type " + type);
+		}
+	}
+	
+	private Object getMetricValue(SparkplugBProto.Payload.Metric protoMetric) throws Exception {
 		// Check if the null flag has been set indicating that the value is null
 		if (protoMetric.getIsNull()) {
 			return null;
 		}
 		// Otherwise convert the value based on the type
-		switch (MetricDataType.fromInteger(protoMetric.getDatatype())) {
+		int metricType = protoMetric.getDatatype();
+		switch (MetricDataType.fromInteger(metricType)) {
 			case Boolean:
 				return protoMetric.getBooleanValue();
 			case DateTime:
@@ -127,15 +181,18 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 			case Double:
 				return protoMetric.getDoubleValue();
 			case Int8:
+				return (byte) protoMetric.getIntValue();
 			case Int16:
-			case Int32:
 			case UInt8:
+				return (short) protoMetric.getIntValue();
+			case Int32:
 			case UInt16:
-			case UInt32:
 				return protoMetric.getIntValue();
+			case UInt32:
 			case Int64:
-			case UInt64:
 				return protoMetric.getLongValue();
+			case UInt64:
+				return BigInteger.valueOf(protoMetric.getLongValue());
 			case String:
 			case Text:
 			case UUID:
@@ -143,73 +200,113 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 			case Bytes:
 				return protoMetric.getBytesValue().toByteArray();
 			case DataSet:
-				DataSet dataSet = new DataSet();
 				SparkplugBProto.Payload.DataSet protoDataSet = protoMetric.getDatasetValue();
-				List<String> protoColumns = protoDataSet.getColumnsList();
-				List<Integer> protoTypes;
-				List<SparkplugBProto.Payload.DataSet.Row> protoRows = protoDataSet.getRowsList();
-				long numOfColumns = protoDataSet.getNumOfColumns();
-				dataSet.setNumOfColumns(numOfColumns);
-
-				// Set the column names and types
-				if (protoDataSet.getColumnsCount() > 0) {
-					// Build up a List of column names
-					protoColumns = protoDataSet.getColumnsList();
-					List<String> columnNames = new ArrayList<String>();
-					for (String name : protoColumns) {
-						columnNames.add(name);
-					}
-
-					// Set the columns names
-					dataSet.setColumnNames(columnNames);
-				} else {
-					throw new Exception("Failed to decode: DataSet must have column names");
-				}
-
-				if (protoDataSet.getTypesCount() > 0) {
-					// Build up a List of column types
-					protoTypes = protoDataSet.getTypesList();
-					List<DataSetDataType> types = new ArrayList<DataSetDataType>();
-					for (int type : protoTypes) {
-						types.add(DataSetDataType.fromInteger(type));
-					}
-
-					// Set the column types
-					dataSet.setTypes(types);
-				} else {
-					throw new Exception("Failed to decode: DataSet must have types");
-				}
-
-				// Set the rows
-				if (protoDataSet.getRowsCount() > 0) {
-					List<Row> rows = new ArrayList<Row>();
-					for (SparkplugBProto.Payload.DataSet.Row protoRow : protoRows) {
-						if (protoRow.getElementsCount() > 0) {
-							List<SparkplugBProto.Payload.DataSet.DataSetValue> protoValues = protoRow.getElementsList();
-							List<Value<?>> values = new ArrayList<Value<?>>();
-							for (int index = 0; index < numOfColumns; index++) {
-								SparkplugBProto.Payload.DataSet.DataSetValue protoValue = protoValues.get(index);
-								values.add(convertDataSetValue(protoTypes.get(index), protoValue));
-							}
-
-							// Add the values to the row and the row to the rows
-							Row row = new Row(values);
-							rows.add(row);
-						}
-					}
-
-					// Add the rows to the DataSet
-					dataSet.setRows(rows);
-				}
-
-				// Finally set the metric value
-				return dataSet;	
+				// Build the and create the DataSet
+				return new DataSetBuilder(protoDataSet.getNumOfColumns())
+						.addColumnNames(protoDataSet.getColumnsList())
+						.addTypes(convertDataSetDataTypes(protoDataSet.getTypesList()))
+						.addRows(convertDataSetRows(protoDataSet.getRowsList(), protoDataSet.getTypesList()))
+						.createDataSet();	
 			case Template:
-				return null;
+				SparkplugBProto.Payload.Template protoTemplate = protoMetric.getTemplateValue();
+				List<Metric> metrics = new ArrayList<Metric>();
+				List<Parameter> parameters = new ArrayList<Parameter>();
+				
+				for (SparkplugBProto.Payload.Template.Parameter protoParameter : protoTemplate.getParametersList()) {
+					String name = protoParameter.getName();
+					logger.trace("Parameter name: " + name);
+					ParameterDataType type = ParameterDataType.fromInteger(protoParameter.getType());
+					logger.trace("Parameter type: " + type);
+					Object value = getParameterValue(protoParameter);
+					logger.trace("Setting template parameter name: " + name + ", type: " + type + ", value: " + value);
+					parameters.add(new Parameter(name, type, value));
+				}
+				
+				for (SparkplugBProto.Payload.Metric protoTemplateMetric : protoTemplate.getMetricsList()) {
+					Metric templateMetric = convertMetric(protoTemplateMetric);
+					logger.trace("Setting template parameter name: " + templateMetric.getName() + ", type: " 
+							+ templateMetric.getDataType() + ", value: " + templateMetric.getValue());
+					metrics.add(templateMetric);
+				}
+				
+				Template template = new TemplateBuilder(protoTemplate.getName())
+						.version(protoTemplate.getVersion())
+						.templateRef(protoTemplate.getTemplateRef())
+						.definition(protoTemplate.getIsDefinition())
+						.addMetrics(metrics)
+						.addParameters(parameters)
+						.createTemplate();
+				
+				logger.trace("Setting template - name: " + template.getName() 
+						+ ", version: " + template.getVersion() 
+						+ ", ref: " + template.getTemplateRef() 
+						+ ", isDef: " + template.isDefinition() 
+						+ ", metrics: " + metrics.size() 
+						+ ", params: " + parameters.size());
+				
+				return template;
 			case Unknown:
 			default:
-				throw new Exception("Failed to decode: Unknown Metric DataType");
+				throw new Exception("Failed to decode: Unknown Metric DataType " + metricType);
 
+		}
+	}
+	
+	private Collection<Row> convertDataSetRows(List<SparkplugBProto.Payload.DataSet.Row> protoRows, List<Integer> protoTypes) 
+			throws Exception {
+		Collection<Row> rows = new ArrayList<Row>();
+		if (protoRows != null) {
+			for (SparkplugBProto.Payload.DataSet.Row protoRow : protoRows) {
+				List<SparkplugBProto.Payload.DataSet.DataSetValue> protoValues = protoRow.getElementsList();
+				List<Value<?>> values = new ArrayList<Value<?>>();
+				for (int index = 0; index < protoRow.getElementsCount(); index++) {
+					values.add(convertDataSetValue(protoTypes.get(index), protoValues.get(index)));
+				}
+				// Add the values to the row and the row to the rows
+				rows.add(new RowBuilder().addValues(values).createRow());
+			}
+		}
+		return rows;
+	}
+
+	private Collection<DataSetDataType> convertDataSetDataTypes(List<Integer> protoTypes) {
+		List<DataSetDataType> types = new ArrayList<DataSetDataType>();
+		// Build up a List of column types
+		for (int type : protoTypes) {
+			types.add(DataSetDataType.fromInteger(type));
+		}
+		return types;
+	}
+	
+	private Object getParameterValue(SparkplugBProto.Payload.Template.Parameter protoParameter) throws Exception {
+		// Otherwise convert the value based on the type
+		int type = protoParameter.getType();
+		switch (MetricDataType.fromInteger(type)) {
+			case Boolean:
+				return protoParameter.getBooleanValue();
+			case DateTime:
+				return new Date(protoParameter.getLongValue());
+			case Float:
+				return protoParameter.getFloatValue();
+			case Double:
+				return protoParameter.getDoubleValue();
+			case Int8:
+			case Int16:
+			case UInt8:
+			case Int32:
+			case UInt16:
+				return protoParameter.getIntValue();
+			case UInt32:
+			case Int64:
+				return protoParameter.getLongValue();
+			case UInt64:
+				return BigInteger.valueOf(protoParameter.getLongValue());
+			case String:
+			case Text:
+				return protoParameter.getStringValue();
+			case Unknown:
+			default:
+				throw new Exception("Failed to decode: Unknown Parameter Type " + type);
 		}
 	}
 	
@@ -227,17 +324,18 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 			case Double:
 				return new Value<Double>(type, protoValue.getDoubleValue());
 			case Int8:
+				return new Value<Byte>(type, (byte)protoValue.getIntValue());
 			case UInt8:
-				return new Value<Integer>(type, protoValue.getIntValue());
 			case Int16:
+				return new Value<Short>(type, (short)protoValue.getIntValue());
 			case UInt16:
-				return new Value<Integer>(type, protoValue.getIntValue());
 			case Int32:
-			case UInt32:
 				return new Value<Integer>(type, protoValue.getIntValue());
+			case UInt32:
 			case Int64:
-			case UInt64:
 				return new Value<Long>(type, protoValue.getLongValue());
+			case UInt64:
+				return new Value<BigInteger>(type, BigInteger.valueOf(protoValue.getLongValue()));
 			case String:
 				return new Value<String>(type, protoValue.getStringValue());
 			case Text:

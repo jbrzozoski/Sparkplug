@@ -7,8 +7,12 @@
 
 package com.cirruslink.sparkplug.message.model;
 
+import java.util.Objects;
+
+import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
+
 /**
- * A parameter of a template.
+ * A class to represent a parameter associated with a template.
  */
 public class Parameter {
 	
@@ -16,15 +20,20 @@ public class Parameter {
 	private ParameterDataType type;
 	private Object value;
 	
+	
 	/**
-	 * @param name
-	 * @param type
-	 * @param value
+	 * Constructs a Parameter instance.
+	 * 
+	 * @param name The name of the parameter.
+	 * @param type The type of the parameter.
+	 * @param value The value of the parameter.
+	 * @throws SparkplugInvalidTypeException 
 	 */
-	public Parameter(String name, ParameterDataType type, Object value) {
+	public Parameter(String name, ParameterDataType type, Object value) throws SparkplugInvalidTypeException {
 		this.name = name;
 		this.type = type;
 		this.value = value;
+		this.type.checkType(value);
 	}
 
 	public String getName() {
@@ -49,5 +58,19 @@ public class Parameter {
 
 	public void setValue(Object value) {
 		this.value = value;
+	}
+	
+	@Override
+	public boolean equals(Object object) {
+		if (this == object) {
+			return true;
+		}
+		if (object == null || this.getClass() != object.getClass()) {
+			return false;
+		}
+		Parameter param = (Parameter) object;
+		return Objects.equals(name, param.getName())
+				&& Objects.equals(type, param.getType())
+				&& Objects.equals(value, param.getValue());
 	}
 }
