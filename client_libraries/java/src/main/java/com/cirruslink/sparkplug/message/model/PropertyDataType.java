@@ -59,7 +59,7 @@ public enum PropertyDataType {
 			if(clazz == List.class && value instanceof List) {
 				// Allow List subclasses
 			} else {
-				System.out.println("Failed type check - " + clazz + " != " + value.getClass().toString());
+				logger.warn("Failed type check - " + clazz + " != " + value.getClass().toString());
 				throw new SparkplugInvalidTypeException(value.getClass());
 			}
 		}

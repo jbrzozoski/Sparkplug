@@ -121,7 +121,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 						// Create the payload and add some metrics
 						SparkplugBPayload payload = new SparkplugBPayload(
 								new Date(), 
-								newMetrics(), 
+								newMetrics(true), 
 								getSeqNum(),
 								newUUID(), 
 								null);
@@ -168,7 +168,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 				// Create the payload and add some metrics
 				payload = new SparkplugBPayload(
 						new Date(), 
-						newMetrics(), 
+						newMetrics(true), 
 						getSeqNum(),
 						newUUID(), 
 						null);
@@ -300,7 +300,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 		return java.util.UUID.randomUUID().toString();
 	}
 
-	private List<Metric> newMetrics() throws SparkplugException {
+	private List<Metric> newMetrics(boolean withTemplates) throws SparkplugException {
 		Random random = new Random();
 		List<Metric> metrics = new ArrayList<Metric>();
 		metrics.add(new MetricBuilder("Int8", Int8, (byte)random.nextInt()).createMetric());
@@ -321,8 +321,10 @@ public class SparkplugExample implements MqttCallbackExtended {
 		metrics.add(new MetricBuilder("Bytes", Bytes, randomBytes(20)).createMetric());
 		metrics.add(new MetricBuilder("File", File, null).isNull(true).createMetric());
 		metrics.add(new MetricBuilder("DataSet", DataSet, newDataSet()).createMetric());
-		//metrics.add(new MetricBuilder("TemplateDef", Template, newTemplate(true)).createMetric());
-		//metrics.add(new MetricBuilder("TemplateInst", Template, newTemplate(false)).createMetric());
+		if(withTemplates) {
+			metrics.add(new MetricBuilder("TemplateDef", Template, newTemplate(true)).createMetric());
+			metrics.add(new MetricBuilder("TemplateInst", Template, newTemplate(false)).createMetric());
+		}
 		metrics.add(new MetricBuilder("StringWithProps", String, newUUID())
 				.propertySet(newPropertySet())
 				.createMetric());
@@ -394,7 +396,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 				.templateRef(null)
 				.definition(isDef)
 				.addParameters(newParams())
-				.addMetrics(newMetrics())
+				.addMetrics(newMetrics(false))
 				.createTemplate();
 	}
 

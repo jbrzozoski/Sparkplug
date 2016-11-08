@@ -10,6 +10,9 @@ package com.cirruslink.sparkplug.message.model;
 import java.math.BigInteger;
 import java.util.Date;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
 
 /**
@@ -36,6 +39,8 @@ public enum ParameterDataType {
 	// Unknown
 	Unknown(0, Object.class);
 	
+	private static Logger logger = LogManager.getLogger(ParameterDataType.class.getName());
+	
 	private Class<?> clazz = null;
 	private int intValue = 0;
 	
@@ -46,6 +51,7 @@ public enum ParameterDataType {
 	
 	public void checkType(Object value) throws SparkplugInvalidTypeException {
 		if (value != null && !value.getClass().equals(clazz)) {
+			logger.warn("Failed type check - " + clazz + " != " + value.getClass().toString());
 			throw new SparkplugInvalidTypeException(value.getClass());
 		}
 	}

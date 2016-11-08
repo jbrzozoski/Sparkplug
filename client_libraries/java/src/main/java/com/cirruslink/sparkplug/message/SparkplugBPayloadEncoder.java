@@ -216,6 +216,7 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 			case Int16:
 			case UInt8:
 				builder.setIntValue((Short) value);
+				break;
 			case Int32:
 			case UInt16:
 				builder.setIntValue((Integer) value);
@@ -223,6 +224,7 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 			case Int64:
 			case UInt32:
 				builder.setLongValue((Long) value);
+				break;
 			case UInt64:
 				builder.setLongValue(((BigInteger) value).longValue());
 				break;

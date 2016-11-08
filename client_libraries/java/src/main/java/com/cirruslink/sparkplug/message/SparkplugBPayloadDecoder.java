@@ -222,7 +222,8 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 					ParameterDataType type = ParameterDataType.fromInteger(protoParameter.getType());
 					logger.trace("Parameter type: " + type);
 					Object value = getParameterValue(protoParameter);
-					logger.trace("Setting template parameter name: " + name + ", type: " + type + ", value: " + value);
+					logger.trace("Setting template parameter name: " + name + ", type: " + type + ", value: " + value + ", valueType" + value.getClass());
+					
 					parameters.add(new Parameter(name, type, value));
 				}
 				
@@ -295,8 +296,10 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 			case Double:
 				return protoParameter.getDoubleValue();
 			case Int8:
+				return (byte) protoParameter.getIntValue();
 			case Int16:
 			case UInt8:
+				return (short) protoParameter.getIntValue();
 			case Int32:
 			case UInt16:
 				return protoParameter.getIntValue();
