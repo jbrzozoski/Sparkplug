@@ -55,7 +55,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 
 	// Configuration
 	private static final boolean USING_REAL_TLS = false;
-	private String serverUrl = "tcp://192.168.1.23:1883";
+	private String serverUrl = "tcp://localhost:1883";
 	private String groupId = "Sparkplug B Devices";
 	private String edgeNode = "Java Edge Node";
 	private String deviceId = "Emulated Device";
@@ -179,7 +179,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 				payload.addMetric(new MetricBuilder("Inputs/2", Float, 1.23f).createMetric());
 				payload.addMetric(new MetricBuilder("Outputs/0", Boolean, true).createMetric());
 				payload.addMetric(new MetricBuilder("Outputs/1", Int32, 0).createMetric());
-				payload.addMetric(new MetricBuilder("Outputs/2", Double, 1.23f).createMetric());
+				payload.addMetric(new MetricBuilder("Outputs/2", Double, 1.23d).createMetric());
 	
 				// Add some properties
 				payload.addMetric(new MetricBuilder("Properties/hw_version", String, HW_VERSION).createMetric());
@@ -222,6 +222,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 	}
 
 	public void connectionLost(Throwable cause) {
+		cause.printStackTrace();
 		System.out.println("The MQTT Connection was lost! - will auto-reconnect");
     }
 
@@ -320,8 +321,8 @@ public class SparkplugExample implements MqttCallbackExtended {
 		metrics.add(new MetricBuilder("Bytes", Bytes, randomBytes(20)).createMetric());
 		metrics.add(new MetricBuilder("File", File, null).isNull(true).createMetric());
 		metrics.add(new MetricBuilder("DataSet", DataSet, newDataSet()).createMetric());
-		metrics.add(new MetricBuilder("TemplateDef", Template, newTemplate(true)).createMetric());
-		metrics.add(new MetricBuilder("TemplateInst", Template, newTemplate(false)).createMetric());
+		//metrics.add(new MetricBuilder("TemplateDef", Template, newTemplate(true)).createMetric());
+		//metrics.add(new MetricBuilder("TemplateInst", Template, newTemplate(false)).createMetric());
 		metrics.add(new MetricBuilder("StringWithProps", String, newUUID())
 				.propertySet(newPropertySet())
 				.createMetric());

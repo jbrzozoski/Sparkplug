@@ -7,9 +7,12 @@
 
 package com.cirruslink.sparkplug.message.model;
 
-import java.awt.List;
+import java.util.List;
 import java.math.BigInteger;
 import java.util.Date;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
 
@@ -41,6 +44,8 @@ public enum PropertyDataType {
 	// Unknown
 	Unknown(0, Object.class);
 	
+	private static Logger logger = LogManager.getLogger(PropertyDataType.class.getName());
+	
 	private Class<?> clazz = null;
 	private int intValue = 0;
 	
@@ -51,7 +56,12 @@ public enum PropertyDataType {
 	
 	public void checkType(Object value) throws SparkplugInvalidTypeException {
 		if (value != null && !value.getClass().equals(clazz)) {
-			throw new SparkplugInvalidTypeException(value.getClass());
+			if(clazz == List.class && value instanceof List) {
+				// Allow List subclasses
+			} else {
+				System.out.println("Failed type check - " + clazz + " != " + value.getClass().toString());
+				throw new SparkplugInvalidTypeException(value.getClass());
+			}
 		}
 	}
 	
