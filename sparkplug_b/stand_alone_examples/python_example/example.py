@@ -79,8 +79,8 @@ def publishBirth():
     payload = sparkplug.getDeviceBirthPayload()
 
     # Set up the propertites
-    addMetric(payload, "Properties/Hardware Version", "String", "PFC_1.1")
-    addMetric(payload, "Properties/Firmware Version", "String", "1.4.2")
+    addMetric(payload, "Properties/Hardware Version", MetricDataType.String, "PFC_1.1")
+    addMetric(payload, "Properties/Firmware Version", MetricDataType.String, "1.4.2")
 
     # Publish the initial data with the Device BIRTH certificate
     totalByteArray = bytearray(payload.SerializeToString())
@@ -109,10 +109,10 @@ publishBirth()
 while True:
     payload = sparkplug.getDdataPayload()
 
-    addMetric(payload, "my_boolean", "Boolean", random.choice([True, False]))
-    addMetric(payload, "my_float", "Float4", random.random())
-    addMetric(payload, "my_int", "Int4", random.randint(0,100))
-    addMetric(payload, "my_long", "Int8", random.getrandbits(60))
+    addMetric(payload, "my_boolean", MetricDataType.Boolean, random.choice([True, False]))
+    addMetric(payload, "my_float", MetricDataType.Float, random.random())
+    addMetric(payload, "my_int", MetricDataType.Int32, random.randint(0,100))
+    addMetric(payload, "my_long", MetricDataType.Int64, random.getrandbits(60))
 
     # Publish a message periodically data
     byteArray = bytearray(payload.SerializeToString())
