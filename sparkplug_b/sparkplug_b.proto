@@ -109,7 +109,7 @@ message Payload {
 
     message PropertyValue {
 
-        optional uint32     type                    = 1;       // FIXME - should we reduce the datatype set from those we use for metrics
+        optional uint32     type                    = 1;
         optional bool       is_null                 = 2; 
 
         oneof value {

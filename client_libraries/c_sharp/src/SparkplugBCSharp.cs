@@ -24,7 +24,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
           string.Concat(
             "CiVzcGFya3BsdWdfYi9zcGFya3BsdWdfYl9jX3NoYXJwLnByb3RvEiFjb20u",
             "Y2lycnVzbGluay5zcGFya3BsdWcucHJvdG9idWYaGWdvb2dsZS9wcm90b2J1",
-            "Zi9hbnkucHJvdG8i6RgKB1BheWxvYWQSEQoJdGltZXN0YW1wGAEgASgEEkEK",
+            "Zi9hbnkucHJvdG8ixhkKB1BheWxvYWQSEQoJdGltZXN0YW1wGAEgASgEEkEK",
             "Bm1ldHJpYxgCIAMoCzIxLmNvbS5jaXJydXNsaW5rLnNwYXJrcGx1Zy5wcm90",
             "b2J1Zi5QYXlsb2FkLk1ldHJpYxILCgNzZXEYAyABKAQSDAoEdXVpZBgEIAEo",
             "CRIMCgRib2R5GAUgASgMEiUKB2RldGFpbHMYBiADKAsyFC5nb29nbGUucHJv",
@@ -57,57 +57,59 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
             "QW55QgcKBXZhbHVlGn8KA1JvdxJRCghlbGVtZW50cxgBIAMoCzI/LmNvbS5j",
             "aXJydXNsaW5rLnNwYXJrcGx1Zy5wcm90b2J1Zi5QYXlsb2FkLkRhdGFTZXQu",
             "RGF0YVNldFZhbHVlEiUKB2RldGFpbHMYAiADKAsyFC5nb29nbGUucHJvdG9i",
-            "dWYuQW55Go0ECg1Qcm9wZXJ0eVZhbHVlEgwKBHR5cGUYASABKA0SEwoJaW50",
-            "X3ZhbHVlGAIgASgNSAASFAoKbG9uZ192YWx1ZRgDIAEoBEgAEhUKC2Zsb2F0",
-            "X3ZhbHVlGAQgASgCSAASFgoMZG91YmxlX3ZhbHVlGAUgASgBSAASFwoNYm9v",
-            "bGVhbl92YWx1ZRgGIAEoCEgAEhYKDHN0cmluZ192YWx1ZRgHIAEoCUgAElMK",
-            "EXByb3BlcnR5c2V0X3ZhbHVlGAggASgLMjYuY29tLmNpcnJ1c2xpbmsuc3Bh",
-            "cmtwbHVnLnByb3RvYnVmLlBheWxvYWQuUHJvcGVydHlTZXRIABJYChJwcm9w",
-            "ZXJ0eXNldHNfdmFsdWUYCSABKAsyOi5jb20uY2lycnVzbGluay5zcGFya3Bs",
-            "dWcucHJvdG9idWYuUGF5bG9hZC5Qcm9wZXJ0eVNldExpc3RIABJqCg9leHRl",
-            "bnNpb25fdmFsdWUYCiABKAsyTy5jb20uY2lycnVzbGluay5zcGFya3BsdWcu",
-            "cHJvdG9idWYuUGF5bG9hZC5Qcm9wZXJ0eVZhbHVlLlByb3BlcnR5VmFsdWVF",
-            "eHRlbnNpb25IABo/ChZQcm9wZXJ0eVZhbHVlRXh0ZW5zaW9uEiUKB2RldGFp",
-            "bHMYASADKAsyFC5nb29nbGUucHJvdG9idWYuQW55QgcKBXZhbHVlGowBCgtQ",
-            "cm9wZXJ0eVNldBIMCgRrZXlzGAEgAygJEkgKBnZhbHVlcxgCIAMoCzI4LmNv",
-            "bS5jaXJydXNsaW5rLnNwYXJrcGx1Zy5wcm90b2J1Zi5QYXlsb2FkLlByb3Bl",
-            "cnR5VmFsdWUSJQoHZGV0YWlscxgDIAMoCzIULmdvb2dsZS5wcm90b2J1Zi5B",
-            "bnkahQEKD1Byb3BlcnR5U2V0TGlzdBJLCgtwcm9wZXJ0eXNldBgBIAMoCzI2",
-            "LmNvbS5jaXJydXNsaW5rLnNwYXJrcGx1Zy5wcm90b2J1Zi5QYXlsb2FkLlBy",
-            "b3BlcnR5U2V0EiUKB2RldGFpbHMYAiADKAsyFC5nb29nbGUucHJvdG9idWYu",
-            "QW55Gr8BCghNZXRhRGF0YRITCgtpc011bHRpUGFydBgBIAEoCBIUCgxjb250",
-            "ZW50X3R5cGUYAiABKAkSDAoEc2l6ZRgDIAEoBBILCgNzZXEYBCABKAQSEQoJ",
-            "ZmlsZV9uYW1lGAUgASgJEhEKCWZpbGVfdHlwZRgGIAEoCRILCgNtZDUYByAB",
-            "KAkSEwoLZGVzY3JpcHRpb24YCCABKAkSJQoHZGV0YWlscxgJIAMoCzIULmdv",
-            "b2dsZS5wcm90b2J1Zi5BbnkauAUKBk1ldHJpYxIMCgRuYW1lGAEgASgJEg0K",
-            "BWFsaWFzGAIgASgEEhEKCXRpbWVzdGFtcBgDIAEoBBIQCghkYXRhdHlwZRgE",
-            "IAEoDRIVCg1pc19oaXN0b3JpY2FsGAUgASgIEhQKDGlzX3RyYW5zaWVudBgG",
-            "IAEoCBIPCgdpc19udWxsGAcgASgIEkUKCG1ldGFkYXRhGAggASgLMjMuY29t",
-            "LmNpcnJ1c2xpbmsuc3BhcmtwbHVnLnByb3RvYnVmLlBheWxvYWQuTWV0YURh",
-            "dGESEwoJaW50X3ZhbHVlGAkgASgNSAASFAoKbG9uZ192YWx1ZRgKIAEoBEgA",
-            "EhUKC2Zsb2F0X3ZhbHVlGAsgASgCSAASFgoMZG91YmxlX3ZhbHVlGAwgASgB",
-            "SAASFwoNYm9vbGVhbl92YWx1ZRgNIAEoCEgAEhYKDHN0cmluZ192YWx1ZRgO",
-            "IAEoCUgAEhUKC2J5dGVzX3ZhbHVlGA8gASgMSAASSwoNZGF0YXNldF92YWx1",
-            "ZRgQIAEoCzIyLmNvbS5jaXJydXNsaW5rLnNwYXJrcGx1Zy5wcm90b2J1Zi5Q",
-            "YXlsb2FkLkRhdGFTZXRIABJNCg50ZW1wbGF0ZV92YWx1ZRgRIAEoCzIzLmNv",
-            "bS5jaXJydXNsaW5rLnNwYXJrcGx1Zy5wcm90b2J1Zi5QYXlsb2FkLlRlbXBs",
-            "YXRlSAASYQoPZXh0ZW5zaW9uX3ZhbHVlGBIgASgLMkYuY29tLmNpcnJ1c2xp",
-            "bmsuc3BhcmtwbHVnLnByb3RvYnVmLlBheWxvYWQuTWV0cmljLk1ldHJpY1Zh",
-            "bHVlRXh0ZW5zaW9uSAAaPQoUTWV0cmljVmFsdWVFeHRlbnNpb24SJQoHZGV0",
-            "YWlscxgBIAMoCzIULmdvb2dsZS5wcm90b2J1Zi5BbnlCBwoFdmFsdWVCNAoh",
-            "Y29tLmNpcnJ1c2xpbmsuc3BhcmtwbHVnLnByb3RvYnVmQg9TcGFya3BsdWdC",
-            "UHJvdG9iBnByb3RvMw=="));
+            "dWYuQW55Gp4ECg1Qcm9wZXJ0eVZhbHVlEgwKBHR5cGUYASABKA0SDwoHaXNf",
+            "bnVsbBgCIAEoCBITCglpbnRfdmFsdWUYAyABKA1IABIUCgpsb25nX3ZhbHVl",
+            "GAQgASgESAASFQoLZmxvYXRfdmFsdWUYBSABKAJIABIWCgxkb3VibGVfdmFs",
+            "dWUYBiABKAFIABIXCg1ib29sZWFuX3ZhbHVlGAcgASgISAASFgoMc3RyaW5n",
+            "X3ZhbHVlGAggASgJSAASUwoRcHJvcGVydHlzZXRfdmFsdWUYCSABKAsyNi5j",
+            "b20uY2lycnVzbGluay5zcGFya3BsdWcucHJvdG9idWYuUGF5bG9hZC5Qcm9w",
+            "ZXJ0eVNldEgAElgKEnByb3BlcnR5c2V0c192YWx1ZRgKIAEoCzI6LmNvbS5j",
+            "aXJydXNsaW5rLnNwYXJrcGx1Zy5wcm90b2J1Zi5QYXlsb2FkLlByb3BlcnR5",
+            "U2V0TGlzdEgAEmoKD2V4dGVuc2lvbl92YWx1ZRgLIAEoCzJPLmNvbS5jaXJy",
+            "dXNsaW5rLnNwYXJrcGx1Zy5wcm90b2J1Zi5QYXlsb2FkLlByb3BlcnR5VmFs",
+            "dWUuUHJvcGVydHlWYWx1ZUV4dGVuc2lvbkgAGj8KFlByb3BlcnR5VmFsdWVF",
+            "eHRlbnNpb24SJQoHZGV0YWlscxgBIAMoCzIULmdvb2dsZS5wcm90b2J1Zi5B",
+            "bnlCBwoFdmFsdWUajAEKC1Byb3BlcnR5U2V0EgwKBGtleXMYASADKAkSSAoG",
+            "dmFsdWVzGAIgAygLMjguY29tLmNpcnJ1c2xpbmsuc3BhcmtwbHVnLnByb3Rv",
+            "YnVmLlBheWxvYWQuUHJvcGVydHlWYWx1ZRIlCgdkZXRhaWxzGAMgAygLMhQu",
+            "Z29vZ2xlLnByb3RvYnVmLkFueRqFAQoPUHJvcGVydHlTZXRMaXN0EksKC3By",
+            "b3BlcnR5c2V0GAEgAygLMjYuY29tLmNpcnJ1c2xpbmsuc3BhcmtwbHVnLnBy",
+            "b3RvYnVmLlBheWxvYWQuUHJvcGVydHlTZXQSJQoHZGV0YWlscxgCIAMoCzIU",
+            "Lmdvb2dsZS5wcm90b2J1Zi5BbnkavwEKCE1ldGFEYXRhEhMKC2lzTXVsdGlQ",
+            "YXJ0GAEgASgIEhQKDGNvbnRlbnRfdHlwZRgCIAEoCRIMCgRzaXplGAMgASgE",
+            "EgsKA3NlcRgEIAEoBBIRCglmaWxlX25hbWUYBSABKAkSEQoJZmlsZV90eXBl",
+            "GAYgASgJEgsKA21kNRgHIAEoCRITCgtkZXNjcmlwdGlvbhgIIAEoCRIlCgdk",
+            "ZXRhaWxzGAkgAygLMhQuZ29vZ2xlLnByb3RvYnVmLkFueRqEBgoGTWV0cmlj",
+            "EgwKBG5hbWUYASABKAkSDQoFYWxpYXMYAiABKAQSEQoJdGltZXN0YW1wGAMg",
+            "ASgEEhAKCGRhdGF0eXBlGAQgASgNEhUKDWlzX2hpc3RvcmljYWwYBSABKAgS",
+            "FAoMaXNfdHJhbnNpZW50GAYgASgIEg8KB2lzX251bGwYByABKAgSRQoIbWV0",
+            "YWRhdGEYCCABKAsyMy5jb20uY2lycnVzbGluay5zcGFya3BsdWcucHJvdG9i",
+            "dWYuUGF5bG9hZC5NZXRhRGF0YRJKCgpwcm9wZXJ0aWVzGAkgASgLMjYuY29t",
+            "LmNpcnJ1c2xpbmsuc3BhcmtwbHVnLnByb3RvYnVmLlBheWxvYWQuUHJvcGVy",
+            "dHlTZXQSEwoJaW50X3ZhbHVlGAogASgNSAASFAoKbG9uZ192YWx1ZRgLIAEo",
+            "BEgAEhUKC2Zsb2F0X3ZhbHVlGAwgASgCSAASFgoMZG91YmxlX3ZhbHVlGA0g",
+            "ASgBSAASFwoNYm9vbGVhbl92YWx1ZRgOIAEoCEgAEhYKDHN0cmluZ192YWx1",
+            "ZRgPIAEoCUgAEhUKC2J5dGVzX3ZhbHVlGBAgASgMSAASSwoNZGF0YXNldF92",
+            "YWx1ZRgRIAEoCzIyLmNvbS5jaXJydXNsaW5rLnNwYXJrcGx1Zy5wcm90b2J1",
+            "Zi5QYXlsb2FkLkRhdGFTZXRIABJNCg50ZW1wbGF0ZV92YWx1ZRgSIAEoCzIz",
+            "LmNvbS5jaXJydXNsaW5rLnNwYXJrcGx1Zy5wcm90b2J1Zi5QYXlsb2FkLlRl",
+            "bXBsYXRlSAASYQoPZXh0ZW5zaW9uX3ZhbHVlGBMgASgLMkYuY29tLmNpcnJ1",
+            "c2xpbmsuc3BhcmtwbHVnLnByb3RvYnVmLlBheWxvYWQuTWV0cmljLk1ldHJp",
+            "Y1ZhbHVlRXh0ZW5zaW9uSAAaPQoUTWV0cmljVmFsdWVFeHRlbnNpb24SJQoH",
+            "ZGV0YWlscxgBIAMoCzIULmdvb2dsZS5wcm90b2J1Zi5BbnlCBwoFdmFsdWVC",
+            "NAohY29tLmNpcnJ1c2xpbmsuc3BhcmtwbHVnLnByb3RvYnVmQg9TcGFya3Bs",
+            "dWdCUHJvdG9iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.AnyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Parser, new[]{ "Timestamp", "Metric", "Seq", "Uuid", "Body", "Details" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Parser, new[]{ "Name", "Version", "Metrics", "Parameters", "TemplateRef", "IsDefinition", "Details" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter.Parser, new[]{ "Name", "Type", "IntValue", "LongValue", "FloatValue", "DoubleValue", "BooleanValue", "StringValue", "ExtensionValue" }, new[]{ "Value" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter.Types.ParameterValueExtension), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter.Types.ParameterValueExtension.Parser, new[]{ "Extensionss" }, null, null, null)})}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet.Parser, new[]{ "NumOfColumns", "Columns", "Types_", "Rows", "Details" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet.Types.DataSetValue), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet.Types.DataSetValue.Parser, new[]{ "IntValue", "LongValue", "FloatValue", "DoubleValue", "BooleanValue", "StringValue", "ExtensionValue" }, new[]{ "Value" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet.Types.DataSetValue.Types.DataSetValueExtension), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet.Types.DataSetValue.Types.DataSetValueExtension.Parser, new[]{ "Details" }, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet.Types.Row), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet.Types.Row.Parser, new[]{ "Elements", "Details" }, null, null, null)}),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertyValue), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertyValue.Parser, new[]{ "Type", "IntValue", "LongValue", "FloatValue", "DoubleValue", "BooleanValue", "StringValue", "PropertysetValue", "PropertysetsValue", "ExtensionValue" }, new[]{ "Value" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertyValue.Types.PropertyValueExtension), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertyValue.Types.PropertyValueExtension.Parser, new[]{ "Details" }, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertyValue), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertyValue.Parser, new[]{ "Type", "IsNull", "IntValue", "LongValue", "FloatValue", "DoubleValue", "BooleanValue", "StringValue", "PropertysetValue", "PropertysetsValue", "ExtensionValue" }, new[]{ "Value" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertyValue.Types.PropertyValueExtension), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertyValue.Types.PropertyValueExtension.Parser, new[]{ "Details" }, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertySet), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertySet.Parser, new[]{ "Keys", "Values", "Details" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertySetList), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertySetList.Parser, new[]{ "Propertyset", "Details" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.MetaData), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.MetaData.Parser, new[]{ "IsMultiPart", "ContentType", "Size", "Seq", "FileName", "FileType", "Md5", "Description", "Details" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric.Parser, new[]{ "Name", "Alias", "Timestamp", "Datatype", "IsHistorical", "IsTransient", "IsNull", "Metadata", "IntValue", "LongValue", "FloatValue", "DoubleValue", "BooleanValue", "StringValue", "BytesValue", "DatasetValue", "TemplateValue", "ExtensionValue" }, new[]{ "Value" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric.Types.MetricValueExtension), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric.Types.MetricValueExtension.Parser, new[]{ "Details" }, null, null, null)})})
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric.Parser, new[]{ "Name", "Alias", "Timestamp", "Datatype", "IsHistorical", "IsTransient", "IsNull", "Metadata", "Properties", "IntValue", "LongValue", "FloatValue", "DoubleValue", "BooleanValue", "StringValue", "BytesValue", "DatasetValue", "TemplateValue", "ExtensionValue" }, new[]{ "Value" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric.Types.MetricValueExtension), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric.Types.MetricValueExtension.Parser, new[]{ "Details" }, null, null, null)})})
           }));
     }
     #endregion
@@ -2005,6 +2007,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public PropertyValue(PropertyValue other) : this() {
           type_ = other.type_;
+          isNull_ = other.isNull_;
           switch (other.ValueCase) {
             case ValueOneofCase.IntValue:
               IntValue = other.IntValue;
@@ -2045,9 +2048,6 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         /// <summary>Field number for the "type" field.</summary>
         public const int TypeFieldNumber = 1;
         private uint type_;
-        /// <summary>
-        ///  FIXME - should we reduce the datatype set from those we use for metrics
-        /// </summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public uint Type {
           get { return type_; }
@@ -2056,8 +2056,19 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
           }
         }
 
+        /// <summary>Field number for the "is_null" field.</summary>
+        public const int IsNullFieldNumber = 2;
+        private bool isNull_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool IsNull {
+          get { return isNull_; }
+          set {
+            isNull_ = value;
+          }
+        }
+
         /// <summary>Field number for the "int_value" field.</summary>
-        public const int IntValueFieldNumber = 2;
+        public const int IntValueFieldNumber = 3;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public uint IntValue {
           get { return valueCase_ == ValueOneofCase.IntValue ? (uint) value_ : 0; }
@@ -2068,7 +2079,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "long_value" field.</summary>
-        public const int LongValueFieldNumber = 3;
+        public const int LongValueFieldNumber = 4;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public ulong LongValue {
           get { return valueCase_ == ValueOneofCase.LongValue ? (ulong) value_ : 0UL; }
@@ -2079,7 +2090,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "float_value" field.</summary>
-        public const int FloatValueFieldNumber = 4;
+        public const int FloatValueFieldNumber = 5;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public float FloatValue {
           get { return valueCase_ == ValueOneofCase.FloatValue ? (float) value_ : 0F; }
@@ -2090,7 +2101,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "double_value" field.</summary>
-        public const int DoubleValueFieldNumber = 5;
+        public const int DoubleValueFieldNumber = 6;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public double DoubleValue {
           get { return valueCase_ == ValueOneofCase.DoubleValue ? (double) value_ : 0D; }
@@ -2101,7 +2112,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "boolean_value" field.</summary>
-        public const int BooleanValueFieldNumber = 6;
+        public const int BooleanValueFieldNumber = 7;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public bool BooleanValue {
           get { return valueCase_ == ValueOneofCase.BooleanValue ? (bool) value_ : false; }
@@ -2112,7 +2123,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "string_value" field.</summary>
-        public const int StringValueFieldNumber = 7;
+        public const int StringValueFieldNumber = 8;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public string StringValue {
           get { return valueCase_ == ValueOneofCase.StringValue ? (string) value_ : ""; }
@@ -2123,7 +2134,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "propertyset_value" field.</summary>
-        public const int PropertysetValueFieldNumber = 8;
+        public const int PropertysetValueFieldNumber = 9;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertySet PropertysetValue {
           get { return valueCase_ == ValueOneofCase.PropertysetValue ? (global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertySet) value_ : null; }
@@ -2134,7 +2145,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "propertysets_value" field.</summary>
-        public const int PropertysetsValueFieldNumber = 9;
+        public const int PropertysetsValueFieldNumber = 10;
         /// <summary>
         ///  List of Property Values
         /// </summary>
@@ -2148,7 +2159,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "extension_value" field.</summary>
-        public const int ExtensionValueFieldNumber = 10;
+        public const int ExtensionValueFieldNumber = 11;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertyValue.Types.PropertyValueExtension ExtensionValue {
           get { return valueCase_ == ValueOneofCase.ExtensionValue ? (global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertyValue.Types.PropertyValueExtension) value_ : null; }
@@ -2162,15 +2173,15 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         /// <summary>Enum of possible cases for the "value" oneof.</summary>
         public enum ValueOneofCase {
           None = 0,
-          IntValue = 2,
-          LongValue = 3,
-          FloatValue = 4,
-          DoubleValue = 5,
-          BooleanValue = 6,
-          StringValue = 7,
-          PropertysetValue = 8,
-          PropertysetsValue = 9,
-          ExtensionValue = 10,
+          IntValue = 3,
+          LongValue = 4,
+          FloatValue = 5,
+          DoubleValue = 6,
+          BooleanValue = 7,
+          StringValue = 8,
+          PropertysetValue = 9,
+          PropertysetsValue = 10,
+          ExtensionValue = 11,
         }
         private ValueOneofCase valueCase_ = ValueOneofCase.None;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2198,6 +2209,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
             return true;
           }
           if (Type != other.Type) return false;
+          if (IsNull != other.IsNull) return false;
           if (IntValue != other.IntValue) return false;
           if (LongValue != other.LongValue) return false;
           if (FloatValue != other.FloatValue) return false;
@@ -2215,6 +2227,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         public override int GetHashCode() {
           int hash = 1;
           if (Type != 0) hash ^= Type.GetHashCode();
+          if (IsNull != false) hash ^= IsNull.GetHashCode();
           if (valueCase_ == ValueOneofCase.IntValue) hash ^= IntValue.GetHashCode();
           if (valueCase_ == ValueOneofCase.LongValue) hash ^= LongValue.GetHashCode();
           if (valueCase_ == ValueOneofCase.FloatValue) hash ^= FloatValue.GetHashCode();
@@ -2239,40 +2252,44 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
             output.WriteRawTag(8);
             output.WriteUInt32(Type);
           }
-          if (valueCase_ == ValueOneofCase.IntValue) {
+          if (IsNull != false) {
             output.WriteRawTag(16);
+            output.WriteBool(IsNull);
+          }
+          if (valueCase_ == ValueOneofCase.IntValue) {
+            output.WriteRawTag(24);
             output.WriteUInt32(IntValue);
           }
           if (valueCase_ == ValueOneofCase.LongValue) {
-            output.WriteRawTag(24);
+            output.WriteRawTag(32);
             output.WriteUInt64(LongValue);
           }
           if (valueCase_ == ValueOneofCase.FloatValue) {
-            output.WriteRawTag(37);
+            output.WriteRawTag(45);
             output.WriteFloat(FloatValue);
           }
           if (valueCase_ == ValueOneofCase.DoubleValue) {
-            output.WriteRawTag(41);
+            output.WriteRawTag(49);
             output.WriteDouble(DoubleValue);
           }
           if (valueCase_ == ValueOneofCase.BooleanValue) {
-            output.WriteRawTag(48);
+            output.WriteRawTag(56);
             output.WriteBool(BooleanValue);
           }
           if (valueCase_ == ValueOneofCase.StringValue) {
-            output.WriteRawTag(58);
+            output.WriteRawTag(66);
             output.WriteString(StringValue);
           }
           if (valueCase_ == ValueOneofCase.PropertysetValue) {
-            output.WriteRawTag(66);
+            output.WriteRawTag(74);
             output.WriteMessage(PropertysetValue);
           }
           if (valueCase_ == ValueOneofCase.PropertysetsValue) {
-            output.WriteRawTag(74);
+            output.WriteRawTag(82);
             output.WriteMessage(PropertysetsValue);
           }
           if (valueCase_ == ValueOneofCase.ExtensionValue) {
-            output.WriteRawTag(82);
+            output.WriteRawTag(90);
             output.WriteMessage(ExtensionValue);
           }
         }
@@ -2282,6 +2299,9 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
           int size = 0;
           if (Type != 0) {
             size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Type);
+          }
+          if (IsNull != false) {
+            size += 1 + 1;
           }
           if (valueCase_ == ValueOneofCase.IntValue) {
             size += 1 + pb::CodedOutputStream.ComputeUInt32Size(IntValue);
@@ -2320,6 +2340,9 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
           }
           if (other.Type != 0) {
             Type = other.Type;
+          }
+          if (other.IsNull != false) {
+            IsNull = other.IsNull;
           }
           switch (other.ValueCase) {
             case ValueOneofCase.IntValue:
@@ -2366,30 +2389,34 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
                 break;
               }
               case 16: {
-                IntValue = input.ReadUInt32();
+                IsNull = input.ReadBool();
                 break;
               }
               case 24: {
+                IntValue = input.ReadUInt32();
+                break;
+              }
+              case 32: {
                 LongValue = input.ReadUInt64();
                 break;
               }
-              case 37: {
+              case 45: {
                 FloatValue = input.ReadFloat();
                 break;
               }
-              case 41: {
+              case 49: {
                 DoubleValue = input.ReadDouble();
                 break;
               }
-              case 48: {
+              case 56: {
                 BooleanValue = input.ReadBool();
                 break;
               }
-              case 58: {
+              case 66: {
                 StringValue = input.ReadString();
                 break;
               }
-              case 66: {
+              case 74: {
                 global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertySet subBuilder = new global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertySet();
                 if (valueCase_ == ValueOneofCase.PropertysetValue) {
                   subBuilder.MergeFrom(PropertysetValue);
@@ -2398,7 +2425,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
                 PropertysetValue = subBuilder;
                 break;
               }
-              case 74: {
+              case 82: {
                 global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertySetList subBuilder = new global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertySetList();
                 if (valueCase_ == ValueOneofCase.PropertysetsValue) {
                   subBuilder.MergeFrom(PropertysetsValue);
@@ -2407,7 +2434,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
                 PropertysetsValue = subBuilder;
                 break;
               }
-              case 82: {
+              case 90: {
                 global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertyValue.Types.PropertyValueExtension subBuilder = new global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertyValue.Types.PropertyValueExtension();
                 if (valueCase_ == ValueOneofCase.ExtensionValue) {
                   subBuilder.MergeFrom(ExtensionValue);
@@ -3208,6 +3235,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
           isTransient_ = other.isTransient_;
           isNull_ = other.isNull_;
           Metadata = other.metadata_ != null ? other.Metadata.Clone() : null;
+          Properties = other.properties_ != null ? other.Properties.Clone() : null;
           switch (other.ValueCase) {
             case ValueOneofCase.IntValue:
               IntValue = other.IntValue;
@@ -3360,8 +3388,19 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
           }
         }
 
+        /// <summary>Field number for the "properties" field.</summary>
+        public const int PropertiesFieldNumber = 9;
+        private global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertySet properties_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertySet Properties {
+          get { return properties_; }
+          set {
+            properties_ = value;
+          }
+        }
+
         /// <summary>Field number for the "int_value" field.</summary>
-        public const int IntValueFieldNumber = 9;
+        public const int IntValueFieldNumber = 10;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public uint IntValue {
           get { return valueCase_ == ValueOneofCase.IntValue ? (uint) value_ : 0; }
@@ -3372,7 +3411,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "long_value" field.</summary>
-        public const int LongValueFieldNumber = 10;
+        public const int LongValueFieldNumber = 11;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public ulong LongValue {
           get { return valueCase_ == ValueOneofCase.LongValue ? (ulong) value_ : 0UL; }
@@ -3383,7 +3422,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "float_value" field.</summary>
-        public const int FloatValueFieldNumber = 11;
+        public const int FloatValueFieldNumber = 12;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public float FloatValue {
           get { return valueCase_ == ValueOneofCase.FloatValue ? (float) value_ : 0F; }
@@ -3394,7 +3433,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "double_value" field.</summary>
-        public const int DoubleValueFieldNumber = 12;
+        public const int DoubleValueFieldNumber = 13;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public double DoubleValue {
           get { return valueCase_ == ValueOneofCase.DoubleValue ? (double) value_ : 0D; }
@@ -3405,7 +3444,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "boolean_value" field.</summary>
-        public const int BooleanValueFieldNumber = 13;
+        public const int BooleanValueFieldNumber = 14;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public bool BooleanValue {
           get { return valueCase_ == ValueOneofCase.BooleanValue ? (bool) value_ : false; }
@@ -3416,7 +3455,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "string_value" field.</summary>
-        public const int StringValueFieldNumber = 14;
+        public const int StringValueFieldNumber = 15;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public string StringValue {
           get { return valueCase_ == ValueOneofCase.StringValue ? (string) value_ : ""; }
@@ -3427,7 +3466,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "bytes_value" field.</summary>
-        public const int BytesValueFieldNumber = 15;
+        public const int BytesValueFieldNumber = 16;
         /// <summary>
         ///  Bytes, File
         /// </summary>
@@ -3441,7 +3480,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "dataset_value" field.</summary>
-        public const int DatasetValueFieldNumber = 16;
+        public const int DatasetValueFieldNumber = 17;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet DatasetValue {
           get { return valueCase_ == ValueOneofCase.DatasetValue ? (global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet) value_ : null; }
@@ -3452,7 +3491,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "template_value" field.</summary>
-        public const int TemplateValueFieldNumber = 17;
+        public const int TemplateValueFieldNumber = 18;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template TemplateValue {
           get { return valueCase_ == ValueOneofCase.TemplateValue ? (global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template) value_ : null; }
@@ -3463,7 +3502,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "extension_value" field.</summary>
-        public const int ExtensionValueFieldNumber = 18;
+        public const int ExtensionValueFieldNumber = 19;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric.Types.MetricValueExtension ExtensionValue {
           get { return valueCase_ == ValueOneofCase.ExtensionValue ? (global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric.Types.MetricValueExtension) value_ : null; }
@@ -3477,16 +3516,16 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         /// <summary>Enum of possible cases for the "value" oneof.</summary>
         public enum ValueOneofCase {
           None = 0,
-          IntValue = 9,
-          LongValue = 10,
-          FloatValue = 11,
-          DoubleValue = 12,
-          BooleanValue = 13,
-          StringValue = 14,
-          BytesValue = 15,
-          DatasetValue = 16,
-          TemplateValue = 17,
-          ExtensionValue = 18,
+          IntValue = 10,
+          LongValue = 11,
+          FloatValue = 12,
+          DoubleValue = 13,
+          BooleanValue = 14,
+          StringValue = 15,
+          BytesValue = 16,
+          DatasetValue = 17,
+          TemplateValue = 18,
+          ExtensionValue = 19,
         }
         private ValueOneofCase valueCase_ = ValueOneofCase.None;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3521,6 +3560,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
           if (IsTransient != other.IsTransient) return false;
           if (IsNull != other.IsNull) return false;
           if (!object.Equals(Metadata, other.Metadata)) return false;
+          if (!object.Equals(Properties, other.Properties)) return false;
           if (IntValue != other.IntValue) return false;
           if (LongValue != other.LongValue) return false;
           if (FloatValue != other.FloatValue) return false;
@@ -3546,6 +3586,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
           if (IsTransient != false) hash ^= IsTransient.GetHashCode();
           if (IsNull != false) hash ^= IsNull.GetHashCode();
           if (metadata_ != null) hash ^= Metadata.GetHashCode();
+          if (properties_ != null) hash ^= Properties.GetHashCode();
           if (valueCase_ == ValueOneofCase.IntValue) hash ^= IntValue.GetHashCode();
           if (valueCase_ == ValueOneofCase.LongValue) hash ^= LongValue.GetHashCode();
           if (valueCase_ == ValueOneofCase.FloatValue) hash ^= FloatValue.GetHashCode();
@@ -3599,44 +3640,48 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
             output.WriteRawTag(66);
             output.WriteMessage(Metadata);
           }
+          if (properties_ != null) {
+            output.WriteRawTag(74);
+            output.WriteMessage(Properties);
+          }
           if (valueCase_ == ValueOneofCase.IntValue) {
-            output.WriteRawTag(72);
+            output.WriteRawTag(80);
             output.WriteUInt32(IntValue);
           }
           if (valueCase_ == ValueOneofCase.LongValue) {
-            output.WriteRawTag(80);
+            output.WriteRawTag(88);
             output.WriteUInt64(LongValue);
           }
           if (valueCase_ == ValueOneofCase.FloatValue) {
-            output.WriteRawTag(93);
+            output.WriteRawTag(101);
             output.WriteFloat(FloatValue);
           }
           if (valueCase_ == ValueOneofCase.DoubleValue) {
-            output.WriteRawTag(97);
+            output.WriteRawTag(105);
             output.WriteDouble(DoubleValue);
           }
           if (valueCase_ == ValueOneofCase.BooleanValue) {
-            output.WriteRawTag(104);
+            output.WriteRawTag(112);
             output.WriteBool(BooleanValue);
           }
           if (valueCase_ == ValueOneofCase.StringValue) {
-            output.WriteRawTag(114);
+            output.WriteRawTag(122);
             output.WriteString(StringValue);
           }
           if (valueCase_ == ValueOneofCase.BytesValue) {
-            output.WriteRawTag(122);
+            output.WriteRawTag(130, 1);
             output.WriteBytes(BytesValue);
           }
           if (valueCase_ == ValueOneofCase.DatasetValue) {
-            output.WriteRawTag(130, 1);
+            output.WriteRawTag(138, 1);
             output.WriteMessage(DatasetValue);
           }
           if (valueCase_ == ValueOneofCase.TemplateValue) {
-            output.WriteRawTag(138, 1);
+            output.WriteRawTag(146, 1);
             output.WriteMessage(TemplateValue);
           }
           if (valueCase_ == ValueOneofCase.ExtensionValue) {
-            output.WriteRawTag(146, 1);
+            output.WriteRawTag(154, 1);
             output.WriteMessage(ExtensionValue);
           }
         }
@@ -3668,6 +3713,9 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
           if (metadata_ != null) {
             size += 1 + pb::CodedOutputStream.ComputeMessageSize(Metadata);
           }
+          if (properties_ != null) {
+            size += 1 + pb::CodedOutputStream.ComputeMessageSize(Properties);
+          }
           if (valueCase_ == ValueOneofCase.IntValue) {
             size += 1 + pb::CodedOutputStream.ComputeUInt32Size(IntValue);
           }
@@ -3687,7 +3735,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
             size += 1 + pb::CodedOutputStream.ComputeStringSize(StringValue);
           }
           if (valueCase_ == ValueOneofCase.BytesValue) {
-            size += 1 + pb::CodedOutputStream.ComputeBytesSize(BytesValue);
+            size += 2 + pb::CodedOutputStream.ComputeBytesSize(BytesValue);
           }
           if (valueCase_ == ValueOneofCase.DatasetValue) {
             size += 2 + pb::CodedOutputStream.ComputeMessageSize(DatasetValue);
@@ -3732,6 +3780,12 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
               metadata_ = new global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.MetaData();
             }
             Metadata.MergeFrom(other.Metadata);
+          }
+          if (other.properties_ != null) {
+            if (properties_ == null) {
+              properties_ = new global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertySet();
+            }
+            Properties.MergeFrom(other.Properties);
           }
           switch (other.ValueCase) {
             case ValueOneofCase.IntValue:
@@ -3811,35 +3865,42 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
                 input.ReadMessage(metadata_);
                 break;
               }
-              case 72: {
-                IntValue = input.ReadUInt32();
+              case 74: {
+                if (properties_ == null) {
+                  properties_ = new global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertySet();
+                }
+                input.ReadMessage(properties_);
                 break;
               }
               case 80: {
+                IntValue = input.ReadUInt32();
+                break;
+              }
+              case 88: {
                 LongValue = input.ReadUInt64();
                 break;
               }
-              case 93: {
+              case 101: {
                 FloatValue = input.ReadFloat();
                 break;
               }
-              case 97: {
+              case 105: {
                 DoubleValue = input.ReadDouble();
                 break;
               }
-              case 104: {
+              case 112: {
                 BooleanValue = input.ReadBool();
                 break;
               }
-              case 114: {
+              case 122: {
                 StringValue = input.ReadString();
                 break;
               }
-              case 122: {
+              case 130: {
                 BytesValue = input.ReadBytes();
                 break;
               }
-              case 130: {
+              case 138: {
                 global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet subBuilder = new global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet();
                 if (valueCase_ == ValueOneofCase.DatasetValue) {
                   subBuilder.MergeFrom(DatasetValue);
@@ -3848,7 +3909,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
                 DatasetValue = subBuilder;
                 break;
               }
-              case 138: {
+              case 146: {
                 global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template subBuilder = new global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template();
                 if (valueCase_ == ValueOneofCase.TemplateValue) {
                   subBuilder.MergeFrom(TemplateValue);
@@ -3857,7 +3918,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
                 TemplateValue = subBuilder;
                 break;
               }
-              case 146: {
+              case 154: {
                 global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric.Types.MetricValueExtension subBuilder = new global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric.Types.MetricValueExtension();
                 if (valueCase_ == ValueOneofCase.ExtensionValue) {
                   subBuilder.MergeFrom(ExtensionValue);
