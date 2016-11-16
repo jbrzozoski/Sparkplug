@@ -54,7 +54,7 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 		// Set the metrics
 		for (Metric metric : payload.getMetrics()) {			
 			try {
-				protoMsg.addMetric(convertMetric(metric));
+				protoMsg.addMetrics(convertMetric(metric));
 			} catch(Exception e) {
 				logger.error("Failed to add metric: " + metric.getName());
 				throw new RuntimeException(e);

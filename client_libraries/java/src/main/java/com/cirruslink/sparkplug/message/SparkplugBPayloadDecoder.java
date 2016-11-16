@@ -57,7 +57,7 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 		}
 		
 		// Set the Metrics
-		for (SparkplugBProto.Payload.Metric protoMetric : protoPayload.getMetricList()) {
+		for (SparkplugBProto.Payload.Metric protoMetric : protoPayload.getMetricsList()) {
 			builder.addMetric(convertMetric(protoMetric));
 		}
 		

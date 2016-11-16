@@ -1,6 +1,7 @@
 target/
 bin/
 node_modules/
+test-output/
 dependency-reduced-pom.xml
 .settings/
 .project
