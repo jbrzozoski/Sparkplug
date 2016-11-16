@@ -67,7 +67,6 @@ message Payload {
             }
         }
 
-        optional string name            = 1;          // The name of this Template definition
         optional string version         = 2;          // The version of the Template to prevent mismatches
         repeated Metric metrics         = 3;          // Each metric is the name of the metric and the datatype of the member but does not contain a value
         repeated Parameter parameters   = 4;

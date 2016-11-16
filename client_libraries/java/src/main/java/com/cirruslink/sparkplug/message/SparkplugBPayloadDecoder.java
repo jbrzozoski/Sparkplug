@@ -234,7 +234,7 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 					metrics.add(templateMetric);
 				}
 				
-				Template template = new TemplateBuilder(protoTemplate.getName())
+				Template template = new TemplateBuilder()
 						.version(protoTemplate.getVersion())
 						.templateRef(protoTemplate.getTemplateRef())
 						.definition(protoTemplate.getIsDefinition())
@@ -242,7 +242,7 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 						.addParameters(parameters)
 						.createTemplate();
 				
-				logger.trace("Setting template - name: " + template.getName() 
+				logger.trace("Setting template - name: " + protoMetric.getName() 
 						+ ", version: " + template.getVersion() 
 						+ ", ref: " + template.getTemplateRef() 
 						+ ", isDef: " + template.isDefinition() 

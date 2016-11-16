@@ -354,7 +354,6 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 					Template template = (Template) metric.getValue();
 					SparkplugBProto.Payload.Template.Builder templateBuilder = 
 							SparkplugBProto.Payload.Template.newBuilder();
-					templateBuilder.setName(template.getName());
 					if (template.getVersion() != null) {
 						templateBuilder.setVersion(template.getVersion());
 					}

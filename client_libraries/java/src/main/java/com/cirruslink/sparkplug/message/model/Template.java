@@ -16,7 +16,6 @@ import java.util.List;
  */
 public class Template {
 
-	private String name;
 	private String version;
 	private String templateRef;
 	private boolean isDefinition;
@@ -33,22 +32,13 @@ public class Template {
 	 * @param metrics a list of metrics
 	 * @param parmeters a list of parameters
 	 */
-	public Template(String name, String version, String templateRef, boolean isDefinition, List<Metric> metrics,
+	public Template(String version, String templateRef, boolean isDefinition, List<Metric> metrics,
 			List<Parameter> parameters) {
-		this.name = name;
 		this.version = version;
 		this.templateRef = templateRef;
 		this.isDefinition = isDefinition;
 		this.metrics = metrics;
 		this.parameters = parameters;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getVersion() {
@@ -104,7 +94,6 @@ public class Template {
 	 */
 	public static class TemplateBuilder {
 
-		private String name;
 		private String version;
 		private String templateRef;
 		private boolean isDefinition;
@@ -119,16 +108,10 @@ public class Template {
 		 * @param metrics
 		 * @param parameters
 		 */
-		public TemplateBuilder(String name) {
+		public TemplateBuilder() {
 			super();
-			this.name = name;
 			this.metrics = new ArrayList<Metric>();
 			this.parameters = new ArrayList<Parameter>();
-		}
-
-		public TemplateBuilder name(String name) {
-			this.name = name;
-			return this;
 		}
 
 		public TemplateBuilder version(String version) {
@@ -167,7 +150,7 @@ public class Template {
 		}
 		
 		public Template createTemplate() {
-			return new Template(name, version, templateRef, isDefinition, metrics, parameters);
+			return new Template(version, templateRef, isDefinition, metrics, parameters);
 		}
 	}
 }

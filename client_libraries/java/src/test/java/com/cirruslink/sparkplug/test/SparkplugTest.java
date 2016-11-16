@@ -100,7 +100,7 @@ public class SparkplugTest {
 							.createRow())
 					.createDataSet()
 					, null},
-			{ "TestTemplateDef", MetricDataType.Template, new TemplateBuilder("TestTemplateDef")
+			{ "TestTemplateDef", MetricDataType.Template, new TemplateBuilder()
 					.version("v1.0")
 					.templateRef(null)
 					.definition(true)
@@ -122,7 +122,7 @@ public class SparkplugTest {
 							.createMetric())
 					.createTemplate(), 
 					null},
-			{ "TestTemplateInst", MetricDataType.Template, new TemplateBuilder("TestTemplateInst")
+			{ "TestTemplateInst", MetricDataType.Template, new TemplateBuilder()
 					.version("v1.0")
 					.templateRef("TestTemplateDef")
 					.definition(true)

@@ -294,32 +294,6 @@ public final class SparkplugBProto {
             ExtendableMessageOrBuilder<Template> {
 
       /**
-       * <code>optional string name = 1;</code>
-       *
-       * <pre>
-       * The name of this Template definition
-       * </pre>
-       */
-      boolean hasName();
-      /**
-       * <code>optional string name = 1;</code>
-       *
-       * <pre>
-       * The name of this Template definition
-       * </pre>
-       */
-      java.lang.String getName();
-      /**
-       * <code>optional string name = 1;</code>
-       *
-       * <pre>
-       * The name of this Template definition
-       * </pre>
-       */
-      com.google.protobuf.ByteString
-          getNameBytes();
-
-      /**
        * <code>optional string version = 2;</code>
        *
        * <pre>
@@ -501,42 +475,36 @@ public final class SparkplugBProto {
                 }
                 break;
               }
-              case 10: {
-                com.google.protobuf.ByteString bs = input.readBytes();
-                bitField0_ |= 0x00000001;
-                name_ = bs;
-                break;
-              }
               case 18: {
                 com.google.protobuf.ByteString bs = input.readBytes();
-                bitField0_ |= 0x00000002;
+                bitField0_ |= 0x00000001;
                 version_ = bs;
                 break;
               }
               case 26: {
-                if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+                if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
                   metrics_ = new java.util.ArrayList<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric>();
-                  mutable_bitField0_ |= 0x00000004;
+                  mutable_bitField0_ |= 0x00000002;
                 }
                 metrics_.add(input.readMessage(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PARSER, extensionRegistry));
                 break;
               }
               case 34: {
-                if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+                if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
                   parameters_ = new java.util.ArrayList<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter>();
-                  mutable_bitField0_ |= 0x00000008;
+                  mutable_bitField0_ |= 0x00000004;
                 }
                 parameters_.add(input.readMessage(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter.PARSER, extensionRegistry));
                 break;
               }
               case 42: {
                 com.google.protobuf.ByteString bs = input.readBytes();
-                bitField0_ |= 0x00000004;
+                bitField0_ |= 0x00000002;
                 templateRef_ = bs;
                 break;
               }
               case 48: {
-                bitField0_ |= 0x00000008;
+                bitField0_ |= 0x00000004;
                 isDefinition_ = input.readBool();
                 break;
               }
@@ -548,10 +516,10 @@ public final class SparkplugBProto {
           throw new com.google.protobuf.InvalidProtocolBufferException(
               e.getMessage()).setUnfinishedMessage(this);
         } finally {
-          if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+          if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
             metrics_ = java.util.Collections.unmodifiableList(metrics_);
           }
-          if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+          if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
             parameters_ = java.util.Collections.unmodifiableList(parameters_);
           }
           this.unknownFields = unknownFields.build();
@@ -2338,60 +2306,6 @@ public final class SparkplugBProto {
       }
 
       private int bitField0_;
-      public static final int NAME_FIELD_NUMBER = 1;
-      private java.lang.Object name_;
-      /**
-       * <code>optional string name = 1;</code>
-       *
-       * <pre>
-       * The name of this Template definition
-       * </pre>
-       */
-      public boolean hasName() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>optional string name = 1;</code>
-       *
-       * <pre>
-       * The name of this Template definition
-       * </pre>
-       */
-      public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (ref instanceof java.lang.String) {
-          return (java.lang.String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            name_ = s;
-          }
-          return s;
-        }
-      }
-      /**
-       * <code>optional string name = 1;</code>
-       *
-       * <pre>
-       * The name of this Template definition
-       * </pre>
-       */
-      public com.google.protobuf.ByteString
-          getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof java.lang.String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          name_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-
       public static final int VERSION_FIELD_NUMBER = 2;
       private java.lang.Object version_;
       /**
@@ -2402,7 +2316,7 @@ public final class SparkplugBProto {
        * </pre>
        */
       public boolean hasVersion() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
        * <code>optional string version = 2;</code>
@@ -2546,7 +2460,7 @@ public final class SparkplugBProto {
        * </pre>
        */
       public boolean hasTemplateRef() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
        * <code>optional string template_ref = 5;</code>
@@ -2596,7 +2510,7 @@ public final class SparkplugBProto {
        * <code>optional bool is_definition = 6;</code>
        */
       public boolean hasIsDefinition() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
        * <code>optional bool is_definition = 6;</code>
@@ -2606,7 +2520,6 @@ public final class SparkplugBProto {
       }
 
       private void initFields() {
-        name_ = "";
         version_ = "";
         metrics_ = java.util.Collections.emptyList();
         parameters_ = java.util.Collections.emptyList();
@@ -2646,9 +2559,6 @@ public final class SparkplugBProto {
           .ExtendableMessage<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template>.ExtensionWriter extensionWriter =
             newExtensionWriter();
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeBytes(1, getNameBytes());
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
           output.writeBytes(2, getVersionBytes());
         }
         for (int i = 0; i < metrics_.size(); i++) {
@@ -2657,10 +2567,10 @@ public final class SparkplugBProto {
         for (int i = 0; i < parameters_.size(); i++) {
           output.writeMessage(4, parameters_.get(i));
         }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
           output.writeBytes(5, getTemplateRefBytes());
         }
-        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
           output.writeBool(6, isDefinition_);
         }
         extensionWriter.writeUntil(536870912, output);
@@ -2675,10 +2585,6 @@ public final class SparkplugBProto {
         size = 0;
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(1, getNameBytes());
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          size += com.google.protobuf.CodedOutputStream
             .computeBytesSize(2, getVersionBytes());
         }
         for (int i = 0; i < metrics_.size(); i++) {
@@ -2689,11 +2595,11 @@ public final class SparkplugBProto {
           size += com.google.protobuf.CodedOutputStream
             .computeMessageSize(4, parameters_.get(i));
         }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
           size += com.google.protobuf.CodedOutputStream
             .computeBytesSize(5, getTemplateRefBytes());
         }
-        if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
           size += com.google.protobuf.CodedOutputStream
             .computeBoolSize(6, isDefinition_);
         }
@@ -2818,26 +2724,24 @@ public final class SparkplugBProto {
 
         public Builder clear() {
           super.clear();
-          name_ = "";
-          bitField0_ = (bitField0_ & ~0x00000001);
           version_ = "";
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000001);
           if (metricsBuilder_ == null) {
             metrics_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000004);
+            bitField0_ = (bitField0_ & ~0x00000002);
           } else {
             metricsBuilder_.clear();
           }
           if (parametersBuilder_ == null) {
             parameters_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000008);
+            bitField0_ = (bitField0_ & ~0x00000004);
           } else {
             parametersBuilder_.clear();
           }
           templateRef_ = "";
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000008);
           isDefinition_ = false;
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000010);
           return this;
         }
 
@@ -2869,35 +2773,31 @@ public final class SparkplugBProto {
           if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
             to_bitField0_ |= 0x00000001;
           }
-          result.name_ = name_;
-          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-            to_bitField0_ |= 0x00000002;
-          }
           result.version_ = version_;
           if (metricsBuilder_ == null) {
-            if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            if (((bitField0_ & 0x00000002) == 0x00000002)) {
               metrics_ = java.util.Collections.unmodifiableList(metrics_);
-              bitField0_ = (bitField0_ & ~0x00000004);
+              bitField0_ = (bitField0_ & ~0x00000002);
             }
             result.metrics_ = metrics_;
           } else {
             result.metrics_ = metricsBuilder_.build();
           }
           if (parametersBuilder_ == null) {
-            if (((bitField0_ & 0x00000008) == 0x00000008)) {
+            if (((bitField0_ & 0x00000004) == 0x00000004)) {
               parameters_ = java.util.Collections.unmodifiableList(parameters_);
-              bitField0_ = (bitField0_ & ~0x00000008);
+              bitField0_ = (bitField0_ & ~0x00000004);
             }
             result.parameters_ = parameters_;
           } else {
             result.parameters_ = parametersBuilder_.build();
           }
-          if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-            to_bitField0_ |= 0x00000004;
+          if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+            to_bitField0_ |= 0x00000002;
           }
           result.templateRef_ = templateRef_;
-          if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
-            to_bitField0_ |= 0x00000008;
+          if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+            to_bitField0_ |= 0x00000004;
           }
           result.isDefinition_ = isDefinition_;
           result.bitField0_ = to_bitField0_;
@@ -2916,13 +2816,8 @@ public final class SparkplugBProto {
 
         public Builder mergeFrom(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template other) {
           if (other == com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.getDefaultInstance()) return this;
-          if (other.hasName()) {
-            bitField0_ |= 0x00000001;
-            name_ = other.name_;
-            onChanged();
-          }
           if (other.hasVersion()) {
-            bitField0_ |= 0x00000002;
+            bitField0_ |= 0x00000001;
             version_ = other.version_;
             onChanged();
           }
@@ -2930,7 +2825,7 @@ public final class SparkplugBProto {
             if (!other.metrics_.isEmpty()) {
               if (metrics_.isEmpty()) {
                 metrics_ = other.metrics_;
-                bitField0_ = (bitField0_ & ~0x00000004);
+                bitField0_ = (bitField0_ & ~0x00000002);
               } else {
                 ensureMetricsIsMutable();
                 metrics_.addAll(other.metrics_);
@@ -2943,7 +2838,7 @@ public final class SparkplugBProto {
                 metricsBuilder_.dispose();
                 metricsBuilder_ = null;
                 metrics_ = other.metrics_;
-                bitField0_ = (bitField0_ & ~0x00000004);
+                bitField0_ = (bitField0_ & ~0x00000002);
                 metricsBuilder_ = 
                   com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                      getMetricsFieldBuilder() : null;
@@ -2956,7 +2851,7 @@ public final class SparkplugBProto {
             if (!other.parameters_.isEmpty()) {
               if (parameters_.isEmpty()) {
                 parameters_ = other.parameters_;
-                bitField0_ = (bitField0_ & ~0x00000008);
+                bitField0_ = (bitField0_ & ~0x00000004);
               } else {
                 ensureParametersIsMutable();
                 parameters_.addAll(other.parameters_);
@@ -2969,7 +2864,7 @@ public final class SparkplugBProto {
                 parametersBuilder_.dispose();
                 parametersBuilder_ = null;
                 parameters_ = other.parameters_;
-                bitField0_ = (bitField0_ & ~0x00000008);
+                bitField0_ = (bitField0_ & ~0x00000004);
                 parametersBuilder_ = 
                   com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                      getParametersFieldBuilder() : null;
@@ -2979,7 +2874,7 @@ public final class SparkplugBProto {
             }
           }
           if (other.hasTemplateRef()) {
-            bitField0_ |= 0x00000010;
+            bitField0_ |= 0x00000008;
             templateRef_ = other.templateRef_;
             onChanged();
           }
@@ -3030,106 +2925,6 @@ public final class SparkplugBProto {
         }
         private int bitField0_;
 
-        private java.lang.Object name_ = "";
-        /**
-         * <code>optional string name = 1;</code>
-         *
-         * <pre>
-         * The name of this Template definition
-         * </pre>
-         */
-        public boolean hasName() {
-          return ((bitField0_ & 0x00000001) == 0x00000001);
-        }
-        /**
-         * <code>optional string name = 1;</code>
-         *
-         * <pre>
-         * The name of this Template definition
-         * </pre>
-         */
-        public java.lang.String getName() {
-          java.lang.Object ref = name_;
-          if (!(ref instanceof java.lang.String)) {
-            com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            if (bs.isValidUtf8()) {
-              name_ = s;
-            }
-            return s;
-          } else {
-            return (java.lang.String) ref;
-          }
-        }
-        /**
-         * <code>optional string name = 1;</code>
-         *
-         * <pre>
-         * The name of this Template definition
-         * </pre>
-         */
-        public com.google.protobuf.ByteString
-            getNameBytes() {
-          java.lang.Object ref = name_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-            name_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        /**
-         * <code>optional string name = 1;</code>
-         *
-         * <pre>
-         * The name of this Template definition
-         * </pre>
-         */
-        public Builder setName(
-            java.lang.String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-          name_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>optional string name = 1;</code>
-         *
-         * <pre>
-         * The name of this Template definition
-         * </pre>
-         */
-        public Builder clearName() {
-          bitField0_ = (bitField0_ & ~0x00000001);
-          name_ = getDefaultInstance().getName();
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>optional string name = 1;</code>
-         *
-         * <pre>
-         * The name of this Template definition
-         * </pre>
-         */
-        public Builder setNameBytes(
-            com.google.protobuf.ByteString value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-          name_ = value;
-          onChanged();
-          return this;
-        }
-
         private java.lang.Object version_ = "";
         /**
          * <code>optional string version = 2;</code>
@@ -3139,7 +2934,7 @@ public final class SparkplugBProto {
          * </pre>
          */
         public boolean hasVersion() {
-          return ((bitField0_ & 0x00000002) == 0x00000002);
+          return ((bitField0_ & 0x00000001) == 0x00000001);
         }
         /**
          * <code>optional string version = 2;</code>
@@ -3194,7 +2989,7 @@ public final class SparkplugBProto {
           if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000001;
           version_ = value;
           onChanged();
           return this;
@@ -3207,7 +3002,7 @@ public final class SparkplugBProto {
          * </pre>
          */
         public Builder clearVersion() {
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000001);
           version_ = getDefaultInstance().getVersion();
           onChanged();
           return this;
@@ -3224,7 +3019,7 @@ public final class SparkplugBProto {
           if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000001;
           version_ = value;
           onChanged();
           return this;
@@ -3233,9 +3028,9 @@ public final class SparkplugBProto {
         private java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric> metrics_ =
           java.util.Collections.emptyList();
         private void ensureMetricsIsMutable() {
-          if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+          if (!((bitField0_ & 0x00000002) == 0x00000002)) {
             metrics_ = new java.util.ArrayList<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric>(metrics_);
-            bitField0_ |= 0x00000004;
+            bitField0_ |= 0x00000002;
            }
         }
 
@@ -3429,7 +3224,7 @@ public final class SparkplugBProto {
         public Builder clearMetrics() {
           if (metricsBuilder_ == null) {
             metrics_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000004);
+            bitField0_ = (bitField0_ & ~0x00000002);
             onChanged();
           } else {
             metricsBuilder_.clear();
@@ -3534,7 +3329,7 @@ public final class SparkplugBProto {
             metricsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
                 com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetricOrBuilder>(
                     metrics_,
-                    ((bitField0_ & 0x00000004) == 0x00000004),
+                    ((bitField0_ & 0x00000002) == 0x00000002),
                     getParentForChildren(),
                     isClean());
             metrics_ = null;
@@ -3545,9 +3340,9 @@ public final class SparkplugBProto {
         private java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter> parameters_ =
           java.util.Collections.emptyList();
         private void ensureParametersIsMutable() {
-          if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+          if (!((bitField0_ & 0x00000004) == 0x00000004)) {
             parameters_ = new java.util.ArrayList<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter>(parameters_);
-            bitField0_ |= 0x00000008;
+            bitField0_ |= 0x00000004;
            }
         }
 
@@ -3697,7 +3492,7 @@ public final class SparkplugBProto {
         public Builder clearParameters() {
           if (parametersBuilder_ == null) {
             parameters_ = java.util.Collections.emptyList();
-            bitField0_ = (bitField0_ & ~0x00000008);
+            bitField0_ = (bitField0_ & ~0x00000004);
             onChanged();
           } else {
             parametersBuilder_.clear();
@@ -3774,7 +3569,7 @@ public final class SparkplugBProto {
             parametersBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
                 com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.ParameterOrBuilder>(
                     parameters_,
-                    ((bitField0_ & 0x00000008) == 0x00000008),
+                    ((bitField0_ & 0x00000004) == 0x00000004),
                     getParentForChildren(),
                     isClean());
             parameters_ = null;
@@ -3791,7 +3586,7 @@ public final class SparkplugBProto {
          * </pre>
          */
         public boolean hasTemplateRef() {
-          return ((bitField0_ & 0x00000010) == 0x00000010);
+          return ((bitField0_ & 0x00000008) == 0x00000008);
         }
         /**
          * <code>optional string template_ref = 5;</code>
@@ -3846,7 +3641,7 @@ public final class SparkplugBProto {
           if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000010;
+  bitField0_ |= 0x00000008;
           templateRef_ = value;
           onChanged();
           return this;
@@ -3859,7 +3654,7 @@ public final class SparkplugBProto {
          * </pre>
          */
         public Builder clearTemplateRef() {
-          bitField0_ = (bitField0_ & ~0x00000010);
+          bitField0_ = (bitField0_ & ~0x00000008);
           templateRef_ = getDefaultInstance().getTemplateRef();
           onChanged();
           return this;
@@ -3876,7 +3671,7 @@ public final class SparkplugBProto {
           if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000010;
+  bitField0_ |= 0x00000008;
           templateRef_ = value;
           onChanged();
           return this;
@@ -3887,7 +3682,7 @@ public final class SparkplugBProto {
          * <code>optional bool is_definition = 6;</code>
          */
         public boolean hasIsDefinition() {
-          return ((bitField0_ & 0x00000020) == 0x00000020);
+          return ((bitField0_ & 0x00000010) == 0x00000010);
         }
         /**
          * <code>optional bool is_definition = 6;</code>
@@ -3899,7 +3694,7 @@ public final class SparkplugBProto {
          * <code>optional bool is_definition = 6;</code>
          */
         public Builder setIsDefinition(boolean value) {
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000010;
           isDefinition_ = value;
           onChanged();
           return this;
@@ -3908,7 +3703,7 @@ public final class SparkplugBProto {
          * <code>optional bool is_definition = 6;</code>
          */
         public Builder clearIsDefinition() {
-          bitField0_ = (bitField0_ & ~0x00000020);
+          bitField0_ = (bitField0_ & ~0x00000010);
           isDefinition_ = false;
           onChanged();
           return this;
@@ -7277,18 +7072,10 @@ public final class SparkplugBProto {
 
       /**
        * <code>optional uint32 type = 1;</code>
-       *
-       * <pre>
-       * FIXME - should we reduce the datatype set from those we use for metrics
-       * </pre>
        */
       boolean hasType();
       /**
        * <code>optional uint32 type = 1;</code>
-       *
-       * <pre>
-       * FIXME - should we reduce the datatype set from those we use for metrics
-       * </pre>
        */
       int getType();
 
@@ -7962,20 +7749,12 @@ public final class SparkplugBProto {
       private int type_;
       /**
        * <code>optional uint32 type = 1;</code>
-       *
-       * <pre>
-       * FIXME - should we reduce the datatype set from those we use for metrics
-       * </pre>
        */
       public boolean hasType() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
        * <code>optional uint32 type = 1;</code>
-       *
-       * <pre>
-       * FIXME - should we reduce the datatype set from those we use for metrics
-       * </pre>
        */
       public int getType() {
         return type_;
@@ -8678,30 +8457,18 @@ public final class SparkplugBProto {
         private int type_ ;
         /**
          * <code>optional uint32 type = 1;</code>
-         *
-         * <pre>
-         * FIXME - should we reduce the datatype set from those we use for metrics
-         * </pre>
          */
         public boolean hasType() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
         /**
          * <code>optional uint32 type = 1;</code>
-         *
-         * <pre>
-         * FIXME - should we reduce the datatype set from those we use for metrics
-         * </pre>
          */
         public int getType() {
           return type_;
         }
         /**
          * <code>optional uint32 type = 1;</code>
-         *
-         * <pre>
-         * FIXME - should we reduce the datatype set from those we use for metrics
-         * </pre>
          */
         public Builder setType(int value) {
           bitField0_ |= 0x00000001;
@@ -8711,10 +8478,6 @@ public final class SparkplugBProto {
         }
         /**
          * <code>optional uint32 type = 1;</code>
-         *
-         * <pre>
-         * FIXME - should we reduce the datatype set from those we use for metrics
-         * </pre>
          */
         public Builder clearType() {
           bitField0_ = (bitField0_ & ~0x00000001);
@@ -17451,82 +17214,82 @@ public final class SparkplugBProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\035sparkplug_b/sparkplug_b.proto\022!com.cir" +
-      "ruslink.sparkplug.protobuf\"\204\027\n\007Payload\022\021" +
+      "ruslink.sparkplug.protobuf\"\366\026\n\007Payload\022\021" +
       "\n\ttimestamp\030\001 \001(\004\022B\n\007metrics\030\002 \003(\01321.com" +
       ".cirruslink.sparkplug.protobuf.Payload.M" +
       "etric\022\013\n\003seq\030\003 \001(\004\022\014\n\004uuid\030\004 \001(\t\022\014\n\004body" +
-      "\030\005 \001(\014\032\314\004\n\010Template\022\014\n\004name\030\001 \001(\t\022\017\n\007ver" +
-      "sion\030\002 \001(\t\022B\n\007metrics\030\003 \003(\01321.com.cirrus" +
-      "link.sparkplug.protobuf.Payload.Metric\022Q" +
-      "\n\nparameters\030\004 \003(\0132=.com.cirruslink.spar" +
-      "kplug.protobuf.Payload.Template.Paramete",
-      "r\022\024\n\014template_ref\030\005 \001(\t\022\025\n\ris_definition" +
-      "\030\006 \001(\010\032\322\002\n\tParameter\022\014\n\004name\030\001 \001(\t\022\014\n\004ty" +
-      "pe\030\002 \001(\r\022\023\n\tint_value\030\003 \001(\rH\000\022\024\n\nlong_va" +
-      "lue\030\004 \001(\004H\000\022\025\n\013float_value\030\005 \001(\002H\000\022\026\n\014do" +
-      "uble_value\030\006 \001(\001H\000\022\027\n\rboolean_value\030\007 \001(" +
-      "\010H\000\022\026\n\014string_value\030\010 \001(\tH\000\022p\n\017extension" +
-      "_value\030\t \001(\0132U.com.cirruslink.sparkplug." +
-      "protobuf.Payload.Template.Parameter.Para" +
-      "meterValueExtensionH\000\032#\n\027ParameterValueE" +
-      "xtension*\010\010\001\020\200\200\200\200\002B\007\n\005value*\010\010\007\020\200\200\200\200\002\032\257\004",
-      "\n\007DataSet\022\026\n\016num_of_columns\030\001 \001(\004\022\017\n\007col" +
-      "umns\030\002 \003(\t\022\r\n\005types\030\003 \003(\r\022D\n\004rows\030\004 \003(\0132" +
-      "6.com.cirruslink.sparkplug.protobuf.Payl" +
-      "oad.DataSet.Row\032\267\002\n\014DataSetValue\022\023\n\tint_" +
-      "value\030\001 \001(\rH\000\022\024\n\nlong_value\030\002 \001(\004H\000\022\025\n\013f" +
-      "loat_value\030\003 \001(\002H\000\022\026\n\014double_value\030\004 \001(\001" +
-      "H\000\022\027\n\rboolean_value\030\005 \001(\010H\000\022\026\n\014string_va" +
-      "lue\030\006 \001(\tH\000\022p\n\017extension_value\030\007 \001(\0132U.c" +
+      "\030\005 \001(\014\032\276\004\n\010Template\022\017\n\007version\030\002 \001(\t\022B\n\007" +
+      "metrics\030\003 \003(\01321.com.cirruslink.sparkplug" +
+      ".protobuf.Payload.Metric\022Q\n\nparameters\030\004" +
+      " \003(\0132=.com.cirruslink.sparkplug.protobuf" +
+      ".Payload.Template.Parameter\022\024\n\014template_",
+      "ref\030\005 \001(\t\022\025\n\ris_definition\030\006 \001(\010\032\322\002\n\tPar" +
+      "ameter\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001(\r\022\023\n\tin" +
+      "t_value\030\003 \001(\rH\000\022\024\n\nlong_value\030\004 \001(\004H\000\022\025\n" +
+      "\013float_value\030\005 \001(\002H\000\022\026\n\014double_value\030\006 \001" +
+      "(\001H\000\022\027\n\rboolean_value\030\007 \001(\010H\000\022\026\n\014string_" +
+      "value\030\010 \001(\tH\000\022p\n\017extension_value\030\t \001(\0132U" +
+      ".com.cirruslink.sparkplug.protobuf.Paylo" +
+      "ad.Template.Parameter.ParameterValueExte" +
+      "nsionH\000\032#\n\027ParameterValueExtension*\010\010\001\020\200" +
+      "\200\200\200\002B\007\n\005value*\010\010\007\020\200\200\200\200\002\032\257\004\n\007DataSet\022\026\n\016n",
+      "um_of_columns\030\001 \001(\004\022\017\n\007columns\030\002 \003(\t\022\r\n\005" +
+      "types\030\003 \003(\r\022D\n\004rows\030\004 \003(\01326.com.cirrusli" +
+      "nk.sparkplug.protobuf.Payload.DataSet.Ro" +
+      "w\032\267\002\n\014DataSetValue\022\023\n\tint_value\030\001 \001(\rH\000\022" +
+      "\024\n\nlong_value\030\002 \001(\004H\000\022\025\n\013float_value\030\003 \001" +
+      "(\002H\000\022\026\n\014double_value\030\004 \001(\001H\000\022\027\n\rboolean_" +
+      "value\030\005 \001(\010H\000\022\026\n\014string_value\030\006 \001(\tH\000\022p\n" +
+      "\017extension_value\030\007 \001(\0132U.com.cirruslink." +
+      "sparkplug.protobuf.Payload.DataSet.DataS" +
+      "etValue.DataSetValueExtensionH\000\032!\n\025DataS",
+      "etValueExtension*\010\010\001\020\200\200\200\200\002B\007\n\005value\032b\n\003R" +
+      "ow\022Q\n\010elements\030\001 \003(\0132?.com.cirruslink.sp" +
+      "arkplug.protobuf.Payload.DataSet.DataSet" +
+      "Value*\010\010\002\020\200\200\200\200\002*\010\010\005\020\200\200\200\200\002\032\201\004\n\rPropertyVa" +
+      "lue\022\014\n\004type\030\001 \001(\r\022\017\n\007is_null\030\002 \001(\010\022\023\n\tin" +
+      "t_value\030\003 \001(\rH\000\022\024\n\nlong_value\030\004 \001(\004H\000\022\025\n" +
+      "\013float_value\030\005 \001(\002H\000\022\026\n\014double_value\030\006 \001" +
+      "(\001H\000\022\027\n\rboolean_value\030\007 \001(\010H\000\022\026\n\014string_" +
+      "value\030\010 \001(\tH\000\022S\n\021propertyset_value\030\t \001(\013" +
+      "26.com.cirruslink.sparkplug.protobuf.Pay",
+      "load.PropertySetH\000\022X\n\022propertysets_value" +
+      "\030\n \001(\0132:.com.cirruslink.sparkplug.protob" +
+      "uf.Payload.PropertySetListH\000\022j\n\017extensio" +
+      "n_value\030\013 \001(\0132O.com.cirruslink.sparkplug" +
+      ".protobuf.Payload.PropertyValue.Property" +
+      "ValueExtensionH\000\032\"\n\026PropertyValueExtensi" +
+      "on*\010\010\001\020\200\200\200\200\002B\007\n\005value\032o\n\013PropertySet\022\014\n\004" +
+      "keys\030\001 \003(\t\022H\n\006values\030\002 \003(\01328.com.cirrusl" +
+      "ink.sparkplug.protobuf.Payload.PropertyV" +
+      "alue*\010\010\003\020\200\200\200\200\002\032h\n\017PropertySetList\022K\n\013pro",
+      "pertyset\030\001 \003(\01326.com.cirruslink.sparkplu" +
+      "g.protobuf.Payload.PropertySet*\010\010\002\020\200\200\200\200\002" +
+      "\032\244\001\n\010MetaData\022\025\n\ris_multi_part\030\001 \001(\010\022\024\n\014" +
+      "content_type\030\002 \001(\t\022\014\n\004size\030\003 \001(\004\022\013\n\003seq\030" +
+      "\004 \001(\004\022\021\n\tfile_name\030\005 \001(\t\022\021\n\tfile_type\030\006 " +
+      "\001(\t\022\013\n\003md5\030\007 \001(\t\022\023\n\013description\030\010 \001(\t*\010\010" +
+      "\t\020\200\200\200\200\002\032\347\005\n\006Metric\022\014\n\004name\030\001 \001(\t\022\r\n\005alia" +
+      "s\030\002 \001(\004\022\021\n\ttimestamp\030\003 \001(\004\022\020\n\010datatype\030\004" +
+      " \001(\r\022\025\n\ris_historical\030\005 \001(\010\022\024\n\014is_transi" +
+      "ent\030\006 \001(\010\022\017\n\007is_null\030\007 \001(\010\022E\n\010metadata\030\010",
+      " \001(\01323.com.cirruslink.sparkplug.protobuf" +
+      ".Payload.MetaData\022J\n\nproperties\030\t \001(\01326." +
+      "com.cirruslink.sparkplug.protobuf.Payloa" +
+      "d.PropertySet\022\023\n\tint_value\030\n \001(\rH\000\022\024\n\nlo" +
+      "ng_value\030\013 \001(\004H\000\022\025\n\013float_value\030\014 \001(\002H\000\022" +
+      "\026\n\014double_value\030\r \001(\001H\000\022\027\n\rboolean_value" +
+      "\030\016 \001(\010H\000\022\026\n\014string_value\030\017 \001(\tH\000\022\025\n\013byte" +
+      "s_value\030\020 \001(\014H\000\022K\n\rdataset_value\030\021 \001(\01322" +
+      ".com.cirruslink.sparkplug.protobuf.Paylo" +
+      "ad.DataSetH\000\022M\n\016template_value\030\022 \001(\01323.c",
       "om.cirruslink.sparkplug.protobuf.Payload" +
-      ".DataSet.DataSetValue.DataSetValueExtens",
-      "ionH\000\032!\n\025DataSetValueExtension*\010\010\001\020\200\200\200\200\002" +
-      "B\007\n\005value\032b\n\003Row\022Q\n\010elements\030\001 \003(\0132?.com" +
-      ".cirruslink.sparkplug.protobuf.Payload.D" +
-      "ataSet.DataSetValue*\010\010\002\020\200\200\200\200\002*\010\010\005\020\200\200\200\200\002\032" +
-      "\201\004\n\rPropertyValue\022\014\n\004type\030\001 \001(\r\022\017\n\007is_nu" +
-      "ll\030\002 \001(\010\022\023\n\tint_value\030\003 \001(\rH\000\022\024\n\nlong_va" +
-      "lue\030\004 \001(\004H\000\022\025\n\013float_value\030\005 \001(\002H\000\022\026\n\014do" +
-      "uble_value\030\006 \001(\001H\000\022\027\n\rboolean_value\030\007 \001(" +
-      "\010H\000\022\026\n\014string_value\030\010 \001(\tH\000\022S\n\021propertys" +
-      "et_value\030\t \001(\01326.com.cirruslink.sparkplu",
-      "g.protobuf.Payload.PropertySetH\000\022X\n\022prop" +
-      "ertysets_value\030\n \001(\0132:.com.cirruslink.sp" +
-      "arkplug.protobuf.Payload.PropertySetList" +
-      "H\000\022j\n\017extension_value\030\013 \001(\0132O.com.cirrus" +
-      "link.sparkplug.protobuf.Payload.Property" +
-      "Value.PropertyValueExtensionH\000\032\"\n\026Proper" +
-      "tyValueExtension*\010\010\001\020\200\200\200\200\002B\007\n\005value\032o\n\013P" +
-      "ropertySet\022\014\n\004keys\030\001 \003(\t\022H\n\006values\030\002 \003(\013" +
-      "28.com.cirruslink.sparkplug.protobuf.Pay" +
-      "load.PropertyValue*\010\010\003\020\200\200\200\200\002\032h\n\017Property",
-      "SetList\022K\n\013propertyset\030\001 \003(\01326.com.cirru" +
-      "slink.sparkplug.protobuf.Payload.Propert" +
-      "ySet*\010\010\002\020\200\200\200\200\002\032\244\001\n\010MetaData\022\025\n\ris_multi_" +
-      "part\030\001 \001(\010\022\024\n\014content_type\030\002 \001(\t\022\014\n\004size" +
-      "\030\003 \001(\004\022\013\n\003seq\030\004 \001(\004\022\021\n\tfile_name\030\005 \001(\t\022\021" +
-      "\n\tfile_type\030\006 \001(\t\022\013\n\003md5\030\007 \001(\t\022\023\n\013descri" +
-      "ption\030\010 \001(\t*\010\010\t\020\200\200\200\200\002\032\347\005\n\006Metric\022\014\n\004name" +
-      "\030\001 \001(\t\022\r\n\005alias\030\002 \001(\004\022\021\n\ttimestamp\030\003 \001(\004" +
-      "\022\020\n\010datatype\030\004 \001(\r\022\025\n\ris_historical\030\005 \001(" +
-      "\010\022\024\n\014is_transient\030\006 \001(\010\022\017\n\007is_null\030\007 \001(\010",
-      "\022E\n\010metadata\030\010 \001(\01323.com.cirruslink.spar" +
-      "kplug.protobuf.Payload.MetaData\022J\n\nprope" +
-      "rties\030\t \001(\01326.com.cirruslink.sparkplug.p" +
-      "rotobuf.Payload.PropertySet\022\023\n\tint_value" +
-      "\030\n \001(\rH\000\022\024\n\nlong_value\030\013 \001(\004H\000\022\025\n\013float_" +
-      "value\030\014 \001(\002H\000\022\026\n\014double_value\030\r \001(\001H\000\022\027\n" +
-      "\rboolean_value\030\016 \001(\010H\000\022\026\n\014string_value\030\017" +
-      " \001(\tH\000\022\025\n\013bytes_value\030\020 \001(\014H\000\022K\n\rdataset" +
-      "_value\030\021 \001(\01322.com.cirruslink.sparkplug." +
-      "protobuf.Payload.DataSetH\000\022M\n\016template_v",
-      "alue\030\022 \001(\01323.com.cirruslink.sparkplug.pr" +
-      "otobuf.Payload.TemplateH\000\022a\n\017extension_v" +
-      "alue\030\023 \001(\0132F.com.cirruslink.sparkplug.pr" +
-      "otobuf.Payload.Metric.MetricValueExtensi" +
-      "onH\000\032 \n\024MetricValueExtension*\010\010\001\020\200\200\200\200\002B\007" +
-      "\n\005value*\010\010\006\020\200\200\200\200\002B4\n!com.cirruslink.spar" +
-      "kplug.protobufB\017SparkplugBProto"
+      ".TemplateH\000\022a\n\017extension_value\030\023 \001(\0132F.c" +
+      "om.cirruslink.sparkplug.protobuf.Payload" +
+      ".Metric.MetricValueExtensionH\000\032 \n\024Metric" +
+      "ValueExtension*\010\010\001\020\200\200\200\200\002B\007\n\005value*\010\010\006\020\200\200" +
+      "\200\200\002B4\n!com.cirruslink.sparkplug.protobuf" +
+      "B\017SparkplugBProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -17551,7 +17314,7 @@ public final class SparkplugBProto {
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_Template_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_com_cirruslink_sparkplug_protobuf_Payload_Template_descriptor,
-        new java.lang.String[] { "Name", "Version", "Metrics", "Parameters", "TemplateRef", "IsDefinition", });
+        new java.lang.String[] { "Version", "Metrics", "Parameters", "TemplateRef", "IsDefinition", });
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_descriptor =
       internal_static_com_cirruslink_sparkplug_protobuf_Payload_Template_descriptor.getNestedTypes().get(0);
     internal_static_com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_fieldAccessorTable = new
