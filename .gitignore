@@ -2,6 +2,7 @@ target/
 bin/
 node_modules/
 test-output/
+license/
 dependency-reduced-pom.xml
 .settings/
 .project
