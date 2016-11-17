@@ -67,7 +67,7 @@ function SparkplugClient(config) {
         if (version === versionA) {
             return kurapayload.generateKuraPayload(payload);
         } else {
-            return sparkplugbpayload.generateSparkplugPayload(payload);
+            return sparkplugbpayload.encodePayload(payload);
         }
     },
 
@@ -75,7 +75,7 @@ function SparkplugClient(config) {
         if (version === versionA) {
             return kurapayload.parseKuraPayload(payload);
         } else {
-            return sparkplugbpayload.parseSparkplugPayload(payload);
+            return sparkplugbpayload.decodePayload(payload);
         }
     },
 

@@ -67,12 +67,12 @@ message Payload {
             }
         }
 
-        optional string version         = 2;          // The version of the Template to prevent mismatches
-        repeated Metric metrics         = 3;          // Each metric is the name of the metric and the datatype of the member but does not contain a value
-        repeated Parameter parameters   = 4;
-        optional string template_ref    = 5;          // Reference to a template if this is extending a Template or an instance - must exist if an instance
-        optional bool is_definition     = 6;
-        extensions                      7 to max;
+        optional string version         = 1;          // The version of the Template to prevent mismatches
+        repeated Metric metrics         = 2;          // Each metric is the name of the metric and the datatype of the member but does not contain a value
+        repeated Parameter parameters   = 3;
+        optional string template_ref    = 4;          // Reference to a template if this is extending a Template or an instance - must exist if an instance
+        optional bool is_definition     = 5;
+        extensions                      6 to max;
     }
 
     message DataSet {
