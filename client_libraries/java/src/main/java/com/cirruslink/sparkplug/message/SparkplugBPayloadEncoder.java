@@ -78,17 +78,38 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 		// set the basic parameters
 		logger.debug("Adding metric: " + metric.getName());
 		logger.trace("    data type: " + metric.getDataType());
+		
+		// Set the name, data type, and value
 		builder.setName(metric.getName());
+		builder.setDatatype(metric.getDataType().toIntValue());
+		builder = setMetricValue(builder, metric);
+		
+		// Set the alias
 		if (metric.hasAlias()) {
 			builder.setAlias(metric.getAlias());
 		}
-		builder.setDatatype(metric.getDataType().toIntValue());
+		
+		// Set the timestamp
 		if (metric.getTimestamp() != null) {
 			builder.setTimestamp(metric.getTimestamp().getTime());
 		}
+		
+		// Set isHistorical
+		if (metric.isHistorical() != null) {
+			builder.setIsHistorical(metric.isHistorical());
+		}
+		
+		// Set isTransient
+		if (metric.isTransient() != null) {
+			builder.setIsTransient(metric.isTransient());
+		}
+		
+		// Set isNull
+		if (metric.isNull() != null) {
+			builder.setIsNull(metric.isNull());
+		}
 
-		// Set the value and metadata
-		builder = setMetricValue(builder, metric);
+		// Set the metadata
 		if (metric.getMetaData() != null) {
 			logger.trace("Metadata is not null");
 			builder = setMetaData(builder, metric);
@@ -112,7 +133,7 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 		logger.trace("Adding parameter: " + parameter.getName());
 		logger.trace("            type: " + parameter.getType());
 		
-		// set the name
+		// Set the name
 		builder.setName(parameter.getName());
 
 		// Set the type and value
@@ -298,17 +319,17 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 					break;
 				case DataSet:
 					DataSet dataSet = (DataSet) metric.getValue();
-					SparkplugBProto.Payload.DataSet.Builder protoDataSetBuilder = 
+					SparkplugBProto.Payload.DataSet.Builder dataSetBuilder = 
 							SparkplugBProto.Payload.DataSet.newBuilder();
 
-					protoDataSetBuilder.setNumOfColumns(dataSet.getNumOfColumns());
+					dataSetBuilder.setNumOfColumns(dataSet.getNumOfColumns());
 
 					// Column names
 					List<String> columnNames = dataSet.getColumnNames();
 					if (columnNames != null && !columnNames.isEmpty()) {
 						for (String name : columnNames) {
 							// Add the column name
-							protoDataSetBuilder.addColumns(name);
+							dataSetBuilder.addColumns(name);
 						}
 					} else {
 						throw new Exception("Invalid DataSet");
@@ -319,7 +340,7 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 					if (columnTypes != null && !columnTypes.isEmpty()) {
 						for (DataSetDataType type : columnTypes) {
 							// Add the column type
-							protoDataSetBuilder.addTypes(type.toIntValue());
+							dataSetBuilder.addTypes(type.toIntValue());
 						}
 					} else {
 						throw new Exception("Invalid DataSet");
@@ -339,7 +360,7 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 								}
 
 								logger.debug("Adding row");
-								protoDataSetBuilder.addRows(protoRowBuilder);
+								dataSetBuilder.addRows(protoRowBuilder);
 							} else {
 								throw new Exception("Invalid DataSet");
 							}
@@ -348,27 +369,41 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 
 					// Finally add the dataset
 					logger.debug("Adding the dataset");
-					metricBuilder.setDatasetValue(protoDataSetBuilder);
+					metricBuilder.setDatasetValue(dataSetBuilder);
 					break;
 				case Template:
 					Template template = (Template) metric.getValue();
 					SparkplugBProto.Payload.Template.Builder templateBuilder = 
 							SparkplugBProto.Payload.Template.newBuilder();
+					
+					// Set isDefinition
+					templateBuilder.setIsDefinition(template.isDefinition());
+					
+					// Set Version
 					if (template.getVersion() != null) {
 						templateBuilder.setVersion(template.getVersion());
 					}
+					
+					// Set Template Reference
 					if (template.getTemplateRef() != null) {
 						templateBuilder.setTemplateRef(template.getTemplateRef());
 					}
-					templateBuilder.setIsDefinition(template.isDefinition());
 					
-					for (Metric templateMetric : template.getMetrics()) {
-						templateBuilder.addMetrics(convertMetric(templateMetric));
+						// Set the template metrics
+					if (template.getMetrics() != null) {
+						for (Metric templateMetric : template.getMetrics()) {
+							templateBuilder.addMetrics(convertMetric(templateMetric));
+						} 
 					}
 					
-					for (Parameter parameter : template.getParameters()) {
-						templateBuilder.addParameters(convertParameter(parameter));
+					// Set the template parameters
+					if (template.getParameters() != null) {
+						for (Parameter parameter : template.getParameters()) {
+							templateBuilder.addParameters(convertParameter(parameter));
+						}
 					}
+					
+					// Add the template to the metric
 					metricBuilder.setTemplateValue(templateBuilder);
 					break;
 				case Unknown:
