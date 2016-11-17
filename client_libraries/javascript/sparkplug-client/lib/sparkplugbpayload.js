@@ -21,8 +21,8 @@
     var builder = ProtoBuf.loadProto("package com.cirruslink.sparkplug.protobuf; message Payload { message Template { " +
             "message Parameter { optional string name = 1;optional uint32 type = 2; oneof value { uint32 int_value = 3; uint64 long_value = 4; " +
             "float float_value = 5; double double_value = 6; bool boolean_value = 7; string string_value = 8; ParameterValueExtension extension_value = 9; } " +
-            "message ParameterValueExtension { extensions 1 to max; } } optional string name = 1; optional string version = 2; repeated Metric metrics = 3; " +
-            "repeated Parameter parameters = 4; optional string template_ref = 5; optional bool is_definition = 6; extensions 7 to max; } " +
+            "message ParameterValueExtension { extensions 1 to max; } } optional string version = 1; repeated Metric metrics = 2; " +
+            "repeated Parameter parameters = 3; optional string template_ref = 4; optional bool is_definition = 5; extensions 6 to max; } " +
             "message DataSet { " +
             "message DataSetValue { oneof value { uint32 int_value = 1; uint64 long_value = 2; float float_value = 3; double double_value = 4; " +
             "bool boolean_value = 5; string string_value = 6; DataSetValueExtension extension_value = 7; } " +
@@ -108,9 +108,68 @@
         } 
     }
 
+    convertType = function(typeString) {
+        switch (typeString.toUpperCase()) {
+            case "INT8":
+                return 1;
+            case "INT16":
+                return 2;
+            case "INT32":
+            case "INT":
+                return 3;
+            case "INT64":
+            case "LONG":
+                return 4;
+            case "UINT8":
+                return 5;
+            case "UINT16":
+                return 6;
+            case "UINT32":
+                return 7;
+            case "UINT64":
+                return 8;
+            case "FLOAT":
+                return 9;
+            case "DOUBLE":
+                return 10;
+            case "BOOLEAN":
+                return 11;
+            case "STRING":
+                return 12;
+            case "DATETIME":
+                return 13;
+            case "TEXT":
+                return 14;
+            case "UUID":
+                return 15;
+            case "DATASET":
+                return 16;
+            case "BYTES":
+                return 17;
+            case "FILE":
+                return 18;
+            case "TEMPLATE":
+                return 19;
+            case "PROPERTYSET":
+                return 20;
+            case "PROPERTYSETLIST":
+                return 21;
+            default:
+                return 0;
+        }
+    }
+
+    convertTypes = function(typeArray) {
+        var types = [];
+        for (var i = 0; i < typeArray.length; i++) {
+            types.push(convertType(typeArray[i]));
+        }
+        return types;
+    }
+
     generateDataSet = function(object) {
         var num = object.numOfColumns,
-            types = object.types,
+            types = convertTypes(object.types),
             rows = object.rows,
             newDataSet = new DataSet(num, object.columns, types),
             newRows = [];
@@ -169,13 +228,14 @@
     }
 
     generatePropertyValue = function(object) {
-        var newPropertyValue = new PropertyValue(object.type);
+        var type = convertType(object.type),
+            newPropertyValue = new PropertyValue(type);
 
         if (object.isNull !== undefined && object.isNull !== null) {
             newPropertyValue.is_null = object.isNull;
         }
 
-        setValue(object.type, object.value, newPropertyValue);
+        setValue(type, object.value, newPropertyValue);
 
         return newPropertyValue;
     }
@@ -203,7 +263,8 @@
     }
 
     generateParameter = function(object) {
-        var newParameter = new Parameter(object.name, object.type);
+        var type = convertType(object.type),
+            newParameter = new Parameter(object.name, type);
         setValue(type, object.value, newParameter);
         return newParameter;
     }
@@ -255,7 +316,7 @@
     generateMetric = function(metric) {
         var newMetric = new Metric(metric.name),
             value = metric.value,
-            datatype = metric.datatype;
+            datatype = convertType(metric.type);
         
         // Get metric type and value
         newMetric.datatype = datatype;
@@ -290,6 +351,7 @@
 
     exports.generateSparkplugPayload = function(object) {
         var payload = new Payload(object.timestamp);
+        console.log("object: " + JSON.stringify(object));
 
         // Build up the metric
         if (object.metrics !== undefined && object.metrics !== null) {
@@ -314,20 +376,8 @@
             payload.body = object.body;
         }
 
-        return payload;
+        return payload.toBuffer();
     }
-
-    exports.parseKuraPayload = function(proto) {
-        var kuraPayload = KuraPayload.decode(proto),
-            timestamp = kuraPayload.timestamp,
-            kuraPosition = kuraPayload.position,
-            kuraMetrics = kuraPayload.metric,
-            body = kuraPayload.body,
-            object = {};
-
-
-    }
-
 }());
 
 

@@ -43,8 +43,8 @@ function SparkplugClient(config) {
         groupId = getRequiredProperty(config, "groupId"),
         edgeNode = getRequiredProperty(config, "edgeNode"),
         clientId = getRequiredProperty(config, "clientId"),
-        publishDeath = getProperty(config, "publishDeath", false);
-        version = getProperty(config, "version", versionB);
+        publishDeath = getProperty(config, "publishDeath", false),
+        version = getProperty(config, "version", versionB),
         bdSeq = 0,
         seq = 0,
         devices = [],
@@ -69,7 +69,7 @@ function SparkplugClient(config) {
         } else {
             return sparkplugbpayload.generateSparkplugPayload(payload);
         }
-    }
+    },
 
     decodePayload = function(payload) {
         if (version === versionA) {
@@ -77,7 +77,7 @@ function SparkplugClient(config) {
         } else {
             return sparkplugbpayload.parseSparkplugPayload(payload);
         }
-    }
+    },
 
     addSeqNumber = function(payload) {
         if (version === versionA) {
@@ -88,33 +88,24 @@ function SparkplugClient(config) {
         } else {
             payload.seq = incrementSeqNum();
         }   
-    }
+    },
 
     // Get DEATH payload
     getDeathPayload = function() {
+        var payload = {
+                "timestamp" : new Date().getTime()
+            },
+            metric = [ {
+                "name" : "bdSeq", 
+                "value" : bdSeq, 
+                "type" : "int"
+            } ];
         if (version === versionA) {
-            return {
-                "timestamp" : new Date().getTime(),
-                "metric" : [
-                    { 
-                        "name" : "bdSeq", 
-                        "value" : bdSeq, 
-                        "type" : "int"
-                    },
-                ]
-            };
+            paylaod.metric = metric;
         } else {
-            return {
-                "timestamp" : new Date().getTime();
-                "metrics" : [
-                    {
-                        "name" : "bdSeq",
-                        "type" : type_int32,
-                        "value" : bdSeq
-                    }
-                ]
-            };
+            payload.metrics = metric;
         }
+        return payload;
     },
 
     // Get BIRTH payload for the edge node
@@ -243,7 +234,10 @@ function SparkplugClient(config) {
 
         // Connect to the MQTT server
         sparkplugClient.connecting = true;
+        console.log("Attempting to connect: " + serverUrl);
+        console.log("              options: " + JSON.stringify(clientOptions));
         client = mqtt.connect(serverUrl, clientOptions);
+        console.log("Finished attempting to connect");
 
         /*
          * 'connect' handler
