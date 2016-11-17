@@ -294,7 +294,7 @@ public final class SparkplugBProto {
             ExtendableMessageOrBuilder<Template> {
 
       /**
-       * <code>optional string version = 2;</code>
+       * <code>optional string version = 1;</code>
        *
        * <pre>
        * The version of the Template to prevent mismatches
@@ -302,7 +302,7 @@ public final class SparkplugBProto {
        */
       boolean hasVersion();
       /**
-       * <code>optional string version = 2;</code>
+       * <code>optional string version = 1;</code>
        *
        * <pre>
        * The version of the Template to prevent mismatches
@@ -310,7 +310,7 @@ public final class SparkplugBProto {
        */
       java.lang.String getVersion();
       /**
-       * <code>optional string version = 2;</code>
+       * <code>optional string version = 1;</code>
        *
        * <pre>
        * The version of the Template to prevent mismatches
@@ -320,7 +320,7 @@ public final class SparkplugBProto {
           getVersionBytes();
 
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
        *
        * <pre>
        * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -329,7 +329,7 @@ public final class SparkplugBProto {
       java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric> 
           getMetricsList();
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
        *
        * <pre>
        * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -337,7 +337,7 @@ public final class SparkplugBProto {
        */
       com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric getMetrics(int index);
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
        *
        * <pre>
        * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -345,7 +345,7 @@ public final class SparkplugBProto {
        */
       int getMetricsCount();
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
        *
        * <pre>
        * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -354,7 +354,7 @@ public final class SparkplugBProto {
       java.util.List<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetricOrBuilder> 
           getMetricsOrBuilderList();
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
        *
        * <pre>
        * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -364,31 +364,31 @@ public final class SparkplugBProto {
           int index);
 
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
        */
       java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter> 
           getParametersList();
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
        */
       com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter getParameters(int index);
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
        */
       int getParametersCount();
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
        */
       java.util.List<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.ParameterOrBuilder> 
           getParametersOrBuilderList();
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
        */
       com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.ParameterOrBuilder getParametersOrBuilder(
           int index);
 
       /**
-       * <code>optional string template_ref = 5;</code>
+       * <code>optional string template_ref = 4;</code>
        *
        * <pre>
        * Reference to a template if this is extending a Template or an instance - must exist if an instance
@@ -396,7 +396,7 @@ public final class SparkplugBProto {
        */
       boolean hasTemplateRef();
       /**
-       * <code>optional string template_ref = 5;</code>
+       * <code>optional string template_ref = 4;</code>
        *
        * <pre>
        * Reference to a template if this is extending a Template or an instance - must exist if an instance
@@ -404,7 +404,7 @@ public final class SparkplugBProto {
        */
       java.lang.String getTemplateRef();
       /**
-       * <code>optional string template_ref = 5;</code>
+       * <code>optional string template_ref = 4;</code>
        *
        * <pre>
        * Reference to a template if this is extending a Template or an instance - must exist if an instance
@@ -414,11 +414,11 @@ public final class SparkplugBProto {
           getTemplateRefBytes();
 
       /**
-       * <code>optional bool is_definition = 6;</code>
+       * <code>optional bool is_definition = 5;</code>
        */
       boolean hasIsDefinition();
       /**
-       * <code>optional bool is_definition = 6;</code>
+       * <code>optional bool is_definition = 5;</code>
        */
       boolean getIsDefinition();
     }
@@ -475,13 +475,13 @@ public final class SparkplugBProto {
                 }
                 break;
               }
-              case 18: {
+              case 10: {
                 com.google.protobuf.ByteString bs = input.readBytes();
                 bitField0_ |= 0x00000001;
                 version_ = bs;
                 break;
               }
-              case 26: {
+              case 18: {
                 if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
                   metrics_ = new java.util.ArrayList<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric>();
                   mutable_bitField0_ |= 0x00000002;
@@ -489,7 +489,7 @@ public final class SparkplugBProto {
                 metrics_.add(input.readMessage(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.PARSER, extensionRegistry));
                 break;
               }
-              case 34: {
+              case 26: {
                 if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
                   parameters_ = new java.util.ArrayList<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter>();
                   mutable_bitField0_ |= 0x00000004;
@@ -497,13 +497,13 @@ public final class SparkplugBProto {
                 parameters_.add(input.readMessage(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter.PARSER, extensionRegistry));
                 break;
               }
-              case 42: {
+              case 34: {
                 com.google.protobuf.ByteString bs = input.readBytes();
                 bitField0_ |= 0x00000002;
                 templateRef_ = bs;
                 break;
               }
-              case 48: {
+              case 40: {
                 bitField0_ |= 0x00000004;
                 isDefinition_ = input.readBool();
                 break;
@@ -2306,10 +2306,10 @@ public final class SparkplugBProto {
       }
 
       private int bitField0_;
-      public static final int VERSION_FIELD_NUMBER = 2;
+      public static final int VERSION_FIELD_NUMBER = 1;
       private java.lang.Object version_;
       /**
-       * <code>optional string version = 2;</code>
+       * <code>optional string version = 1;</code>
        *
        * <pre>
        * The version of the Template to prevent mismatches
@@ -2319,7 +2319,7 @@ public final class SparkplugBProto {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>optional string version = 2;</code>
+       * <code>optional string version = 1;</code>
        *
        * <pre>
        * The version of the Template to prevent mismatches
@@ -2340,7 +2340,7 @@ public final class SparkplugBProto {
         }
       }
       /**
-       * <code>optional string version = 2;</code>
+       * <code>optional string version = 1;</code>
        *
        * <pre>
        * The version of the Template to prevent mismatches
@@ -2360,10 +2360,10 @@ public final class SparkplugBProto {
         }
       }
 
-      public static final int METRICS_FIELD_NUMBER = 3;
+      public static final int METRICS_FIELD_NUMBER = 2;
       private java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric> metrics_;
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
        *
        * <pre>
        * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -2373,7 +2373,7 @@ public final class SparkplugBProto {
         return metrics_;
       }
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
        *
        * <pre>
        * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -2384,7 +2384,7 @@ public final class SparkplugBProto {
         return metrics_;
       }
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
        *
        * <pre>
        * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -2394,7 +2394,7 @@ public final class SparkplugBProto {
         return metrics_.size();
       }
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
        *
        * <pre>
        * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -2404,7 +2404,7 @@ public final class SparkplugBProto {
         return metrics_.get(index);
       }
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
        *
        * <pre>
        * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -2415,45 +2415,45 @@ public final class SparkplugBProto {
         return metrics_.get(index);
       }
 
-      public static final int PARAMETERS_FIELD_NUMBER = 4;
+      public static final int PARAMETERS_FIELD_NUMBER = 3;
       private java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter> parameters_;
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
        */
       public java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter> getParametersList() {
         return parameters_;
       }
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
        */
       public java.util.List<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.ParameterOrBuilder> 
           getParametersOrBuilderList() {
         return parameters_;
       }
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
        */
       public int getParametersCount() {
         return parameters_.size();
       }
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
        */
       public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter getParameters(int index) {
         return parameters_.get(index);
       }
       /**
-       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+       * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
        */
       public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.ParameterOrBuilder getParametersOrBuilder(
           int index) {
         return parameters_.get(index);
       }
 
-      public static final int TEMPLATE_REF_FIELD_NUMBER = 5;
+      public static final int TEMPLATE_REF_FIELD_NUMBER = 4;
       private java.lang.Object templateRef_;
       /**
-       * <code>optional string template_ref = 5;</code>
+       * <code>optional string template_ref = 4;</code>
        *
        * <pre>
        * Reference to a template if this is extending a Template or an instance - must exist if an instance
@@ -2463,7 +2463,7 @@ public final class SparkplugBProto {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional string template_ref = 5;</code>
+       * <code>optional string template_ref = 4;</code>
        *
        * <pre>
        * Reference to a template if this is extending a Template or an instance - must exist if an instance
@@ -2484,7 +2484,7 @@ public final class SparkplugBProto {
         }
       }
       /**
-       * <code>optional string template_ref = 5;</code>
+       * <code>optional string template_ref = 4;</code>
        *
        * <pre>
        * Reference to a template if this is extending a Template or an instance - must exist if an instance
@@ -2504,16 +2504,16 @@ public final class SparkplugBProto {
         }
       }
 
-      public static final int IS_DEFINITION_FIELD_NUMBER = 6;
+      public static final int IS_DEFINITION_FIELD_NUMBER = 5;
       private boolean isDefinition_;
       /**
-       * <code>optional bool is_definition = 6;</code>
+       * <code>optional bool is_definition = 5;</code>
        */
       public boolean hasIsDefinition() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional bool is_definition = 6;</code>
+       * <code>optional bool is_definition = 5;</code>
        */
       public boolean getIsDefinition() {
         return isDefinition_;
@@ -2559,19 +2559,19 @@ public final class SparkplugBProto {
           .ExtendableMessage<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template>.ExtensionWriter extensionWriter =
             newExtensionWriter();
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeBytes(2, getVersionBytes());
+          output.writeBytes(1, getVersionBytes());
         }
         for (int i = 0; i < metrics_.size(); i++) {
-          output.writeMessage(3, metrics_.get(i));
+          output.writeMessage(2, metrics_.get(i));
         }
         for (int i = 0; i < parameters_.size(); i++) {
-          output.writeMessage(4, parameters_.get(i));
+          output.writeMessage(3, parameters_.get(i));
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeBytes(5, getTemplateRefBytes());
+          output.writeBytes(4, getTemplateRefBytes());
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeBool(6, isDefinition_);
+          output.writeBool(5, isDefinition_);
         }
         extensionWriter.writeUntil(536870912, output);
         getUnknownFields().writeTo(output);
@@ -2585,23 +2585,23 @@ public final class SparkplugBProto {
         size = 0;
         if (((bitField0_ & 0x00000001) == 0x00000001)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(2, getVersionBytes());
+            .computeBytesSize(1, getVersionBytes());
         }
         for (int i = 0; i < metrics_.size(); i++) {
           size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(3, metrics_.get(i));
+            .computeMessageSize(2, metrics_.get(i));
         }
         for (int i = 0; i < parameters_.size(); i++) {
           size += com.google.protobuf.CodedOutputStream
-            .computeMessageSize(4, parameters_.get(i));
+            .computeMessageSize(3, parameters_.get(i));
         }
         if (((bitField0_ & 0x00000002) == 0x00000002)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(5, getTemplateRefBytes());
+            .computeBytesSize(4, getTemplateRefBytes());
         }
         if (((bitField0_ & 0x00000004) == 0x00000004)) {
           size += com.google.protobuf.CodedOutputStream
-            .computeBoolSize(6, isDefinition_);
+            .computeBoolSize(5, isDefinition_);
         }
         size += extensionsSerializedSize();
         size += getUnknownFields().getSerializedSize();
@@ -2927,7 +2927,7 @@ public final class SparkplugBProto {
 
         private java.lang.Object version_ = "";
         /**
-         * <code>optional string version = 2;</code>
+         * <code>optional string version = 1;</code>
          *
          * <pre>
          * The version of the Template to prevent mismatches
@@ -2937,7 +2937,7 @@ public final class SparkplugBProto {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
         /**
-         * <code>optional string version = 2;</code>
+         * <code>optional string version = 1;</code>
          *
          * <pre>
          * The version of the Template to prevent mismatches
@@ -2958,7 +2958,7 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>optional string version = 2;</code>
+         * <code>optional string version = 1;</code>
          *
          * <pre>
          * The version of the Template to prevent mismatches
@@ -2978,7 +2978,7 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>optional string version = 2;</code>
+         * <code>optional string version = 1;</code>
          *
          * <pre>
          * The version of the Template to prevent mismatches
@@ -2995,7 +2995,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>optional string version = 2;</code>
+         * <code>optional string version = 1;</code>
          *
          * <pre>
          * The version of the Template to prevent mismatches
@@ -3008,7 +3008,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>optional string version = 2;</code>
+         * <code>optional string version = 1;</code>
          *
          * <pre>
          * The version of the Template to prevent mismatches
@@ -3038,7 +3038,7 @@ public final class SparkplugBProto {
             com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.MetricOrBuilder> metricsBuilder_;
 
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3052,7 +3052,7 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3066,7 +3066,7 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3080,7 +3080,7 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3101,7 +3101,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3119,7 +3119,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3139,7 +3139,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3160,7 +3160,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3178,7 +3178,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3196,7 +3196,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3215,7 +3215,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3232,7 +3232,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3249,7 +3249,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3260,7 +3260,7 @@ public final class SparkplugBProto {
           return getMetricsFieldBuilder().getBuilder(index);
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3274,7 +3274,7 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3289,7 +3289,7 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3300,7 +3300,7 @@ public final class SparkplugBProto {
               com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.getDefaultInstance());
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3312,7 +3312,7 @@ public final class SparkplugBProto {
               index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Metric.getDefaultInstance());
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 3;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Metric metrics = 2;</code>
          *
          * <pre>
          * Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -3350,7 +3350,7 @@ public final class SparkplugBProto {
             com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter.Builder, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.ParameterOrBuilder> parametersBuilder_;
 
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter> getParametersList() {
           if (parametersBuilder_ == null) {
@@ -3360,7 +3360,7 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public int getParametersCount() {
           if (parametersBuilder_ == null) {
@@ -3370,7 +3370,7 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter getParameters(int index) {
           if (parametersBuilder_ == null) {
@@ -3380,7 +3380,7 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public Builder setParameters(
             int index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter value) {
@@ -3397,7 +3397,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public Builder setParameters(
             int index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter.Builder builderForValue) {
@@ -3411,7 +3411,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public Builder addParameters(com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter value) {
           if (parametersBuilder_ == null) {
@@ -3427,7 +3427,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public Builder addParameters(
             int index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter value) {
@@ -3444,7 +3444,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public Builder addParameters(
             com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter.Builder builderForValue) {
@@ -3458,7 +3458,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public Builder addParameters(
             int index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter.Builder builderForValue) {
@@ -3472,7 +3472,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public Builder addAllParameters(
             java.lang.Iterable<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter> values) {
@@ -3487,7 +3487,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public Builder clearParameters() {
           if (parametersBuilder_ == null) {
@@ -3500,7 +3500,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public Builder removeParameters(int index) {
           if (parametersBuilder_ == null) {
@@ -3513,14 +3513,14 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter.Builder getParametersBuilder(
             int index) {
           return getParametersFieldBuilder().getBuilder(index);
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.ParameterOrBuilder getParametersOrBuilder(
             int index) {
@@ -3530,7 +3530,7 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public java.util.List<? extends com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.ParameterOrBuilder> 
              getParametersOrBuilderList() {
@@ -3541,14 +3541,14 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter.Builder addParametersBuilder() {
           return getParametersFieldBuilder().addBuilder(
               com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter.getDefaultInstance());
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter.Builder addParametersBuilder(
             int index) {
@@ -3556,7 +3556,7 @@ public final class SparkplugBProto {
               index, com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter.getDefaultInstance());
         }
         /**
-         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 4;</code>
+         * <code>repeated .com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter parameters = 3;</code>
          */
         public java.util.List<com.cirruslink.sparkplug.protobuf.SparkplugBProto.Payload.Template.Parameter.Builder> 
              getParametersBuilderList() {
@@ -3579,7 +3579,7 @@ public final class SparkplugBProto {
 
         private java.lang.Object templateRef_ = "";
         /**
-         * <code>optional string template_ref = 5;</code>
+         * <code>optional string template_ref = 4;</code>
          *
          * <pre>
          * Reference to a template if this is extending a Template or an instance - must exist if an instance
@@ -3589,7 +3589,7 @@ public final class SparkplugBProto {
           return ((bitField0_ & 0x00000008) == 0x00000008);
         }
         /**
-         * <code>optional string template_ref = 5;</code>
+         * <code>optional string template_ref = 4;</code>
          *
          * <pre>
          * Reference to a template if this is extending a Template or an instance - must exist if an instance
@@ -3610,7 +3610,7 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>optional string template_ref = 5;</code>
+         * <code>optional string template_ref = 4;</code>
          *
          * <pre>
          * Reference to a template if this is extending a Template or an instance - must exist if an instance
@@ -3630,7 +3630,7 @@ public final class SparkplugBProto {
           }
         }
         /**
-         * <code>optional string template_ref = 5;</code>
+         * <code>optional string template_ref = 4;</code>
          *
          * <pre>
          * Reference to a template if this is extending a Template or an instance - must exist if an instance
@@ -3647,7 +3647,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>optional string template_ref = 5;</code>
+         * <code>optional string template_ref = 4;</code>
          *
          * <pre>
          * Reference to a template if this is extending a Template or an instance - must exist if an instance
@@ -3660,7 +3660,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>optional string template_ref = 5;</code>
+         * <code>optional string template_ref = 4;</code>
          *
          * <pre>
          * Reference to a template if this is extending a Template or an instance - must exist if an instance
@@ -3679,19 +3679,19 @@ public final class SparkplugBProto {
 
         private boolean isDefinition_ ;
         /**
-         * <code>optional bool is_definition = 6;</code>
+         * <code>optional bool is_definition = 5;</code>
          */
         public boolean hasIsDefinition() {
           return ((bitField0_ & 0x00000010) == 0x00000010);
         }
         /**
-         * <code>optional bool is_definition = 6;</code>
+         * <code>optional bool is_definition = 5;</code>
          */
         public boolean getIsDefinition() {
           return isDefinition_;
         }
         /**
-         * <code>optional bool is_definition = 6;</code>
+         * <code>optional bool is_definition = 5;</code>
          */
         public Builder setIsDefinition(boolean value) {
           bitField0_ |= 0x00000010;
@@ -3700,7 +3700,7 @@ public final class SparkplugBProto {
           return this;
         }
         /**
-         * <code>optional bool is_definition = 6;</code>
+         * <code>optional bool is_definition = 5;</code>
          */
         public Builder clearIsDefinition() {
           bitField0_ = (bitField0_ & ~0x00000010);
@@ -17218,12 +17218,12 @@ public final class SparkplugBProto {
       "\n\ttimestamp\030\001 \001(\004\022B\n\007metrics\030\002 \003(\01321.com" +
       ".cirruslink.sparkplug.protobuf.Payload.M" +
       "etric\022\013\n\003seq\030\003 \001(\004\022\014\n\004uuid\030\004 \001(\t\022\014\n\004body" +
-      "\030\005 \001(\014\032\276\004\n\010Template\022\017\n\007version\030\002 \001(\t\022B\n\007" +
-      "metrics\030\003 \003(\01321.com.cirruslink.sparkplug" +
-      ".protobuf.Payload.Metric\022Q\n\nparameters\030\004" +
+      "\030\005 \001(\014\032\276\004\n\010Template\022\017\n\007version\030\001 \001(\t\022B\n\007" +
+      "metrics\030\002 \003(\01321.com.cirruslink.sparkplug" +
+      ".protobuf.Payload.Metric\022Q\n\nparameters\030\003" +
       " \003(\0132=.com.cirruslink.sparkplug.protobuf" +
       ".Payload.Template.Parameter\022\024\n\014template_",
-      "ref\030\005 \001(\t\022\025\n\ris_definition\030\006 \001(\010\032\322\002\n\tPar" +
+      "ref\030\004 \001(\t\022\025\n\ris_definition\030\005 \001(\010\032\322\002\n\tPar" +
       "ameter\022\014\n\004name\030\001 \001(\t\022\014\n\004type\030\002 \001(\r\022\023\n\tin" +
       "t_value\030\003 \001(\rH\000\022\024\n\nlong_value\030\004 \001(\004H\000\022\025\n" +
       "\013float_value\030\005 \001(\002H\000\022\026\n\014double_value\030\006 \001" +
@@ -17232,7 +17232,7 @@ public final class SparkplugBProto {
       ".com.cirruslink.sparkplug.protobuf.Paylo" +
       "ad.Template.Parameter.ParameterValueExte" +
       "nsionH\000\032#\n\027ParameterValueExtension*\010\010\001\020\200" +
-      "\200\200\200\002B\007\n\005value*\010\010\007\020\200\200\200\200\002\032\257\004\n\007DataSet\022\026\n\016n",
+      "\200\200\200\002B\007\n\005value*\010\010\006\020\200\200\200\200\002\032\257\004\n\007DataSet\022\026\n\016n",
       "um_of_columns\030\001 \001(\004\022\017\n\007columns\030\002 \003(\t\022\r\n\005" +
       "types\030\003 \003(\r\022D\n\004rows\030\004 \003(\01326.com.cirrusli" +
       "nk.sparkplug.protobuf.Payload.DataSet.Ro" +

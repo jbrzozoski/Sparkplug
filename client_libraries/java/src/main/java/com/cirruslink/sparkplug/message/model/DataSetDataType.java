@@ -99,4 +99,13 @@ public enum DataSetDataType {
 				return Unknown;
 		}
 	}
+
+	/**
+	 * Returns the class type for this DataType
+	 * 
+	 * @return the class type for this DataType
+	 */
+	public Class<?> getClazz() {
+		return clazz;
+	}
 }
