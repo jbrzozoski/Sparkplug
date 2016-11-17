@@ -142,6 +142,9 @@
                 return decodePropertySet(object.propertyset_value);
             case 21:
                 return decodePropertySetList(object.propertysets_value);
+            default:
+                console.log("Error: Cannot decode value for undefined type " + type);
+                return null;
         } 
     }
 
@@ -312,76 +315,92 @@
     }
 
     encodeMetaData = function(object) {
-        var metadata = new MetaData();
+        var metadata = new MetaData(),
+            isMultiPart = object.isMultiPart,
+            contentType = object.content_type,
+            size = object.size,
+            seq = object.seq,
+            fileName = object.fileName,
+            fileType = object.fileType,
+            md5 = object.md5,
+            description = object.description;
 
-        if (object.isMultiPart !== undefined) {
-            metadata.is_multi_part = object.isMultiPart;
+        if (isMultiPart !== undefined && isMultiPart !== null) {
+            metadata.is_multi_part = isMultiPart;
         }
 
-        if (object.contentType !== undefined) {
-            metadata.content_type = object.contentType;
+        if (contentType !== undefined && contentType !== null) {
+            metadata.content_type = contentType;
         }
 
-        if (object.size !== undefined) {
-            metadata.size = object.size;
+        if (size !== undefined && size !== null) {
+            metadata.size = size;
         }
 
-        if (object.seq !== undefined) {
-            metadata.seq = object.seq;
+        if (seq !== undefined && seq !== null) {
+            metadata.seq = seq;
         }
 
-        if (object.fileName !== undefined) {
-            metadata.file_name = object.fileName;
+        if (fileName !== undefined && fileName !== null) {
+            metadata.file_name = fileName;
         }
 
-        if (object.fileType !== undefined) {
-            metadata.file_type = object.fileType;
+        if (fileType !== undefined && fileType !== null) {
+            metadata.file_type = fileType;
         }
 
-        if (object.md5 !== undefined) {
-            metadata.md5 = object.md5;
+        if (md5 !== undefined && md5 !== null) {
+            metadata.md5 = md5;
         }
 
-        if (object.description !== undefined) {
-            metadata.description = object.description;
+        if (description !== undefined && description !== null) {
+            metadata.description = description;
         }
 
         return metadata;
     }
 
     decodeMetaData = function(protoMetaData) {
-        var metadata = {};
+        var metadata = {},
+            isMultiPart = protoMetaData.is_multi_part,
+            contentType = protoMetaData.content_type,
+            size = protoMetaData.size,
+            seq = protoMetaData.seq,
+            fileName = protoMetaData.file_name,
+            fileType = protoMetaData.file_type,
+            md5 = protoMetaData.md5,
+            description = protoMetaData.description;
 
-        if (protoMetaData.is_multi_part !== undefined) {
-            metadata.isMultiPart = protoMetaData.is_multi_part;
+        if (isMultiPart !== undefined && isMultiPart !== null) {
+            metadata.isMultiPart = isMultiPart;
         }
 
-        if (protoMetaData.content_type !== undefined) {
-            metadata.contentType = protoMetaData.content_type;
+        if (contentType !== undefined && contentType !== null) {
+            metadata.contentType = contentType;
         }
 
-        if (protoMetaData.size !== undefined) {
-            metadata.size = protoMetaData.size;
+        if (size !== undefined && size !== null) {
+            metadata.size = size;
         }
 
-        if (protoMetaData.seq !== undefined) {
-            metadata.seq = protoMetaData.seq;
+        if (seq !== undefined && seq !== null) {
+            metadata.seq = seq;
         }
 
-        if (protoMetaData.file_name !== undefined) {
-            metadata.fileName = protoMetaData.file_name;
+        if (fileName !== undefined && fileName !== null) {
+            metadata.fileName = fileName;
         }
 
-        if (protoMetaData.file_type !== undefined) {
-            metadata.fileType = protoMetaData.file_type;
+        if (fileType !== undefined && fileType !== null) {
+            metadata.fileType = fileType;
         }
 
-        if (protoMetaData.md5 !== undefined) {
-            metadata.md5 = protoMetaData.md5;
+        if (md5 !== undefined && md5 !== null) {
+            metadata.md5 = md5;
         }
 
-        if (protoMetaData.description !== undefined) {
-            metadata.description = protoMetaData.description;
+        if (description !== undefined && description !== null) {
+            metadata.description = description;
         }
 
         return metadata;
@@ -402,10 +421,11 @@
 
     decodePropertyValue = function(protoValue) {
         var propertyValue = {},
-            protoType = protoValue.type;
+            protoType = protoValue.type,
+            isNull = protoValue.is_null;
 
-        if (object.is_null !== undefined) {
-            propertyValue.isNull = object.is_null;
+        if (isNull !== undefined && isNull !== null) {
+            propertyValue.isNull = isNull;
         }
 
         propertyValue.type = decodeType(protoType);
@@ -526,20 +546,20 @@
             ref = protoTemplate.template_ref,
             version = protoTemplate.version;
 
-        if (version !== undefined) {
+        if (version !== undefined && version !== null) {
             template.version = version;    
         }
 
-        if (ref !== undefined) {
+        if (ref !== undefined && ref !== null) {
             template.templateRef = ref;    
         }
 
-        if (isDef !== undefined) {
+        if (isDef !== undefined && isDef !== null) {
             template.isDefinition = isDef;    
         }
 
         // Build up the metric
-        if (protoMetrics !== undefined) {
+        if (protoMetrics !== undefined && protoMetrics !== null) {
             var metrics = []
             // loop over array of proto metrics, decoding each one
             for (var i = 0; i < protoMetrics.length; i++) {
@@ -549,7 +569,7 @@
         }
 
         // Build up the parameters
-        if (protoParameters !== undefined) {
+        if (protoParameters !== undefined && protoParameters !== null) {
             var parameter = [];
             // loop over array of parameters
             for (var i = 0; i < protoParameters.length; i++) {
@@ -564,67 +584,82 @@
     encodeMetric = function(metric) {
         var newMetric = new Metric(metric.name),
             value = metric.value,
-            datatype = encodeType(metric.type);
+            datatype = encodeType(metric.type),
+            alias = metric.alias,
+            isHistorical = metric.isHistorical,
+            isTransient = metric.isTransient,
+            isNull = metric.isNull,
+            metadata = metric.metadata,
+            properties = metric.properties;
         
         // Get metric type and value
         newMetric.datatype = datatype;
         setValue(datatype, value, newMetric);
 
-        if (metric.alias !== undefined) {
-            newMetric.alias = metric.alias;
+        if (alias !== undefined && alias !== null) {
+            newMetric.alias = alias;
         }
 
-        if (metric.isHistorical !== undefined) {
-            newMetric.is_historical = metric.isHistorical;
+        if (isHistorical !== undefined && isHistorical !== null) {
+            newMetric.is_historical = isHistorical;
         }
 
-        if (metric.isTransient !== undefined) {
-            newMetric.is_transient = metric.isTransient;
+        if (isTransient !== undefined && isTransient !== null) {
+            newMetric.is_transient = isTransient;
         }
 
-        if (metric.isNull !== undefined) {
-            newMetric.is_null = metric.isNull;
+        if (isNull !== undefined && isNull !== null) {
+            newMetric.is_null = isNull;
         }
 
-        if (metric.metadata !== undefined && metric.metadata !== null) {
-            newMetric.metadata = encodeMetaData(metric.metadata);
+        if (metadata !== undefined && metadata !== null) {
+            newMetric.metadata = encodeMetaData(metadata);
         }
 
-        if (metric.properties !== undefined && metric.properties !== null) {
-            newMetric.properties = encodePropertySet(metric.properties);
+        if (properties !== undefined && properties !== null) {
+            newMetric.properties = encodePropertySet(properties);
         }
 
         return newMetric;
     }
 
     decodeMetric = function(protoMetric) {
-        var metric = {};
+        var metric = {},
+            alias = protoMetric.alias,
+            isHistorical = protoMetric.is_historical,
+            isTransient = protoMetric.is_transient,
+            isNull = protoMetric.is_null,
+            metadata = protoMetric.metadata,
+            properties = protoMetric.properties;
 
         metric.name = protoMetric.name;
         metric.type = decodeType(protoMetric.datatype);
+        console.log("metric: " + JSON.stringify(protoMetric));
+        metric.value = getValue(protoMetric.datatype, protoMetric);
+        console.log("value: " + metric.value);
 
-        if (protoMetric.alias !== undefined) {
+        if (protoMetric.alias !== undefined && alias !== null) {
             metric.alias = protoMetric.alias;
         }
 
-        if (protoMetric.is_historical !== undefined) {
-            metric.isHistorical = protoMetric.is_historical;
+        if (isHistorical !== undefined && isHistorical !== null) {
+            metric.isHistorical = isHistorical;
         }
 
-        if (protoMetric.is_transient !== undefined) {
-            metric.isTransient = protoMetric.is_transient;
+        if (isTransient !== undefined && isTransient !== null) {
+            metric.isTransient = isTransient;
         }
 
-        if (protoMetric.is_null !== undefined) {
-            metric.isNull = protoMetric.is_null;
+        if (isNull !== undefined && isNull !== null) {
+            metric.isNull = isNull;
         }
 
-        if (protoMetric.metadata !== undefined && metric.metadata !== null) {
-            metric.metadata = decodeMetaData(protoMetric.metadata);
+        if (metadata !== undefined && metadata !== null) {
+            metric.metadata = decodeMetaData(metadata);
         }
 
-        if (protoMetric.properties !== undefined && metric.properties !== null) {
-            metric.properties = decodePropertySet(protoMetric.properties);
+        if (properties !== undefined && properties !== null) {
+            metric.properties = decodePropertySet(properties);
         }
 
         return metric;
@@ -632,7 +667,6 @@
 
     exports.encodePayload = function(object) {
         var payload = new Payload(object.timestamp);
-        console.log("object: " + JSON.stringify(object));
 
         // Build up the metric
         if (object.metrics !== undefined && object.metrics !== null) {
@@ -670,7 +704,7 @@
 
         payload.timestamp = sparkplugPayload.timestamp.toNumber();
 
-        if (protoMetrics !== undefined) {
+        if (protoMetrics !== undefined && protoMetrics !== null) {
             metrics = [];
             for (var i = 0; i < protoMetrics.length; i++) {
                 metrics.push(decodeMetric(protoMetrics[i]));
@@ -678,15 +712,15 @@
             payload.metrics = metrics;
         }
 
-        if (seq !== undefined) {
+        if (seq !== undefined && seq !== null) {
             payload.seq = seq;
         }
 
-        if (uuid !== undefined) {
+        if (uuid !== undefined && uuid !== null) {
             payload.uuid = uuid;
         }
 
-        if (body !== undefined) {
+        if (body !== undefined && body !== null) {
             payload.body = body;
         }
 

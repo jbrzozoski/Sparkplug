@@ -75,7 +75,6 @@ var sample = (function () {
     // Runs the sample
     run = function() {
         // Create the SparkplugClient
-        console.log("config: " + JSON.stringify(config));
         sparkplugClient = SparkplugClient.newClient(config);
         
         // Create 'rebirth' handler
@@ -87,7 +86,7 @@ var sample = (function () {
         // Create 'command' handler
         sparkplugClient.on('command', function (deviceId, payload) {
             var timestamp = payload.timestamp,
-                metric = payload.metric,
+                metrics = payload.metrics,
                 inboundMetricMap = {},
                 outboundMetric = [],
                 outboundPayload;
@@ -95,10 +94,10 @@ var sample = (function () {
             console.log("Command recevied for device " + deviceId);
             
             // Loop over the metrics and store them in a map
-            if (metric !== undefined && metric !== null) {
-                for (var i = 0; i < metric.length; i++) {
-                    var m = metric[i];
-                    inboundMetricMap[m.name] = m.value;
+            if (metrics !== undefined && metrics !== null) {
+                for (var i = 0; i < metrics.length; i++) {
+                    var metric = metrics[i];
+                    inboundMetricMap[metric.name] = metric.value;
                 }
             }
 
