@@ -391,7 +391,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 	}
 
 	private Template newTemplate(boolean isDef) throws SparkplugException {
-		return new TemplateBuilder(isDef ? "TestTemplateDef" : "TestTemplateInst")
+		return new TemplateBuilder()
 				.version("v1.0")
 				.templateRef(null)
 				.definition(isDef)
