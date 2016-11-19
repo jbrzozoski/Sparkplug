@@ -39,6 +39,9 @@ import com.cirruslink.sparkplug.message.model.Row.RowBuilder;
 import com.cirruslink.sparkplug.message.model.SparkplugBPayload.SparkplugBPayloadBuilder;
 import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
 
+/**
+ * Sparkplug Test class for encoding and decoding sparkplug payloads
+ */
 public class SparkplugTest {
 	
 	@BeforeClass
@@ -137,6 +140,36 @@ public class SparkplugTest {
 							.createMetric())
 					.createTemplate(), 
 					null}
+		};
+	}
+    
+    @DataProvider
+    public Object[][] metricFieldsData() throws Exception { 
+		return new Object[][] { 
+			{ new MetricBuilder("metric1", MetricDataType.Int32, 1234)
+					.alias(12345L)
+					.timestamp(new Date(1479424852194L))
+					.isHistorical(true)
+					.isTransient(false)
+					.isNull(false)
+					.createMetric(),
+			12345L, new Date(1479424852194L), true, false, false }, 
+			{ new MetricBuilder("metric2", MetricDataType.DateTime, null)
+					.alias(1L)
+					.timestamp(new Date(1479421234564L))
+					.isHistorical(true)
+					.isTransient(true)
+					.isNull(true)
+					.createMetric(),
+			1L, new Date(1479421234564L), true, true, true }, 
+			{ new MetricBuilder("metric3", MetricDataType.String, "Test")
+					.alias(999999999L)
+					.timestamp(new Date(1479123452194L))
+					.isHistorical(false)
+					.isTransient(false)
+					.isNull(false)
+					.createMetric(),
+			999999999L, new Date(1479123452194L), false, false, false },
 		};
 	}
     
@@ -266,6 +299,25 @@ public class SparkplugTest {
 	public void testInvalidParameterDataType(String name, ParameterDataType type, Object value) 
 			throws SparkplugInvalidTypeException {
 		new Parameter(name, type, value);
+	}
+    
+    @Test(dataProvider = "metricFieldsData")
+	public void testValidMetricPayload(Metric metric, long alias, Date timestamp, boolean isHistorical, 
+			boolean isTransient, boolean isNull) throws Exception {
+		// Encode
+		byte[] bytes = new SparkplugBPayloadEncoder().getBytes(new SparkplugBPayloadBuilder()
+				.setTimestamp(new Date())
+				.addMetric(metric)
+				.createPayload());
+
+		// Decode and test
+		SparkplugBPayload payload = new SparkplugBPayloadDecoder().buildFromByteArray(bytes);
+		Metric decodedMetric = payload.getMetrics().get(0);
+		assertThat(decodedMetric.getAlias()).isEqualTo(alias);
+		assertThat(decodedMetric.getTimestamp()).isEqualTo(timestamp);
+		assertThat(decodedMetric.isHistorical()).isEqualTo(isHistorical);
+		assertThat(decodedMetric.isTransient()).isEqualTo(isTransient);
+		assertThat(decodedMetric.isNull()).isEqualTo(isNull);
 	}
 	
 	public void testMetricPayload(String name, MetricDataType type, Object value, MetaData metaData) 
