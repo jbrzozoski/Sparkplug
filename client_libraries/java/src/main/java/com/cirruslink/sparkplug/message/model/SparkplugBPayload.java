@@ -51,7 +51,7 @@ public class SparkplugBPayload {
 	}
 	
 	public void addMetrics(List<Metric> metrics) {
-		metrics.addAll(metrics);
+		this.metrics.addAll(metrics);
 	}
 	
 	public Metric removeMetric(int index) {
