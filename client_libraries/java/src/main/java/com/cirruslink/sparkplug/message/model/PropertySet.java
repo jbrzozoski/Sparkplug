@@ -55,6 +55,11 @@ public class PropertySet {
 		return propertyMap;
 	}
 	
+	@Override
+	public String toString() {
+		return "PropertySet [propertyMap=" + propertyMap + "]";
+	}
+
 	/**
 	 * A builder for a PropertySet instance
 	 */

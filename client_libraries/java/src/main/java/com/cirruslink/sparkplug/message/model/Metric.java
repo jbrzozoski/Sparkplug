@@ -57,8 +57,6 @@ public class Metric {
 		this.dataType.checkType(value);
 	}
 
-	
-	
 	public String getName() {
 		return name;
 	}
@@ -142,13 +140,13 @@ public class Metric {
 	public void setNull(Boolean isNull) {
 		this.isNull = isNull;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Metric [name=" + name + ", alias=" + alias + ", timestamp=" + timestamp + ", dataType=" + dataType
-				+ ", historical=" + isHistorical + ", metaData=" + metaData + ", value=" + value
-				+ "]";
-	}
+				+ ", isHistorical=" + isHistorical + ", isTransient=" + isTransient + ", isNull=" + isNull
+				+ ", metaData=" + metaData + ", propertySet=" + propertySet + ", value=" + value + "]";
+	}	
 	
 	/**
 	 * A builder for creating a {@link Metric} instance.

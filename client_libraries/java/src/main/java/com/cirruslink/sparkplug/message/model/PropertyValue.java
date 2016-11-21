@@ -60,4 +60,9 @@ public class PropertyValue {
 		return Objects.equals(type, propValue.getType())
 				&& Objects.equals(value, propValue.getValue());
 	}
+
+	@Override
+	public String toString() {
+		return "PropertyValue [type=" + type + ", value=" + value + "]";
+	}
 }
