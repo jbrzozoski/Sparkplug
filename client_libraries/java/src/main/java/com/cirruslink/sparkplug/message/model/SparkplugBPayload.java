@@ -13,8 +13,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
-
 /**
  * A class representing a Sparkplug B payload
  */
@@ -64,6 +62,10 @@ public class SparkplugBPayload {
 
 	public List<Metric> getMetrics() {
 		return metrics;
+	}
+	
+	public Integer getMetricCount() {
+		return metrics.size();
 	}
 
 	public void setMetrics(List<Metric> metrics) {
