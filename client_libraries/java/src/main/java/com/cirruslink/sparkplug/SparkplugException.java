@@ -13,6 +13,11 @@ package com.cirruslink.sparkplug;
 public class SparkplugException extends Exception {
 
 	/**
+	 * Default constructor.
+	 */
+	public SparkplugException() {};
+	
+	/**
 	 * Constructor 
 	 * 
 	 * @param message an error message
