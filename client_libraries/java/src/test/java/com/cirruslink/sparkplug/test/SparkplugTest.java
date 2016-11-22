@@ -151,7 +151,6 @@ public class SparkplugTest {
 					.timestamp(new Date(1479424852194L))
 					.isHistorical(true)
 					.isTransient(false)
-					.isNull(false)
 					.createMetric(),
 			12345L, new Date(1479424852194L), true, false, false }, 
 			{ new MetricBuilder("metric2", MetricDataType.DateTime, null)
@@ -159,7 +158,6 @@ public class SparkplugTest {
 					.timestamp(new Date(1479421234564L))
 					.isHistorical(true)
 					.isTransient(true)
-					.isNull(true)
 					.createMetric(),
 			1L, new Date(1479421234564L), true, true, true }, 
 			{ new MetricBuilder("metric3", MetricDataType.String, "Test")
@@ -167,7 +165,6 @@ public class SparkplugTest {
 					.timestamp(new Date(1479123452194L))
 					.isHistorical(false)
 					.isTransient(false)
-					.isNull(false)
 					.createMetric(),
 			999999999L, new Date(1479123452194L), false, false, false },
 		};

@@ -41,7 +41,7 @@ public class Metric {
 	 * @throws SparkplugInvalidTypeException 
 	 */
 	public Metric(String name, Long alias, Date timestamp, MetricDataType dataType, Boolean isHistorical,
-			Boolean isTransient, Boolean isNull, MetaData metaData, PropertySet propertySet, Object value) 
+			Boolean isTransient, MetaData metaData, PropertySet propertySet, Object value) 
 					throws SparkplugInvalidTypeException {
 		super();
 		this.name = name;
@@ -50,7 +50,7 @@ public class Metric {
 		this.dataType = dataType;
 		this.isHistorical = isHistorical;
 		this.isTransient = isTransient;
-		this.isNull = isNull;
+		isNull = (value == null) ? true : false;
 		this.metaData = metaData;
 		this.propertySet = propertySet;
 		this.value = value;
@@ -107,6 +107,7 @@ public class Metric {
 
 	public void setValue(Object value) {
 		this.value = value;
+		isNull = (value == null) ? true : false;
 	}
 
 	public PropertySet getPropertySet() {
@@ -136,10 +137,6 @@ public class Metric {
 	public Boolean isNull() {
 		return isNull;
 	}
-
-	public void setNull(Boolean isNull) {
-		this.isNull = isNull;
-	}
 	
 	@Override
 	public String toString() {
@@ -159,7 +156,6 @@ public class Metric {
 		private MetricDataType dataType;
 		private Boolean isHistorical = null;
 		private Boolean isTransient = null;
-		private Boolean isNull = null;
 		private MetaData metaData = null;
 		private PropertySet propertySet = null;
 		private Object value;
@@ -201,11 +197,6 @@ public class Metric {
 			return this;
 		}
 
-		public MetricBuilder isNull(Boolean isNull) {
-			this.isNull = isNull;
-			return this;
-		}
-
 		public MetricBuilder metaData(MetaData metaData) {
 			this.metaData = metaData;
 			return this;
@@ -222,7 +213,7 @@ public class Metric {
 		}
 		
 		public Metric createMetric() throws SparkplugInvalidTypeException {
-			return new Metric(name, alias, timestamp, dataType, isHistorical, isTransient, isNull, metaData, 
+			return new Metric(name, alias, timestamp, dataType, isHistorical, isTransient, metaData, 
 					propertySet, value);
 		}
 	}

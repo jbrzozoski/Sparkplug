@@ -18,6 +18,7 @@ public class PropertyValue {
 	
 	private PropertyDataType type;
 	private Object value;
+	private Boolean isNull = null;
 	
 	/**
 	 * A constructor.
@@ -29,6 +30,7 @@ public class PropertyValue {
 	public PropertyValue(PropertyDataType type, Object value) throws SparkplugInvalidTypeException {
 		this.type = type;
 		this.value = value;
+		isNull = (value == null) ? true : false;
 		type.checkType(value);
 	}
 
@@ -46,6 +48,11 @@ public class PropertyValue {
 
 	public void setValue(Object value) {
 		this.value = value;
+		isNull = (value == null) ? true : false;
+	}
+	
+	public Boolean isNull() {
+		return isNull;
 	}
 	
 	@Override
@@ -63,6 +70,6 @@ public class PropertyValue {
 
 	@Override
 	public String toString() {
-		return "PropertyValue [type=" + type + ", value=" + value + "]";
+		return "PropertyValue [type=" + type + ", value=" + value + ", isNull=" + isNull + "]";
 	}
 }

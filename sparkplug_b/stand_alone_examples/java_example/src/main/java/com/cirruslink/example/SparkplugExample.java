@@ -319,7 +319,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 		metrics.add(new MetricBuilder("Text", Text, newUUID()).createMetric());
 		metrics.add(new MetricBuilder("UUID", UUID, newUUID()).createMetric());
 		metrics.add(new MetricBuilder("Bytes", Bytes, randomBytes(20)).createMetric());
-		metrics.add(new MetricBuilder("File", File, null).isNull(true).createMetric());
+		metrics.add(new MetricBuilder("File", File, null).createMetric());
 		metrics.add(new MetricBuilder("DataSet", DataSet, newDataSet()).createMetric());
 		if(withTemplates) {
 			metrics.add(new MetricBuilder("TemplateDef", Template, newTemplate(true)).createMetric());
