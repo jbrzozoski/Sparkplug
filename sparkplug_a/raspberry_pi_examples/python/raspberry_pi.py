@@ -18,10 +18,10 @@ import time
 import random
 import subprocess
 
-serverUrl = "192.168.2.100"
+serverUrl = "192.168.1.150"
 myGroupId = "Sparkplug A Devices"
 myNodeName = "Python Raspberry Pi"
-mySubNodeName = "Pibrella"
+myDeviceName = "Pibrella"
 myUsername = "admin"
 myPassword = "changeme"
 seq = 0
@@ -40,7 +40,7 @@ def button_changed(pin):
     addMetric(outboundPayload, "seq", "INT32", getSeqNum())
     addMetric(outboundPayload, "button", "BOOL", pin.read());
     byteArray = bytearray(outboundPayload.SerializeToString())
-    client.publish("spAv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
+    client.publish("spAv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + myDeviceName, byteArray, 0, False)
 
 ######################################################################
 # Input change event handler
@@ -59,7 +59,7 @@ def input_changed(name, pin):
     addMetric(outboundPayload, "seq", "INT32", getSeqNum())
     addMetric(outboundPayload, name, "BOOL", pin.read());
     byteArray = bytearray(outboundPayload.SerializeToString())
-    client.publish("spAv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
+    client.publish("spAv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + myDeviceName, byteArray, 0, False)
 
 ######################################################################
 # Helper method for getting the next sequence number
@@ -194,7 +194,7 @@ def on_message(client, userdata, msg):
                 pibrella.buzzer.success()
 
         byteArray = bytearray(outboundPayload.SerializeToString())
-        client.publish("spAv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
+        client.publish("spAv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + myDeviceName, byteArray, 0, False)
     elif tokens[0] == "spAv1.0" and tokens[1] == myGroupId and tokens[2] == "NCMD" and tokens[3] == myNodeName:
         inboundPayload = kurapayload_pb2.KuraPayload()
         inboundPayload.ParseFromString(msg.payload)
@@ -278,7 +278,7 @@ def publishBirth():
 
     # Publish the initial data with the Device BIRTH certificate
     totalByteArray = bytearray(payload.SerializeToString())
-    client.publish("spAv1.0/" + myGroupId + "/DBIRTH/" + myNodeName + "/" + mySubNodeName, totalByteArray, 0, False)
+    client.publish("spAv1.0/" + myGroupId + "/DBIRTH/" + myNodeName + "/" + myDeviceName, totalByteArray, 0, False)
 ######################################################################
 
 # Create the DEATH payload

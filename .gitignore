@@ -14,3 +14,4 @@ sparkplug_example
 .DS_Store
 .pydevproject
 *.pyc
+*-tcp*

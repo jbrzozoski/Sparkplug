@@ -20,7 +20,7 @@ var sample = (function () {
             'serverUrl' : 'tcp://localhost:1883',
             'username' : 'admin',
             'password' : 'changeme',
-            'groupId' : 'Sparkplug Devices',
+            'groupId' : 'Sparkplug A Devices',
             'edgeNode' : 'JavaScript Edge Node',
             'clientId' : 'JavaScriptSimpleEdgeNode',
             'publishDeath' : false

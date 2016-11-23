@@ -17,7 +17,7 @@ import time
 import random
 
 serverUrl = "localhost"
-myGroupId = "Sparkplug Devices"
+myGroupId = "Sparkplug A Devices"
 myNodeName = "Python Edge Node"
 mySubNodeName = "Emulated Device"
 publishPeriod = 5000
