@@ -24,85 +24,85 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
           string.Concat(
             "CiVzcGFya3BsdWdfYi9zcGFya3BsdWdfYl9jX3NoYXJwLnByb3RvEiFjb20u",
             "Y2lycnVzbGluay5zcGFya3BsdWcucHJvdG9idWYaGWdvb2dsZS9wcm90b2J1",
-            "Zi9hbnkucHJvdG8ixhkKB1BheWxvYWQSEQoJdGltZXN0YW1wGAEgASgEEkEK",
+            "Zi9hbnkucHJvdG8iuRkKB1BheWxvYWQSEQoJdGltZXN0YW1wGAEgASgEEkEK",
             "Bm1ldHJpYxgCIAMoCzIxLmNvbS5jaXJydXNsaW5rLnNwYXJrcGx1Zy5wcm90",
             "b2J1Zi5QYXlsb2FkLk1ldHJpYxILCgNzZXEYAyABKAQSDAoEdXVpZBgEIAEo",
             "CRIMCgRib2R5GAUgASgMEiUKB2RldGFpbHMYBiADKAsyFC5nb29nbGUucHJv",
-            "dG9idWYuQW55GooFCghUZW1wbGF0ZRIMCgRuYW1lGAEgASgJEg8KB3ZlcnNp",
-            "b24YAiABKAkSQgoHbWV0cmljcxgDIAMoCzIxLmNvbS5jaXJydXNsaW5rLnNw",
-            "YXJrcGx1Zy5wcm90b2J1Zi5QYXlsb2FkLk1ldHJpYxJRCgpwYXJhbWV0ZXJz",
-            "GAQgAygLMj0uY29tLmNpcnJ1c2xpbmsuc3BhcmtwbHVnLnByb3RvYnVmLlBh",
-            "eWxvYWQuVGVtcGxhdGUuUGFyYW1ldGVyEhQKDHRlbXBsYXRlX3JlZhgFIAEo",
-            "CRIVCg1pc19kZWZpbml0aW9uGAYgASgIEiUKB2RldGFpbHMYByADKAsyFC5n",
-            "b29nbGUucHJvdG9idWYuQW55GvMCCglQYXJhbWV0ZXISDAoEbmFtZRgBIAEo",
-            "CRIMCgR0eXBlGAIgASgNEhMKCWludF92YWx1ZRgDIAEoDUgAEhQKCmxvbmdf",
-            "dmFsdWUYBCABKARIABIVCgtmbG9hdF92YWx1ZRgFIAEoAkgAEhYKDGRvdWJs",
-            "ZV92YWx1ZRgGIAEoAUgAEhcKDWJvb2xlYW5fdmFsdWUYByABKAhIABIWCgxz",
-            "dHJpbmdfdmFsdWUYCCABKAlIABJwCg9leHRlbnNpb25fdmFsdWUYCSABKAsy",
-            "VS5jb20uY2lycnVzbGluay5zcGFya3BsdWcucHJvdG9idWYuUGF5bG9hZC5U",
-            "ZW1wbGF0ZS5QYXJhbWV0ZXIuUGFyYW1ldGVyVmFsdWVFeHRlbnNpb25IABpE",
-            "ChdQYXJhbWV0ZXJWYWx1ZUV4dGVuc2lvbhIpCgtleHRlbnNpb25zcxgBIAMo",
-            "CzIULmdvb2dsZS5wcm90b2J1Zi5BbnlCBwoFdmFsdWUahgUKB0RhdGFTZXQS",
-            "FgoObnVtX29mX2NvbHVtbnMYASABKAQSDwoHY29sdW1ucxgCIAMoCRINCgV0",
-            "eXBlcxgDIAMoDRJECgRyb3dzGAQgAygLMjYuY29tLmNpcnJ1c2xpbmsuc3Bh",
-            "cmtwbHVnLnByb3RvYnVmLlBheWxvYWQuRGF0YVNldC5Sb3cSJQoHZGV0YWls",
-            "cxgFIAMoCzIULmdvb2dsZS5wcm90b2J1Zi5Bbnka1AIKDERhdGFTZXRWYWx1",
-            "ZRITCglpbnRfdmFsdWUYASABKA1IABIUCgpsb25nX3ZhbHVlGAIgASgESAAS",
-            "FQoLZmxvYXRfdmFsdWUYAyABKAJIABIWCgxkb3VibGVfdmFsdWUYBCABKAFI",
-            "ABIXCg1ib29sZWFuX3ZhbHVlGAUgASgISAASFgoMc3RyaW5nX3ZhbHVlGAYg",
-            "ASgJSAAScAoPZXh0ZW5zaW9uX3ZhbHVlGAcgASgLMlUuY29tLmNpcnJ1c2xp",
-            "bmsuc3BhcmtwbHVnLnByb3RvYnVmLlBheWxvYWQuRGF0YVNldC5EYXRhU2V0",
-            "VmFsdWUuRGF0YVNldFZhbHVlRXh0ZW5zaW9uSAAaPgoVRGF0YVNldFZhbHVl",
-            "RXh0ZW5zaW9uEiUKB2RldGFpbHMYASADKAsyFC5nb29nbGUucHJvdG9idWYu",
-            "QW55QgcKBXZhbHVlGn8KA1JvdxJRCghlbGVtZW50cxgBIAMoCzI/LmNvbS5j",
-            "aXJydXNsaW5rLnNwYXJrcGx1Zy5wcm90b2J1Zi5QYXlsb2FkLkRhdGFTZXQu",
-            "RGF0YVNldFZhbHVlEiUKB2RldGFpbHMYAiADKAsyFC5nb29nbGUucHJvdG9i",
-            "dWYuQW55Gp4ECg1Qcm9wZXJ0eVZhbHVlEgwKBHR5cGUYASABKA0SDwoHaXNf",
-            "bnVsbBgCIAEoCBITCglpbnRfdmFsdWUYAyABKA1IABIUCgpsb25nX3ZhbHVl",
-            "GAQgASgESAASFQoLZmxvYXRfdmFsdWUYBSABKAJIABIWCgxkb3VibGVfdmFs",
-            "dWUYBiABKAFIABIXCg1ib29sZWFuX3ZhbHVlGAcgASgISAASFgoMc3RyaW5n",
-            "X3ZhbHVlGAggASgJSAASUwoRcHJvcGVydHlzZXRfdmFsdWUYCSABKAsyNi5j",
-            "b20uY2lycnVzbGluay5zcGFya3BsdWcucHJvdG9idWYuUGF5bG9hZC5Qcm9w",
-            "ZXJ0eVNldEgAElgKEnByb3BlcnR5c2V0c192YWx1ZRgKIAEoCzI6LmNvbS5j",
-            "aXJydXNsaW5rLnNwYXJrcGx1Zy5wcm90b2J1Zi5QYXlsb2FkLlByb3BlcnR5",
-            "U2V0TGlzdEgAEmoKD2V4dGVuc2lvbl92YWx1ZRgLIAEoCzJPLmNvbS5jaXJy",
-            "dXNsaW5rLnNwYXJrcGx1Zy5wcm90b2J1Zi5QYXlsb2FkLlByb3BlcnR5VmFs",
-            "dWUuUHJvcGVydHlWYWx1ZUV4dGVuc2lvbkgAGj8KFlByb3BlcnR5VmFsdWVF",
-            "eHRlbnNpb24SJQoHZGV0YWlscxgBIAMoCzIULmdvb2dsZS5wcm90b2J1Zi5B",
-            "bnlCBwoFdmFsdWUajAEKC1Byb3BlcnR5U2V0EgwKBGtleXMYASADKAkSSAoG",
-            "dmFsdWVzGAIgAygLMjguY29tLmNpcnJ1c2xpbmsuc3BhcmtwbHVnLnByb3Rv",
-            "YnVmLlBheWxvYWQuUHJvcGVydHlWYWx1ZRIlCgdkZXRhaWxzGAMgAygLMhQu",
-            "Z29vZ2xlLnByb3RvYnVmLkFueRqFAQoPUHJvcGVydHlTZXRMaXN0EksKC3By",
-            "b3BlcnR5c2V0GAEgAygLMjYuY29tLmNpcnJ1c2xpbmsuc3BhcmtwbHVnLnBy",
-            "b3RvYnVmLlBheWxvYWQuUHJvcGVydHlTZXQSJQoHZGV0YWlscxgCIAMoCzIU",
-            "Lmdvb2dsZS5wcm90b2J1Zi5BbnkavwEKCE1ldGFEYXRhEhMKC2lzTXVsdGlQ",
-            "YXJ0GAEgASgIEhQKDGNvbnRlbnRfdHlwZRgCIAEoCRIMCgRzaXplGAMgASgE",
-            "EgsKA3NlcRgEIAEoBBIRCglmaWxlX25hbWUYBSABKAkSEQoJZmlsZV90eXBl",
-            "GAYgASgJEgsKA21kNRgHIAEoCRITCgtkZXNjcmlwdGlvbhgIIAEoCRIlCgdk",
-            "ZXRhaWxzGAkgAygLMhQuZ29vZ2xlLnByb3RvYnVmLkFueRqEBgoGTWV0cmlj",
-            "EgwKBG5hbWUYASABKAkSDQoFYWxpYXMYAiABKAQSEQoJdGltZXN0YW1wGAMg",
-            "ASgEEhAKCGRhdGF0eXBlGAQgASgNEhUKDWlzX2hpc3RvcmljYWwYBSABKAgS",
-            "FAoMaXNfdHJhbnNpZW50GAYgASgIEg8KB2lzX251bGwYByABKAgSRQoIbWV0",
-            "YWRhdGEYCCABKAsyMy5jb20uY2lycnVzbGluay5zcGFya3BsdWcucHJvdG9i",
-            "dWYuUGF5bG9hZC5NZXRhRGF0YRJKCgpwcm9wZXJ0aWVzGAkgASgLMjYuY29t",
-            "LmNpcnJ1c2xpbmsuc3BhcmtwbHVnLnByb3RvYnVmLlBheWxvYWQuUHJvcGVy",
-            "dHlTZXQSEwoJaW50X3ZhbHVlGAogASgNSAASFAoKbG9uZ192YWx1ZRgLIAEo",
-            "BEgAEhUKC2Zsb2F0X3ZhbHVlGAwgASgCSAASFgoMZG91YmxlX3ZhbHVlGA0g",
-            "ASgBSAASFwoNYm9vbGVhbl92YWx1ZRgOIAEoCEgAEhYKDHN0cmluZ192YWx1",
-            "ZRgPIAEoCUgAEhUKC2J5dGVzX3ZhbHVlGBAgASgMSAASSwoNZGF0YXNldF92",
-            "YWx1ZRgRIAEoCzIyLmNvbS5jaXJydXNsaW5rLnNwYXJrcGx1Zy5wcm90b2J1",
-            "Zi5QYXlsb2FkLkRhdGFTZXRIABJNCg50ZW1wbGF0ZV92YWx1ZRgSIAEoCzIz",
-            "LmNvbS5jaXJydXNsaW5rLnNwYXJrcGx1Zy5wcm90b2J1Zi5QYXlsb2FkLlRl",
-            "bXBsYXRlSAASYQoPZXh0ZW5zaW9uX3ZhbHVlGBMgASgLMkYuY29tLmNpcnJ1",
-            "c2xpbmsuc3BhcmtwbHVnLnByb3RvYnVmLlBheWxvYWQuTWV0cmljLk1ldHJp",
-            "Y1ZhbHVlRXh0ZW5zaW9uSAAaPQoUTWV0cmljVmFsdWVFeHRlbnNpb24SJQoH",
-            "ZGV0YWlscxgBIAMoCzIULmdvb2dsZS5wcm90b2J1Zi5BbnlCBwoFdmFsdWVC",
-            "NAohY29tLmNpcnJ1c2xpbmsuc3BhcmtwbHVnLnByb3RvYnVmQg9TcGFya3Bs",
-            "dWdCUHJvdG9iBnByb3RvMw=="));
+            "dG9idWYuQW55GvsECghUZW1wbGF0ZRIPCgd2ZXJzaW9uGAEgASgJEkIKB21l",
+            "dHJpY3MYAiADKAsyMS5jb20uY2lycnVzbGluay5zcGFya3BsdWcucHJvdG9i",
+            "dWYuUGF5bG9hZC5NZXRyaWMSUQoKcGFyYW1ldGVycxgDIAMoCzI9LmNvbS5j",
+            "aXJydXNsaW5rLnNwYXJrcGx1Zy5wcm90b2J1Zi5QYXlsb2FkLlRlbXBsYXRl",
+            "LlBhcmFtZXRlchIUCgx0ZW1wbGF0ZV9yZWYYBCABKAkSFQoNaXNfZGVmaW5p",
+            "dGlvbhgFIAEoCBIlCgdkZXRhaWxzGAYgAygLMhQuZ29vZ2xlLnByb3RvYnVm",
+            "LkFueRryAgoJUGFyYW1ldGVyEgwKBG5hbWUYASABKAkSDAoEdHlwZRgCIAEo",
+            "DRITCglpbnRfdmFsdWUYAyABKA1IABIUCgpsb25nX3ZhbHVlGAQgASgESAAS",
+            "FQoLZmxvYXRfdmFsdWUYBSABKAJIABIWCgxkb3VibGVfdmFsdWUYBiABKAFI",
+            "ABIXCg1ib29sZWFuX3ZhbHVlGAcgASgISAASFgoMc3RyaW5nX3ZhbHVlGAgg",
+            "ASgJSAAScAoPZXh0ZW5zaW9uX3ZhbHVlGAkgASgLMlUuY29tLmNpcnJ1c2xp",
+            "bmsuc3BhcmtwbHVnLnByb3RvYnVmLlBheWxvYWQuVGVtcGxhdGUuUGFyYW1l",
+            "dGVyLlBhcmFtZXRlclZhbHVlRXh0ZW5zaW9uSAAaQwoXUGFyYW1ldGVyVmFs",
+            "dWVFeHRlbnNpb24SKAoKZXh0ZW5zaW9ucxgBIAMoCzIULmdvb2dsZS5wcm90",
+            "b2J1Zi5BbnlCBwoFdmFsdWUahgUKB0RhdGFTZXQSFgoObnVtX29mX2NvbHVt",
+            "bnMYASABKAQSDwoHY29sdW1ucxgCIAMoCRINCgV0eXBlcxgDIAMoDRJECgRy",
+            "b3dzGAQgAygLMjYuY29tLmNpcnJ1c2xpbmsuc3BhcmtwbHVnLnByb3RvYnVm",
+            "LlBheWxvYWQuRGF0YVNldC5Sb3cSJQoHZGV0YWlscxgFIAMoCzIULmdvb2ds",
+            "ZS5wcm90b2J1Zi5Bbnka1AIKDERhdGFTZXRWYWx1ZRITCglpbnRfdmFsdWUY",
+            "ASABKA1IABIUCgpsb25nX3ZhbHVlGAIgASgESAASFQoLZmxvYXRfdmFsdWUY",
+            "AyABKAJIABIWCgxkb3VibGVfdmFsdWUYBCABKAFIABIXCg1ib29sZWFuX3Zh",
+            "bHVlGAUgASgISAASFgoMc3RyaW5nX3ZhbHVlGAYgASgJSAAScAoPZXh0ZW5z",
+            "aW9uX3ZhbHVlGAcgASgLMlUuY29tLmNpcnJ1c2xpbmsuc3BhcmtwbHVnLnBy",
+            "b3RvYnVmLlBheWxvYWQuRGF0YVNldC5EYXRhU2V0VmFsdWUuRGF0YVNldFZh",
+            "bHVlRXh0ZW5zaW9uSAAaPgoVRGF0YVNldFZhbHVlRXh0ZW5zaW9uEiUKB2Rl",
+            "dGFpbHMYASADKAsyFC5nb29nbGUucHJvdG9idWYuQW55QgcKBXZhbHVlGn8K",
+            "A1JvdxJRCghlbGVtZW50cxgBIAMoCzI/LmNvbS5jaXJydXNsaW5rLnNwYXJr",
+            "cGx1Zy5wcm90b2J1Zi5QYXlsb2FkLkRhdGFTZXQuRGF0YVNldFZhbHVlEiUK",
+            "B2RldGFpbHMYAiADKAsyFC5nb29nbGUucHJvdG9idWYuQW55Gp4ECg1Qcm9w",
+            "ZXJ0eVZhbHVlEgwKBHR5cGUYASABKA0SDwoHaXNfbnVsbBgCIAEoCBITCglp",
+            "bnRfdmFsdWUYAyABKA1IABIUCgpsb25nX3ZhbHVlGAQgASgESAASFQoLZmxv",
+            "YXRfdmFsdWUYBSABKAJIABIWCgxkb3VibGVfdmFsdWUYBiABKAFIABIXCg1i",
+            "b29sZWFuX3ZhbHVlGAcgASgISAASFgoMc3RyaW5nX3ZhbHVlGAggASgJSAAS",
+            "UwoRcHJvcGVydHlzZXRfdmFsdWUYCSABKAsyNi5jb20uY2lycnVzbGluay5z",
+            "cGFya3BsdWcucHJvdG9idWYuUGF5bG9hZC5Qcm9wZXJ0eVNldEgAElgKEnBy",
+            "b3BlcnR5c2V0c192YWx1ZRgKIAEoCzI6LmNvbS5jaXJydXNsaW5rLnNwYXJr",
+            "cGx1Zy5wcm90b2J1Zi5QYXlsb2FkLlByb3BlcnR5U2V0TGlzdEgAEmoKD2V4",
+            "dGVuc2lvbl92YWx1ZRgLIAEoCzJPLmNvbS5jaXJydXNsaW5rLnNwYXJrcGx1",
+            "Zy5wcm90b2J1Zi5QYXlsb2FkLlByb3BlcnR5VmFsdWUuUHJvcGVydHlWYWx1",
+            "ZUV4dGVuc2lvbkgAGj8KFlByb3BlcnR5VmFsdWVFeHRlbnNpb24SJQoHZGV0",
+            "YWlscxgBIAMoCzIULmdvb2dsZS5wcm90b2J1Zi5BbnlCBwoFdmFsdWUajAEK",
+            "C1Byb3BlcnR5U2V0EgwKBGtleXMYASADKAkSSAoGdmFsdWVzGAIgAygLMjgu",
+            "Y29tLmNpcnJ1c2xpbmsuc3BhcmtwbHVnLnByb3RvYnVmLlBheWxvYWQuUHJv",
+            "cGVydHlWYWx1ZRIlCgdkZXRhaWxzGAMgAygLMhQuZ29vZ2xlLnByb3RvYnVm",
+            "LkFueRqFAQoPUHJvcGVydHlTZXRMaXN0EksKC3Byb3BlcnR5c2V0GAEgAygL",
+            "MjYuY29tLmNpcnJ1c2xpbmsuc3BhcmtwbHVnLnByb3RvYnVmLlBheWxvYWQu",
+            "UHJvcGVydHlTZXQSJQoHZGV0YWlscxgCIAMoCzIULmdvb2dsZS5wcm90b2J1",
+            "Zi5BbnkawQEKCE1ldGFEYXRhEhUKDWlzX211bHRpX3BhcnQYASABKAgSFAoM",
+            "Y29udGVudF90eXBlGAIgASgJEgwKBHNpemUYAyABKAQSCwoDc2VxGAQgASgE",
+            "EhEKCWZpbGVfbmFtZRgFIAEoCRIRCglmaWxlX3R5cGUYBiABKAkSCwoDbWQ1",
+            "GAcgASgJEhMKC2Rlc2NyaXB0aW9uGAggASgJEiUKB2RldGFpbHMYCSADKAsy",
+            "FC5nb29nbGUucHJvdG9idWYuQW55GoQGCgZNZXRyaWMSDAoEbmFtZRgBIAEo",
+            "CRINCgVhbGlhcxgCIAEoBBIRCgl0aW1lc3RhbXAYAyABKAQSEAoIZGF0YXR5",
+            "cGUYBCABKA0SFQoNaXNfaGlzdG9yaWNhbBgFIAEoCBIUCgxpc190cmFuc2ll",
+            "bnQYBiABKAgSDwoHaXNfbnVsbBgHIAEoCBJFCghtZXRhZGF0YRgIIAEoCzIz",
+            "LmNvbS5jaXJydXNsaW5rLnNwYXJrcGx1Zy5wcm90b2J1Zi5QYXlsb2FkLk1l",
+            "dGFEYXRhEkoKCnByb3BlcnRpZXMYCSABKAsyNi5jb20uY2lycnVzbGluay5z",
+            "cGFya3BsdWcucHJvdG9idWYuUGF5bG9hZC5Qcm9wZXJ0eVNldBITCglpbnRf",
+            "dmFsdWUYCiABKA1IABIUCgpsb25nX3ZhbHVlGAsgASgESAASFQoLZmxvYXRf",
+            "dmFsdWUYDCABKAJIABIWCgxkb3VibGVfdmFsdWUYDSABKAFIABIXCg1ib29s",
+            "ZWFuX3ZhbHVlGA4gASgISAASFgoMc3RyaW5nX3ZhbHVlGA8gASgJSAASFQoL",
+            "Ynl0ZXNfdmFsdWUYECABKAxIABJLCg1kYXRhc2V0X3ZhbHVlGBEgASgLMjIu",
+            "Y29tLmNpcnJ1c2xpbmsuc3BhcmtwbHVnLnByb3RvYnVmLlBheWxvYWQuRGF0",
+            "YVNldEgAEk0KDnRlbXBsYXRlX3ZhbHVlGBIgASgLMjMuY29tLmNpcnJ1c2xp",
+            "bmsuc3BhcmtwbHVnLnByb3RvYnVmLlBheWxvYWQuVGVtcGxhdGVIABJhCg9l",
+            "eHRlbnNpb25fdmFsdWUYEyABKAsyRi5jb20uY2lycnVzbGluay5zcGFya3Bs",
+            "dWcucHJvdG9idWYuUGF5bG9hZC5NZXRyaWMuTWV0cmljVmFsdWVFeHRlbnNp",
+            "b25IABo9ChRNZXRyaWNWYWx1ZUV4dGVuc2lvbhIlCgdkZXRhaWxzGAEgAygL",
+            "MhQuZ29vZ2xlLnByb3RvYnVmLkFueUIHCgV2YWx1ZUI0CiFjb20uY2lycnVz",
+            "bGluay5zcGFya3BsdWcucHJvdG9idWZCD1NwYXJrcGx1Z0JQcm90b2IGcHJv",
+            "dG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.AnyReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Parser, new[]{ "Timestamp", "Metric", "Seq", "Uuid", "Body", "Details" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Parser, new[]{ "Name", "Version", "Metrics", "Parameters", "TemplateRef", "IsDefinition", "Details" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter.Parser, new[]{ "Name", "Type", "IntValue", "LongValue", "FloatValue", "DoubleValue", "BooleanValue", "StringValue", "ExtensionValue" }, new[]{ "Value" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter.Types.ParameterValueExtension), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter.Types.ParameterValueExtension.Parser, new[]{ "Extensionss" }, null, null, null)})}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Parser, new[]{ "Timestamp", "Metric", "Seq", "Uuid", "Body", "Details" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Parser, new[]{ "Version", "Metrics", "Parameters", "TemplateRef", "IsDefinition", "Details" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter.Parser, new[]{ "Name", "Type", "IntValue", "LongValue", "FloatValue", "DoubleValue", "BooleanValue", "StringValue", "ExtensionValue" }, new[]{ "Value" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter.Types.ParameterValueExtension), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter.Types.ParameterValueExtension.Parser, new[]{ "Extensions" }, null, null, null)})}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet.Parser, new[]{ "NumOfColumns", "Columns", "Types_", "Rows", "Details" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet.Types.DataSetValue), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet.Types.DataSetValue.Parser, new[]{ "IntValue", "LongValue", "FloatValue", "DoubleValue", "BooleanValue", "StringValue", "ExtensionValue" }, new[]{ "Value" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet.Types.DataSetValue.Types.DataSetValueExtension), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet.Types.DataSetValue.Types.DataSetValueExtension.Parser, new[]{ "Details" }, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet.Types.Row), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.DataSet.Types.Row.Parser, new[]{ "Elements", "Details" }, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertyValue), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertyValue.Parser, new[]{ "Type", "IsNull", "IntValue", "LongValue", "FloatValue", "DoubleValue", "BooleanValue", "StringValue", "PropertysetValue", "PropertysetsValue", "ExtensionValue" }, new[]{ "Value" }, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertyValue.Types.PropertyValueExtension), global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.PropertyValue.Types.PropertyValueExtension.Parser, new[]{ "Details" }, null, null, null)}),
@@ -432,7 +432,6 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public Template(Template other) : this() {
-          name_ = other.name_;
           version_ = other.version_;
           metrics_ = other.metrics_.Clone();
           parameters_ = other.parameters_.Clone();
@@ -446,22 +445,8 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
           return new Template(this);
         }
 
-        /// <summary>Field number for the "name" field.</summary>
-        public const int NameFieldNumber = 1;
-        private string name_ = "";
-        /// <summary>
-        ///  The name of this Template definition
-        /// </summary>
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-        public string Name {
-          get { return name_; }
-          set {
-            name_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-          }
-        }
-
         /// <summary>Field number for the "version" field.</summary>
-        public const int VersionFieldNumber = 2;
+        public const int VersionFieldNumber = 1;
         private string version_ = "";
         /// <summary>
         ///  The version of the Template to prevent mismatches
@@ -475,9 +460,9 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "metrics" field.</summary>
-        public const int MetricsFieldNumber = 3;
+        public const int MetricsFieldNumber = 2;
         private static readonly pb::FieldCodec<global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric> _repeated_metrics_codec
-            = pb::FieldCodec.ForMessage(26, global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric.Parser);
+            = pb::FieldCodec.ForMessage(18, global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric.Parser);
         private readonly pbc::RepeatedField<global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric> metrics_ = new pbc::RepeatedField<global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Metric>();
         /// <summary>
         ///  Each metric is the name of the metric and the datatype of the member but does not contain a value
@@ -488,9 +473,9 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "parameters" field.</summary>
-        public const int ParametersFieldNumber = 4;
+        public const int ParametersFieldNumber = 3;
         private static readonly pb::FieldCodec<global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter> _repeated_parameters_codec
-            = pb::FieldCodec.ForMessage(34, global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter.Parser);
+            = pb::FieldCodec.ForMessage(26, global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter.Parser);
         private readonly pbc::RepeatedField<global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter> parameters_ = new pbc::RepeatedField<global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter>();
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public pbc::RepeatedField<global::Com.Cirruslink.Sparkplug.Protobuf.Payload.Types.Template.Types.Parameter> Parameters {
@@ -498,7 +483,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "template_ref" field.</summary>
-        public const int TemplateRefFieldNumber = 5;
+        public const int TemplateRefFieldNumber = 4;
         private string templateRef_ = "";
         /// <summary>
         ///  Reference to a template if this is extending a Template or an instance - must exist if an instance
@@ -512,7 +497,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "is_definition" field.</summary>
-        public const int IsDefinitionFieldNumber = 6;
+        public const int IsDefinitionFieldNumber = 5;
         private bool isDefinition_;
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public bool IsDefinition {
@@ -523,9 +508,9 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         }
 
         /// <summary>Field number for the "details" field.</summary>
-        public const int DetailsFieldNumber = 7;
+        public const int DetailsFieldNumber = 6;
         private static readonly pb::FieldCodec<global::Google.Protobuf.WellKnownTypes.Any> _repeated_details_codec
-            = pb::FieldCodec.ForMessage(58, global::Google.Protobuf.WellKnownTypes.Any.Parser);
+            = pb::FieldCodec.ForMessage(50, global::Google.Protobuf.WellKnownTypes.Any.Parser);
         private readonly pbc::RepeatedField<global::Google.Protobuf.WellKnownTypes.Any> details_ = new pbc::RepeatedField<global::Google.Protobuf.WellKnownTypes.Any>();
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public pbc::RepeatedField<global::Google.Protobuf.WellKnownTypes.Any> Details {
@@ -545,7 +530,6 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
           if (ReferenceEquals(other, this)) {
             return true;
           }
-          if (Name != other.Name) return false;
           if (Version != other.Version) return false;
           if(!metrics_.Equals(other.metrics_)) return false;
           if(!parameters_.Equals(other.parameters_)) return false;
@@ -558,7 +542,6 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public override int GetHashCode() {
           int hash = 1;
-          if (Name.Length != 0) hash ^= Name.GetHashCode();
           if (Version.Length != 0) hash ^= Version.GetHashCode();
           hash ^= metrics_.GetHashCode();
           hash ^= parameters_.GetHashCode();
@@ -575,22 +558,18 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
 
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public void WriteTo(pb::CodedOutputStream output) {
-          if (Name.Length != 0) {
-            output.WriteRawTag(10);
-            output.WriteString(Name);
-          }
           if (Version.Length != 0) {
-            output.WriteRawTag(18);
+            output.WriteRawTag(10);
             output.WriteString(Version);
           }
           metrics_.WriteTo(output, _repeated_metrics_codec);
           parameters_.WriteTo(output, _repeated_parameters_codec);
           if (TemplateRef.Length != 0) {
-            output.WriteRawTag(42);
+            output.WriteRawTag(34);
             output.WriteString(TemplateRef);
           }
           if (IsDefinition != false) {
-            output.WriteRawTag(48);
+            output.WriteRawTag(40);
             output.WriteBool(IsDefinition);
           }
           details_.WriteTo(output, _repeated_details_codec);
@@ -599,9 +578,6 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public int CalculateSize() {
           int size = 0;
-          if (Name.Length != 0) {
-            size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
-          }
           if (Version.Length != 0) {
             size += 1 + pb::CodedOutputStream.ComputeStringSize(Version);
           }
@@ -621,9 +597,6 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
         public void MergeFrom(Template other) {
           if (other == null) {
             return;
-          }
-          if (other.Name.Length != 0) {
-            Name = other.Name;
           }
           if (other.Version.Length != 0) {
             Version = other.Version;
@@ -648,30 +621,26 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
                 input.SkipLastField();
                 break;
               case 10: {
-                Name = input.ReadString();
-                break;
-              }
-              case 18: {
                 Version = input.ReadString();
                 break;
               }
-              case 26: {
+              case 18: {
                 metrics_.AddEntriesFrom(input, _repeated_metrics_codec);
                 break;
               }
-              case 34: {
+              case 26: {
                 parameters_.AddEntriesFrom(input, _repeated_parameters_codec);
                 break;
               }
-              case 42: {
+              case 34: {
                 TemplateRef = input.ReadString();
                 break;
               }
-              case 48: {
+              case 40: {
                 IsDefinition = input.ReadBool();
                 break;
               }
-              case 58: {
+              case 50: {
                 details_.AddEntriesFrom(input, _repeated_details_codec);
                 break;
               }
@@ -1101,7 +1070,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
 
                 [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
                 public ParameterValueExtension(ParameterValueExtension other) : this() {
-                  extensionss_ = other.extensionss_.Clone();
+                  extensions_ = other.extensions_.Clone();
                 }
 
                 [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1109,14 +1078,14 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
                   return new ParameterValueExtension(this);
                 }
 
-                /// <summary>Field number for the "extensionss" field.</summary>
-                public const int ExtensionssFieldNumber = 1;
-                private static readonly pb::FieldCodec<global::Google.Protobuf.WellKnownTypes.Any> _repeated_extensionss_codec
+                /// <summary>Field number for the "extensions" field.</summary>
+                public const int ExtensionsFieldNumber = 1;
+                private static readonly pb::FieldCodec<global::Google.Protobuf.WellKnownTypes.Any> _repeated_extensions_codec
                     = pb::FieldCodec.ForMessage(10, global::Google.Protobuf.WellKnownTypes.Any.Parser);
-                private readonly pbc::RepeatedField<global::Google.Protobuf.WellKnownTypes.Any> extensionss_ = new pbc::RepeatedField<global::Google.Protobuf.WellKnownTypes.Any>();
+                private readonly pbc::RepeatedField<global::Google.Protobuf.WellKnownTypes.Any> extensions_ = new pbc::RepeatedField<global::Google.Protobuf.WellKnownTypes.Any>();
                 [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-                public pbc::RepeatedField<global::Google.Protobuf.WellKnownTypes.Any> Extensionss {
-                  get { return extensionss_; }
+                public pbc::RepeatedField<global::Google.Protobuf.WellKnownTypes.Any> Extensions {
+                  get { return extensions_; }
                 }
 
                 [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1132,14 +1101,14 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
                   if (ReferenceEquals(other, this)) {
                     return true;
                   }
-                  if(!extensionss_.Equals(other.extensionss_)) return false;
+                  if(!extensions_.Equals(other.extensions_)) return false;
                   return true;
                 }
 
                 [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
                 public override int GetHashCode() {
                   int hash = 1;
-                  hash ^= extensionss_.GetHashCode();
+                  hash ^= extensions_.GetHashCode();
                   return hash;
                 }
 
@@ -1150,13 +1119,13 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
 
                 [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
                 public void WriteTo(pb::CodedOutputStream output) {
-                  extensionss_.WriteTo(output, _repeated_extensionss_codec);
+                  extensions_.WriteTo(output, _repeated_extensions_codec);
                 }
 
                 [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
                 public int CalculateSize() {
                   int size = 0;
-                  size += extensionss_.CalculateSize(_repeated_extensionss_codec);
+                  size += extensions_.CalculateSize(_repeated_extensions_codec);
                   return size;
                 }
 
@@ -1165,7 +1134,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
                   if (other == null) {
                     return;
                   }
-                  extensionss_.Add(other.extensionss_);
+                  extensions_.Add(other.extensions_);
                 }
 
                 [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1177,7 +1146,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
                         input.SkipLastField();
                         break;
                       case 10: {
-                        extensionss_.AddEntriesFrom(input, _repeated_extensionss_codec);
+                        extensions_.AddEntriesFrom(input, _repeated_extensions_codec);
                         break;
                       }
                     }
@@ -2886,7 +2855,7 @@ namespace Com.Cirruslink.Sparkplug.Protobuf {
           return new MetaData(this);
         }
 
-        /// <summary>Field number for the "isMultiPart" field.</summary>
+        /// <summary>Field number for the "is_multi_part" field.</summary>
         public const int IsMultiPartFieldNumber = 1;
         private bool isMultiPart_;
         /// <summary>
