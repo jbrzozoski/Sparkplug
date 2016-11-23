@@ -1,27 +1,17 @@
-<!--
-  Copyright (c) 2012, 2016 Cirrus Link Solutions
-
-  All rights reserved. This program and the accompanying materials
-  are made available under the terms of the Eclipse Public License v1.0
-  which accompanies this distribution, and is available at
-  http://www.eclipse.org/legal/epl-v10.html
-
- Contributors:
-   Cirrus Link Solutions
--->
-
+<!-- Copyright (c) 2012-2016 Cirrus Link Solutions All rights reserved. 
+  This program and the accompanying materials are made available under the 
+  terms of the Eclipse Public License v1.0 which accompanies this distribution, 
+  and is available at http://www.eclipse.org/legal/epl-v10.html Contributors: 
+  Cirrus Link Solutions -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>com.cirruslink.sparkplug</groupId>
   <artifactId>sparkplug-java</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.1.0</version>
   <packaging>jar</packaging>
-
   <name>Maven Quick Start Archetype</name>
   <url>http://maven.apache.org</url>
-
   <distributionManagement>
     <repository>
       <id>aws-release</id>
@@ -56,7 +46,6 @@
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.7.5</version>
     </dependency>
-
     <dependency>
       <groupId>org.eclipse.paho</groupId>
       <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
@@ -76,55 +65,53 @@
       <artifactId>commons-io</artifactId>
       <version>2.5</version>
     </dependency>
-
   </dependencies>
-
-        <build>
-                <extensions>
-                        <extension>
-                                <groupId>org.kuali.maven.wagons</groupId>
-                                <artifactId>maven-s3-wagon</artifactId>
-                                <version>1.2.1</version>
-                        </extension>
-                </extensions>
-                <plugins>
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-compiler-plugin</artifactId>
-                                <version>2.3.2</version>
-                                <configuration>
-                                        <source>1.7</source>
-                                        <target>1.7</target>
-                                        <encoding>UTF-8</encoding>
-                                </configuration>
-                        </plugin>
-
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>license-maven-plugin</artifactId>
-				<version>1.8</version>
-				<executions>
-					<execution>
-						<id>add-third-party</id>
-						<phase>package</phase>
-						<goals>
-							<goal>add-third-party</goal>
-							<goal>download-licenses</goal>
-						</goals>
-						<configuration>
-							<useMissingFile>true</useMissingFile>
-							<excludedScopes>test</excludedScopes>
-							<excludedGroups>
-								(com.cirruslink*)
-							</excludedGroups>
-							<licenseMerges>
-								<licenseMerge>The Apache Software License, Version 2.0|Apache License, Version 2.0|Apache Public License 2.0|Apache License 2.0|Apache Software License - Version 2.0</licenseMerge>
-							</licenseMerges>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-                </plugins>
-        </build>
-
-    </project>
+  <build>
+    <extensions>
+      <extension>
+        <groupId>org.kuali.maven.wagons</groupId>
+        <artifactId>maven-s3-wagon</artifactId>
+        <version>1.2.1</version>
+      </extension>
+    </extensions>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <id>add-third-party</id>
+            <phase>package</phase>
+            <goals>
+              <goal>add-third-party</goal>
+              <goal>download-licenses</goal>
+            </goals>
+            <configuration>
+              <useMissingFile>true</useMissingFile>
+              <excludedScopes>test</excludedScopes>
+              <excludedGroups> (com.cirruslink*) 
+              </excludedGroups>
+              <licenseMerges>
+                <licenseMerge>The Apache Software License, Version
+                  2.0|Apache License, Version 2.0|Apache Public License
+                  2.0|Apache License 2.0|Apache Software License -
+                  Version 2.0</licenseMerge>
+              </licenseMerges>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

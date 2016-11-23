@@ -61,12 +61,11 @@ public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 	private static final String SW_VERSION = "v1.0.0";
 
 	// Configuration
-	private String serverUrl = "tcp://192.168.1.1:1883"; // Change to point to
-															// your MQTT Server
-	private String groupId = "Sparkplug Devices";
-	private String edgeNode = "Java Raspberry Pi";
+	private String serverUrl = "tcp://192.168.1.1:1883"; // Change to point to your MQTT Server
+	private String groupId = "Sparkplug A Devices";
+	private String edgeNode = "Java Raspberry Pi Example";
 	private String deviceId = "Pibrella";
-	private String clientId = "javaPibrellaClientId";
+	private String clientId = "SparkplugRaspberryPiExampleEdgeNode";
 	private String username = "admin";
 	private String password = "changeme";
 	private ExecutorService executor;

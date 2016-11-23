@@ -28,7 +28,7 @@ public class SparkplugListener implements MqttCallbackExtended {
 
 	// Configuration
 	private String serverUrl = "tcp://localhost:1883";
-	private String clientId = "javaSimpleEdgeNode";
+	private String clientId = "SparkplugBListenerEdgeNode";
 	private String username = "admin";
 	private String password = "changeme";
 	private MqttClient client;

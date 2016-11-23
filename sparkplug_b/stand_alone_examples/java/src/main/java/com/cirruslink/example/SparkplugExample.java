@@ -57,9 +57,9 @@ public class SparkplugExample implements MqttCallbackExtended {
 	private static final boolean USING_REAL_TLS = false;
 	private String serverUrl = "tcp://localhost:1883";
 	private String groupId = "Sparkplug B Devices";
-	private String edgeNode = "Java Edge Node";
-	private String deviceId = "Emulated Device";
-	private String clientId = "javaSimpleEdgeNode1";
+	private String edgeNode = "Java Sparkplug B Example";
+	private String deviceId = "SparkplugBExample";
+	private String clientId = "SparkplugBExampleEdgeNode";
 	private String username = "admin";
 	private String password = "changeme";
 	private long PUBLISH_PERIOD = 60000;					// Publish period in milliseconds

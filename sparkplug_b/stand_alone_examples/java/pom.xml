@@ -1,27 +1,17 @@
-<!--
-  Copyright (c) 2016 Cirrus Link Solutions
-
-  All rights reserved. This program and the accompanying materials
-  are made available under the terms of the Eclipse Public License v1.0
-  which accompanies this distribution, and is available at
-  http://www.eclipse.org/legal/epl-v10.html
-
- Contributors:
-   Cirrus Link Solutions
- -->
-
- <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<!-- Copyright (c) 2012-2016 Cirrus Link Solutions All rights reserved. 
+  This program and the accompanying materials are made available under the 
+  terms of the Eclipse Public License v1.0 which accompanies this distribution, 
+  and is available at http://www.eclipse.org/legal/epl-v10.html Contributors: 
+  Cirrus Link Solutions -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>com.cirruslink.example</groupId>
   <artifactId>sparkplug_b_example</artifactId>
-  <version>1.0.3-SNAPSHOT</version>
+  <version>1.1.0</version>
   <packaging>jar</packaging>
-
   <name>Maven Quick Start Archetype</name>
   <url>http://maven.apache.org</url>
-
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -45,7 +35,6 @@
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -82,41 +71,44 @@
                 </filter>
               </filters>
               <transformers>
-                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                <transformer
+                  implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <mainClass>com.cirruslink.example.SparkplugExample</mainClass>
                 </transformer>
-                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
-                </transformers>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>license-maven-plugin</artifactId>
-          <version>1.8</version>
-          <executions>
-           <execution>
+                <transformer
+                  implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
             <id>add-third-party</id>
             <phase>package</phase>
             <goals>
-             <goal>add-third-party</goal>
-             <goal>download-licenses</goal>
-           </goals>
-           <configuration>
-             <useMissingFile>true</useMissingFile>
-             <excludedScopes>test</excludedScopes>
-             <excludedGroups>
-              (com.cirruslink*)
-            </excludedGroups>
-            <licenseMerges>
-              <licenseMerge>The Apache Software License, Version 2.0|Apache License, Version 2.0|Apache Public License 2.0|Apache License 2.0|Apache Software License - Version 2.0</licenseMerge>
-            </licenseMerges>
-          </configuration>
-        </execution>
-      </executions>
-    </plugin>
-  </plugins>
-</build>
-
+              <goal>add-third-party</goal>
+              <goal>download-licenses</goal>
+            </goals>
+            <configuration>
+              <useMissingFile>true</useMissingFile>
+              <excludedScopes>test</excludedScopes>
+              <excludedGroups> (com.cirruslink*) 
+              </excludedGroups>
+              <licenseMerges>
+                <licenseMerge>The Apache Software License, Version
+                  2.0|Apache License, Version 2.0|Apache Public License
+                  2.0|Apache License 2.0|Apache Software License -
+                  Version 2.0</licenseMerge>
+              </licenseMerges>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
