@@ -60,11 +60,11 @@ def getDdataPayload():
 # Helper method for adding metrics to a payload
 ######################################################################
 def addMetric(payload, name, type, value):
-    metric = payload.metric.add()
+    metric = payload.metrics.add()
     metric.name = name
     metric.timestamp = int(round(time.time() * 1000))
 
-    print "Type: " + str(type)
+    # print "Type: " + str(type)
 
     if type == MetricDataType.Int8:
         metric.datatype = MetricDataType.Int8
@@ -117,7 +117,7 @@ def addMetric(payload, name, type, value):
 def getSeqNum():
     global seqNum
     retVal = seqNum
-    print("seqNum: " + str(retVal))
+    # print("seqNum: " + str(retVal))
     seqNum += 1
     if seqNum == 256:
         seqNum = 0
@@ -130,7 +130,7 @@ def getSeqNum():
 def getBdSeqNum():
     global bdSeq
     retVal = bdSeq
-    print("bdSeqNum: " + str(retVal))
+    # print("bdSeqNum: " + str(retVal))
     bdSeq += 1
     if bdSeq == 256:
         bdSeq = 0

@@ -25,7 +25,7 @@ from sparkplug_b import *
 serverUrl = "localhost"
 myGroupId = "Sparkplug B Devices"
 myNodeName = "Python Edge Node"
-mySubNodeName = "Emulated Device"
+myDeviceName = "Emulated Device"
 publishPeriod = 5000
 myUsername = "admin"
 myPassword = "changeme"
@@ -54,7 +54,7 @@ def on_message(client, userdata, msg):
     if tokens[0] == "spBv1.0" and tokens[1] == myGroupId and tokens[2] == "NCMD" and tokens[3] == myNodeName:
         inboundPayload = sparkplug_b_pb2.Payload()
         inboundPayload.ParseFromString(msg.payload)
-        for metric in inboundPayload.metric:
+        for metric in inboundPayload.metrics:
             if metric.name == "Node Control/Rebirth":
                 publishBirth()
     else:
@@ -82,9 +82,14 @@ def publishBirth():
     addMetric(payload, "Properties/Hardware Version", MetricDataType.String, "PFC_1.1")
     addMetric(payload, "Properties/Firmware Version", MetricDataType.String, "1.4.2")
 
+    addMetric(payload, "my_boolean", MetricDataType.Boolean, random.choice([True, False]))
+    addMetric(payload, "my_float", MetricDataType.Float, random.random())
+    addMetric(payload, "my_int", MetricDataType.Int32, random.randint(0,100))
+    addMetric(payload, "my_long", MetricDataType.Int64, random.getrandbits(60))
+
     # Publish the initial data with the Device BIRTH certificate
     totalByteArray = bytearray(payload.SerializeToString())
-    client.publish("spBv1.0/" + myGroupId + "/DBIRTH/" + myNodeName + "/" + mySubNodeName, totalByteArray, 0, False)
+    client.publish("spBv1.0/" + myGroupId + "/DBIRTH/" + myNodeName + "/" + myDeviceName, totalByteArray, 0, False)
 
 ######################################################################
 
@@ -116,7 +121,7 @@ while True:
 
     # Publish a message periodically data
     byteArray = bytearray(payload.SerializeToString())
-    client.publish("spBv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
+    client.publish("spBv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + myDeviceName, byteArray, 0, False)
 
     # Sit and wait for inbound or outbound events
     for _ in range(50):

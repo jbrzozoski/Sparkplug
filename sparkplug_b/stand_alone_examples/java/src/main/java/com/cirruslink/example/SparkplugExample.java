@@ -121,7 +121,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 						// Create the payload and add some metrics
 						SparkplugBPayload payload = new SparkplugBPayload(
 								new Date(), 
-								newMetrics(true), 
+								newMetrics(false), 
 								getSeqNum(),
 								newUUID(), 
 								null);
@@ -168,7 +168,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 				// Create the payload and add some metrics
 				payload = new SparkplugBPayload(
 						new Date(), 
-						newMetrics(true), 
+						newMetrics(false), 
 						getSeqNum(),
 						newUUID(), 
 						null);
@@ -310,7 +310,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 		metrics.add(new MetricBuilder("UInt8", UInt8, (short)random.nextInt()).createMetric());
 		metrics.add(new MetricBuilder("UInt16", UInt16, random.nextInt()).createMetric());
 		metrics.add(new MetricBuilder("UInt32", UInt32, random.nextLong()).createMetric());
-		metrics.add(new MetricBuilder("UInt64", UInt64, BigInteger.valueOf(random.nextLong())).createMetric());
+		//metrics.add(new MetricBuilder("UInt64", UInt64, BigInteger.valueOf(random.nextLong())).createMetric());
 		metrics.add(new MetricBuilder("Float", Float, random.nextFloat()).createMetric());
 		metrics.add(new MetricBuilder("Double", Double, random.nextDouble()).createMetric());
 		metrics.add(new MetricBuilder("Boolean", Boolean, random.nextBoolean()).createMetric());
@@ -318,9 +318,9 @@ public class SparkplugExample implements MqttCallbackExtended {
 		metrics.add(new MetricBuilder("DateTime", DateTime, new Date()).createMetric());
 		metrics.add(new MetricBuilder("Text", Text, newUUID()).createMetric());
 		metrics.add(new MetricBuilder("UUID", UUID, newUUID()).createMetric());
-		metrics.add(new MetricBuilder("Bytes", Bytes, randomBytes(20)).createMetric());
-		metrics.add(new MetricBuilder("File", File, null).createMetric());
-		metrics.add(new MetricBuilder("DataSet", DataSet, newDataSet()).createMetric());
+		//metrics.add(new MetricBuilder("Bytes", Bytes, randomBytes(20)).createMetric());
+		//metrics.add(new MetricBuilder("File", File, null).createMetric());
+		//metrics.add(new MetricBuilder("DataSet", DataSet, newDataSet()).createMetric());
 		if(withTemplates) {
 			metrics.add(new MetricBuilder("TemplateDef", Template, newTemplate(true)).createMetric());
 			metrics.add(new MetricBuilder("TemplateInst", Template, newTemplate(false)).createMetric());
@@ -350,7 +350,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 		propMap.put("PropUInt8", new PropertyValue(PropertyDataType.UInt8, (short)random.nextInt()));
 		propMap.put("PropUInt16", new PropertyValue(PropertyDataType.UInt16, random.nextInt()));
 		propMap.put("PropUInt32", new PropertyValue(PropertyDataType.UInt32, random.nextLong()));
-		propMap.put("PropUInt64", new PropertyValue(PropertyDataType.UInt64, BigInteger.valueOf(random.nextLong())));
+		//propMap.put("PropUInt64", new PropertyValue(PropertyDataType.UInt64, BigInteger.valueOf(random.nextLong())));
 		propMap.put("PropFloat", new PropertyValue(PropertyDataType.Float, random.nextFloat()));
 		propMap.put("PropDouble", new PropertyValue(PropertyDataType.Double, random.nextDouble()));
 		propMap.put("PropBoolean", new PropertyValue(PropertyDataType.Boolean, random.nextBoolean()));
@@ -380,7 +380,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 		params.add(new Parameter("ParamUInt8", ParameterDataType.UInt8, (short)random.nextInt()));
 		params.add(new Parameter("ParamUInt16", ParameterDataType.UInt16, random.nextInt()));
 		params.add(new Parameter("ParamUInt32", ParameterDataType.UInt32, random.nextLong()));
-		params.add(new Parameter("ParamUInt64", ParameterDataType.UInt64, BigInteger.valueOf(random.nextLong())));
+		//params.add(new Parameter("ParamUInt64", ParameterDataType.UInt64, BigInteger.valueOf(random.nextLong())));
 		params.add(new Parameter("ParamFloat", ParameterDataType.Float, random.nextFloat()));
 		params.add(new Parameter("ParamDouble", ParameterDataType.Double, random.nextDouble()));
 		params.add(new Parameter("ParamBoolean", ParameterDataType.Boolean, random.nextBoolean()));
@@ -402,7 +402,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 
 	private DataSet newDataSet() throws SparkplugException {
 		Random random = new Random();	
-		return new DataSetBuilder(14)
+		return new DataSetBuilder(13)
 				.addColumnName("Int8s")
 				.addColumnName("Int16s")
 				.addColumnName("Int32s")
@@ -410,7 +410,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 				.addColumnName("UInt8s")
 				.addColumnName("UInt16s")
 				.addColumnName("UInt32s")
-				.addColumnName("UInt64s")
+				//.addColumnName("UInt64s")
 				.addColumnName("Floats")
 				.addColumnName("Doubles")
 				.addColumnName("Booleans")
@@ -424,7 +424,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 				.addType(DataSetDataType.UInt8)
 				.addType(DataSetDataType.UInt16)
 				.addType(DataSetDataType.UInt32)
-				.addType(DataSetDataType.UInt64)
+				//.addType(DataSetDataType.UInt64)
 				.addType(DataSetDataType.Float)
 				.addType(DataSetDataType.Double)
 				.addType(DataSetDataType.Boolean)
@@ -439,7 +439,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 						.addValue(new Value<Short>(DataSetDataType.UInt8, (short)random.nextInt()))
 						.addValue(new Value<Integer>(DataSetDataType.UInt16, random.nextInt()))
 						.addValue(new Value<Long>(DataSetDataType.UInt32, random.nextLong()))
-						.addValue(new Value<BigInteger>(DataSetDataType.UInt64, BigInteger.valueOf(random.nextLong())))
+						//.addValue(new Value<BigInteger>(DataSetDataType.UInt64, BigInteger.valueOf(random.nextLong())))
 						.addValue(new Value<Float>(DataSetDataType.Float, random.nextFloat()))
 						.addValue(new Value<Double>(DataSetDataType.Double, random.nextDouble()))
 						.addValue(new Value<Boolean>(DataSetDataType.Boolean, random.nextBoolean()))
@@ -455,7 +455,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 						.addValue(new Value<Short>(DataSetDataType.UInt8, (short)random.nextInt()))
 						.addValue(new Value<Integer>(DataSetDataType.UInt16, random.nextInt()))
 						.addValue(new Value<Long>(DataSetDataType.UInt32, random.nextLong()))
-						.addValue(new Value<BigInteger>(DataSetDataType.UInt64, BigInteger.valueOf(random.nextLong())))
+						//.addValue(new Value<BigInteger>(DataSetDataType.UInt64, BigInteger.valueOf(random.nextLong())))
 						.addValue(new Value<Float>(DataSetDataType.Float, random.nextFloat()))
 						.addValue(new Value<Double>(DataSetDataType.Double, random.nextDouble()))
 						.addValue(new Value<Boolean>(DataSetDataType.Boolean, random.nextBoolean()))

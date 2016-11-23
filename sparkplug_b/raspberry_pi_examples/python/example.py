@@ -24,7 +24,7 @@ import subprocess
 from sparkplug_b import *
 from threading import Lock
 
-serverUrl = "192.168.1.23"
+serverUrl = "192.168.1.150"
 myGroupId = "Sparkplug B Devices"
 myNodeName = "Python Raspberry Pi"
 mySubNodeName = "Pibrella"
