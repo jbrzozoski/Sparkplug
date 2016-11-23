@@ -1,5 +1,8 @@
 target/
 bin/
+node_modules/
+test-output/
+license/
 dependency-reduced-pom.xml
 .settings/
 .project
@@ -9,3 +12,6 @@ javaSimpleEdgeNode-tcplocalhost*
 *.o
 sparkplug_example
 .DS_Store
+.pydevproject
+*.pyc
+*-tcp*

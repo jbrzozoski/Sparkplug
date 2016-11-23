@@ -12,6 +12,7 @@
 
 var mqtt = require('mqtt'),
     kurapayload = require('./lib/kurapayload.js'),
+    sparkplugbpayload = require('./lib/sparkplugbpayload.js'),
     events = require('events'),
     util = require("util");
 
@@ -22,53 +23,124 @@ var getRequiredProperty = function(config, propName) {
     throw new Error("Missing required configuration property '" + propName + "'");
 };
 
+var getProperty = function(config, propName, defaultValue) {
+    if (config[propName] !== undefined) {
+        return config[propName];
+    } else {
+        return defaultValue;
+    }
+};
+
 /*
  * Sparkplug Client
  */
 function SparkplugClient(config) {
-    var serverUrl = getRequiredProperty(config, "serverUrl"),
+    var versionA = "spAv1.0",
+        versionB = "spBv1.0",
+        serverUrl = getRequiredProperty(config, "serverUrl"),
         username = getRequiredProperty(config, "username"),
         password = getRequiredProperty(config, "password"),
         groupId = getRequiredProperty(config, "groupId"),
         edgeNode = getRequiredProperty(config, "edgeNode"),
         clientId = getRequiredProperty(config, "clientId"),
+        publishDeath = getProperty(config, "publishDeath", false),
+        version = getProperty(config, "version", versionB),
         bdSeq = 0,
         seq = 0,
         devices = [],
-        client,
+        client = null,
+        connecting = false,
+        connected = false,
+        type_int32 = 7,
+        type_boolean = 11,
+        type_string = 12,
 
     // Increments a sequence number
     incrementSeqNum = function() {
         if (seq == 256) {
-            return seq = 0;
+            seq = 0;
         }
         return seq++;
     },
 
+    encodePayload = function(payload) {
+        if (version === versionA) {
+            return kurapayload.generateKuraPayload(payload);
+        } else {
+            return sparkplugbpayload.encodePayload(payload);
+        }
+    },
+
+    decodePayload = function(payload) {
+        if (version === versionA) {
+            return kurapayload.parseKuraPayload(payload);
+        } else {
+            return sparkplugbpayload.decodePayload(payload);
+        }
+    },
+
+    addSeqNumber = function(payload) {
+        if (version === versionA) {
+            payload.metric = payload.metric !== undefined
+                ? payload.metric
+                : [];
+            payload.metric.push({ "name" : "seq", "value" : incrementSeqNum(), "type" : "int" });
+        } else {
+            payload.seq = incrementSeqNum();
+        }   
+    },
+
     // Get DEATH payload
     getDeathPayload = function() {
-        return {
-            "timestamp" : new Date().getTime(),
-            "metric" : [
-                { "name" : "bdSeq", "value" : bdSeq, "type" : "int" },
-            ]
-        };
+        var payload = {
+                "timestamp" : new Date().getTime()
+            },
+            metric = [ {
+                "name" : "bdSeq", 
+                "value" : bdSeq, 
+                "type" : "int"
+            } ];
+        if (version === versionA) {
+            paylaod.metric = metric;
+        } else {
+            payload.metrics = metric;
+        }
+        return payload;
     },
 
     // Get BIRTH payload for the edge node
     getEdgeBirthPayload = function() {
-        return {
-            "timestamp" : new Date().getTime(),
-            "metric" : [
-                { "name" : "bdSeq", "value" : bdSeq, "type" : "int" },
-                { "name" : "seq", "value" : incrementSeqNum(), "type" : "int" },
-                { "name" : "Node Control/Rebirth", "value" : false, "type" : "boolean" }
-            ]
-        };
+        if (version === "spAv1") {
+            return {
+                "timestamp" : new Date().getTime(),
+                "metric" : [
+                    { "name" : "bdSeq", "value" : bdSeq, "type" : "int" },
+                    { "name" : "seq", "value" : incrementSeqNum(), "type" : "int" },
+                    { "name" : "Node Control/Rebirth", "value" : false, "type" : "boolean" }
+                ]
+            };
+        } else {
+            return {
+                "timestamp" : new Date().getTime(),
+                "seq" : incrementSeqNum(),
+                "metric" : [
+                    { 
+                        "name" : "bdSeq",
+                        "type" : type_int32, 
+                        "value" : bdSeq
+                    },
+                    {
+                        "name" : "Node Control/Rebirth",
+                        "type" : type_boolean,
+                        "value" : false
+                    }
+                ]
+            };
+        }
     },
 
     // Publishes BIRTH certificates for the edge node
-    publishBirth = function(client) {
+    publishNBirth = function(client) {
         var payload, topic;
         // Reset sequence number
         seq = 0;
@@ -76,8 +148,20 @@ function SparkplugClient(config) {
         // Publish BIRTH certificate for edge node
         console.log("Publishing Edge Node Birth");
         payload = getEdgeBirthPayload();
-        topic = "spAv1.0/" + groupId + "/NBIRTH/" + edgeNode;
-        client.publish(topic, kurapayload.generateKuraPayload(payload));
+        topic = version + "/" + groupId + "/NBIRTH/" + edgeNode;
+        client.publish(topic, encodePayload(payload));
+        messageAlert("published", topic, payload);
+    },
+
+    // Publishes DEATH certificates for the edge node
+    publishNDeath = function(client) {
+        var payload, topic;
+
+        // Publish DEATH certificate for edge node
+        console.log("Publishing Edge Node Death");
+        payload = getDeathPayload();
+        topic = version + "/" + groupId + "/NDEATH/" + edgeNode;
+        client.publish(topic, encodePayload(payload));
         messageAlert("published", topic, payload);
     },
 
@@ -90,8 +174,47 @@ function SparkplugClient(config) {
 
     events.EventEmitter.call(this);
 
+    this.publishDeviceData = function(deviceId, payload) {
+        // Add seq number
+        addSeqNumber(payload);
+        // Publish
+        console.log("Publishing DDATA for device " + deviceId);
+        topic = version + "/" + groupId + "/DDATA/" + edgeNode + "/" + deviceId;
+        client.publish(topic, encodePayload(payload));
+        messageAlert("published", topic, payload);
+    };
+
+    this.publishDeviceBirth = function(deviceId, payload) {
+        // Add seq number
+        addSeqNumber(payload);
+        // Publish
+        console.log("Publishing DBIRTH for device " + deviceId);
+        topic = version + "/" + groupId + "/DBIRTH/" + edgeNode + "/" + deviceId;
+        client.publish(topic, encodePayload(payload));
+        messageAlert("published", topic, payload);
+    };
+
+    this.publishDeviceDeath = function(deviceId, payload) {
+        // Add seq number
+        addSeqNumber(payload);
+        // Publish
+        console.log("Publishing DDEATH for device " + deviceId);
+        topic = version + "/" + groupId + "/DDEATH/" + edgeNode + "/" + deviceId;
+        client.publish(topic, encodePayload(payload));
+        messageAlert("published", topic, payload);
+    };
+
+    this.stop = function() {
+        console.log("publishDeath: " + publishDeath);
+        if (publishDeath) {
+            // Publish the DEATH certificate
+            publishNDeath(client);
+        }
+        client.end();
+    };
+
     // Configures and connects the client
-    (function(sparkplugClient) {
+    return (function(sparkplugClient) {
         var deathPayload = getDeathPayload(),
             // Client connection options
             clientOptions = {
@@ -102,59 +225,103 @@ function SparkplugClient(config) {
                 "username" : username,
                 "password" : password,
                 "will" : {
-                    "topic" : "spAv1.0/" + groupId + "/NDEATH/" + edgeNode,
-                    "payload" : kurapayload.generateKuraPayload(deathPayload),
+                    "topic" : version + "/" + groupId + "/NDEATH/" + edgeNode,
+                    "payload" : encodePayload(deathPayload),
                     "qos" : 0,
                     "retain" : false
                 }
             };
 
         // Connect to the MQTT server
+        sparkplugClient.connecting = true;
+        console.log("Attempting to connect: " + serverUrl);
+        console.log("              options: " + JSON.stringify(clientOptions));
         client = mqtt.connect(serverUrl, clientOptions);
+        console.log("Finished attempting to connect");
 
+        /*
+         * 'connect' handler
+         */
         client.on('connect', function () {
             console.log("Client has connected");
+            sparkplugClient.connecting = false;
+            sparkplugClient.connected = true;
+            sparkplugClient.emit("connect");
 
             // Subscribe to control/command messages for both the edge node and the attached devices
             console.log("Subscribing to control/command messages for both the edge node and the attached devices");
-            client.subscribe("spAv1.0/" + groupId + "/NCMD/" + edgeNode + "/#", { "qos" : 0 });
-            client.subscribe("spAv1.0/" + groupId + "/DCMD/" + edgeNode + "/#", { "qos" : 0 });
+            client.subscribe(version + "/" + groupId + "/NCMD/" + edgeNode + "/#", { "qos" : 0 });
+            client.subscribe(version + "/" + groupId + "/DCMD/" + edgeNode + "/#", { "qos" : 0 });
 
             // Publish BIRTH certificates
-            publishBirth(client);
+            publishNBirth(client);
             // Emit the "rebirth" event to notify devices to send a birth
             console.log("Emmitting 'Rebirth' event");
             sparkplugClient.emit("rebirth");
         });
 
+        /*
+         * 'error' handler
+         */
+        client.on('error', function(error) {
+            if (sparkplugClient.connecting) {
+                sparkplugClient.emit("error", error);
+                client.end();
+            }
+        });
+
+        /*
+         * 'close' handler
+         */
+        client.on('close', function() {
+            if (sparkplugClient.connected) {
+                sparkplugClient.connected = false;
+                sparkplugClient.emit("close");
+            }
+        });
+
+        /*
+         * 'reconnect' handler
+         */
+        client.on("reconnect", function() {
+            sparkplugClient.emit("reconnect");
+        });
+
+        /*
+         * 'message' handler
+         */
         client.on('message', function (topic, message) {
-            var payload = kurapayload.parseKuraPayload(message),
+            var payload = decodePayload(message),
                 timestamp = payload.timestamp,
-                metric = payload.metric,
-                splitTopic;
+                splitTopic,
+                metrics;
 
             messageAlert("arrived", topic, payload);
 
             // Split the topic up into tokens
             splitTopic = topic.split("/");
-            if (splitTopic[0] === "spAv1.0"
+            if (splitTopic[0] === version
                     && splitTopic[1] === groupId
                     && splitTopic[2] === "NCMD"
                     && splitTopic[3] === edgeNode) {
                 // Loop over the metrics looking for commands
-                if (metric !== undefined && metric !== null) {
-                    for (var i = 0; i < metric.length; i++) {
-                        if (metric[i].name == "Node Control/Rebirth" && metric[i].value) {
+                metrics = (version === versionA) 
+                        ? payload.metric
+                        : paylaod.metrics;
+                if (metrics !== undefined && metrics !== null) {
+                    for (var i = 0; i < metrics.length; i++) {
+                        var metric = metrics[i];
+                        if (metric.name == "Node Control/Rebirth" && metric.value) {
                             console.log("Received 'Rebirth' command");
                             // Publish BIRTH certificate for the edge node
-                            publishBirth(client);
+                            publishNBirth(client);
                             // Emit the "rebirth" event
-                            console.log("Emmitting 'Rebirth' event");
+                            console.log("Emmitting 'rebirth' event");
                             sparkplugClient.emit("rebirth");
                         }
                     }
                 }
-            } else if (splitTopic[0] === "spAv1.0"
+            } else if (splitTopic[0] === version
                     && splitTopic[1] === groupId
                     && splitTopic[2] === "DCMD"
                     && splitTopic[3] === edgeNode) {
@@ -163,45 +330,9 @@ function SparkplugClient(config) {
                 sparkplugClient.emit("command", splitTopic[4], payload);
             }
         });
+
+        return sparkplugClient;
     }(this));
-
-    this.publishDeviceData = function(deviceId, payload) {
-        // Add seq number
-        payload.metric.push({ "name" : "seq", "value" : incrementSeqNum(), "type" : "int" });
-        // Publish
-        console.log("Publishing DDATA for device " + deviceId);
-        topic = "spAv1.0/" + groupId + "/DDATA/" + edgeNode + "/" + deviceId;
-        client.publish(topic, kurapayload.generateKuraPayload(payload));
-        messageAlert("published", topic, payload);
-    };
-
-    this.publishDeviceBirth = function(deviceId, payload) {
-        // Add seq number
-        payload.metric.push({ "name" : "seq", "value" : incrementSeqNum(), "type" : "int" });
-        // Publish
-        console.log("Publishing DBIRTH for device " + deviceId);
-        topic = "spAv1.0/" + groupId + "/DBIRTH/" + edgeNode + "/" + deviceId;
-        client.publish(topic, kurapayload.generateKuraPayload(payload));
-        messageAlert("published", topic, payload);
-    };
-
-    this.publishDeviceDeath = function(deviceId, payload) {
-        // Add seq number
-        payload.metric = payload.metric !== undefined
-                ? payload.metric
-                : [];
-        console.log("payload.metric: " + payload.metric);
-        payload.metric.push({ "name" : "seq", "value" : incrementSeqNum(), "type" : "int" });
-        // Publish
-        console.log("Publishing DDEATH for device " + deviceId);
-        topic = "spAv1.0/" + groupId + "/DDEATH/" + edgeNode + "/" + deviceId;
-        client.publish(topic, kurapayload.generateKuraPayload(payload));
-        messageAlert("published", topic, payload);
-    };
-
-    this.stop = function() {
-        client.end();
-    };
 };
 
 util.inherits(SparkplugClient, events.EventEmitter);
