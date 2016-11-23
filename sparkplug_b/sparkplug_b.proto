@@ -141,7 +141,7 @@ message Payload {
 
     message MetaData {
         // Bytes specific metadata
-        optional bool   is_multi_part     = 1;
+        optional bool   is_multi_part   = 1;
 
         // General metadata
         optional string content_type    = 2;        // Content/Media type
@@ -189,7 +189,7 @@ message Payload {
     }
 
     optional uint64   timestamp     = 1;        // Timestamp at message sending time
-    repeated Metric   metrics        = 2;        // Repeated forever - no limit in Google Protobufs
+    repeated Metric   metrics       = 2;        // Repeated forever - no limit in Google Protobufs
     optional uint64   seq           = 3;        // Sequence number
     optional string   uuid          = 4;        // UUID to track message type in terms of schema definitions
     optional bytes    body          = 5;        // To optionally bypass the whole definition above

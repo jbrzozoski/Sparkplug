@@ -65,18 +65,16 @@ message Payload {
             }
 
             message ParameterValueExtension {
-		repeated google.protobuf.Any extensionss = 1;
-
+		        repeated google.protobuf.Any extensions = 1;
             }
         }
 
-        string name            = 1;          // The name of this Template definition
-        string version         = 2;          // The version of the Template to prevent mismatches
-        repeated Metric metrics         = 3;          // Each metric is the name of the metric and the datatype of the member but does not contain a value
-        repeated Parameter parameters   = 4;
-        string template_ref    = 5;          // Reference to a template if this is extending a Template or an instance - must exist if an instance
-        bool is_definition     = 6;
-	repeated google.protobuf.Any details = 7;
+        string version                       = 1;          // The version of the Template to prevent mismatches
+        repeated Metric metrics              = 2;          // Each metric is the name of the metric and the datatype of the member but does not contain a value
+        repeated Parameter parameters        = 3;
+        string template_ref                  = 4;          // Reference to a template if this is extending a Template or an instance - must exist if an instance
+        bool is_definition                   = 5;
+    	repeated google.protobuf.Any details = 6;
     }
 
     message DataSet {
@@ -113,7 +111,8 @@ message Payload {
     message PropertyValue {
 
         uint32     type                   = 1;
-	bool       is_null                = 2;
+	    bool       is_null                = 2;
+
         oneof value {
             uint32          int_value              = 3;
             uint64          long_value             = 4;
@@ -144,7 +143,7 @@ message Payload {
 
     message MetaData {
         // Bytes specific metadata
-        bool   isMultiPart     = 1;
+        bool   is_multi_part   = 1;
 
         // General metadata
         string content_type    = 2;        // Content/Media type
@@ -171,7 +170,7 @@ message Payload {
         bool     is_transient  = 6;        // Tells consuming clients such as MQTT Engine to not store this as a tag
         bool     is_null       = 7;        // If this is null - explicitly say so rather than using -1, false, etc for some datatypes.
         MetaData metadata      = 8;        // Metadata for the payload
-	PropertySet properties = 9;
+    	PropertySet properties = 9;
 
         oneof value {
             uint32   int_value                      = 10;
@@ -192,7 +191,7 @@ message Payload {
     }
 
     uint64   timestamp     = 1;        // Timestamp at message sending time
-    repeated Metric   metric        = 2;        // Repeated forever - no limit in Google Protobufs
+    repeated Metric metric = 2;        // Repeated forever - no limit in Google Protobufs
     uint64   seq           = 3;        // Sequence number
     string   uuid          = 4;        // UUID to track message type in terms of schema definitions
     bytes    body          = 5;        // To optionally bypass the whole definition above
