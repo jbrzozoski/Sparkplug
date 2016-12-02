@@ -176,7 +176,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 				// Only do this once to set up the inputs and outputs
 				payload.addMetric(new MetricBuilder("Inputs/0", Boolean, true).createMetric());
 				payload.addMetric(new MetricBuilder("Inputs/1", Int32, 0).createMetric());
-				payload.addMetric(new MetricBuilder("Inputs/2", Float, 1.23f).createMetric());
+				payload.addMetric(new MetricBuilder("Inputs/2", Double, 1.23d).createMetric());
 				payload.addMetric(new MetricBuilder("Outputs/0", Boolean, true).createMetric());
 				payload.addMetric(new MetricBuilder("Outputs/1", Int32, 0).createMetric());
 				payload.addMetric(new MetricBuilder("Outputs/2", Double, 1.23d).createMetric());
