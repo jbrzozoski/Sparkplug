@@ -89,6 +89,12 @@ public class Template {
 		this.parameters.add(parameter);
 	}
 	
+	@Override
+	public String toString() {
+		return "Template [version=" + version + ", templateRef=" + templateRef + ", isDefinition=" + isDefinition
+				+ ", metrics=" + metrics + ", parameters=" + parameters + "]";
+	}
+
 	/**
 	 * A builder for creating a {@link Template} instance.
 	 */
