@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.UUID;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -40,6 +42,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class SparkplugExample implements MqttCallbackExtended {
 	
 	private static final String NAMESPACE = "spBv1.0";
+	
+	static {
+		Logger.getRootLogger().setLevel(Level.OFF);
+	}
 
 	// Configuration
 	private String serverUrl = "tcp://localhost:1883";
