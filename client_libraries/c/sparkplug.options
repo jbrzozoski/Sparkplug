@@ -4,3 +4,6 @@ com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.string_value max_size:10
 com.cirruslink.sparkplug.protobuf.Payload.Metric.string_value max_size:1048576
 com.cirruslink.sparkplug.protobuf.Payload.Metric.bytes_value max_size:1048576
 com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter.string_value max_size:1048576
+com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.propertyset_value  type:FT_IGNORE
+com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.propertysets_value type:FT_IGNORE
+com.cirruslink.sparkplug.protobuf.Payload.Metric.template_value            type:FT_IGNORE
