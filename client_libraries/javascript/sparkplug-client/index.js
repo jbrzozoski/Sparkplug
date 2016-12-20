@@ -123,15 +123,15 @@ function SparkplugClient(config) {
             return {
                 "timestamp" : new Date().getTime(),
                 "seq" : incrementSeqNum(),
-                "metric" : [
+                "metrics" : [
                     { 
                         "name" : "bdSeq",
-                        "type" : type_int32, 
+                        "type" : "uint32", 
                         "value" : bdSeq
                     },
                     {
                         "name" : "Node Control/Rebirth",
-                        "type" : type_boolean,
+                        "type" : "boolean",
                         "value" : false
                     }
                 ]
@@ -307,7 +307,7 @@ function SparkplugClient(config) {
                 // Loop over the metrics looking for commands
                 metrics = (version === versionA) 
                         ? payload.metric
-                        : paylaod.metrics;
+                        : payload.metrics;
                 if (metrics !== undefined && metrics !== null) {
                     for (var i = 0; i < metrics.length; i++) {
                         var metric = metrics[i];

@@ -634,9 +634,7 @@
 
         metric.name = protoMetric.name;
         metric.type = decodeType(protoMetric.datatype);
-        console.log("metric: " + JSON.stringify(protoMetric));
         metric.value = getValue(protoMetric.datatype, protoMetric);
-        console.log("value: " + metric.value);
 
         if (protoMetric.alias !== undefined && alias !== null) {
             metric.alias = protoMetric.alias;
