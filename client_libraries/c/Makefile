@@ -3,13 +3,14 @@ SNAME    :=  lib/lib$(NAME).a
 DNAME    :=  lib/lib$(NAME).so
 SRC      :=  $(wildcard src/*.c)
 OBJ      :=  $(SRC:.c=.o)
-CFLAGS   :=  -Wall -g3 -fPIC -Iinclude/
+#CFLAGS   :=  -Wall -g3 -fPIC -Iinclude/
+CFLAGS   :=  -g -g3 -fPIC -Iinclude/
 LDFLAGS  :=  -L.
 #LDLIBS  :=  -l$(...)
 
 TEST     :=  test
 TEST_OBJ := test/test.c
-LD_TEST  := -Llib -l$(NAME)
+LD_TEST  := -Llib -L/usr/local/lib -l$(NAME)
 
 .PHONY: all clean test re
 
@@ -23,8 +24,8 @@ $(DNAME): $(OBJ)
 	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
 $(TEST):
-	$(CC) $(CFLAGS) -o test/test_static $(TEST_OBJ) $(SNAME)
-	$(CC) $(CFLAGS) $(LD_TEST) -o test/test_dynamic $(TEST_OBJ) -l$(NAME)
+	$(CC) $(CFLAGS) -o test/test_static $(TEST_OBJ) $(SNAME) -lmosquitto
+	$(CC) $(CFLAGS) $(LD_TEST) -o test/test_dynamic $(TEST_OBJ) -l$(NAME) -lmosquitto
 
 clean:
 	$(RM) $(OBJ)

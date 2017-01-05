@@ -1,7 +1,7 @@
 #!/bin/sh
 
-echo "Running static example..."
-./test/test_static
+#echo "Running static example..."
+#./test/test_static
 
 echo ""
 echo "Running dynamic example..."
