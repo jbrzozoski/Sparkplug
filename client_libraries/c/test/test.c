@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 
 
 	// MQTT Stuff
-        char *host = "cl-target1.chariot.io";
+        char *host = "localhost";
         int port = 1883;
         int keepalive = 60;
         bool clean_session = true;
@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
         mosquitto_connect_callback_set(mosq, my_connect_callback);
         mosquitto_message_callback_set(mosq, my_message_callback);
         mosquitto_subscribe_callback_set(mosq, my_subscribe_callback);
-        mosquitto_username_pw_set(mosq,"CLAdmin","CLAdm79!");
+        mosquitto_username_pw_set(mosq,"admin","changeme");
         mosquitto_will_set(mosq, "spBv1.0/Sparkplug B Devices/NDEATH/C Edge Node 1", 0, NULL, 0, false);
 
 //      mosquitto_tls_insecure_set(mosq, true);
@@ -105,177 +105,15 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 	}
 	fflush(stdout);
 
-	// Do the decoding
+	// Decode the payload
 	com_cirruslink_sparkplug_protobuf_Payload inbound_payload = com_cirruslink_sparkplug_protobuf_Payload_init_zero;
-	pb_istream_t stream = pb_istream_from_buffer(message->payload, message->payloadlen);
-
-//	bool status = pb_decode(&stream, com_cirruslink_sparkplug_protobuf_Payload_fields, &inbound_payload);
-	bool status = false;
-
-	if (!status) {
-		printf("Decoding failed: %s\n", PB_GET_ERROR(&stream));
-		printf("Bytes Remaining: %zd\n", stream.bytes_left);
-
-		pb_wire_type_t payload_wire_type;
-		uint32_t payload_tag;
-		bool payload_eof;
-		const pb_field_t *payload_field;
-
-		while (pb_decode_tag(&stream, &payload_wire_type, &payload_tag, &payload_eof)) {
-			printf("payload_eof: %s\n", payload_eof ? "true" : "false");
-			printf("\tBytes Remaining: %zd\n", stream.bytes_left);
-			printf("\tWiretype: %d\n", payload_wire_type);
-			printf("\tTag: %d\n", payload_tag);
-
-			if (payload_wire_type == PB_WT_VARINT) {
-				for (payload_field = com_cirruslink_sparkplug_protobuf_Payload_fields; payload_field->tag != 0; payload_field++) {
-					if (payload_field->tag == payload_tag && (((payload_field->type & PB_LTYPE_VARINT) == PB_LTYPE_VARINT) ||
-											((payload_field->type & PB_LTYPE_UVARINT) == PB_LTYPE_UVARINT))) {
-						printf("\tWire type is PB_WT_VARINT\n");
-						uint64_t dest;
-						status = pb_decode_varint(&stream, &dest);
-						if (status) {
-							printf("\tVARINT - Success - new value: %ld\n", dest);
-						} else {
-							printf("\tVARINT - Failed to decode variant!\n");
-						}
-					} else if (payload_field->tag == payload_tag && ((payload_field->type & PB_LTYPE_SVARINT) == PB_LTYPE_SVARINT)) {
-						printf("\tWire type is PB_WT_SVARINT\n");
-						int64_t dest;
-						status = pb_decode_svarint(&stream, &dest);
-						if (status) {
-							printf("\tVARINT - Success - new value: %ld\n", dest);
-						} else {
-							printf("\tVARINT - Failed to decode variant!\n");
-						}
-					}
-				}
-			} else if (payload_wire_type == PB_WT_64BIT) {
-				printf("\tWire type is PB_WT_64BIT\n");
-			} else if (payload_wire_type == PB_WT_STRING) {
-				printf("\tWire type is PB_WT_STRING\n");
-				for (payload_field = com_cirruslink_sparkplug_protobuf_Payload_fields; payload_field->tag != 0; payload_field++) {
-					if (payload_field->tag == payload_tag && ((payload_field->type & PB_LTYPE_SUBMESSAGE) == PB_LTYPE_SUBMESSAGE)) {
-						printf("\tFound a PB_LTYPE_SUBMESSAGE\n");
-
-						// Found a metric - get the ptr to it
-						com_cirruslink_sparkplug_protobuf_Payload_Metric metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_zero;
-						//printf("\t\tsizeof(field->ptr): %zd\n", sizeof(field->ptr));
-
-						pb_istream_t substream;
-						const pb_field_t *submsg_fields = (const pb_field_t *)payload_field->ptr;
-						if (!pb_make_string_substream(&stream, &substream)) {
-							printf("FAILED\n");
-						}
-
-						if (payload_field->ptr == NULL) {
-							printf("invalid field descriptor\n");
-						}
-
-						pb_wire_type_t metric_wire_type;
-						uint32_t metric_tag;
-						bool metric_eof;
-						const pb_field_t *metric_field;
-
-						while (pb_decode_tag(&substream, &metric_wire_type, &metric_tag, &metric_eof)) {
-							printf("\teof: %s\n", metric_eof ? "true" : "false");
-							printf("\t\tBytes Remaining: %zd\n", substream.bytes_left);
-							printf("\t\tWiretype: %d\n", metric_wire_type);
-							printf("\t\tTag: %d\n", metric_tag);
-
-							if (metric_wire_type == PB_WT_VARINT) {
-								printf("\t\tMetric Wire type is PB_WT_VARINT\n");
-								for (metric_field = com_cirruslink_sparkplug_protobuf_Payload_Metric_fields; metric_field->tag != 0; metric_field++) {
-									if (metric_field->tag == metric_tag && (((metric_field->type & PB_LTYPE_VARINT) == PB_LTYPE_VARINT) ||
-														((metric_field->type & PB_LTYPE_UVARINT) == PB_LTYPE_UVARINT))) {
-										printf("\t\tWire type is PB_WT_VARINT\n");
-										uint64_t dest;
-										status = pb_decode_varint(&substream, &dest);
-										if (status) {
-											printf("\t\tVARINT - Success - new value: %ld\n", dest);
-										} else {
-											printf("\t\tVARINT - Failed to decode variant!\n");
-										}
-									} else if (metric_field->tag == metric_tag && ((metric_field->type & PB_LTYPE_SVARINT) == PB_LTYPE_SVARINT)) {
-										printf("\t\tWire type is PB_WT_SVARINT\n");
-										int64_t dest;
-										status = pb_decode_svarint(&substream, &dest);
-										if (status) {
-											printf("\t\tVARINT - Success - new value: %ld\n", dest);
-										} else {
-											printf("\t\tVARINT - Failed to decode variant!\n");
-										}
-									}
-								}
-							} else if (metric_wire_type == PB_WT_64BIT) {
-								printf("\t\tMetric Wire type is PB_WT_64BIT\n");
-							} else if (metric_wire_type == PB_WT_STRING) {
-								printf("\t\tMetric Wire type is PB_WT_STRING\n");
-
-								for (metric_field = com_cirruslink_sparkplug_protobuf_Payload_Metric_fields; metric_field->tag != 0; metric_field++) {
-									if (metric_field->tag == metric_tag && ((metric_field->type & PB_LTYPE_SUBMESSAGE) == PB_LTYPE_SUBMESSAGE)) {
-										printf("\t\tFound a PB_LTYPE_SUBMESSAGE\n");
-									} else if (metric_field->tag == metric_tag &&
-												((metric_field->type & PB_LTYPE_FIXED_LENGTH_BYTES) == PB_LTYPE_FIXED_LENGTH_BYTES)) {
-										printf("\t\tFound a PB_LTYPE_FIXED_LENGTH_BYTES\n");
-									} else if (metric_field->tag == metric_tag && ((metric_field->type & PB_LTYPE_STRING) == PB_LTYPE_STRING)) {
-										printf("\t\tFound a PB_LTYPE_STRING\n");
-
-										// Get the string size
-										pb_byte_t string_size[1];
-										status = pb_read(&substream, string_size, 1);
-										if (status) {
-											printf("\t\tString Size: %d\n", string_size[0]);
-										}
-
-										pb_byte_t dest[string_size[0]+1];
-										status = pb_read(&substream, dest, string_size[0]);
-										if (status) {
-											printf("\t\tRead the String! %s\n", dest);
-										} else {
-											printf("\t\tFailed to read the String...\n");
-										}
-
-
-									} else if (metric_field->tag == metric_tag && ((metric_field->type & PB_LTYPE_BYTES) == PB_LTYPE_BYTES)) {
-										printf("\t\tFound a PB_LTYPE_BYTES\n");
-									} else {
-										printf("\t\tother: %d\n", metric_field->type);
-									}
-								}
-
-							} else if (metric_wire_type == PB_WT_32BIT) {
-								printf("\t\tMetric Wire type is PB_WT_32BIT\n");
-							} else {
-								printf("\t\tMetric Other? %d\n", metric_wire_type);
-							}
-						}
-
-						// Close the substream
-						pb_close_string_substream(&stream, &substream);
-
-					} else if (payload_field->tag == payload_tag && ((payload_field->type & PB_LTYPE_FIXED_LENGTH_BYTES) == PB_LTYPE_FIXED_LENGTH_BYTES)) {
-						printf("\tFound a PB_LTYPE_FIXED_LENGTH_BYTES\n");
-					} else if (payload_field->tag == payload_tag && ((payload_field->type & PB_LTYPE_STRING) == PB_LTYPE_STRING)) {
-						printf("\tFound a PB_LTYPE_STRING\n");
-					} else if (payload_field->tag == payload_tag && ((payload_field->type & PB_LTYPE_BYTES) == PB_LTYPE_BYTES)) {
-						printf("\tFound a PB_LTYPE_BYTES\n");
-					} else {
-						printf("\tother: %d\n", payload_field->type);
-					}
-				}
-			} else if (payload_wire_type == PB_WT_32BIT) {
-				printf("\tWire type is PB_WT_32BIT\n");
-			} else {
-				printf("\tUnknown wiretype...\n");
-			}
-		}
+	if(decode_payload(&inbound_payload, message->payload, message->payloadlen)) {
 	} else {
-		printf("Decoding succeeded...\n");
+		printf("FAILED TO DECODE THE PAYLOAD\n");
 	}
 
 	// Print the message data
-	print_payload(&inbound_payload);
+	//print_payload(&inbound_payload);
 }
 
 void my_connect_callback(struct mosquitto *mosq, void *userdata, int result) {

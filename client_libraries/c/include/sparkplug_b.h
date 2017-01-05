@@ -59,6 +59,9 @@
 	// Encode a payload
 	extern size_t encode_payload(uint8_t **buffer, size_t buffer_length, com_cirruslink_sparkplug_protobuf_Payload *payload);
 
+	// Decode a payload
+	extern bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, const void *binary_payload, int binary_payloadlen);
+
 	// Get the next empty payload
 	extern void get_next_payload(com_cirruslink_sparkplug_protobuf_Payload *payload);
 #endif
