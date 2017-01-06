@@ -11,7 +11,32 @@
 #ifndef _SPARKPLUGLIB_H_
 #define _SPARKPLUGLIB_H_
 
+	// Enable/disable debug messages
+	#define SPARKPLUG_DEBUG 1
+
+	#ifdef SPARKPLUG_DEBUG
+		#define DEBUG_PRINT(x) printf x
+	#else
+		#define DEBUG_PRINT(x) do {} while (0)
+	#endif
+
 	// Constants
+	#define DATA_SET_DATA_TYPE_UNKNOWN 0
+	#define DATA_SET_DATA_TYPE_INT8 1
+	#define DATA_SET_DATA_TYPE_INT16 2
+	#define DATA_SET_DATA_TYPE_INT32 3
+	#define DATA_SET_DATA_TYPE_INT64 4
+	#define DATA_SET_DATA_TYPE_UINT8 5
+	#define DATA_SET_DATA_TYPE_UINT16 6
+	#define DATA_SET_DATA_TYPE_UINT32 7
+	#define DATA_SET_DATA_TYPE_UINT64 8
+	#define DATA_SET_DATA_TYPE_FLOAT 9
+	#define DATA_SET_DATA_TYPE_DOUBLE 10
+	#define DATA_SET_DATA_TYPE_BOOLEAN 11
+	#define DATA_SET_DATA_TYPE_STRING 12
+	#define DATA_SET_DATA_TYPE_DATETIME 13
+	#define DATA_SET_DATA_TYPE_TEXT 14
+
 	#define METRIC_DATA_TYPE_UNKNOWN 0
 	#define METRIC_DATA_TYPE_INT8 1
 	#define METRIC_DATA_TYPE_INT16 2
@@ -33,10 +58,43 @@
 	#define METRIC_DATA_TYPE_FILE 18
 	#define METRIC_DATA_TYPE_TEMPLATE 19
 
+	#define PARAMETER_DATA_TYPE_UNKNOWN 0
+	#define PARAMETER_DATA_TYPE_INT8 1
+	#define PARAMETER_DATA_TYPE_INT16 2
+	#define PARAMETER_DATA_TYPE_INT32 3
+	#define PARAMETER_DATA_TYPE_INT64 4
+	#define PARAMETER_DATA_TYPE_UINT8 5
+	#define PARAMETER_DATA_TYPE_UINT16 6
+	#define PARAMETER_DATA_TYPE_UINT32 7
+	#define PARAMETER_DATA_TYPE_UINT64 8
+	#define PARAMETER_DATA_TYPE_FLOAT 9
+	#define PARAMETER_DATA_TYPE_DOUBLE 10
+	#define PARAMETER_DATA_TYPE_BOOLEAN 11
+	#define PARAMETER_DATA_TYPE_STRING 12
+	#define PARAMETER_DATA_TYPE_DATETIME 13
+	#define PARAMETER_DATA_TYPE_TEXT 14
+
+	#define PROPERTY_DATA_TYPE_UNKNOWN 0
+	#define PROPERTY_DATA_TYPE_INT8 1
+	#define PROPERTY_DATA_TYPE_INT16 2
+	#define PROPERTY_DATA_TYPE_INT32 3
+	#define PROPERTY_DATA_TYPE_INT64 4
+	#define PROPERTY_DATA_TYPE_UINT8 5
+	#define PROPERTY_DATA_TYPE_UINT16 6
+	#define PROPERTY_DATA_TYPE_UINT32 7
+	#define PROPERTY_DATA_TYPE_UINT64 8
+	#define PROPERTY_DATA_TYPE_FLOAT 9
+	#define PROPERTY_DATA_TYPE_DOUBLE 10
+	#define PROPERTY_DATA_TYPE_BOOLEAN 11
+	#define PROPERTY_DATA_TYPE_STRING 12
+	#define PROPERTY_DATA_TYPE_DATETIME 13
+	#define PROPERTY_DATA_TYPE_TEXT 14
+
 	// Global vars
 	extern uint64_t seq;
 
 	// Add a metric to an existing Payload
+// TODO - return size_t to denote size of payload
 	extern void add_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 				const char *name,
 				bool has_alias,
@@ -48,6 +106,7 @@
 				const void *value,
 				size_t size_of_value);
 
+	// Frees an existing payload
 	void free_payload(com_cirruslink_sparkplug_protobuf_Payload *payload);
 
 	// Get the current timestamp in milliseconds

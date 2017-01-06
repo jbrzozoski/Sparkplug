@@ -22,13 +22,67 @@ void publish_device_birth(struct mosquitto *mosq);
 
 int main(int argc, char *argv[]) {
 
-				const pb_field_t *field;
-				for (field = com_cirruslink_sparkplug_protobuf_Payload_fields; field->tag != 0; field++) {
-					printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
-				}
-				for (field = com_cirruslink_sparkplug_protobuf_Payload_Metric_fields; field->tag != 0; field++) {
-					printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
-				}
+/*
+extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_fields[7];
+extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_Template_fields[7];
+extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_fields[10];
+extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_ParameterValueExtension_fields[2];
+extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_DataSet_fields[6];
+extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_fields[8];
+extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_DataSetValueExtension_fields[2];
+extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row_fields[3];
+extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_fields[10];
+extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_PropertyValueExtension_fields[2];
+extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_PropertySet_fields[4];
+extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_PropertySetList_fields[3];
+extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_MetaData_fields[10];
+extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_Metric_fields[19];
+extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_Metric_MetricValueExtension_fields[2];
+*/
+
+/*
+	const pb_field_t *field;
+	printf("Payload_fields\n");
+	for (field = com_cirruslink_sparkplug_protobuf_Payload_fields; field->tag != 0; field++) {
+		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
+	}
+	printf("Payload_Metric_fields\n");
+	for (field = com_cirruslink_sparkplug_protobuf_Payload_Metric_fields; field->tag != 0; field++) {
+		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
+	}
+	printf("Payload_MetaData_fields\n");
+	for (field = com_cirruslink_sparkplug_protobuf_Payload_MetaData_fields; field->tag != 0; field++) {
+		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
+	}
+	printf("Payload_PropertySet_fields\n");
+	for (field = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_fields; field->tag != 0; field++) {
+		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
+	}
+	printf("Payload_PropertyValue_fields\n");
+	for (field = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_fields; field->tag != 0; field++) {
+		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
+	}
+	printf("Payload_DataSet_fields\n");
+	for (field = com_cirruslink_sparkplug_protobuf_Payload_DataSet_fields; field->tag != 0; field++) {
+		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
+	}
+	printf("Payload_DataSet_Row_fields\n");
+	for (field = com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row_fields; field->tag != 0; field++) {
+		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
+	}
+	printf("Payload_DataSet_DataSetValue_fields\n");
+	for (field = com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_fields; field->tag != 0; field++) {
+		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
+	}
+	printf("Payload_Template_fields\n");
+	for (field = com_cirruslink_sparkplug_protobuf_Payload_Template_fields; field->tag != 0; field++) {
+		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
+	}
+	printf("Payload_Template_Parameter_fields\n");
+	for (field = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_fields; field->tag != 0; field++) {
+		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
+	}
+*/
 
 
 	// MQTT Stuff
@@ -137,7 +191,7 @@ void my_subscribe_callback(struct mosquitto *mosq, void *userdata, int mid, int 
 }
 
 void my_log_callback(struct mosquitto *mosq, void *userdata, int level, const char *str) {
-	/* Print all log messages regardless of level. */
+	// Print all log messages regardless of level.
 	printf("%s\n", str);
 }
 
@@ -153,9 +207,6 @@ void publish_node_birth(struct mosquitto *mosq) {
 	nbirth_payload.uuid = (char*)malloc((strlen("MyUUID")+1) * sizeof(char));
 	strcpy(nbirth_payload.uuid, "MyUUID");
 
-//	strcpy(nbirth_payload.body, "Setting the body to some chars");
-
-
 	// Add some metrics
 	printf("Adding 'Node Metric0'\n");
 	char nbirth_metric_zero_value[] = "hello";
@@ -166,9 +217,6 @@ void publish_node_birth(struct mosquitto *mosq) {
 	printf("Adding 'Node Metric2'\n");
 	uint32_t nbirth_metric_two_value = 13;
 	add_metric(&nbirth_payload, "Node Metric2", true, 2, METRIC_DATA_TYPE_INT16, false, false, false, &nbirth_metric_two_value, sizeof(nbirth_metric_two_value));
-//	printf("Adding 'Node Metric3'\n");
-//	pb_byte_t nbirth_metric_three_value[] = {0,1,2,3,4,5,6,7,8};
-//	add_metric(&nbirth_payload, "Node Metric3", true, 3, METRIC_DATA_TYPE_BYTES, false, false, false, &nbirth_metric_three_value, sizeof(nbirth_metric_three_value));
 
         // Print the payload
         print_payload(&nbirth_payload);
