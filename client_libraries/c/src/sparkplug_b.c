@@ -10,10 +10,10 @@
 uint64_t seq;
 
 // Internal
-int grow_array(com_cirruslink_sparkplug_protobuf_Payload_Metric **metric_array, int current_size, int num_new_elems) {
+int grow_metrics_array(com_cirruslink_sparkplug_protobuf_Payload_Metric **metric_array, int current_size, int num_new_elems) {
         const int total_size = current_size + num_new_elems;
         com_cirruslink_sparkplug_protobuf_Payload_Metric *temp = (com_cirruslink_sparkplug_protobuf_Payload_Metric*)realloc(*metric_array,
-                                                                 (total_size * sizeof(com_cirruslink_sparkplug_protobuf_Payload_Metric)));
+                                                                 	(total_size * sizeof(com_cirruslink_sparkplug_protobuf_Payload_Metric)));
 
         if (temp == NULL) {
                 printf("Cannot allocate more memory.\n");
@@ -25,8 +25,196 @@ int grow_array(com_cirruslink_sparkplug_protobuf_Payload_Metric **metric_array, 
         return total_size;
 }
 
+int grow_propertyvalues_array(com_cirruslink_sparkplug_protobuf_Payload_PropertyValue **values_array, int current_size, int num_new_elems) {
+        const int total_size = current_size + num_new_elems;
+        com_cirruslink_sparkplug_protobuf_Payload_PropertyValue *temp = (com_cirruslink_sparkplug_protobuf_Payload_PropertyValue*)realloc(*values_array,
+                                                                 (total_size * sizeof(com_cirruslink_sparkplug_protobuf_Payload_PropertyValue)));
+
+        if (temp == NULL) {
+                printf("Cannot allocate more memory.\n");
+                return 0;
+        } else {
+                *values_array = temp;
+        }
+
+        return total_size;
+}
+
+int grow_char_array(char **array, int current_size, int num_new_elems) {
+        const int total_size = current_size + num_new_elems;
+	char *temp = (char *)realloc(*array, (total_size * sizeof(char)));
+
+	if (temp == NULL) {
+		printf("Cannot allocate more memory.\n");
+		return 0;
+	} else {
+		*array = temp;
+	}
+
+	return total_size;
+}
+
 // External
-void add_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
+bool add_property_to_set(com_cirruslink_sparkplug_protobuf_Payload_PropertySet *propertyset, const char *key, uint32_t type, bool is_null, const void *value, size_t size_of_value) {
+
+	if(propertyset->keys_count != propertyset->values_count) {
+		printf("Invalid PropertySet!\n");
+		return false;
+	}
+
+	int size = propertyset->keys_count;
+	if (size == 0) {
+		propertyset->keys = (char **) calloc(1, sizeof(char*));
+		propertyset->values = (com_cirruslink_sparkplug_protobuf_Payload_PropertyValue *) calloc(1, sizeof(com_cirruslink_sparkplug_protobuf_Payload_PropertyValue));
+		if(propertyset->values == NULL) {
+			printf("Cannot allocate initial memory for data\n");
+		} else {
+			size = 1;
+		}
+	} else {
+		grow_char_array(propertyset->keys, size, 1);
+		size = grow_propertyvalues_array(&propertyset->values, size, 1);
+	}
+
+	// Set the key name in the array of keys
+	propertyset->keys[size-1] = (char *)malloc((strlen(key)+1)*sizeof(char));
+	strcpy(propertyset->keys[size-1], key);
+
+	propertyset->keys_count++;
+	propertyset->values_count++;
+	DEBUG_PRINT(("Size of values in PropertySet %d\n", propertyset->keys_count));
+}
+
+/*
+    pb_size_t keys_count;
+    char **keys;
+    pb_size_t values_count;
+    struct _com_cirruslink_sparkplug_protobuf_Payload_PropertyValue *values;
+
+                        propertySet=PropertySet [
+                                propertyMap={
+                                        tagType=PropertyValue [
+                                                type=Int32,
+                                                value=9,
+                                                isNull=false
+                                        ]
+                                }
+                        ],
+
+typedef struct _com_cirruslink_sparkplug_protobuf_Payload_PropertyValue {
+    bool has_type;
+    uint32_t type;
+    bool has_is_null;
+    bool is_null;
+    pb_size_t which_value;
+    union {
+        uint32_t int_value;
+        uint64_t long_value;
+        float float_value;
+        double double_value;
+        bool boolean_value;
+        char *string_value;
+        com_cirruslink_sparkplug_protobuf_Payload_PropertySet propertyset_value;
+        com_cirruslink_sparkplug_protobuf_Payload_PropertySetList propertysets_value;
+        com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_PropertyValueExtension extension_value;
+    } value;
+*/
+
+// External
+void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
+			const char *name,
+			bool has_alias,
+			uint64_t alias,
+			uint64_t datatype,
+			bool is_historical,
+			bool is_transient,
+			bool is_null,
+			const void *value,
+			size_t size_of_value) {
+
+	metric->name = (char *)malloc((strlen(name)+1)*sizeof(char));
+	strcpy(metric->name, name);
+
+	metric->has_alias = has_alias;
+	if (has_alias) {
+		metric->alias = alias;
+	}
+	metric->has_timestamp = true;
+	metric->timestamp = get_current_timestamp();
+	metric->has_datatype = true;
+	metric->datatype = datatype;
+	metric->has_is_historical = is_historical;
+	if (is_historical) {
+		metric->is_historical = is_historical;
+	}
+	metric->has_is_transient = is_transient;
+	if (is_transient) {
+		metric->is_transient = is_transient;
+	}
+	metric->has_is_null = is_null;
+	if (is_null) {
+		metric->is_null = is_null;
+	}
+	metric->has_metadata = false;
+	metric->has_properties = false;
+
+	// Default dynamically allocated members to NULL
+	metric->value.string_value = NULL;
+
+	DEBUG_PRINT(("Setting datatype and value - value size is %zd\n", size_of_value));
+	if (datatype == METRIC_DATA_TYPE_UNKNOWN) {
+		printf("Can't create metric with unknown datatype!\n");
+	} else if (datatype == METRIC_DATA_TYPE_INT8 || datatype == METRIC_DATA_TYPE_INT16 || datatype == METRIC_DATA_TYPE_INT32 ||
+			datatype == METRIC_DATA_TYPE_UINT8 || datatype == METRIC_DATA_TYPE_UINT16 || datatype == METRIC_DATA_TYPE_UINT32) {
+		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((uint32_t *)value)));
+		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag;
+		metric->value.int_value = *((uint32_t *)value);
+	} else if (datatype == METRIC_DATA_TYPE_INT64 || datatype == METRIC_DATA_TYPE_UINT64 || datatype == METRIC_DATA_TYPE_DATETIME) {
+		DEBUG_PRINT(("Setting datatype: %zd, with value: %zd\n", datatype, *((uint64_t *)value)));
+		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_long_value_tag;
+		metric->value.long_value = *((uint64_t *)value);
+	} else if (datatype == METRIC_DATA_TYPE_FLOAT) {
+		DEBUG_PRINT(("Setting datatype: %zd, with value: %f\n", datatype, *((float *)value)));
+		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_float_value_tag;
+		metric->value.float_value = *((float *)value);
+	} else if (datatype == METRIC_DATA_TYPE_DOUBLE) {
+		DEBUG_PRINT(("Setting datatype: %zd, with value: %f\n", datatype, *((double *)value)));
+		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_double_value_tag;
+		metric->value.double_value = *((double *)value);
+	} else if (datatype == METRIC_DATA_TYPE_BOOLEAN) {
+		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((bool *)value)));
+		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_boolean_value_tag;
+		metric->value.boolean_value = *((bool *)value);
+	} else if (datatype == METRIC_DATA_TYPE_STRING || datatype == METRIC_DATA_TYPE_TEXT || datatype == METRIC_DATA_TYPE_UUID) {
+		DEBUG_PRINT(("Setting datatype: %zd, with value: %s\n", datatype, (char *)value));
+		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_string_value_tag;
+		metric->value.string_value = (char *)malloc(size_of_value*sizeof(char));
+		strcpy(metric->value.string_value, (char *)value);
+	} else if (datatype == METRIC_DATA_TYPE_BYTES) {
+		DEBUG_PRINT(("Setting datatype: %zd, with value ", datatype));
+		int i;
+		for (i = 0; i<size_of_value; i++) {
+			if (i > 0) DEBUG_PRINT((":"));
+			DEBUG_PRINT(("%02X", ((pb_byte_t *)value)[i]));
+		}
+		DEBUG_PRINT(("\n"));
+
+	} else if (datatype == METRIC_DATA_TYPE_DATASET) {
+		DEBUG_PRINT(("Datatype DATASET - Not yet supported\n"));
+	} else if (datatype == METRIC_DATA_TYPE_FILE) {
+		DEBUG_PRINT(("Datatype FILE - Not yet supported\n"));
+	} else if (datatype == METRIC_DATA_TYPE_TEMPLATE) {
+		//DEBUG_PRINT(("Setting datatype: %zd, with value: %f\n", datatype, *((double *)value)));
+		DEBUG_PRINT(("Setting datatype: %zd, with # of metrics: %d\n", datatype, ((com_cirruslink_sparkplug_protobuf_Payload_Template *)value)->metrics_count));
+		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_template_value_tag;
+		metric->value.template_value = *((com_cirruslink_sparkplug_protobuf_Payload_Template *)value);
+	} else {
+		DEBUG_PRINT(("Unknown datatype %ju\n", datatype));
+	}
+}
+
+// External
+void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 			const char *name,
 			bool has_alias,
 			uint64_t alias,
@@ -46,7 +234,7 @@ void add_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 			size = 1;
 		}
 	} else {
-		size = grow_array(&payload->metrics, size, 1);
+		size = grow_metrics_array(&payload->metrics, size, 1);
 	}
 
 	payload->metrics[size-1].name = (char *)malloc((strlen(name)+1)*sizeof(char));
@@ -135,7 +323,9 @@ void add_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 	} else if (datatype == METRIC_DATA_TYPE_FILE) {
 		DEBUG_PRINT(("Datatype FILE - Not yet supported\n"));
 	} else if (datatype == METRIC_DATA_TYPE_TEMPLATE) {
-		DEBUG_PRINT(("Datatype TEMPLATE - Not yet supported\n"));
+		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((bool *)value)));
+		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_template_value_tag;
+		payload->metrics[size-1].value.template_value = *((com_cirruslink_sparkplug_protobuf_Payload_Template *)value);
 	} else {
 		DEBUG_PRINT(("Unknown datatype %ju\n", datatype));
 	}
@@ -144,7 +334,7 @@ void add_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 	DEBUG_PRINT(("Size of metrics payload %d\n", payload->metrics_count));
 }
 
-// Internal for now
+// External
 void add_entire_metric(com_cirruslink_sparkplug_protobuf_Payload *payload, com_cirruslink_sparkplug_protobuf_Payload_Metric *metric) {
 
 	int size = payload->metrics_count;
@@ -156,7 +346,7 @@ void add_entire_metric(com_cirruslink_sparkplug_protobuf_Payload *payload, com_c
 			size = 1;
 		}
 	} else {
-		size = grow_array(&payload->metrics, size, 1);
+		size = grow_metrics_array(&payload->metrics, size, 1);
 	}
 
 	// Assign the metric
@@ -164,6 +354,18 @@ void add_entire_metric(com_cirruslink_sparkplug_protobuf_Payload *payload, com_c
 
 	// Increment the metric count
 	payload->metrics_count++;
+}
+
+// External
+void add_metadata_to_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, com_cirruslink_sparkplug_protobuf_Payload_MetaData *metadata) {
+	metric->has_metadata = true;
+	metric->metadata = *metadata;
+}
+
+// External
+void add_propertyset_to_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, com_cirruslink_sparkplug_protobuf_Payload_PropertySet *properties) {
+	metric->has_properties = true;
+	metric->properties = *properties;
 }
 
 // External
@@ -283,7 +485,8 @@ void print_payload(com_cirruslink_sparkplug_protobuf_Payload *payload) {
 		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_FILE) {
 			printf("Payload:  Metric %d:  datatype FILE - Not yet supported\n", i);
 		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_TEMPLATE) {
-			printf("Payload:  Metric %d:  datatype TEMPLATE - Not yet supported\n", i);
+			//printf("Payload:  Metric %d:  datatype: %d, with value: %zd\n", i, payload->metrics[i].datatype, payload->metrics[i].value.long_value);
+			printf("Payload:  Metric %d:  datatype: %d, with # of metrics: %d\n", i, payload->metrics[i].datatype, payload->metrics[i].value.template_value.metrics_count);
 		} else {
 			printf("Payload:  Metric %d:  datatype: %d\n", i, payload->metrics[i].datatype);
 		}

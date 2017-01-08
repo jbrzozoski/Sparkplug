@@ -14,12 +14,9 @@ com.cirruslink.sparkplug.protobuf.Payload.MetaData.md5				type:FT_POINTER
 com.cirruslink.sparkplug.protobuf.Payload.Metric.bytes_value			type:FT_POINTER
 com.cirruslink.sparkplug.protobuf.Payload.Metric.name				type:FT_POINTER
 com.cirruslink.sparkplug.protobuf.Payload.Metric.string_value			type:FT_POINTER
-com.cirruslink.sparkplug.protobuf.Payload.Metric.template_value			type:FT_IGNORE
 com.cirruslink.sparkplug.protobuf.Payload.PropertySet.keys			type:FT_POINTER
 com.cirruslink.sparkplug.protobuf.Payload.PropertySet.values			type:FT_POINTER
 com.cirruslink.sparkplug.protobuf.Payload.PropertySetList.propertyset		type:FT_POINTER
-com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.propertysets_value	type:FT_IGNORE
-com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.propertyset_value	type:FT_IGNORE
 com.cirruslink.sparkplug.protobuf.Payload.PropertyValue.string_value		type:FT_POINTER
 com.cirruslink.sparkplug.protobuf.Payload.Template.metrics			type:FT_POINTER
 com.cirruslink.sparkplug.protobuf.Payload.Template.template_ref			type:FT_POINTER

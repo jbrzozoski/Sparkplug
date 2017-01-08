@@ -93,9 +93,27 @@
 	// Global vars
 	extern uint64_t seq;
 
+	extern bool add_property_to_set(com_cirruslink_sparkplug_protobuf_Payload_PropertySet *propertyset,
+					const char *key,
+					uint32_t type,
+					bool is_null,
+					const void *value,
+					size_t size_of_value);
+
+	extern void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
+                        const char *name,
+                        bool has_alias,
+                        uint64_t alias,
+                        uint64_t datatype,
+                        bool is_historical,
+                        bool is_transient,
+                        bool is_null,
+                        const void *value,
+                        size_t size_of_value);
+
 	// Add a metric to an existing Payload
 // TODO - return size_t to denote size of payload
-	extern void add_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
+	extern void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 				const char *name,
 				bool has_alias,
 				uint64_t alias,
@@ -105,6 +123,15 @@
 				bool is_null,
 				const void *value,
 				size_t size_of_value);
+
+	// Add a complete metric to a payload
+	extern void add_entire_metric(com_cirruslink_sparkplug_protobuf_Payload *payload, com_cirruslink_sparkplug_protobuf_Payload_Metric *metric);
+
+	// Add metadata to metric
+	extern void add_metadata_to_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, com_cirruslink_sparkplug_protobuf_Payload_MetaData *metadata);
+
+	// Add propertyset to metric
+	extern void add_propertyset_to_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, com_cirruslink_sparkplug_protobuf_Payload_PropertySet *properties);
 
 	// Frees an existing payload
 	void free_payload(com_cirruslink_sparkplug_protobuf_Payload *payload);
