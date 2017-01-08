@@ -84,4 +84,9 @@ public class Parameter {
 				&& Objects.equals(type, param.getType())
 				&& Objects.equals(value, param.getValue());
 	}
+
+	@Override
+	public String toString() {
+		return "Parameter [name=" + name + ", type=" + type + ", value=" + value + "]";
+	}
 }
