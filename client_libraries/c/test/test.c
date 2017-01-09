@@ -229,17 +229,17 @@ void publish_node_birth(struct mosquitto *mosq) {
 	com_cirruslink_sparkplug_protobuf_Payload_Metric rpms_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
 	uint32_t rpms_value = 0;
 	init_metric(&rpms_metric, "RPMs", false, 0, METRIC_DATA_TYPE_INT32, false, false, false, &rpms_value, sizeof(rpms_value));
-	com_cirruslink_sparkplug_protobuf_Payload_PropertySet rpms_propertyset = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_init_default;
-	uint32_t rpms_property_value = 0;
-	add_property_to_set(&rpms_propertyset, "tagType", METRIC_DATA_TYPE_INT32, false, &rpms_property_value, sizeof(rpms_property_value));
+//	com_cirruslink_sparkplug_protobuf_Payload_PropertySet rpms_propertyset = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_init_default;
+//	uint32_t rpms_property_value = 0;
+//	add_property_to_set(&rpms_propertyset, "tagType", METRIC_DATA_TYPE_INT32, false, &rpms_property_value, sizeof(rpms_property_value));
 
 	// Create a metric called AMPs for the UDT definition
 	com_cirruslink_sparkplug_protobuf_Payload_Metric amps_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
 	uint32_t amps_value = 0;
 	init_metric(&amps_metric, "AMPs", false, 0, METRIC_DATA_TYPE_INT32, false, false, false, &amps_value, sizeof(amps_value));
-	com_cirruslink_sparkplug_protobuf_Payload_PropertySet amps_propertyset = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_init_default;
-	uint32_t amps_property_value = 0;
-	add_property_to_set(&amps_propertyset, "tagType", METRIC_DATA_TYPE_INT32, false, &amps_property_value, sizeof(amps_property_value));
+//	com_cirruslink_sparkplug_protobuf_Payload_PropertySet amps_propertyset = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_init_default;
+//	uint32_t amps_property_value = 0;
+//	add_property_to_set(&amps_propertyset, "tagType", METRIC_DATA_TYPE_INT32, false, &amps_property_value, sizeof(amps_property_value));
 
 	// Create a Template/UDT Parameter
 	com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter parameter = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_init_default;
@@ -251,10 +251,10 @@ void publish_node_birth(struct mosquitto *mosq) {
 	parameter.value.string_value = (char *)malloc((strlen("0")+1)*sizeof(char));
 	strcpy(parameter.value.string_value, "0");
 
-	// Create the UDT defintion
+	// Create the UDT definition value
 	com_cirruslink_sparkplug_protobuf_Payload_Template udt_template = com_cirruslink_sparkplug_protobuf_Payload_Template_init_default;
-	udt_template.version = (char *)malloc((strlen("v1.1")+1)*sizeof(char));
-        strcpy(udt_template.version, "v1.1");
+	//udt_template.version = (char *)malloc((strlen("v1.1")+1)*sizeof(char));
+        //strcpy(udt_template.version, "v1.1");
 	udt_template.metrics_count = 2;
 	udt_template.metrics = (com_cirruslink_sparkplug_protobuf_Payload_Metric *) calloc(2, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Metric));
 	udt_template.metrics[0] = rpms_metric;
@@ -266,13 +266,16 @@ void publish_node_birth(struct mosquitto *mosq) {
 	udt_template.has_is_definition = true;
 	udt_template.is_definition = true;
 
-	// Create the root UDT definition and add the UDT value
+	// Create the root UDT definition and add the UDT definition value
 	com_cirruslink_sparkplug_protobuf_Payload_Metric metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
 	init_metric(&metric, "_types_/Custom_Motor", false, 0, METRIC_DATA_TYPE_TEMPLATE, false, false, false, &udt_template, sizeof(udt_template));
 
+/*
+	// Add a propertyset
 	com_cirruslink_sparkplug_protobuf_Payload_PropertySet propertyset = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_init_default;
 	uint32_t nbirth_propvalue_one = 9;
 	add_property_to_set(&propertyset, "tagType", METRIC_DATA_TYPE_INT32, false, &nbirth_propvalue_one, sizeof(nbirth_propvalue_one));
+*/
 
 	// Add the UDT to the payload
 	add_entire_metric(&nbirth_payload, &metric);
@@ -312,6 +315,78 @@ void publish_device_birth(struct mosquitto *mosq) {
 	printf("Adding 'sub/Device Metric3'\n");
 	uint32_t dbirth_metric_three_value = 17;
 	add_simple_metric(&dbirth_payload, "sub/Device Metric3", true, 13, METRIC_DATA_TYPE_INT16, false, false, false, &dbirth_metric_three_value, sizeof(dbirth_metric_three_value));
+
+
+
+
+
+
+
+
+
+
+
+
+	// Create a metric called RPMs for the UDT instance
+	com_cirruslink_sparkplug_protobuf_Payload_Metric rpms_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	uint32_t rpms_value = 123;
+	init_metric(&rpms_metric, "RPMs", false, 0, METRIC_DATA_TYPE_INT32, false, false, false, &rpms_value, sizeof(rpms_value));
+
+	// Create a metric called AMPs for the UDT instance
+	com_cirruslink_sparkplug_protobuf_Payload_Metric amps_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	uint32_t amps_value = 456;
+	init_metric(&amps_metric, "AMPs", false, 0, METRIC_DATA_TYPE_INT32, false, false, false, &amps_value, sizeof(amps_value));
+
+	// Create a Template/UDT instance Parameter
+	com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter parameter = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_init_default;
+	parameter.name = (char *)malloc((strlen("Index")+1)*sizeof(char));
+        strcpy(parameter.name, "Index");
+	parameter.has_type = true;
+	parameter.type = PARAMETER_DATA_TYPE_STRING;
+	parameter.which_value = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_string_value_tag;
+	parameter.value.string_value = (char *)malloc((strlen("1")+1)*sizeof(char));
+	strcpy(parameter.value.string_value, "1");
+
+	// Create the UDT instance value
+	com_cirruslink_sparkplug_protobuf_Payload_Template udt_template = com_cirruslink_sparkplug_protobuf_Payload_Template_init_default;
+	udt_template.version = NULL;
+	udt_template.metrics_count = 2;
+	udt_template.metrics = (com_cirruslink_sparkplug_protobuf_Payload_Metric *) calloc(2, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Metric));
+	udt_template.metrics[0] = rpms_metric;
+	udt_template.metrics[1] = amps_metric;
+	udt_template.parameters_count = 1;
+	udt_template.parameters = (com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter *) calloc(1, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter));
+	udt_template.parameters[0] = parameter;
+	udt_template.template_ref = NULL;
+	udt_template.has_is_definition = true;
+	udt_template.is_definition = false;
+
+	// Create the root UDT instance and add the UDT instance value
+	com_cirruslink_sparkplug_protobuf_Payload_Metric metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	init_metric(&metric, "My_Custom_Motor", false, 0, METRIC_DATA_TYPE_TEMPLATE, false, false, false, &udt_template, sizeof(udt_template));
+
+	// Add a propertyset with the typeId
+	com_cirruslink_sparkplug_protobuf_Payload_PropertySet properties = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_init_default;
+	char typeId[] = "Custom_Motor";
+	add_property_to_set(&properties, "typeId", PROPERTY_DATA_TYPE_STRING, false, &typeId, sizeof(typeId));
+	add_propertyset_to_metric(&metric, &properties);
+
+	// Add the UDT Instance to the payload
+	add_entire_metric(&dbirth_payload, &metric);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // Print the payload
         print_payload(&dbirth_payload);

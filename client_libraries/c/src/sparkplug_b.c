@@ -55,7 +55,7 @@ int grow_char_array(char **array, int current_size, int num_new_elems) {
 }
 
 // External
-bool add_property_to_set(com_cirruslink_sparkplug_protobuf_Payload_PropertySet *propertyset, const char *key, uint32_t type, bool is_null, const void *value, size_t size_of_value) {
+bool add_property_to_set(com_cirruslink_sparkplug_protobuf_Payload_PropertySet *propertyset, const char *key, uint32_t datatype, bool is_null, const void *value, size_t size_of_value) {
 
 	if(propertyset->keys_count != propertyset->values_count) {
 		printf("Invalid PropertySet!\n");
@@ -76,30 +76,15 @@ bool add_property_to_set(com_cirruslink_sparkplug_protobuf_Payload_PropertySet *
 		size = grow_propertyvalues_array(&propertyset->values, size, 1);
 	}
 
-	// Set the key name in the array of keys
-	propertyset->keys[size-1] = (char *)malloc((strlen(key)+1)*sizeof(char));
-	strcpy(propertyset->keys[size-1], key);
-
-	propertyset->keys_count++;
-	propertyset->values_count++;
-	DEBUG_PRINT(("Size of values in PropertySet %d\n", propertyset->keys_count));
-}
-
 /*
+typedef struct _com_cirruslink_sparkplug_protobuf_Payload_PropertySet {
     pb_size_t keys_count;
     char **keys;
     pb_size_t values_count;
     struct _com_cirruslink_sparkplug_protobuf_Payload_PropertyValue *values;
-
-                        propertySet=PropertySet [
-                                propertyMap={
-                                        tagType=PropertyValue [
-                                                type=Int32,
-                                                value=9,
-                                                isNull=false
-                                        ]
-                                }
-                        ],
+    pb_extension_t *extensions;
+// @@protoc_insertion_point(struct:com_cirruslink_sparkplug_protobuf_Payload_PropertySet)
+} com_cirruslink_sparkplug_protobuf_Payload_PropertySet;
 
 typedef struct _com_cirruslink_sparkplug_protobuf_Payload_PropertyValue {
     bool has_type;
@@ -118,7 +103,58 @@ typedef struct _com_cirruslink_sparkplug_protobuf_Payload_PropertyValue {
         com_cirruslink_sparkplug_protobuf_Payload_PropertySetList propertysets_value;
         com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_PropertyValueExtension extension_value;
     } value;
+// @@protoc_insertion_point(struct:com_cirruslink_sparkplug_protobuf_Payload_PropertyValue)
+} com_cirruslink_sparkplug_protobuf_Payload_PropertyValue;
 */
+
+
+	// Set the key name in the array of keys
+	propertyset->keys[size-1] = (char *)malloc((strlen(key)+1)*sizeof(char));
+	strcpy(propertyset->keys[size-1], key);
+
+	// Set the value components
+	propertyset->values[size-1].has_type = true;
+	propertyset->values[size-1].type = datatype;
+	propertyset->values[size-1].has_is_null = is_null;
+	if (is_null) {
+		propertyset->values[size-1].is_null = true;
+	}
+	if (datatype == PROPERTY_DATA_TYPE_UNKNOWN) {
+		printf("Can't create property value with unknown datatype!\n");
+	} else if (datatype == PROPERTY_DATA_TYPE_INT8 || datatype == PROPERTY_DATA_TYPE_INT16 || datatype == PROPERTY_DATA_TYPE_INT32 ||
+			datatype == PROPERTY_DATA_TYPE_UINT8 || datatype == PROPERTY_DATA_TYPE_UINT16 || datatype == PROPERTY_DATA_TYPE_UINT32) {
+		DEBUG_PRINT(("Setting datatype: %d, with value: %d\n", datatype, *((uint32_t *)value)));
+		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_int_value_tag;
+		propertyset->values[size-1].value.int_value = *((uint32_t *)value);
+	} else if (datatype == PROPERTY_DATA_TYPE_INT64 || datatype == PROPERTY_DATA_TYPE_UINT64 || datatype == PROPERTY_DATA_TYPE_DATETIME) {
+		DEBUG_PRINT(("Setting datatype: %d, with value: %zd\n", datatype, *((uint64_t *)value)));
+		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_long_value_tag;
+		propertyset->values[size-1].value.long_value = *((uint64_t *)value);
+	} else if (datatype == PROPERTY_DATA_TYPE_FLOAT) {
+		DEBUG_PRINT(("Setting datatype: %d, with value: %f\n", datatype, *((float *)value)));
+		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_float_value_tag;
+		propertyset->values[size-1].value.float_value = *((float *)value);
+	} else if (datatype == PROPERTY_DATA_TYPE_DOUBLE) {
+		DEBUG_PRINT(("Setting datatype: %d, with value: %f\n", datatype, *((double *)value)));
+		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_double_value_tag;
+		propertyset->values[size-1].value.double_value = *((double *)value);
+	} else if (datatype == PROPERTY_DATA_TYPE_BOOLEAN) {
+		DEBUG_PRINT(("Setting datatype: %d, with value: %d\n", datatype, *((bool *)value)));
+		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_boolean_value_tag;
+		propertyset->values[size-1].value.boolean_value = *((bool *)value);
+	} else if (datatype == PROPERTY_DATA_TYPE_STRING || datatype == PROPERTY_DATA_TYPE_TEXT) {
+		DEBUG_PRINT(("Setting datatype: %d, with value: %s\n", datatype, (char *)value));
+		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_string_value_tag;
+		propertyset->values[size-1].value.string_value = (char *)malloc(size_of_value*sizeof(char));
+		strcpy(propertyset->values[size-1].value.string_value, (char *)value);
+	} else {
+		DEBUG_PRINT(("Unknown datatype %u\n", datatype));
+	}
+
+	propertyset->keys_count++;
+	propertyset->values_count++;
+	DEBUG_PRINT(("Size of values in PropertySet %d\n", propertyset->keys_count));
+}
 
 // External
 void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
