@@ -24,7 +24,7 @@ void publish_ddata_message(struct mosquitto *mosq);
 int main(int argc, char *argv[]) {
 
 	// MQTT Parameters
-        char *host = "cl-target1.chariot.io";
+        char *host = "localhost";
         int port = 1883;
         int keepalive = 60;
         bool clean_session = true;
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
         mosquitto_connect_callback_set(mosq, my_connect_callback);
         mosquitto_message_callback_set(mosq, my_message_callback);
         mosquitto_subscribe_callback_set(mosq, my_subscribe_callback);
-        mosquitto_username_pw_set(mosq,"CLAdmin","CLAdm79!");
+        mosquitto_username_pw_set(mosq,"admin","changeme");
         mosquitto_will_set(mosq, "spBv1.0/Sparkplug B Devices/NDEATH/C Edge Node 1", 0, NULL, 0, false);
 
 	// Optional SSL parameters for MQTT
