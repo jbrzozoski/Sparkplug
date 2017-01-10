@@ -635,7 +635,7 @@ void get_next_payload(com_cirruslink_sparkplug_protobuf_Payload *payload) {
 	payload->extensions = NULL;
 
 	// Increment/wrap the sequence number
-	if (seq == 256) {
+	if (seq == 255) {
 		seq = 0;
 	} else {
 		seq++;
