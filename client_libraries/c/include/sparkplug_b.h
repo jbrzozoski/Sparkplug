@@ -12,7 +12,7 @@
 #define _SPARKPLUGLIB_H_
 
 	// Enable/disable debug messages
-	#define SPARKPLUG_DEBUG 1
+	//#define SPARKPLUG_DEBUG 1
 
 	#ifdef SPARKPLUG_DEBUG
 		#define DEBUG_PRINT(x) printf x
@@ -90,9 +90,26 @@
 	#define PROPERTY_DATA_TYPE_DATETIME 13
 	#define PROPERTY_DATA_TYPE_TEXT 14
 
-	// Global vars
-	extern uint64_t seq;
+	/*
+	 * Global variables
+	 */
+	extern uint64_t seq;		// The sequence number is globaly accessible to the applications
 
+	/*
+	 * Add Metadata to an existing Metric
+	 */
+	extern void add_metadata_to_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
+						com_cirruslink_sparkplug_protobuf_Payload_MetaData *metadata);
+
+	/*
+	 * Add a complete Metric to an existing Payload
+	 */
+	extern void add_metric_to_payload(com_cirruslink_sparkplug_protobuf_Payload *payload,
+						com_cirruslink_sparkplug_protobuf_Payload_Metric *metric);
+
+	/*
+	 * Add a simple Property to an existing PropertySet
+	 */
 	extern bool add_property_to_set(com_cirruslink_sparkplug_protobuf_Payload_PropertySet *propertyset,
 					const char *key,
 					uint32_t type,
@@ -100,54 +117,70 @@
 					const void *value,
 					size_t size_of_value);
 
-	extern void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
-                        const char *name,
-                        bool has_alias,
-                        uint64_t alias,
-                        uint64_t datatype,
-                        bool is_historical,
-                        bool is_transient,
-                        bool is_null,
-                        const void *value,
-                        size_t size_of_value);
+	/*
+	 * Add a PropertySet to an existing Metric
+	 */
+	extern void add_propertyset_to_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
+						com_cirruslink_sparkplug_protobuf_Payload_PropertySet *properties);
 
-	// Add a metric to an existing Payload
-// TODO - return size_t to denote size of payload
+	/*
+	 * Add a simple Metric to an existing Payload
+	 */
 	extern void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
-				const char *name,
-				bool has_alias,
-				uint64_t alias,
-				uint64_t datatype,
-				bool is_historical,
-				bool is_transient,
-				bool is_null,
-				const void *value,
-				size_t size_of_value);
+					const char *name,
+					bool has_alias,
+					uint64_t alias,
+					uint64_t datatype,
+					bool is_historical,
+					bool is_transient,
+					bool is_null,
+					const void *value,
+					size_t size_of_value);
 
-	// Add a complete metric to a payload
-	extern void add_entire_metric(com_cirruslink_sparkplug_protobuf_Payload *payload, com_cirruslink_sparkplug_protobuf_Payload_Metric *metric);
+	/*
+	 * Encode a Payload into an array of bytes
+	 */
+	extern size_t encode_payload(uint8_t **buffer,
+					size_t buffer_length,
+					com_cirruslink_sparkplug_protobuf_Payload *payload);
 
-	// Add metadata to metric
-	extern void add_metadata_to_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, com_cirruslink_sparkplug_protobuf_Payload_MetaData *metadata);
+	/*
+	 * Decode an array of bytes into a Payload
+	 */
+	extern bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload,
+					const void *binary_payload,
+					int binary_payloadlen);
 
-	// Add propertyset to metric
-	extern void add_propertyset_to_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, com_cirruslink_sparkplug_protobuf_Payload_PropertySet *properties);
-
-	// Frees an existing payload
+	/*
+	 * Free memory from an existing Payload
+	 */
 	void free_payload(com_cirruslink_sparkplug_protobuf_Payload *payload);
 
-	// Get the current timestamp in milliseconds
+	/*
+	 * Get the current timestamp in milliseconds
+	 */
 	extern uint64_t get_current_timestamp();
+
+	/*
+	 * Get the next empty Payload.  This populates the payload with the next sequence number and current timestamp
+	 */
+	extern void get_next_payload(com_cirruslink_sparkplug_protobuf_Payload *payload);
+
+	/*
+	 * Initialize a Metric with the values of the arguments passed in
+	 */
+	extern void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
+	                        const char *name,
+        	                bool has_alias,
+        	                uint64_t alias,
+        	                uint64_t datatype,
+        	                bool is_historical,
+        	                bool is_transient,
+        	                bool is_null,
+        	                const void *value,
+        	                size_t size_of_value);
 
 	// Display a full Sparkplug Payload
 	extern void print_payload(com_cirruslink_sparkplug_protobuf_Payload *payload);
 
-	// Encode a payload
-	extern size_t encode_payload(uint8_t **buffer, size_t buffer_length, com_cirruslink_sparkplug_protobuf_Payload *payload);
-
-	// Decode a payload
-	extern bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, const void *binary_payload, int binary_payloadlen);
-
-	// Get the next empty payload
-	extern void get_next_payload(com_cirruslink_sparkplug_protobuf_Payload *payload);
 #endif

@@ -19,92 +19,19 @@ void publisher(struct mosquitto *mosq, char *topic, void *buf, unsigned len);
 void publish_births(struct mosquitto *mosq);
 void publish_node_birth(struct mosquitto *mosq);
 void publish_device_birth(struct mosquitto *mosq);
+void publish_ddata_message(struct mosquitto *mosq);
 
 int main(int argc, char *argv[]) {
 
-/*
-extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_fields[7];
-extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_Template_fields[7];
-extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_fields[10];
-extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_ParameterValueExtension_fields[2];
-extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_DataSet_fields[6];
-extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_fields[8];
-extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_DataSetValueExtension_fields[2];
-extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row_fields[3];
-extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_fields[10];
-extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_PropertyValueExtension_fields[2];
-extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_PropertySet_fields[4];
-extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_PropertySetList_fields[3];
-extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_MetaData_fields[10];
-extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_Metric_fields[19];
-extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_Metric_MetricValueExtension_fields[2];
-*/
-
-/*
-	const pb_field_t *field;
-	printf("Payload_fields\n");
-	for (field = com_cirruslink_sparkplug_protobuf_Payload_fields; field->tag != 0; field++) {
-		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
-	}
-	printf("Payload_Metric_fields\n");
-	for (field = com_cirruslink_sparkplug_protobuf_Payload_Metric_fields; field->tag != 0; field++) {
-		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
-	}
-	printf("Payload_MetaData_fields\n");
-	for (field = com_cirruslink_sparkplug_protobuf_Payload_MetaData_fields; field->tag != 0; field++) {
-		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
-	}
-	printf("Payload_PropertySet_fields\n");
-	for (field = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_fields; field->tag != 0; field++) {
-		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
-	}
-	printf("Payload_PropertyValue_fields\n");
-	for (field = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_fields; field->tag != 0; field++) {
-		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
-	}
-	printf("Payload_PropertySet_fields\n");
-	for (field = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_fields; field->tag != 0; field++) {
-		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
-	}
-	printf("Payload_PropertySetList_fields\n");
-	for (field = com_cirruslink_sparkplug_protobuf_Payload_PropertySetList_fields; field->tag != 0; field++) {
-		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
-	}
-	printf("Payload_DataSet_fields\n");
-	for (field = com_cirruslink_sparkplug_protobuf_Payload_DataSet_fields; field->tag != 0; field++) {
-		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
-	}
-	printf("Payload_DataSet_Row_fields\n");
-	for (field = com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row_fields; field->tag != 0; field++) {
-		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
-	}
-	printf("Payload_DataSet_DataSetValue_fields\n");
-	for (field = com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_fields; field->tag != 0; field++) {
-		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
-	}
-	printf("Payload_Template_fields\n");
-	for (field = com_cirruslink_sparkplug_protobuf_Payload_Template_fields; field->tag != 0; field++) {
-		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
-	}
-	printf("Payload_Template_Parameter_fields\n");
-	for (field = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_fields; field->tag != 0; field++) {
-		printf("field->tag: %d, field->type: %d\n", field->tag, field->type);
-	}
-*/
-
-	// MQTT Stuff
-        char *host = "localhost";
+	// MQTT Parameters
+        char *host = "cl-target1.chariot.io";
         int port = 1883;
         int keepalive = 60;
         bool clean_session = true;
         struct mosquitto *mosq = NULL;
 
-	// Init the sequence number for Sparkplug MQTT messages
-	seq = 0;
-
 	// MQTT Setup
         srand(time(NULL));
-
         mosquitto_lib_init();
         mosq = mosquitto_new(NULL, clean_session, NULL);
         if(!mosq){
@@ -115,48 +42,52 @@ extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_Metric_MetricV
         mosquitto_connect_callback_set(mosq, my_connect_callback);
         mosquitto_message_callback_set(mosq, my_message_callback);
         mosquitto_subscribe_callback_set(mosq, my_subscribe_callback);
-        mosquitto_username_pw_set(mosq,"admin","changeme");
+        mosquitto_username_pw_set(mosq,"CLAdmin","CLAdm79!");
         mosquitto_will_set(mosq, "spBv1.0/Sparkplug B Devices/NDEATH/C Edge Node 1", 0, NULL, 0, false);
 
-//      mosquitto_tls_insecure_set(mosq, true);
-//      mosquitto_tls_opts_set(mosq, 0, "tlsv1.2", NULL);               // 0 is DO NOT SSL_VERIFY_PEER
+	// Optional SSL parameters for MQTT
+	//mosquitto_tls_insecure_set(mosq, true);
+	//mosquitto_tls_opts_set(mosq, 0, "tlsv1.2", NULL);               // 0 is DO NOT SSL_VERIFY_PEER
 
+	// MQTT Connect
         if(mosquitto_connect(mosq, host, port, keepalive)){
                 fprintf(stderr, "Unable to connect.\n");
                 return 1;
         }
 
-	// Publish the NBIRTH and DBIRTH messages (Birth Certificates)
+	// Publish the NBIRTH and DBIRTH Sparkplug messages (Birth Certificates)
 	publish_births(mosq);
 
-        // Loop and publish more DDATA messages
+        // Loop and publish more DDATA messages every 5 seconds.  Note this should only be done in real/production
+	// scenarios with change events on inputs.  Because Sparkplug ensures state there is no reason to send DDATA
+	// messages unless the state of a I/O point has changed.
         int i;
         for(i=0; i<100; i++) {
-/*
-                Kuradatatypes__KuraPayload payload;
-                payload = getNextPayload(false);
+		publish_ddata_message(mosq);
+		int j;
+		for(j=0; j<50; j++) {
+			usleep(100000);
+			mosquitto_loop(mosq, 0, 1);
+		}
+	}
 
-                //printf("data size %zu\n", kuradatatypes__kura_payload__get_packed_size(&payload));
-                publisher(mosq, "spAv1.0/Sparkplug B Devices/DDATA/C Edge Node 1/Emulated Device", payload);
-                //freePayload(&payload);
-*/
-                int j;
-                for(j=0; j<50; j++) {
-                        usleep(100000);
-                        mosquitto_loop(mosq, 0, 1);
-                }
-        }
-
-        mosquitto_destroy(mosq);
-        mosquitto_lib_cleanup();
-        return 0;
+	// Close and cleanup
+	mosquitto_destroy(mosq);
+	mosquitto_lib_cleanup();
+	return 0;
 }
 
+/*
+ * Helper function to publish MQTT messages to the MQTT server
+ */
 void publisher(struct mosquitto *mosq, char *topic, void *buf, unsigned len) {
 	// publish the data
 	mosquitto_publish(mosq, NULL, topic, len, buf, 0, false);
 }
 
+/*
+ * Callback for incoming MQTT messages. Since this is a Sparkplug implementation these will be NCMD and DCMD messages
+ */
 void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mosquitto_message *message) {
 
 	if(message->payloadlen) {
@@ -170,23 +101,111 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 	com_cirruslink_sparkplug_protobuf_Payload inbound_payload = com_cirruslink_sparkplug_protobuf_Payload_init_zero;
 	if(decode_payload(&inbound_payload, message->payload, message->payloadlen)) {
 	} else {
-		printf("FAILED TO DECODE THE PAYLOAD\n");
+		fprintf(stderr, "Failed to decode the payload\n");
 	}
 
-	// Print the message data
-	//print_payload(&inbound_payload);
+	// Get the number of metrics in the payload and iterate over them handling them as needed
+	int i;
+	for (i=0; i<inbound_payload.metrics_count; i++) {
+		// Handle the incoming message as necessary - start with the 'Node Control' metrics
+		if (strcmp(inbound_payload.metrics[i].name, "Node Control/Next Server") == 0) {
+			// 'Node Control/Next Server' is an NCMD used to tell the device/client application to
+			// disconnect from the current MQTT server and connect to the next MQTT server in the
+			// list of available servers.  This is used for clients that have a pool of MQTT servers
+			// to connect to.
+			fprintf(stderr, "'Node Control/Next Server' is not implemented in this example\n");
+		} else if (strcmp(inbound_payload.metrics[i].name, "Node Control/Rebirth") == 0) {
+			// 'Node Control/Rebirth' is an NCMD used to tell the device/client application to resend
+			// its full NBIRTH and DBIRTH again.  MQTT Engine will send this NCMD to a device/client
+			// application if it receives an NDATA or DDATA with a metric that was not published in the
+			// original NBIRTH or DBIRTH.  This is why the application must send all known metrics in
+			// its original NBIRTH and DBIRTH messages.
+			publish_births(mosq);
+		} else if (strcmp(inbound_payload.metrics[i].name, "Node Control/Reboot") == 0) {
+			// 'Node Control/Reboot' is an NCMD used to tell a device/client application to reboot
+			// This can be used for devices that need a full application reset via a soft reboot.
+			// In this case, we fake a full reboot with a republishing of the NBIRTH and DBIRTH
+			// messages.
+			publish_births(mosq);
+		} else if (strcmp(inbound_payload.metrics[i].name, "output/Device Metric2") == 0) {
+			// This is a metric we declared in our DBIRTH message and we're emulating an output.
+			// So, on incoming 'writes' to the output we must publish a DDATA with the new output
+			// value.  If this were a real output we'd write to the output and then read it back
+			// before publishing a DDATA message.
+
+			// We know this is an Int16 because of how we declated it in the DBIRTH
+			uint32_t new_value = inbound_payload.metrics[i].value.int_value;
+			fprintf(stdout, "output/Device Metric2 - New Value: %d\n", new_value);
+
+			// Create the DDATA payload
+			com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
+			get_next_payload(&ddata_payload);
+			// Note the Metric name 'output/Device Metric2' is not needed because we're using aliases
+			add_simple_metric(&ddata_payload, NULL, true, 9, METRIC_DATA_TYPE_INT16, false, false, false, &new_value, sizeof(new_value));
+
+			// Encode the payload into a binary format so it can be published in the MQTT message.
+			// The binary_buffer must be large enough to hold the contents of the binary payload
+			size_t buffer_length = 128;
+			uint8_t *binary_buffer = (uint8_t *)malloc(buffer_length * sizeof(uint8_t));
+			size_t message_length = encode_payload(&binary_buffer, buffer_length, &ddata_payload);
+
+		        // Publish the DDATA on the appropriate topic
+		        mosquitto_publish(mosq, NULL, "spBv1.0/Sparkplug B Devices/DDATA/C Edge Node 1/Emulated Device", message_length, binary_buffer, 0, false);
+
+			// Free the memory
+			free(binary_buffer);
+			free_payload(&ddata_payload);
+		} else if (strcmp(inbound_payload.metrics[i].name, "output/Device Metric3") == 0) {
+			// This is a metric we declared in our DBIRTH message and we're emulating an output.
+			// So, on incoming 'writes' to the output we must publish a DDATA with the new output
+			// value.  If this were a real output we'd write to the output and then read it back
+			// before publishing a DDATA message.
+
+			// We know this is an Boolean because of how we declated it in the DBIRTH
+			bool new_value = inbound_payload.metrics[i].value.boolean_value;
+			fprintf(stdout, "output/Device Metric2 - New Value: %s\n", new_value ? "true" : "false");
+
+			// Create the DDATA payload
+			com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
+			get_next_payload(&ddata_payload);
+			// Note the Metric name 'output/Device Metric3' is not needed because we're using aliases
+			add_simple_metric(&ddata_payload, NULL, true, 10, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &new_value, sizeof(new_value));
+
+			// Encode the payload into a binary format so it can be published in the MQTT message.
+			// The binary_buffer must be large enough to hold the contents of the binary payload
+			size_t buffer_length = 128;
+			uint8_t *binary_buffer = (uint8_t *)malloc(buffer_length * sizeof(uint8_t));
+			size_t message_length = encode_payload(&binary_buffer, buffer_length, &ddata_payload);
+
+		        // Publish the DDATA on the appropriate topic
+		        mosquitto_publish(mosq, NULL, "spBv1.0/Sparkplug B Devices/DDATA/C Edge Node 1/Emulated Device", message_length, binary_buffer, 0, false);
+
+			// Free the memory
+			free(binary_buffer);
+			free_payload(&ddata_payload);
+		} else {
+			fprintf(stderr, "Unknown CMD: %s\n", inbound_payload.metrics[i].name);
+		}
+	}
 }
 
+/*
+ * Callback for successful or unsuccessful MQTT connect.  Upon successful connect, subscribe to our Sparkplug NCMD and DCMD messages.
+ * A production application should handle MQTT connect failures and reattempt as necessary.
+ */
 void my_connect_callback(struct mosquitto *mosq, void *userdata, int result) {
 	if(!result) {
 		// Subscribe to commands
 		mosquitto_subscribe(mosq, NULL, "spBv1.0/Sparkplug B Devices/NCMD/C Edge Node 1/#", 0);
 		mosquitto_subscribe(mosq, NULL, "spBv1.0/Sparkplug B Devices/DCMD/C Edge Node 1/#", 0);
 	} else {
-		fprintf(stderr, "Connect failed\n");
+		fprintf(stderr, "MQTT Connect failed\n");
 	}
 }
 
+/*
+ * Callback for successful MQTT subscriptions.
+ */
 void my_subscribe_callback(struct mosquitto *mosq, void *userdata, int mid, int qos_count, const int *granted_qos) {
 	int i;
 
@@ -197,16 +216,35 @@ void my_subscribe_callback(struct mosquitto *mosq, void *userdata, int mid, int 
 	printf("\n");
 }
 
+/*
+ * MQTT logger callback
+ */
 void my_log_callback(struct mosquitto *mosq, void *userdata, int level, const char *str) {
 	// Print all log messages regardless of level.
 	printf("%s\n", str);
 }
 
+/*
+ * Helper to publish the Sparkplug NBIRTH and DBIRTH messages after initial MQTT connect.
+ * This is also used for Rebirth requests from the backend.
+ */
 void publish_births(struct mosquitto *mosq) {
+	// Initialize the sequence number for Sparkplug MQTT messages
+	// This must be zero on every NBIRTH publish
+	seq = 0;
+
+	// Publish the NBIRTH
 	publish_node_birth(mosq);
+
+	// Publish the DBIRTH
 	publish_device_birth(mosq);
 }
 
+/*
+ * Helper function to publish a NBIRTH message.  The NBIRTH should include all 'node control' metrics that denote device capability.
+ * In addition, it should include every node metric that may ever be published from this edge node.  If any NDATA messages arrive at
+ * MQTT Engine that were not included in the NBIRTH, MQTT Engine will request a Rebirth from the device.
+ */
 void publish_node_birth(struct mosquitto *mosq) {
 	// Create the NBIRTH payload
 	com_cirruslink_sparkplug_protobuf_Payload nbirth_payload;
@@ -214,34 +252,46 @@ void publish_node_birth(struct mosquitto *mosq) {
 	nbirth_payload.uuid = (char*)malloc((strlen("MyUUID")+1) * sizeof(char));
 	strcpy(nbirth_payload.uuid, "MyUUID");
 
-	// Add some metrics
-	printf("Adding 'Node Metric0'\n");
-	char nbirth_metric_zero_value[] = "hello";
-	add_simple_metric(&nbirth_payload, "Node Metric0", true, 0, METRIC_DATA_TYPE_STRING, false, false, false, &nbirth_metric_zero_value, sizeof(nbirth_metric_zero_value));
-	printf("Adding 'Node Metric1'\n");
-	bool nbirth_metric_one_value = true;
-	add_simple_metric(&nbirth_payload, "Node Metric1", true, 1, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &nbirth_metric_one_value, sizeof(nbirth_metric_one_value));
-	printf("Adding 'Node Metric2'\n");
-	uint32_t nbirth_metric_two_value = 13;
-	add_simple_metric(&nbirth_payload, "Node Metric2", true, 2, METRIC_DATA_TYPE_INT16, false, false, false, &nbirth_metric_two_value, sizeof(nbirth_metric_two_value));
+	// Add node control metrics
+	printf("Adding metric: 'Node Control/Next Server'\n");
+	bool next_server_value = false;
+	add_simple_metric(&nbirth_payload, "Node Control/Next Server", true, 0, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &next_server_value, sizeof(next_server_value));
+	printf("Adding metric: 'Node Control/Rebirth'\n");
+	bool rebirth_value = false;
+	add_simple_metric(&nbirth_payload, "Node Control/Rebirth", true, 1, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &rebirth_value, sizeof(rebirth_value));
+	printf("Adding metric: 'Node Control/Reboot'\n");
+	bool reboot_value = false;
+	add_simple_metric(&nbirth_payload, "Node Control/Reboot", true, 2, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &reboot_value, sizeof(reboot_value));
 
-	// Create a metric called RPMs for the UDT definition
+	// Add some regular node metrics
+	printf("Adding metric: 'Node Metric0'\n");
+	char nbirth_metric_zero_value[] = "hello node";
+	add_simple_metric(&nbirth_payload, "Node Metric0", true, 3, METRIC_DATA_TYPE_STRING, false, false, false, &nbirth_metric_zero_value, sizeof(nbirth_metric_zero_value));
+	printf("Adding metric: 'Node Metric1'\n");
+	bool nbirth_metric_one_value = true;
+	add_simple_metric(&nbirth_payload, "Node Metric1", true, 4, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &nbirth_metric_one_value, sizeof(nbirth_metric_one_value));
+
+	// Add a metric with a custom property
+	printf("Adding metric: 'Node Metric2'\n");
+	com_cirruslink_sparkplug_protobuf_Payload_Metric prop_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	uint32_t nbirth_metric_two_value = 13;
+	init_metric(&prop_metric, "Node Metric2", true, 5, METRIC_DATA_TYPE_INT16, false, false, false, &nbirth_metric_two_value, sizeof(nbirth_metric_two_value));
+	com_cirruslink_sparkplug_protobuf_Payload_PropertySet properties = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_init_default;
+	add_property_to_set(&properties, "engUnit", PROPERTY_DATA_TYPE_STRING, false, "MyCustomUnits", sizeof("MyCustomUnits"));
+	add_propertyset_to_metric(&prop_metric, &properties);
+	add_metric_to_payload(&nbirth_payload, &prop_metric);
+
+	// Create a metric called RPMs which is a member of the UDT definition - note aliases do not apply to UDT members
 	com_cirruslink_sparkplug_protobuf_Payload_Metric rpms_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
 	uint32_t rpms_value = 0;
 	init_metric(&rpms_metric, "RPMs", false, 0, METRIC_DATA_TYPE_INT32, false, false, false, &rpms_value, sizeof(rpms_value));
-//	com_cirruslink_sparkplug_protobuf_Payload_PropertySet rpms_propertyset = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_init_default;
-//	uint32_t rpms_property_value = 0;
-//	add_property_to_set(&rpms_propertyset, "tagType", METRIC_DATA_TYPE_INT32, false, &rpms_property_value, sizeof(rpms_property_value));
 
-	// Create a metric called AMPs for the UDT definition
+	// Create a metric called AMPs which is a member of the UDT definition - note aliases do not apply to UDT members
 	com_cirruslink_sparkplug_protobuf_Payload_Metric amps_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
 	uint32_t amps_value = 0;
 	init_metric(&amps_metric, "AMPs", false, 0, METRIC_DATA_TYPE_INT32, false, false, false, &amps_value, sizeof(amps_value));
-//	com_cirruslink_sparkplug_protobuf_Payload_PropertySet amps_propertyset = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_init_default;
-//	uint32_t amps_property_value = 0;
-//	add_property_to_set(&amps_propertyset, "tagType", METRIC_DATA_TYPE_INT32, false, &amps_property_value, sizeof(amps_property_value));
 
-	// Create a Template/UDT Parameter
+	// Create a Template/UDT Parameter - this is purely for example of including parameters and is not actually used by UDT instances
 	com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter parameter = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_init_default;
 	parameter.name = (char *)malloc((strlen("Index")+1)*sizeof(char));
         strcpy(parameter.name, "Index");
@@ -251,10 +301,8 @@ void publish_node_birth(struct mosquitto *mosq) {
 	parameter.value.string_value = (char *)malloc((strlen("0")+1)*sizeof(char));
 	strcpy(parameter.value.string_value, "0");
 
-	// Create the UDT definition value
+	// Create the UDT definition value which includes the UDT members and parameters
 	com_cirruslink_sparkplug_protobuf_Payload_Template udt_template = com_cirruslink_sparkplug_protobuf_Payload_Template_init_default;
-	//udt_template.version = (char *)malloc((strlen("v1.1")+1)*sizeof(char));
-        //strcpy(udt_template.version, "v1.1");
 	udt_template.metrics_count = 2;
 	udt_template.metrics = (com_cirruslink_sparkplug_protobuf_Payload_Metric *) calloc(2, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Metric));
 	udt_template.metrics[0] = rpms_metric;
@@ -266,29 +314,25 @@ void publish_node_birth(struct mosquitto *mosq) {
 	udt_template.has_is_definition = true;
 	udt_template.is_definition = true;
 
-	// Create the root UDT definition and add the UDT definition value
+	// Create the root UDT definition and add the UDT definition value which includes the UDT members and parameters
 	com_cirruslink_sparkplug_protobuf_Payload_Metric metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
-	init_metric(&metric, "_types_/Custom_Motor", false, 0, METRIC_DATA_TYPE_TEMPLATE, false, false, false, &udt_template, sizeof(udt_template));
-
-/*
-	// Add a propertyset
-	com_cirruslink_sparkplug_protobuf_Payload_PropertySet propertyset = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_init_default;
-	uint32_t nbirth_propvalue_one = 9;
-	add_property_to_set(&propertyset, "tagType", METRIC_DATA_TYPE_INT32, false, &nbirth_propvalue_one, sizeof(nbirth_propvalue_one));
-*/
+	init_metric(&metric, "_types_/Custom_Motor", true, 6, METRIC_DATA_TYPE_TEMPLATE, false, false, false, &udt_template, sizeof(udt_template));
 
 	// Add the UDT to the payload
-	add_entire_metric(&nbirth_payload, &metric);
+	add_metric_to_payload(&nbirth_payload, &metric);
 
-        // Print the payload
+#ifdef SPARKPLUG_DEBUG
+        // Print the payload for debug
         print_payload(&nbirth_payload);
+#endif
 
-	// Encode the payload
+	// Encode the payload into a binary format so it can be published in the MQTT message.
+	// The binary_buffer must be large enough to hold the contents of the binary payload
 	size_t buffer_length = 1024;
 	uint8_t *binary_buffer = (uint8_t *)malloc(buffer_length * sizeof(uint8_t));
 	size_t message_length = encode_payload(&binary_buffer, buffer_length, &nbirth_payload);
 
-        // Publish the NBIRTH
+        // Publish the NBIRTH on the appropriate topic
         mosquitto_publish(mosq, NULL, "spBv1.0/Sparkplug B Devices/NBIRTH/C Edge Node 1", message_length, binary_buffer, 0, false);
 
 	// Free the memory
@@ -302,42 +346,34 @@ void publish_device_birth(struct mosquitto *mosq) {
 	com_cirruslink_sparkplug_protobuf_Payload dbirth_payload;
 	get_next_payload(&dbirth_payload);
 
-	// Add some metrics
-	printf("Adding 'Device Metric0'\n");
+	// Add some device metrics
+	printf("Adding metric: 'input/Device Metric0'\n");
 	char dbirth_metric_zero_value[] = "hello device";
-	add_simple_metric(&dbirth_payload, "Device Metric0", true, 10, METRIC_DATA_TYPE_STRING, false, false, false, &dbirth_metric_zero_value, sizeof(dbirth_metric_zero_value));
-	printf("Adding 'Device Metric1'\n");
+	add_simple_metric(&dbirth_payload, "input/Device Metric0", true, 7, METRIC_DATA_TYPE_STRING, false, false, false, &dbirth_metric_zero_value, sizeof(dbirth_metric_zero_value));
+	printf("Adding metric: 'input/Device Metric1'\n");
 	bool dbirth_metric_one_value = true;
-	add_simple_metric(&dbirth_payload, "Device Metric1", true, 11, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &dbirth_metric_one_value, sizeof(dbirth_metric_one_value));
-	printf("Adding 'Device Metric2'\n");
+	add_simple_metric(&dbirth_payload, "input/Device Metric1", true, 8, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &dbirth_metric_one_value, sizeof(dbirth_metric_one_value));
+	printf("Adding metric: 'output/Device Metric2'\n");
 	uint32_t dbirth_metric_two_value = 16;
-	add_simple_metric(&dbirth_payload, "Device Metric2", true, 12, METRIC_DATA_TYPE_INT16, false, false, false, &dbirth_metric_two_value, sizeof(dbirth_metric_two_value));
-	printf("Adding 'sub/Device Metric3'\n");
-	uint32_t dbirth_metric_three_value = 17;
-	add_simple_metric(&dbirth_payload, "sub/Device Metric3", true, 13, METRIC_DATA_TYPE_INT16, false, false, false, &dbirth_metric_three_value, sizeof(dbirth_metric_three_value));
-
-
-
-
-
-
-
-
-
-
-
+	add_simple_metric(&dbirth_payload, "output/Device Metric2", true, 9, METRIC_DATA_TYPE_INT16, false, false, false, &dbirth_metric_two_value, sizeof(dbirth_metric_two_value));
+	printf("Adding metric: 'output/Device Metric3'\n");
+	bool dbirth_metric_three_value = true;
+	add_simple_metric(&dbirth_payload, "output/Device Metric3", true, 10, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &dbirth_metric_three_value, sizeof(dbirth_metric_three_value));
 
 	// Create a metric called RPMs for the UDT instance
 	com_cirruslink_sparkplug_protobuf_Payload_Metric rpms_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
 	uint32_t rpms_value = 123;
 	init_metric(&rpms_metric, "RPMs", false, 0, METRIC_DATA_TYPE_INT32, false, false, false, &rpms_value, sizeof(rpms_value));
 
-	// Create a metric called AMPs for the UDT instance
+	// Create a metric called AMPs for the UDT instance and create a custom property (milliamps) for it
 	com_cirruslink_sparkplug_protobuf_Payload_Metric amps_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
 	uint32_t amps_value = 456;
 	init_metric(&amps_metric, "AMPs", false, 0, METRIC_DATA_TYPE_INT32, false, false, false, &amps_value, sizeof(amps_value));
+	com_cirruslink_sparkplug_protobuf_Payload_PropertySet properties = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_init_default;
+	add_property_to_set(&properties, "engUnit", PROPERTY_DATA_TYPE_STRING, false, "milliamps", sizeof("milliamps"));
+	add_propertyset_to_metric(&amps_metric, &properties);
 
-	// Create a Template/UDT instance Parameter
+	// Create a Template/UDT instance Parameter - this is purely for example of including parameters and is not actually used by UDT instances
 	com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter parameter = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_init_default;
 	parameter.name = (char *)malloc((strlen("Index")+1)*sizeof(char));
         strcpy(parameter.name, "Index");
@@ -347,7 +383,7 @@ void publish_device_birth(struct mosquitto *mosq) {
 	parameter.value.string_value = (char *)malloc((strlen("1")+1)*sizeof(char));
 	strcpy(parameter.value.string_value, "1");
 
-	// Create the UDT instance value
+	// Create the UDT instance value which includes the UDT members and parameters
 	com_cirruslink_sparkplug_protobuf_Payload_Template udt_template = com_cirruslink_sparkplug_protobuf_Payload_Template_init_default;
 	udt_template.version = NULL;
 	udt_template.metrics_count = 2;
@@ -357,49 +393,71 @@ void publish_device_birth(struct mosquitto *mosq) {
 	udt_template.parameters_count = 1;
 	udt_template.parameters = (com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter *) calloc(1, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter));
 	udt_template.parameters[0] = parameter;
-	udt_template.template_ref = NULL;
+	udt_template.template_ref = (char *)malloc((strlen("Custom_Motor")+1)*sizeof(char));;
+	strcpy(udt_template.template_ref, "Custom_Motor");
 	udt_template.has_is_definition = true;
 	udt_template.is_definition = false;
 
 	// Create the root UDT instance and add the UDT instance value
 	com_cirruslink_sparkplug_protobuf_Payload_Metric metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
-	init_metric(&metric, "My_Custom_Motor", false, 0, METRIC_DATA_TYPE_TEMPLATE, false, false, false, &udt_template, sizeof(udt_template));
-
-	// Add a propertyset with the typeId
-	com_cirruslink_sparkplug_protobuf_Payload_PropertySet properties = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_init_default;
-	char typeId[] = "Custom_Motor";
-	add_property_to_set(&properties, "typeId", PROPERTY_DATA_TYPE_STRING, false, &typeId, sizeof(typeId));
-	add_propertyset_to_metric(&metric, &properties);
+	init_metric(&metric, "My_Custom_Motor", true, 11, METRIC_DATA_TYPE_TEMPLATE, false, false, false, &udt_template, sizeof(udt_template));
 
 	// Add the UDT Instance to the payload
-	add_entire_metric(&dbirth_payload, &metric);
+	add_metric_to_payload(&dbirth_payload, &metric);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#ifdef SPARKPLUG_DEBUG
         // Print the payload
         print_payload(&dbirth_payload);
+#endif
 
-	// Encode the payload
+	// Encode the payload into a binary format so it can be published in the MQTT message.
+	// The binary_buffer must be large enough to hold the contents of the binary payload
 	size_t buffer_length = 1024;
 	uint8_t *binary_buffer = (uint8_t *)malloc(buffer_length * sizeof(uint8_t));
 	size_t message_length = encode_payload(&binary_buffer, buffer_length, &dbirth_payload);
 
-        // Publish the NBIRTH
+        // Publish the DBIRTH on the appropriate topic
         mosquitto_publish(mosq, NULL, "spBv1.0/Sparkplug B Devices/DBIRTH/C Edge Node 1/Emulated Device", message_length, binary_buffer, 0, false);
 
 	// Free the memory
 	free(binary_buffer);
 	free_payload(&dbirth_payload);
+}
+
+void publish_ddata_message(struct mosquitto *mosq) {
+	// Create the DDATA payload
+	com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
+	get_next_payload(&ddata_payload);
+
+	// Add some device metrics to denote changed values on inputs
+	printf("Adding metric: 'input/Device Metric0'\n");
+	char ddata_metric_zero_value[13];
+	int i;
+	for (i = 0; i<12; ++i) {
+		ddata_metric_zero_value[i] = '0' + rand()%72; // starting on '0', ending on '}'
+	}
+	// Note the Metric name 'input/Device Metric0' is not needed because we're using aliases
+	add_simple_metric(&ddata_payload, NULL, true, 7, METRIC_DATA_TYPE_STRING, false, false, false, &ddata_metric_zero_value, sizeof(ddata_metric_zero_value));
+	printf("Adding metric: 'input/Device Metric1'\n");
+	bool ddata_metric_one_value = rand()%2;
+	// Note the Metric name 'input/Device Metric1' is not needed because we're using aliases
+	add_simple_metric(&ddata_payload, NULL, true, 8, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &ddata_metric_one_value, sizeof(ddata_metric_one_value));
+
+#ifdef SPARKPLUG_DEBUG
+        // Print the payload
+        print_payload(&ddata_payload);
+#endif
+
+	// Encode the payload into a binary format so it can be published in the MQTT message.
+	// The binary_buffer must be large enough to hold the contents of the binary payload
+	size_t buffer_length = 1024;
+	uint8_t *binary_buffer = (uint8_t *)malloc(buffer_length * sizeof(uint8_t));
+	size_t message_length = encode_payload(&binary_buffer, buffer_length, &ddata_payload);
+
+        // Publish the DDATA on the appropriate topic
+        mosquitto_publish(mosq, NULL, "spBv1.0/Sparkplug B Devices/DDATA/C Edge Node 1/Emulated Device", message_length, binary_buffer, 0, false);
+
+	// Free the memory
+	free(binary_buffer);
+	free_payload(&ddata_payload);
 }
