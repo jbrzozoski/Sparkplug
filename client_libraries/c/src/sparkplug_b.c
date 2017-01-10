@@ -17,7 +17,7 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 	pb_istream_t substream;
 
 	if (!pb_make_string_substream(stream, &substream)) {
-		printf("FAILED\n");
+		fprintf(stderr, "Failed to create the substream for metric decoding\n");
 		return false;
 	}
 
@@ -68,7 +68,7 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 							metric->value.boolean_value = dest;
 						}
 					} else {
-						printf("\t\tVARINT - Failed to decode variant!\n");
+						fprintf(stderr, "\t\tVARINT - Failed to decode variant!\n");
 						return false;
 					}
 				} else if (metric_field->tag == metric_tag && ((metric_field->type & PB_LTYPE_SVARINT) == PB_LTYPE_SVARINT)) {
@@ -78,7 +78,7 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 					if (status) {
 						DEBUG_PRINT(("\t\tVARINT - Success - new value: %ld\n", dest));
 					} else {
-						printf("\t\tVARINT - Failed to decode variant!\n");
+						fprintf(stderr, "\t\tVARINT - Failed to decode variant!\n");
 						return false;
 					}
 				}
@@ -103,7 +103,7 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 					if (status) {
 						DEBUG_PRINT(("\t\tString Size: %d\n", string_size[0]));
 					} else {
-						printf("\t\tFailed to get the size\n");
+						fprintf(stderr, "\t\tFailed to get the string size while decoding\n");
 						return false;
 					}
 
@@ -123,7 +123,7 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 							metric->value.string_value = dest;
 						}
 					} else {
-						printf("\t\tFailed to read the String...\n");
+						fprintf(stderr, "\t\tFailed to read the string...\n");
 						return false;
 					}
 				} else if (metric_field->tag == metric_tag && ((metric_field->type & PB_LTYPE_BYTES) == PB_LTYPE_BYTES)) {
@@ -152,7 +152,7 @@ int grow_char_array(char **array, int current_size, int num_new_elems) {
 	char *temp = (char *)realloc(*array, (total_size * sizeof(char)));
 
 	if (temp == NULL) {
-		printf("Cannot allocate more memory.\n");
+		fprintf(stderr, "Cannot allocate more memory.\n");
 		return 0;
 	} else {
 		*array = temp;
@@ -169,12 +169,12 @@ int grow_metrics_array(com_cirruslink_sparkplug_protobuf_Payload_Metric **metric
         com_cirruslink_sparkplug_protobuf_Payload_Metric *temp = (com_cirruslink_sparkplug_protobuf_Payload_Metric*)realloc(*metric_array,
                                                                  	(total_size * sizeof(com_cirruslink_sparkplug_protobuf_Payload_Metric)));
 
-        if (temp == NULL) {
-                printf("Cannot allocate more memory.\n");
-                return 0;
-        } else {
-                *metric_array = temp;
-        }
+	if (temp == NULL) {
+		fprintf(stderr, "Cannot allocate more memory.\n");
+		return 0;
+	} else {
+		*metric_array = temp;
+	}
 
         return total_size;
 }
@@ -187,12 +187,12 @@ int grow_propertyvalues_array(com_cirruslink_sparkplug_protobuf_Payload_Property
         com_cirruslink_sparkplug_protobuf_Payload_PropertyValue *temp = (com_cirruslink_sparkplug_protobuf_Payload_PropertyValue*)realloc(*values_array,
                                                                  (total_size * sizeof(com_cirruslink_sparkplug_protobuf_Payload_PropertyValue)));
 
-        if (temp == NULL) {
-                printf("Cannot allocate more memory.\n");
-                return 0;
-        } else {
-                *values_array = temp;
-        }
+	if (temp == NULL) {
+		fprintf(stderr, "Cannot allocate more memory.\n");
+		return 0;
+	} else {
+		*values_array = temp;
+	}
 
         return total_size;
 }
@@ -214,7 +214,7 @@ void add_metric_to_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, c
 	if (size == 0) {
 		payload->metrics = (com_cirruslink_sparkplug_protobuf_Payload_Metric *) calloc(1, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Metric));
 		if(payload->metrics == NULL) {
-			printf("Cannot allocate initial memory for data\n");
+			fprintf(stderr, "Cannot allocate initial memory for data\n");
 		} else {
 			size = 1;
 		}
@@ -235,7 +235,7 @@ void add_metric_to_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, c
 bool add_property_to_set(com_cirruslink_sparkplug_protobuf_Payload_PropertySet *propertyset, const char *key, uint32_t datatype, bool is_null, const void *value, size_t size_of_value) {
 
 	if(propertyset->keys_count != propertyset->values_count) {
-		printf("Invalid PropertySet!\n");
+		fprintf(stderr, "Invalid PropertySet!\n");
 		return false;
 	}
 
@@ -244,7 +244,7 @@ bool add_property_to_set(com_cirruslink_sparkplug_protobuf_Payload_PropertySet *
 		propertyset->keys = (char **) calloc(1, sizeof(char*));
 		propertyset->values = (com_cirruslink_sparkplug_protobuf_Payload_PropertyValue *) calloc(1, sizeof(com_cirruslink_sparkplug_protobuf_Payload_PropertyValue));
 		if(propertyset->values == NULL) {
-			printf("Cannot allocate initial memory for data\n");
+			fprintf(stderr, "Cannot allocate initial memory for data\n");
 		} else {
 			size = 1;
 		}
@@ -265,7 +265,7 @@ bool add_property_to_set(com_cirruslink_sparkplug_protobuf_Payload_PropertySet *
 		propertyset->values[size-1].is_null = true;
 	}
 	if (datatype == PROPERTY_DATA_TYPE_UNKNOWN) {
-		printf("Can't create property value with unknown datatype!\n");
+		fprintf(stderr, "Can't create property value with unknown datatype!\n");
 	} else if (datatype == PROPERTY_DATA_TYPE_INT8 || datatype == PROPERTY_DATA_TYPE_INT16 || datatype == PROPERTY_DATA_TYPE_INT32 ||
 			datatype == PROPERTY_DATA_TYPE_UINT8 || datatype == PROPERTY_DATA_TYPE_UINT16 || datatype == PROPERTY_DATA_TYPE_UINT32) {
 		DEBUG_PRINT(("Setting datatype: %d, with value: %d\n", datatype, *((uint32_t *)value)));
@@ -327,7 +327,7 @@ void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 	if (size == 0) {
 		payload->metrics = (com_cirruslink_sparkplug_protobuf_Payload_Metric *) calloc(1, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Metric));
 		if(payload->metrics == NULL) {
-			printf("Cannot allocate initial memory for data\n");
+			fprintf(stderr, "Cannot allocate initial memory for data\n");
 		} else {
 			size = 1;
 		}
@@ -375,7 +375,7 @@ void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 
 	DEBUG_PRINT(("Setting datatype and value - value size is %zd\n", size_of_value));
 	if (datatype == METRIC_DATA_TYPE_UNKNOWN) {
-		printf("Can't create metric with unknown datatype!\n");
+		fprintf(stderr, "Can't create metric with unknown datatype!\n");
 	} else if (datatype == METRIC_DATA_TYPE_INT8 || datatype == METRIC_DATA_TYPE_INT16 || datatype == METRIC_DATA_TYPE_INT32 ||
 			datatype == METRIC_DATA_TYPE_UINT8 || datatype == METRIC_DATA_TYPE_UINT16 || datatype == METRIC_DATA_TYPE_UINT32) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((uint32_t *)value)));
@@ -453,7 +453,7 @@ size_t encode_payload(uint8_t **buffer, size_t buffer_length, com_cirruslink_spa
 
         // Error Check
         if (!node_status) {
-                printf("Encoding failed: %s\n", PB_GET_ERROR(&node_stream));
+                fprintf(stderr, "Encoding failed: %s\n", PB_GET_ERROR(&node_stream));
                 return -1;
         } else {
                 DEBUG_PRINT(("Encoding succeeded\n"));
@@ -493,7 +493,7 @@ bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, const vo
 					if (status) {
 						DEBUG_PRINT(("\tVARINT - Success - new value: %ld\n", dest));
 					} else {
-						printf("\tVARINT - Failed to decode variant!\n");
+						fprintf(stderr, "\tVARINT - Failed to decode variant!\n");
 						return false;
 					}
 
@@ -511,7 +511,7 @@ bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, const vo
 					if (status) {
 						DEBUG_PRINT(("\tVARINT - Success - new value: %ld\n", dest));
 					} else {
-						printf("\tVARINT - Failed to decode variant!\n");
+						fprintf(stderr, "\tVARINT - Failed to decode variant!\n");
 						return false;
 					}
 				}
@@ -526,7 +526,7 @@ bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, const vo
 
 					// This is a metric!
 					if (payload_field->ptr == NULL) {
-						printf("invalid field descriptor\n");
+						fprintf(stderr, "Invalid field descriptor\n");
 						return false;
 					}
 
@@ -535,7 +535,7 @@ bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, const vo
 						DEBUG_PRINT(("Decoding metric succeeded\n"));
 						add_metric_to_payload(payload, &metric);
 					} else {
-						printf("DECODING METRIC FAILED\n");
+						fprintf(stderr, "Decoding metric failed\n");
 						return false;
 					}
 				} else if (payload_field->tag == payload_tag && ((payload_field->type & PB_LTYPE_FIXED_LENGTH_BYTES) == PB_LTYPE_FIXED_LENGTH_BYTES)) {
@@ -549,7 +549,7 @@ bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, const vo
 					if (status) {
 						DEBUG_PRINT(("\t\tUUID Size: %d\n", string_size[0]));
 					} else {
-						printf("\t\tFailed to read the UUID\n");
+						fprintf(stderr, "\t\tFailed to read the UUID\n");
 						return false;
 					}
 
@@ -561,7 +561,7 @@ bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, const vo
 						payload->uuid = (char *)malloc((strlen(dest)+1)*sizeof(char));;
 						strcpy(payload->uuid, dest);
 					} else {
-						printf("\t\tFailed to read the UUID...\n");
+						fprintf(stderr, "\t\tFailed to read the UUID...\n");
 						return false;
 					}
 
@@ -575,7 +575,7 @@ bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, const vo
 		} else if (payload_wire_type == PB_WT_32BIT) {
 			DEBUG_PRINT(("\tWire type is PB_WT_32BIT\n"));
 		} else {
-			printf("\tUnknown wiretype...\n");
+			fprintf(stderr, "\tUnknown wiretype...\n");
 		}
 	}
 
@@ -687,7 +687,7 @@ void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
 
 	DEBUG_PRINT(("Setting datatype and value - value size is %zd\n", size_of_value));
 	if (datatype == METRIC_DATA_TYPE_UNKNOWN) {
-		printf("Can't create metric with unknown datatype!\n");
+		fprintf(stderr, "Can't create metric with unknown datatype!\n");
 	} else if (datatype == METRIC_DATA_TYPE_INT8 || datatype == METRIC_DATA_TYPE_INT16 || datatype == METRIC_DATA_TYPE_INT32 ||
 			datatype == METRIC_DATA_TYPE_UINT8 || datatype == METRIC_DATA_TYPE_UINT16 || datatype == METRIC_DATA_TYPE_UINT32) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((uint32_t *)value)));
@@ -746,89 +746,89 @@ void print_payload(com_cirruslink_sparkplug_protobuf_Payload *payload) {
         strcpy(nbirth_payload.uuid, "MyUUID");
 	strcpy(nbirth_payload.body, "Setting the body to some chars");
 */
-	printf("Payload:  has_timestamp: %s\n", payload->has_timestamp ? "true" : "false");
+	fprintf(stdout, "Payload:  has_timestamp: %s\n", payload->has_timestamp ? "true" : "false");
 	if (payload->has_timestamp) {
-		printf("Payload:  timestamp: %zd\n", payload->timestamp);
+		fprintf(stdout, "Payload:  timestamp: %zd\n", payload->timestamp);
 	}
-	printf("Payload:  has_seq: %s\n", payload->has_seq ? "true" : "false");
+	fprintf(stdout, "Payload:  has_seq: %s\n", payload->has_seq ? "true" : "false");
 	if (payload->has_seq) {
-		printf("Payload:  seq: %zd\n", payload->seq);
+		fprintf(stdout, "Payload:  seq: %zd\n", payload->seq);
 	}
-	printf("Payload:  UUID: %s\n", payload->uuid);
+	fprintf(stdout, "Payload:  UUID: %s\n", payload->uuid);
 
-	printf("Payload:  Size of metric array: %d\n", payload->metrics_count);
+	fprintf(stdout, "Payload:  Size of metric array: %d\n", payload->metrics_count);
 	int i=0;
 	for (i=0; i<payload->metrics_count; i++) {
-		printf("Payload:  Metric %d:  name: %s\n", i, payload->metrics[i].name);
-		printf("Payload:  Metric %d:  has_alias: %s\n", i, payload->metrics[i].has_alias ? "true" : "false");
+		fprintf(stdout, "Payload:  Metric %d:  name: %s\n", i, payload->metrics[i].name);
+		fprintf(stdout, "Payload:  Metric %d:  has_alias: %s\n", i, payload->metrics[i].has_alias ? "true" : "false");
 		if (payload->metrics[i].has_alias) {
-			printf("Payload:  Metric %d:  alias: %zd\n", i, payload->metrics[i].alias);
+			fprintf(stdout, "Payload:  Metric %d:  alias: %zd\n", i, payload->metrics[i].alias);
 		}
-		printf("Payload:  Metric %d:  has_timestamp: %s\n", i, payload->metrics[i].has_timestamp ? "true" : "false");
+		fprintf(stdout, "Payload:  Metric %d:  has_timestamp: %s\n", i, payload->metrics[i].has_timestamp ? "true" : "false");
 		if (payload->metrics[i].has_timestamp) {
-			printf("Payload:  Metric %d:  timestamp: %zd\n", i, payload->metrics[i].timestamp);
+			fprintf(stdout, "Payload:  Metric %d:  timestamp: %zd\n", i, payload->metrics[i].timestamp);
 		}
-		printf("Payload:  Metric %d:  has_datatype: %s\n", i, payload->metrics[i].has_datatype ? "true" : "false");
+		fprintf(stdout, "Payload:  Metric %d:  has_datatype: %s\n", i, payload->metrics[i].has_datatype ? "true" : "false");
 		if (payload->metrics[i].has_datatype) {
-			printf("Payload:  Metric %d:  datatype: %d\n", i, payload->metrics[i].datatype);
+			fprintf(stdout, "Payload:  Metric %d:  datatype: %d\n", i, payload->metrics[i].datatype);
 		}
-		printf("Payload:  Metric %d:  has_is_historical: %s\n", i, payload->metrics[i].has_is_historical ? "true" : "false");
+		fprintf(stdout, "Payload:  Metric %d:  has_is_historical: %s\n", i, payload->metrics[i].has_is_historical ? "true" : "false");
 		if (payload->metrics[i].has_is_historical) {
-			printf("Payload:  Metric %d:  is_historical: %s\n", i, payload->metrics[i].is_historical ? "true" : "false");
+			fprintf(stdout, "Payload:  Metric %d:  is_historical: %s\n", i, payload->metrics[i].is_historical ? "true" : "false");
 		}
-		printf("Payload:  Metric %d:  has_is_transient: %s\n", i, payload->metrics[i].has_is_transient ? "true" : "false");
+		fprintf(stdout, "Payload:  Metric %d:  has_is_transient: %s\n", i, payload->metrics[i].has_is_transient ? "true" : "false");
 		if (payload->metrics[i].has_is_transient) {
-			printf("Payload:  Metric %d:  is_transient: %s\n", i, payload->metrics[i].is_transient ? "true" : "false");
+			fprintf(stdout, "Payload:  Metric %d:  is_transient: %s\n", i, payload->metrics[i].is_transient ? "true" : "false");
 		}
-		printf("Payload:  Metric %d:  has_is_null: %s\n", i, payload->metrics[i].has_is_null ? "true" : "false");
+		fprintf(stdout, "Payload:  Metric %d:  has_is_null: %s\n", i, payload->metrics[i].has_is_null ? "true" : "false");
 		if (payload->metrics[i].has_is_null) {
-			printf("Payload:  Metric %d:  is_null: %s\n", i, payload->metrics[i].is_null ? "true" : "false");
+			fprintf(stdout, "Payload:  Metric %d:  is_null: %s\n", i, payload->metrics[i].is_null ? "true" : "false");
 		}
-		printf("Payload:  Metric %d:  has_metadata: %s\n", i, payload->metrics[i].has_metadata ? "true" : "false");
-		printf("Payload:  Metric %d:  has_properties: %s\n", i, payload->metrics[i].has_properties ? "true" : "false");
+		fprintf(stdout, "Payload:  Metric %d:  has_metadata: %s\n", i, payload->metrics[i].has_metadata ? "true" : "false");
+		fprintf(stdout, "Payload:  Metric %d:  has_properties: %s\n", i, payload->metrics[i].has_properties ? "true" : "false");
 
 		if (payload->metrics[i].datatype == METRIC_DATA_TYPE_UNKNOWN) {
-			printf("Payload:  Metric %d:  datatype: unknown datatype!\n", i);
+			fprintf(stdout, "Payload:  Metric %d:  datatype: unknown datatype!\n", i);
 		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_INT8 ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_INT16 ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_INT32 ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_UINT8 ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_UINT16 ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_UINT32) {
-			printf("Payload:  Metric %d:  datatype: %d, with value: %d\n", i, payload->metrics[i].datatype, payload->metrics[i].value.int_value);
+			fprintf(stdout, "Payload:  Metric %d:  datatype: %d, with value: %d\n", i, payload->metrics[i].datatype, payload->metrics[i].value.int_value);
 		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_INT64 ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_UINT64 ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_DATETIME) {
-			printf("Payload:  Metric %d:  datatype: %d, with value: %zd\n", i, payload->metrics[i].datatype, payload->metrics[i].value.long_value);
+			fprintf(stdout, "Payload:  Metric %d:  datatype: %d, with value: %zd\n", i, payload->metrics[i].datatype, payload->metrics[i].value.long_value);
 		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_FLOAT) {
-			printf("Payload:  Metric %d:  datatype: %d, with value: %f\n", i, payload->metrics[i].datatype, payload->metrics[i].value.float_value);
+			fprintf(stdout, "Payload:  Metric %d:  datatype: %d, with value: %f\n", i, payload->metrics[i].datatype, payload->metrics[i].value.float_value);
 		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_DOUBLE) {
-			printf("Payload:  Metric %d:  datatype: %d, with value: %f\n", i, payload->metrics[i].datatype, payload->metrics[i].value.double_value);
+			fprintf(stdout, "Payload:  Metric %d:  datatype: %d, with value: %f\n", i, payload->metrics[i].datatype, payload->metrics[i].value.double_value);
 		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_BOOLEAN) {
-			printf("Payload:  Metric %d:  datatype: %d, with value: %d\n", i, payload->metrics[i].datatype, payload->metrics[i].value.boolean_value);
+			fprintf(stdout, "Payload:  Metric %d:  datatype: %d, with value: %d\n", i, payload->metrics[i].datatype, payload->metrics[i].value.boolean_value);
 		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_STRING ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_TEXT ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_UUID) {
-			printf("Payload:  Metric %d:  datatype: %d, with value: %s\n", i, payload->metrics[i].datatype, payload->metrics[i].value.string_value);
+			fprintf(stdout, "Payload:  Metric %d:  datatype: %d, with value: %s\n", i, payload->metrics[i].datatype, payload->metrics[i].value.string_value);
 		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_BYTES) {
-			printf("Payload:  Metric %d:  datatype: %d, with value ", i, payload->metrics[i].datatype);
+			fprintf(stdout, "Payload:  Metric %d:  datatype: %d, with value ", i, payload->metrics[i].datatype);
 /*
 			int i;
 			for (i = 0; i<sizeof(payload->metrics[i].value.bytes_value); i++) {
-				if (i > 0) printf(":");
-				printf("%02X", payload->metrics[i].value.bytes_value[i]);
+				if (i > 0) fprintf(stdout, ":");
+				fprintf(stdout, "%02X", payload->metrics[i].value.bytes_value[i]);
 			}
 */
-			printf("\n");
+			fprintf(stdout, "\n");
 		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_DATASET) {
-			printf("Payload:  Metric %d:  datatype DATASET - Not yet supported\n", i);
+			fprintf(stdout, "Payload:  Metric %d:  datatype DATASET - Not yet supported\n", i);
 		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_FILE) {
-			printf("Payload:  Metric %d:  datatype FILE - Not yet supported\n", i);
+			fprintf(stdout, "Payload:  Metric %d:  datatype FILE - Not yet supported\n", i);
 		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_TEMPLATE) {
-			//printf("Payload:  Metric %d:  datatype: %d, with value: %zd\n", i, payload->metrics[i].datatype, payload->metrics[i].value.long_value);
-			printf("Payload:  Metric %d:  datatype: %d, with # of metrics: %d\n", i, payload->metrics[i].datatype, payload->metrics[i].value.template_value.metrics_count);
+			//fprintf(stdout, "Payload:  Metric %d:  datatype: %d, with value: %zd\n", i, payload->metrics[i].datatype, payload->metrics[i].value.long_value);
+			fprintf(stdout, "Payload:  Metric %d:  datatype: %d, with # of metrics: %d\n", i, payload->metrics[i].datatype, payload->metrics[i].value.template_value.metrics_count);
 		} else {
-			printf("Payload:  Metric %d:  datatype: %d\n", i, payload->metrics[i].datatype);
+			fprintf(stdout, "Payload:  Metric %d:  datatype: %d\n", i, payload->metrics[i].datatype);
 		}
 	}
 }

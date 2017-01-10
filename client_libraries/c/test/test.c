@@ -91,9 +91,9 @@ void publisher(struct mosquitto *mosq, char *topic, void *buf, unsigned len) {
 void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mosquitto_message *message) {
 
 	if(message->payloadlen) {
-		printf("%s :: %d\n", message->topic, message->payloadlen);
+		fprintf(stdout, "%s :: %d\n", message->topic, message->payloadlen);
 	} else {
-		printf("%s (null)\n", message->topic);
+		fprintf(stdout, "%s (null)\n", message->topic);
 	}
 	fflush(stdout);
 
@@ -135,7 +135,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 
 			// We know this is an Int16 because of how we declated it in the DBIRTH
 			uint32_t new_value = inbound_payload.metrics[i].value.int_value;
-			fprintf(stdout, "output/Device Metric2 - New Value: %d\n", new_value);
+			fprintf(stdout, "CMD message for output/Device Metric2 - New Value: %d\n", new_value);
 
 			// Create the DDATA payload
 			com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
@@ -163,7 +163,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 
 			// We know this is an Boolean because of how we declated it in the DBIRTH
 			bool new_value = inbound_payload.metrics[i].value.boolean_value;
-			fprintf(stdout, "output/Device Metric2 - New Value: %s\n", new_value ? "true" : "false");
+			fprintf(stdout, "CMD message for output/Device Metric2 - New Value: %s\n", new_value ? "true" : "false");
 
 			// Create the DDATA payload
 			com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
@@ -209,11 +209,11 @@ void my_connect_callback(struct mosquitto *mosq, void *userdata, int result) {
 void my_subscribe_callback(struct mosquitto *mosq, void *userdata, int mid, int qos_count, const int *granted_qos) {
 	int i;
 
-	printf("Subscribed (mid: %d): %d", mid, granted_qos[0]);
+	fprintf(stdout, "Subscribed (mid: %d): %d", mid, granted_qos[0]);
 	for(i=1; i<qos_count; i++) {
-		printf(", %d", granted_qos[i]);
+		fprintf(stdout, ", %d", granted_qos[i]);
 	}
-	printf("\n");
+	fprintf(stdout, "\n");
 }
 
 /*
@@ -221,7 +221,7 @@ void my_subscribe_callback(struct mosquitto *mosq, void *userdata, int mid, int 
  */
 void my_log_callback(struct mosquitto *mosq, void *userdata, int level, const char *str) {
 	// Print all log messages regardless of level.
-	printf("%s\n", str);
+	fprintf(stdout, "%s\n", str);
 }
 
 /*
@@ -253,26 +253,26 @@ void publish_node_birth(struct mosquitto *mosq) {
 	strcpy(nbirth_payload.uuid, "MyUUID");
 
 	// Add node control metrics
-	printf("Adding metric: 'Node Control/Next Server'\n");
+	fprintf(stdout, "Adding metric: 'Node Control/Next Server'\n");
 	bool next_server_value = false;
 	add_simple_metric(&nbirth_payload, "Node Control/Next Server", true, 0, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &next_server_value, sizeof(next_server_value));
-	printf("Adding metric: 'Node Control/Rebirth'\n");
+	fprintf(stdout, "Adding metric: 'Node Control/Rebirth'\n");
 	bool rebirth_value = false;
 	add_simple_metric(&nbirth_payload, "Node Control/Rebirth", true, 1, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &rebirth_value, sizeof(rebirth_value));
-	printf("Adding metric: 'Node Control/Reboot'\n");
+	fprintf(stdout, "Adding metric: 'Node Control/Reboot'\n");
 	bool reboot_value = false;
 	add_simple_metric(&nbirth_payload, "Node Control/Reboot", true, 2, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &reboot_value, sizeof(reboot_value));
 
 	// Add some regular node metrics
-	printf("Adding metric: 'Node Metric0'\n");
+	fprintf(stdout, "Adding metric: 'Node Metric0'\n");
 	char nbirth_metric_zero_value[] = "hello node";
 	add_simple_metric(&nbirth_payload, "Node Metric0", true, 3, METRIC_DATA_TYPE_STRING, false, false, false, &nbirth_metric_zero_value, sizeof(nbirth_metric_zero_value));
-	printf("Adding metric: 'Node Metric1'\n");
+	fprintf(stdout, "Adding metric: 'Node Metric1'\n");
 	bool nbirth_metric_one_value = true;
 	add_simple_metric(&nbirth_payload, "Node Metric1", true, 4, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &nbirth_metric_one_value, sizeof(nbirth_metric_one_value));
 
 	// Add a metric with a custom property
-	printf("Adding metric: 'Node Metric2'\n");
+	fprintf(stdout, "Adding metric: 'Node Metric2'\n");
 	com_cirruslink_sparkplug_protobuf_Payload_Metric prop_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
 	uint32_t nbirth_metric_two_value = 13;
 	init_metric(&prop_metric, "Node Metric2", true, 5, METRIC_DATA_TYPE_INT16, false, false, false, &nbirth_metric_two_value, sizeof(nbirth_metric_two_value));
@@ -347,16 +347,16 @@ void publish_device_birth(struct mosquitto *mosq) {
 	get_next_payload(&dbirth_payload);
 
 	// Add some device metrics
-	printf("Adding metric: 'input/Device Metric0'\n");
+	fprintf(stdout, "Adding metric: 'input/Device Metric0'\n");
 	char dbirth_metric_zero_value[] = "hello device";
 	add_simple_metric(&dbirth_payload, "input/Device Metric0", true, 7, METRIC_DATA_TYPE_STRING, false, false, false, &dbirth_metric_zero_value, sizeof(dbirth_metric_zero_value));
-	printf("Adding metric: 'input/Device Metric1'\n");
+	fprintf(stdout, "Adding metric: 'input/Device Metric1'\n");
 	bool dbirth_metric_one_value = true;
 	add_simple_metric(&dbirth_payload, "input/Device Metric1", true, 8, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &dbirth_metric_one_value, sizeof(dbirth_metric_one_value));
-	printf("Adding metric: 'output/Device Metric2'\n");
+	fprintf(stdout, "Adding metric: 'output/Device Metric2'\n");
 	uint32_t dbirth_metric_two_value = 16;
 	add_simple_metric(&dbirth_payload, "output/Device Metric2", true, 9, METRIC_DATA_TYPE_INT16, false, false, false, &dbirth_metric_two_value, sizeof(dbirth_metric_two_value));
-	printf("Adding metric: 'output/Device Metric3'\n");
+	fprintf(stdout, "Adding metric: 'output/Device Metric3'\n");
 	bool dbirth_metric_three_value = true;
 	add_simple_metric(&dbirth_payload, "output/Device Metric3", true, 10, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &dbirth_metric_three_value, sizeof(dbirth_metric_three_value));
 
@@ -430,7 +430,7 @@ void publish_ddata_message(struct mosquitto *mosq) {
 	get_next_payload(&ddata_payload);
 
 	// Add some device metrics to denote changed values on inputs
-	printf("Adding metric: 'input/Device Metric0'\n");
+	fprintf(stdout, "Adding metric: 'input/Device Metric0'\n");
 	char ddata_metric_zero_value[13];
 	int i;
 	for (i = 0; i<12; ++i) {
@@ -438,7 +438,7 @@ void publish_ddata_message(struct mosquitto *mosq) {
 	}
 	// Note the Metric name 'input/Device Metric0' is not needed because we're using aliases
 	add_simple_metric(&ddata_payload, NULL, true, 7, METRIC_DATA_TYPE_STRING, false, false, false, &ddata_metric_zero_value, sizeof(ddata_metric_zero_value));
-	printf("Adding metric: 'input/Device Metric1'\n");
+	fprintf(stdout, "Adding metric: 'input/Device Metric1'\n");
 	bool ddata_metric_one_value = rand()%2;
 	// Note the Metric name 'input/Device Metric1' is not needed because we're using aliases
 	add_simple_metric(&ddata_payload, NULL, true, 8, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &ddata_metric_one_value, sizeof(ddata_metric_one_value));
