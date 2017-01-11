@@ -271,6 +271,44 @@ void publish_node_birth(struct mosquitto *mosq) {
 	bool nbirth_metric_one_value = true;
 	add_simple_metric(&nbirth_payload, "Node Metric1", true, 4, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &nbirth_metric_one_value, sizeof(nbirth_metric_one_value));
 
+	/*
+	// Create a DataSet
+	com_cirruslink_sparkplug_protobuf_Payload_DataSet dataset = com_cirruslink_sparkplug_protobuf_Payload_DataSet_init_default;
+	uint32_t datatypes[] = {DATA_SET_DATA_TYPE_INT32,
+					DATA_SET_DATA_TYPE_INT32,
+					DATA_SET_DATA_TYPE_INT32};
+	const char *column_keys[] = {"Int8s",
+					"Int16s",
+					"Int32s"};
+	com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row *row_data = (com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row *)
+										calloc(2, sizeof(com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row));
+	row_data[0].elements_count = 3;
+	row_data[0].elements = (com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue *)
+							calloc(3, sizeof(com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue));
+	row_data[0].elements[0].which_value = com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
+	row_data[0].elements[0].value.int_value = 0;
+	row_data[0].elements[1].which_value = com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
+	row_data[0].elements[1].value.int_value = 1;
+	row_data[0].elements[2].which_value = com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
+	row_data[0].elements[2].value.int_value = 2;
+	row_data[1].elements_count = 3;
+	row_data[1].elements = (com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue *)
+							calloc(3, sizeof(com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue));
+	row_data[1].elements[0].which_value = com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
+	row_data[1].elements[0].value.int_value = 3;
+	row_data[1].elements[1].which_value = com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
+	row_data[1].elements[1].value.int_value = 4;
+	row_data[1].elements[2].which_value = com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
+	row_data[1].elements[2].value.int_value = 5;
+	init_dataset(&dataset, 2, 3, datatypes, column_keys, row_data);
+
+	// Create the a Metric with the DataSet value and add it to the payload
+	fprintf(stdout, "Adding metric: 'DataSet'\n");
+	com_cirruslink_sparkplug_protobuf_Payload_Metric dataset_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	init_metric(&dataset_metric, "DataSet", true, 5, METRIC_DATA_TYPE_DATASET, false, false, false, &dataset, sizeof(dataset));
+	add_metric_to_payload(&nbirth_payload, &dataset_metric);
+	*/
+
 	// Add a metric with a custom property
 	fprintf(stdout, "Adding metric: 'Node Metric2'\n");
 	com_cirruslink_sparkplug_protobuf_Payload_Metric prop_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;

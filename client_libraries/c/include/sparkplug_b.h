@@ -167,6 +167,16 @@
 	extern void get_next_payload(com_cirruslink_sparkplug_protobuf_Payload *payload);
 
 	/*
+	 * Initialize a Dataset with the values passed in
+	 */
+	extern void init_dataset(com_cirruslink_sparkplug_protobuf_Payload_DataSet *dataset,
+					uint64_t num_of_rows,
+					uint64_t num_of_columns,
+					uint32_t *datatypes,
+					const char **column_keys,
+					com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row *row_data);
+
+	/*
 	 * Initialize a Metric with the values of the arguments passed in
 	 */
 	extern void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,

@@ -128,15 +128,15 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 					}
 				} else if (metric_field->tag == metric_tag && ((metric_field->type & PB_LTYPE_BYTES) == PB_LTYPE_BYTES)) {
 					DEBUG_PRINT(("\t\tFound a PB_LTYPE_BYTES\n"));
-//				} else {
-//					DEBUG_PRINT(("\t\tother: %d\n", metric_field->type);
+				//} else {
+					//DEBUG_PRINT(("\t\tother: %d\n", metric_field->type);
 				}
 			}
 
 		} else if (metric_wire_type == PB_WT_32BIT) {
 			DEBUG_PRINT(("\t\tMetric Wire type is PB_WT_32BIT\n"));
-//		} else {
-//			DEBUG_PRINT(("\t\tMetric Other? %d\n", metric_wire_type);
+		//} else {
+			//DEBUG_PRINT(("\t\tMetric Other? %d\n", metric_wire_type);
 		}
 	}
 
@@ -293,7 +293,7 @@ bool add_property_to_set(com_cirruslink_sparkplug_protobuf_Payload_PropertySet *
 		propertyset->values[size-1].value.string_value = (char *)malloc(size_of_value*sizeof(char));
 		strcpy(propertyset->values[size-1].value.string_value, (char *)value);
 	} else {
-		DEBUG_PRINT(("Unknown datatype %u\n", datatype));
+		fprintf(stderr, "Unknown datatype %u\n", datatype);
 	}
 
 	propertyset->keys_count++;
@@ -366,13 +366,6 @@ void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 	// Default dynamically allocated members to NULL
 	payload->metrics[size-1].value.string_value = NULL;
 
-/* TODO
-    bool has_metadata;
-    com_cirruslink_sparkplug_protobuf_Payload_MetaData metadata;
-    bool has_properties;
-    com_cirruslink_sparkplug_protobuf_Payload_PropertySet properties;
-*/
-
 	DEBUG_PRINT(("Setting datatype and value - value size is %zd\n", size_of_value));
 	if (datatype == METRIC_DATA_TYPE_UNKNOWN) {
 		fprintf(stderr, "Can't create metric with unknown datatype!\n");
@@ -403,22 +396,7 @@ void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 		payload->metrics[size-1].value.string_value = (char *)malloc(size_of_value*sizeof(char));
 		strcpy(payload->metrics[size-1].value.string_value, (char *)value);
 	} else if (datatype == METRIC_DATA_TYPE_BYTES) {
-		DEBUG_PRINT(("Setting datatype: %zd, with value ", datatype));
-		int i;
-		for (i = 0; i<size_of_value; i++) {
-			if (i > 0) DEBUG_PRINT((":"));
-			DEBUG_PRINT(("%02X", ((pb_byte_t *)value)[i]));
-		}
-		DEBUG_PRINT(("\n"));
-
-/*
-		pb_bytes_array_t *bytes_value = (pb_bytes_array_t *)malloc(sizeof(pb_bytes_array_t));
-		bytes_value->size = size_of_value;
-		memcpy(bytes_value->bytes, (pb_byte_t *)value, size_of_value);
-		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_bytes_value_tag;
-		payload->metrics[size-1].value.bytes_value = &bytes_value;
-*/
-
+		DEBUG_PRINT(("Datatype BYTES - Not yet supported\n"));
 	} else if (datatype == METRIC_DATA_TYPE_DATASET) {
 		DEBUG_PRINT(("Datatype DATASET - Not yet supported\n"));
 	} else if (datatype == METRIC_DATA_TYPE_FILE) {
@@ -568,8 +546,8 @@ bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, const vo
 
 				} else if (payload_field->tag == payload_tag && ((payload_field->type & PB_LTYPE_BYTES) == PB_LTYPE_BYTES)) {
 					DEBUG_PRINT(("\tFound a PB_LTYPE_BYTES\n"));
-//				} else {
-//					DEBUG_PRINT(("\tother: %d\n", payload_field->type);
+				//} else {
+					//DEBUG_PRINT(("\tother: %d\n", payload_field->type);
 				}
 			}
 		} else if (payload_wire_type == PB_WT_32BIT) {
@@ -640,6 +618,99 @@ void get_next_payload(com_cirruslink_sparkplug_protobuf_Payload *payload) {
 	} else {
 		seq++;
 	}
+}
+
+/*
+ * Initialize a Dataset with the values passed in
+ */
+void init_dataset(com_cirruslink_sparkplug_protobuf_Payload_DataSet *dataset,
+			uint64_t num_of_rows,
+			uint64_t num_of_columns,
+			uint32_t *datatypes,
+			const char **column_keys,
+			com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row *row_data) {
+
+	// Set the number of columns
+	dataset->has_num_of_columns = true;
+	dataset->num_of_columns = num_of_columns;
+	dataset->columns_count = num_of_columns;
+
+	// Set up the column headers
+	dataset->columns = (char **) calloc(num_of_columns, sizeof(char*));
+	int i,j;
+	for (i=0; i<num_of_columns; i++) {
+		fprintf(stdout, "column_keys[i]: %s\n", column_keys[i]);
+		dataset->columns[i] = (char *)malloc((strlen(column_keys[i])+1)*sizeof(char));
+		strcpy(dataset->columns[i], column_keys[i]);
+	}
+
+	// Set the datatypes of the columns
+	dataset->types_count = num_of_columns;
+	dataset->types = datatypes;
+
+	// Set the rows
+	dataset->rows_count = num_of_rows;
+	dataset->rows = row_data;
+/*
+	dataset->rows = (com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row *) calloc(num_of_rows, sizeof(com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row));
+	for (i=0; i<num_of_rows; i++) {
+		dataset->rows[i].elements_count = num_of_columns;
+		dataset->rows[i].elements = (com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue *)
+									malloc(sizeof(com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue));
+
+		for (j=0; j<num_of_columns; j++) {
+			if (datatypes[j] == DATA_SET_DATA_TYPE_UNKNOWN) {
+				fprintf(stderr, "Can't create dataset with unknown datatype!\n");
+			} else if (datatypes[j] == DATA_SET_DATA_TYPE_INT8 || datatypes[j] == DATA_SET_DATA_TYPE_INT16 || datatypes[j] == DATA_SET_DATA_TYPE_INT32 ||
+					datatypes[j] == DATA_SET_DATA_TYPE_UINT8 || datatypes[j] == DATA_SET_DATA_TYPE_UINT16 || datatypes[j] == DATA_SET_DATA_TYPE_UINT32) {
+				dataset->rows[i].elements[j].which_value = com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
+				//dataset->rows[i].elements[j].value.int_value = *((uint32_t *)value);
+			} else {
+				fprintf(stderr, "Invalid datatype: %d\n", datatypes[j]);
+			}
+		}
+	}
+*/
+
+/*
+typedef struct _com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row {
+    pb_size_t elements_count;
+    struct _com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue *elements;
+    pb_extension_t *extensions;
+// @@protoc_insertion_point(struct:com_cirruslink_sparkplug_protobuf_Payload_DataSet
+} com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row;
+
+
+/*
+	if (datatype == DATA_SET_DATA_TYPE_UNKNOWN) {
+		fprintf(stderr, "Can't create dataset with unknown datatype!\n");
+	} else if (datatype == DATA_SET_DATA_TYPE_INT8) {
+		uint32_t (*int_array)[num_of_columns] = (unsigned int (*)[num_of_columns]) data;
+
+		// Iterate over rows
+		for (i=0; i<num_of_rows; i++) {
+			// Iterate over columns
+			for (j=0; j<num_of_columns; j++) {
+				fprintf(stdout, "data: %d\n", int_array[i][j]);
+			}
+		}
+	} else if (datatype == DATA_SET_DATA_TYPE_INT16) {
+	} else if (datatype == DATA_SET_DATA_TYPE_INT32) {
+	} else if (datatype == DATA_SET_DATA_TYPE_INT64) {
+	} else if (datatype == DATA_SET_DATA_TYPE_UINT8) {
+	} else if (datatype == DATA_SET_DATA_TYPE_UINT16) {
+	} else if (datatype == DATA_SET_DATA_TYPE_UINT32) {
+	} else if (datatype == DATA_SET_DATA_TYPE_UINT64) {
+	} else if (datatype == DATA_SET_DATA_TYPE_FLOAT) {
+	} else if (datatype == DATA_SET_DATA_TYPE_DOUBLE) {
+	} else if (datatype == DATA_SET_DATA_TYPE_BOOLEAN) {
+	} else if (datatype == DATA_SET_DATA_TYPE_STRING) {
+	} else if (datatype == DATA_SET_DATA_TYPE_DATETIME) {
+	} else if (datatype == DATA_SET_DATA_TYPE_TEXT) {
+	} else {
+		fprintf(stderr, "Unknown datatype %d\n", datatype);
+	}
+*/
 }
 
 /*
@@ -715,25 +786,19 @@ void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
 		metric->value.string_value = (char *)malloc(size_of_value*sizeof(char));
 		strcpy(metric->value.string_value, (char *)value);
 	} else if (datatype == METRIC_DATA_TYPE_BYTES) {
-		DEBUG_PRINT(("Setting datatype: %zd, with value ", datatype));
-		int i;
-		for (i = 0; i<size_of_value; i++) {
-			if (i > 0) DEBUG_PRINT((":"));
-			DEBUG_PRINT(("%02X", ((pb_byte_t *)value)[i]));
-		}
-		DEBUG_PRINT(("\n"));
-
+		fprintf(stderr, "Datatype BYTES - Not yet supported\n");
 	} else if (datatype == METRIC_DATA_TYPE_DATASET) {
-		DEBUG_PRINT(("Datatype DATASET - Not yet supported\n"));
+		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((bool *)value)));
+		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_dataset_value_tag;
+		metric->value.dataset_value = *((com_cirruslink_sparkplug_protobuf_Payload_DataSet *)value);
 	} else if (datatype == METRIC_DATA_TYPE_FILE) {
-		DEBUG_PRINT(("Datatype FILE - Not yet supported\n"));
+		fprintf(stderr, "Datatype FILE - Not yet supported\n");
 	} else if (datatype == METRIC_DATA_TYPE_TEMPLATE) {
-		//DEBUG_PRINT(("Setting datatype: %zd, with value: %f\n", datatype, *((double *)value)));
 		DEBUG_PRINT(("Setting datatype: %zd, with # of metrics: %d\n", datatype, ((com_cirruslink_sparkplug_protobuf_Payload_Template *)value)->metrics_count));
 		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_template_value_tag;
 		metric->value.template_value = *((com_cirruslink_sparkplug_protobuf_Payload_Template *)value);
 	} else {
-		DEBUG_PRINT(("Unknown datatype %ju\n", datatype));
+		fprintf(stderr, "Unknown datatype %ju\n", datatype);
 	}
 }
 
@@ -741,11 +806,6 @@ void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
  * Display a full Sparkplug Payload
  */
 void print_payload(com_cirruslink_sparkplug_protobuf_Payload *payload) {
-/*
-        nbirth_payload.uuid = (char*)malloc((strlen("MyUUID")+1) * sizeof(char));
-        strcpy(nbirth_payload.uuid, "MyUUID");
-	strcpy(nbirth_payload.body, "Setting the body to some chars");
-*/
 	fprintf(stdout, "Payload:  has_timestamp: %s\n", payload->has_timestamp ? "true" : "false");
 	if (payload->has_timestamp) {
 		fprintf(stdout, "Payload:  timestamp: %zd\n", payload->timestamp);
@@ -811,15 +871,7 @@ void print_payload(com_cirruslink_sparkplug_protobuf_Payload *payload) {
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_UUID) {
 			fprintf(stdout, "Payload:  Metric %d:  datatype: %d, with value: %s\n", i, payload->metrics[i].datatype, payload->metrics[i].value.string_value);
 		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_BYTES) {
-			fprintf(stdout, "Payload:  Metric %d:  datatype: %d, with value ", i, payload->metrics[i].datatype);
-/*
-			int i;
-			for (i = 0; i<sizeof(payload->metrics[i].value.bytes_value); i++) {
-				if (i > 0) fprintf(stdout, ":");
-				fprintf(stdout, "%02X", payload->metrics[i].value.bytes_value[i]);
-			}
-*/
-			fprintf(stdout, "\n");
+			fprintf(stdout, "Payload:  Metric %d:  datatype BYTES - Not yet supported\n", i);
 		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_DATASET) {
 			fprintf(stdout, "Payload:  Metric %d:  datatype DATASET - Not yet supported\n", i);
 		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_FILE) {

@@ -11,12 +11,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import com.cirruslink.sparkplug.SparkplugException;
 
 /**
  * A data set that represents a table of data.
  */
 public class DataSet {
+	
+	private static Logger logger = LogManager.getLogger(DataSet.class.getName());
 
 	/**
 	 * The number of columns
@@ -105,6 +111,12 @@ public class DataSet {
 		this.types.add(index, type);
 	}
 	
+	@Override
+	public String toString() {
+		return "DataSet [numOfColumns=" + numOfColumns + ", columnNames=" + columnNames + ", types=" + types + ", rows="
+				+ rows + "]";
+	}
+
 	/**
 	 * A builder for creating a {@link DataSet} instance.
 	 */
@@ -153,22 +165,36 @@ public class DataSet {
 		}
 		
 		public DataSet createDataSet() throws SparkplugException {
+			logger.trace("Number of columns: " + numOfColumns);
+			for (String columnName : columnNames) {
+				logger.trace("\tcolumnName: " + columnName);
+			}
+			for (DataSetDataType type : types) {
+				logger.trace("\ttypes: " + type);
+			}
+			for (Row row : rows) {
+				logger.trace("\t\trow: " + row);
+			}
+
 			validate();
 			return new DataSet(numOfColumns, columnNames, types, rows);
 		}
 		
 		public void validate() throws SparkplugException {
 			if (columnNames.size() != numOfColumns) {
-				throw new SparkplugException("Invalid number of columns in data set column names");
+				throw new SparkplugException("Invalid number of columns in data set column names: " + 
+						columnNames.size() + " vs expected " + numOfColumns);
 			}
 			if (types.size() != numOfColumns) {
-				throw new SparkplugException("Invalid number of columns in data set types");
+				throw new SparkplugException("Invalid number of columns in data set types: " +
+						types.size() + " vs expected: " + numOfColumns);
 			}
 			for (int i = 0; i < types.size(); i++) {
 				for (Row row : rows) {
 					List<Value<?>> values = row.getValues();
 					if (values.size() != numOfColumns) {
-						throw new SparkplugException("Invalid number of columns in data set row");
+						throw new SparkplugException("Invalid number of columns in data set row: " +
+								values.size() + " vs expected: " + numOfColumns);
 					}
 					types.get(i).checkType(row.getValues().get(i).getValue());
 				}
