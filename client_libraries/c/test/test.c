@@ -271,11 +271,10 @@ void publish_node_birth(struct mosquitto *mosq) {
 	bool nbirth_metric_one_value = true;
 	add_simple_metric(&nbirth_payload, "Node Metric1", true, 4, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &nbirth_metric_one_value, sizeof(nbirth_metric_one_value));
 
-	/*
 	// Create a DataSet
 	com_cirruslink_sparkplug_protobuf_Payload_DataSet dataset = com_cirruslink_sparkplug_protobuf_Payload_DataSet_init_default;
-	uint32_t datatypes[] = {DATA_SET_DATA_TYPE_INT32,
-					DATA_SET_DATA_TYPE_INT32,
+	uint32_t datatypes[] = {DATA_SET_DATA_TYPE_INT8,
+					DATA_SET_DATA_TYPE_INT16,
 					DATA_SET_DATA_TYPE_INT32};
 	const char *column_keys[] = {"Int8s",
 					"Int16s",
@@ -307,7 +306,6 @@ void publish_node_birth(struct mosquitto *mosq) {
 	com_cirruslink_sparkplug_protobuf_Payload_Metric dataset_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
 	init_metric(&dataset_metric, "DataSet", true, 5, METRIC_DATA_TYPE_DATASET, false, false, false, &dataset, sizeof(dataset));
 	add_metric_to_payload(&nbirth_payload, &dataset_metric);
-	*/
 
 	// Add a metric with a custom property
 	fprintf(stdout, "Adding metric: 'Node Metric2'\n");
