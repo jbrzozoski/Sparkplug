@@ -35,6 +35,7 @@ When editing the Sparkplug Node the following properties are configurable:
   into the infrastructure.
 * Edge Node: An ID that uniquely identifies the MQTT EoN Node within the
   infrastructure.
+* Version: The Sparkplug version (currently: A or B).
 * Enable Cache: Whether to enable EoN node caching.
 * Publish Death: Whether to publish the edge node's death certicate when the 
   client cleanly disconnects
@@ -46,66 +47,60 @@ down the client connection by disconnecting from the MQTT Server.
 ### Sparkplug Node Inputs
 
 The Sparkplug Node expects input messages to be received on topics of the
-format:  *topicVersion*/*deviceId*/*type*.
+format:  *deviceId*/*type*.
 
 Acceptable values for each token in the topic are :
 
- * *topicVersion*: A1.0
  * *deviceId*: A unique device ID string that does not contain the following
    reserved characters: '/', '#', "+".
  * *type*: DDATA | DBIRTH | DDEATH
 
-The payload of each message will depend on the message type.
+The payload of each message will depend on the message type.  The data types 
+supported for metrics of payload differ based on the Sparkplug version. A full 
+description of each versions format and data type support is beyond the scope of 
+this readme and can be found in the Sparkplug specification linked above. The 
+examples in this ready will use Sparkplug B.
 
 #### DBIRTH message
 
-Topic:  A1.0/*deviceId*/DBIRTH  
+Topic:  *deviceId*/DBIRTH  
 Payload:  An object with a "timestamp" (required), array of ALL "metric" objects
-         (required), and "position" (optional).  
+         (required).  
 Example:
-```
+
+```javascript
 {
     "timestamp" : 1465577611580
-    "metric" : [
+    "metrics" : [
         {
             "name" : "my_int",
             "value" : 456,
-            "type" : "int"
+            "type" : "int32"
         },
         {
             "name" : "my_float",
             "value" : 456,
             "type" : "float"
         }
-    ],
-    "position" : {
-        "latitude" : 38.83667239,
-        "longitude" : -94.67176706,
-        "altitude" : 319,
-        "precision" : 2.0,
-        "heading" : 0,
-        "speed" : 0,
-        "timestamp" : 1465577611580,
-         "satellites" : 8,
-         "status" : 3
-     }
+    ]
 }
 ```
 
 #### DDATA message
 
-Topic: A1.0/*deviceId*/DDATA  
+Topic: *deviceId*/DDATA  
 Payload: An object with a "timestamp" (required), array of one or more "metric"
          objects (required), and "position" (optional).  
 Example:
-```
+
+```javascript
 {
     "timestamp" : 1465577611580,
-    "metric" : [
+    "metrics" : [
         {
             "name" : "my_int",
             "value" : 456,
-            "type" : "int"
+            "type" : "int32"
         }
     ]
 }
@@ -113,10 +108,11 @@ Example:
 
 #### DDEATH message
 
-Topic: A1.0/*deviceId*/DDEATH  
+Topic: *deviceId*/DDEATH  
 Payload: An object with a "timestamp" (required).  
 Example:
-```
+
+```javascript
 {
     "timestamp" : 1465577611580
 }
@@ -146,13 +142,14 @@ a rebirth from itself all all devices.
 Topic: *deviceId*  
 Payload: An object with an array of one or more "metric" objects (required).  
 Example:
-```
+
+```javascript
 {
-    "metric" : [
+    "metrics" : [
         {
             "name" : "my_int",
             "value" : 456,
-            "type" : "int"
+            "type" : "int32"
         },
         {
             "name" : "my_float",
@@ -177,6 +174,7 @@ containing any metric values that have changed or been successfully written to.
 * 1.1.0 Added connection status indicator, changed category
 * 1.2.0 Added 'Publish Death' config option, and mouseover config descriptions
 * 1.2.1 Added "node-red" keyword
+* 2.0.0 Added support for Sparkplug B and made version configurable
 
 ## License
 

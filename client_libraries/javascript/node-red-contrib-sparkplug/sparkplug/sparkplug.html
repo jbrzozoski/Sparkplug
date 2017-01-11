@@ -20,6 +20,7 @@
             clientid: {value:'NodeREDSimpleEdgeNode', required:true},
             groupid: {value:'Sparkplug Devices', required:true},
             edgenode: {value:'Node-RED Edge Node', required:true},
+            version:{value: "spBv1.0"},
             enablecache: {value: "false"},
             publishdeath: {value: "true"},
             user: {value: "admin"},
@@ -71,6 +72,13 @@
     <div class="form-row">
         <label for="node-input-edgenode" title="An ID that uniquely identifies the MQTT EoN Node within the infrastructure"><i class="fa fa-tag"></i> Edge Node</label>
         <input type="text" id="node-input-edgenode" placeholder="Edge Node">
+    </div>
+    <div class="form-row">
+        <label for="node-input-version" title="The Sparkplug namespace version"><i class="fa fa-tag"></i> Version</label>
+        <select id="node-input-version" style="width:125px !important">
+            <option value="spBv1.0">Sparkplug B</option>
+            <option value="spAv1.0">Sparkplug A</option>
+        </select>
     </div>
     <div class="form-row">
         <label for="node-input-enablecache" title="Whether to enable EoN node caching"><i class="fa fa-tag"></i> Enable Cache</label>

@@ -19,6 +19,7 @@ module.exports = function(RED) {
         var node = this,
             username = this.credentials.user,
             password = this.credentials.password,
+            version = config.version,
             cacheEnabled = config.enablecache == "true",
             sparkPlugConfig = {
                 'serverUrl' : config.broker + ":" + config.port,
@@ -27,12 +28,9 @@ module.exports = function(RED) {
                 'groupId' : config.groupid,
                 'edgeNode' : config.edgenode,
                 'clientId' : config.clientid,
-                'publishDeath' : config.publishdeath == "true"
+                'publishDeath' : config.publishdeath == "true",
+                'version' : version
             },
-            hwVersion = 'Emulated Hardware',
-            swVersion = 'v1.0.0',
-            deviceId = 'Emulated Device',
-            publishPeriod = 5000,
             sparkplugClient;
 
         try {
@@ -51,11 +49,18 @@ module.exports = function(RED) {
             if (cacheEnabled) {
                 // Loop over all devices in the device data cache
                 Object.keys(deviceCache).forEach(function(key) {
+                    var payload = { 
+                        "timestamp" : new Date().getTime()
+                    };
+                    if (version === "spBv1.0") {
+                        // Sparkplug B uses "metrics" as the key
+                        payload.metrics = deviceCache[key];
+                    } else {
+                        // Sparkplug A uses "metric" as the key
+                        payload.metric = deviceCache[key];
+                    }
                     // Publish BIRTH certificate for device
-                    sparkplugClient.publishDeviceBirth(key, {
-                            "timestamp" : new Date().getTime(),
-                            "metric" : deviceCache[key]
-                        });
+                    sparkplugClient.publishDeviceBirth(key, payload);
                 });
             } else {
                 node.log(config.edgenode + " sending 'rebirth' message to downstream nodes");
@@ -70,8 +75,6 @@ module.exports = function(RED) {
          * 'command' handler
          */
         sparkplugClient.on('command', function (deviceId, payload) {
-            var timestamp = payload.timestamp,
-            metric = payload.metric;
             node.log(config.edgenode + " received 'command' event for deviceId: " + deviceId + ", sending to nodes");
             node.send({
                 "topic" : deviceId,
@@ -129,21 +132,24 @@ module.exports = function(RED) {
 
             node.log(config.edgenode + " recieved input msg: " + JSON.stringify(msg));
 
-            if (tokens.length != 3) {
+            if (tokens.length != 2) {
                 node.error(config.edgenode + " received message with invalid topic " + msg.topic + ", must be of the form <deviceId>/<msgType>");
                 return;
             }
 
             // Parse topic to get deviceId and messageType
-            deviceId = tokens[1];
-            messageType = tokens[2];
+            deviceId = tokens[0];
+            messageType = tokens[1];
 
             // Get cached device
             cachedMetrics = deviceCache[deviceId];
 
             if (messageType === "DBIRTH") {
                 if (cacheEnabled) {
-                    deviceCache[deviceId] = payload.metric;
+                    console.log("Setting device cache for " + deviceId);
+                    deviceCache[deviceId] = version === "spBv1.0" 
+                            ? payload.metrics 
+                            : payload.metric;
                 }
                 // Publish device birth
                 sparkplugClient.publishDeviceBirth(deviceId, payload);
@@ -154,9 +160,13 @@ module.exports = function(RED) {
                         return;
                     }
 
+                    var metrics = version === "spBv1.0" 
+                            ? payload.metrics 
+                            : payload.metric;
+
                     // Update metrics in device cache
                     // Loop over incoming metrics
-                    payload.metric.forEach(function(metric) {
+                    metrics.forEach(function(metric) {
                         // Loop through cached metrics to check if the incoming metric is cached
                         // then update the value in the cache.
                         if(!cachedMetrics.some(function(cachedMetric) {

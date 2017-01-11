@@ -37,6 +37,8 @@ must contain the following properties:
 * clientId: A unique ID for the MQTT client connection.
 * publishDeath: A flag indicating if a Node DEATH Certificate (NDEATH) should
   be published when the client is stopped (defaults to false).
+* version: The Sparkplug version (currently: A or B).  This will indicate how
+  the payload of the published Sparkplug messages are formatted. 
 
 Here is a code example of creating and configuring a new client:
 
@@ -48,7 +50,8 @@ var sparkplug = require('sparkplug-client'),
         'password' : 'password',
         'groupId' : 'Sparkplug Devices',
         'edgeNode' : 'Test Edge Node',
-        'clientId' : 'JavaScriptSimpleEdgeNode'
+        'clientId' : 'JavaScriptSimpleEdgeNode',
+        'version' : 'spBv1.0'
     },
     client = sparkplug.newClient(config);
 ```
@@ -74,23 +77,35 @@ This client provides functions for publishing three types of messages: a device
 birth certificate (DBIRTH), device data message (DDATA), device death
 certificate (DDEATH)
 
+#### Message Payloads ####
+
+The payload format for Sparkplug messages differs based on the Sparkplug version.
+A full description of each versions payload format is beyond the scope of this
+readme and can be found in the Sparkplug specification linked above.  The examples
+in this readme will be using Sparkplug B.  
+
+Here is a quick summary of the main changes in version B (over A):
+
+* Added more supported data types for metric values
+* Added support for generic property sets
+* Removed required "position" field
+* Change the name of the metrics list field from "metric" to "metrics".
+
+
 #### Device Birth Certificate (DBIRTH)
 
-A device birth certificate (DBIRTH) message will contain all data points,
+A Sparkplug device birth certificate (DBIRTH) message will contain all data points,
 process variables, and/or metrics for the device. The payload for this message
-will consist of:
+will differ slightly between the different Sparkplug versions.
 
 * timestamp:  A UTC timestamp represented by 64 bit integer.
 * metric:  An array of metric objects. Each metric in the array must contain
   the following:
   * name:  The name of the metric.
   * value:  The value of the metric.
-  * type:  The type of the metric.  The following types are supported: int,
-    long, float, double, boolean, string, bytes.
-  * position: An optional position object. A position contains the following
-    required fields:  longitude, latitude.  A position may also contain the
-    following optional fields:  altitude, precision, heading, speed, timestamp,
-    satellites, status.
+  * type:  The type of the metric.  The following types are supported: int, 
+    int8, int16, int32, int64, uint8, uint16, uint32, uint64, float, double, 
+    boolean, string, datetime, text, uuid, dataset, bytes, file, or template.
 
 Here is a code example of publishing a DBIRTH message:
 
@@ -98,40 +113,29 @@ Here is a code example of publishing a DBIRTH message:
 var deviceId = "testDevice",
     payload = {
         "timestamp" : 1465577611580,
-        "metric" : [
+        "metrics" : [
             {
                 "name" : "my_int",
                 "value" : 456,
-                "type" : "int"
+                "type" : "int32"
             },
             {
                 "name" : "my_float",
                 "value" : 1.23,
                 "type" : "float"
             }
-        ],
-        "position" : {
-            "latitude" : 38.83667239,
-            "longitude" : -94.67176706,
-            "altitude" : 319,
-            "precision" : 2.0,
-            "heading" : 0,
-            "speed" : 0,
-            "timestamp" : 1465577611580,
-            "satellites" : 8,
-            "status" : 3
-        }
+        ]
     };
 
 // Publish device birth
 client.publishDeviceBirth(deviceId, payload);
 ```
 
+
 #### Device Data Message (DDATA)
 
 A device data message (DDATA) will look similar to DBIRTH but is not required
 to publish all metrics, but it must publish at least one.
-
 
 Here is a code example of publishing a DBIRTH message:
 
@@ -139,11 +143,11 @@ Here is a code example of publishing a DBIRTH message:
 var deviceId = "testDevice",
     payload = {
         "timestamp" : 1465456711580,
-        "metric" : [
+        "metrics" : [
             {
                 "name" : "my_int",
                 "value" : 412,
-                "type" : "int"
+                "type" : "int32"
             }
         ]
     };
@@ -276,6 +280,7 @@ client.on('close', function () {
 * 1.0.2 Bug Fixes
 * 1.1.0 Added more emitted events (connect, reconnect, error, close)
 * 1.2.0 Added 'publishDeath' config option, updated MQTT.js version
+* 2.0.0 Added support for Sparkplug B and made the version configurable.
 
 ## License
 

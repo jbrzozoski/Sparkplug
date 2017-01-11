@@ -30,20 +30,30 @@ getTopic = function(type) {
 getBirthPayload = function() {
     return {
         "timestamp" : new Date().getTime(),
-        "metric" : [
-           { "name" : "my_boolean", "value" : Math.random() > 0.5, "type" : "boolean" },
-           { "name" : "my_double", "value" : Math.random() * 0.123456789, "type" : "double" },
-           { "name" : "my_float", "value" : Math.random() * 0.123, "type" : "float" },
-           { "name" : "my_int", "value" : randomInt(), "type" : "int" },
-           { "name" : "my_long", "value" : randomInt() * 214748364700, "type" : "long" },
-           { "name" : "Inputs/0", "value" :  true, "type" : "boolean" },
-           { "name" : "Inputs/1", "value" :  0, "type" : "int" },
-           { "name" : "Inputs/2", "value" :  1.23, "type" : "float" },
-           { "name" : "Outputs/0", "value" :  true, "type" : "boolean" },
-           { "name" : "Outputs/1", "value" :  0, "type" : "int" },
-           { "name" : "Outputs/2", "value" :  1.23, "type" : "float" },
-           { "name" : "Properties/hw_version", "value" :  hwVersion, "type" : "string" },
-           { "name" : "Properties/sw_version", "value" :  swVersion, "type" : "string" }
+        "metrics" : [
+            { 
+                "name" : "my_boolean", 
+                "value" : Math.random() > 0.5, 
+                "type" : "boolean",
+                "properties" : {
+                    "EngUnit" : {
+                        "value" : "ChadsUnits",
+                        "type" : "string"
+                    }
+                } 
+            },
+            { "name" : "my_double", "value" : Math.random() * 0.123456789, "type" : "double" },
+            { "name" : "my_float", "value" : Math.random() * 0.123, "type" : "float" },
+            { "name" : "my_int", "value" : randomInt(), "type" : "int" },
+            { "name" : "my_long", "value" : randomInt() * 214748364700, "type" : "long" },
+            { "name" : "Inputs/0", "value" :  true, "type" : "boolean" },
+            { "name" : "Inputs/1", "value" :  0, "type" : "int" },
+            { "name" : "Inputs/2", "value" :  1.23, "type" : "float" },
+            { "name" : "Outputs/0", "value" :  true, "type" : "boolean" },
+            { "name" : "Outputs/1", "value" :  0, "type" : "int" },
+            { "name" : "Outputs/2", "value" :  1.23, "type" : "float" },
+            { "name" : "Properties/hw_version", "value" :  hwVersion, "type" : "string" },
+            { "name" : "Properties/sw_version", "value" :  swVersion, "type" : "string" }
         ]
     };
 };
@@ -58,30 +68,12 @@ getDeathPayload = function() {
 };
 
 /*
- * Returns the default position of the emulated device
- */
-getPosition = function() {
-    return {
-        "latitude" : 38.83667239,
-        "longitude" : -94.67176706,
-        "altitude" : 319,
-        "precision" : 2.0,
-        "heading" : 0,
-        "speed" : 0,
-        "timestamp" : new Date().getTime(),
-        "satellites" : 8,
-        "status" : 3
-    };
-};
-
-/*
  * Returns the data payload for the device
  */
 getDataPayload = function(msg) {
     return {
         "timestamp" : msg.payload.timestamp !== undefined ? msg.payload.timestamp : new Date().getTime(),
-        "position" : getPosition(),
-        "metric" : [
+        "metrics" : [
             { "name" : "my_boolean", "value" : Math.random() > 0.5, "type" : "boolean" },
             { "name" : "my_double", "value" : Math.random() * 0.123456789, "type" : "double" },
             { "name" : "my_float", "value" : Math.random() * 0.123, "type" : "float" },
@@ -107,7 +99,7 @@ getDataPayload = function(msg) {
  *   Publish the default device data payload using the new timestamp.
  */
 if (msg.topic === deviceId) {
-    var metric = msg.payload.metric,
+    var metrics = msg.payload.metrics,
         inboundMetricMap = {},
         outboundMetric = [],
         outboundPayload;
@@ -115,9 +107,9 @@ if (msg.topic === deviceId) {
     console.log(deviceId + " received 'DCMD' command");
 
     // Loop over the metrics and store them in a map
-    if (metric !== undefined && metric !== null) {
-        for (var i = 0; i < metric.length; i++) {
-            var m = metric[i];
+    if (metrics !== undefined && metrics !== null) {
+        for (var i = 0; i < metrics.length; i++) {
+            var m = metrics[i];
             inboundMetricMap[m.name] = m.value;
         }
     }
@@ -141,8 +133,7 @@ if (msg.topic === deviceId) {
 
     outboundPayload = {
             "timestamp" : new Date().getTime(),
-            "position" : getPosition(),
-            "metric" : outboundMetric
+            "metrics" : outboundMetric
     };
 
     return {

@@ -176,7 +176,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 				// Only do this once to set up the inputs and outputs
 				payload.addMetric(new MetricBuilder("Inputs/0", Boolean, true).createMetric());
 				payload.addMetric(new MetricBuilder("Inputs/1", Int32, 0).createMetric());
-				payload.addMetric(new MetricBuilder("Inputs/2", Float, 1.23f).createMetric());
+				payload.addMetric(new MetricBuilder("Inputs/2", Double, 1.23d).createMetric());
 				payload.addMetric(new MetricBuilder("Outputs/0", Boolean, true).createMetric());
 				payload.addMetric(new MetricBuilder("Outputs/1", Int32, 0).createMetric());
 				payload.addMetric(new MetricBuilder("Outputs/2", Double, 1.23d).createMetric());
@@ -320,7 +320,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 		metrics.add(new MetricBuilder("UUID", UUID, newUUID()).createMetric());
 		//metrics.add(new MetricBuilder("Bytes", Bytes, randomBytes(20)).createMetric());
 		//metrics.add(new MetricBuilder("File", File, null).createMetric());
-		//metrics.add(new MetricBuilder("DataSet", DataSet, newDataSet()).createMetric());
+		metrics.add(new MetricBuilder("DataSet", DataSet, newDataSet()).createMetric());
 		if(withTemplates) {
 			metrics.add(new MetricBuilder("TemplateDef", Template, newTemplate(true)).createMetric());
 			metrics.add(new MetricBuilder("TemplateInst", Template, newTemplate(false)).createMetric());
