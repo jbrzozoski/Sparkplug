@@ -5,10 +5,8 @@ from sparkplug_b_pb2 import Payload
 seqNum = 0
 bdSeq = 0
 
-class MetricDataType:
+class DataSetDataType:
     Unknown = 0
-
-    # Basic Types
     Int8 = 1
     Int16 = 2
     Int32 = 3
@@ -24,12 +22,61 @@ class MetricDataType:
     DateTime = 13
     Text = 14
 
-    # Custom Types for Metrics
+class MetricDataType:
+    Unknown = 0
+    Int8 = 1
+    Int16 = 2
+    Int32 = 3
+    Int64 = 4
+    UInt8 = 5
+    UInt16 = 6
+    UInt32 = 7
+    UInt64 = 8
+    Float = 9
+    Double = 10
+    Boolean = 11
+    String = 12
+    DateTime = 13
+    Text = 14
     UUID = 15
     DataSet = 16
     Bytes = 17
     File = 18
     Template = 19
+
+class ParameterDataType:
+    Unknown = 0
+    Int8 = 1
+    Int16 = 2
+    Int32 = 3
+    Int64 = 4
+    UInt8 = 5
+    UInt16 = 6
+    UInt32 = 7
+    UInt64 = 8
+    Float = 9
+    Double = 10
+    Boolean = 11
+    String = 12
+    DateTime = 13
+    Text = 14
+
+class ParameterDataType:
+    Unknown = 0
+    Int8 = 1
+    Int16 = 2
+    Int32 = 3
+    Int64 = 4
+    UInt8 = 5
+    UInt16 = 6
+    UInt32 = 7
+    UInt64 = 8
+    Float = 9
+    Double = 10
+    Boolean = 11
+    String = 12
+    DateTime = 13
+    Text = 14
 
 # Always request this before requesting the Node Birth Payload
 def getNodeDeathPayload():
@@ -39,6 +86,7 @@ def getNodeDeathPayload():
 
 # Always request this after requesting the Node Death Payload
 def getNodeBirthPayload():
+    global seqNum
     seqNum = 0
     payload = sparkplug_b_pb2.Payload()
     payload.timestamp = int(round(time.time() * 1000))

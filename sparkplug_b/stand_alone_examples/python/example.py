@@ -22,21 +22,23 @@ import random
 
 from sparkplug_b import *
 
-serverUrl = "localhost"
+# Application Variables
+serverUrl = "cl-target1.chariot.io"
 myGroupId = "Sparkplug B Devices"
-myNodeName = "Python Edge Node"
+myNodeName = "Python Edge Node 1"
 myDeviceName = "Emulated Device"
 publishPeriod = 5000
-myUsername = "admin"
-myPassword = "changeme"
+myUsername = "CLAdmin"
+myPassword = "CLAdm79!"
 
 ######################################################################
 # The callback for when the client receives a CONNACK response from the server.
 ######################################################################
 def on_connect(client, userdata, flags, rc):
+    print("Connected with result code "+str(rc))
+
     global myGroupId
     global myNodeName
-    print("Connected with result code "+str(rc))
 
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
@@ -55,33 +57,62 @@ def on_message(client, userdata, msg):
         inboundPayload = sparkplug_b_pb2.Payload()
         inboundPayload.ParseFromString(msg.payload)
         for metric in inboundPayload.metrics:
-            if metric.name == "Node Control/Rebirth":
+            if metric.name == "Node Control/Next Server":
+                # Todo
+		print "'Next Server' NCMD Not implemented yet"
+            elif metric.name == "Node Control/Rebirth":
                 publishBirth()
+            elif metric.name == "Node Control/Reboot":
+                publishBirth()
+            else:
+                print "Unknown command..."
     else:
         print "Unknown command..."
 
     print "done publishing"
-
 ######################################################################
 
 ######################################################################
-# Publish the Birth certificate
+# Publish the BIRTH certificates
 ######################################################################
 def publishBirth():
+    publishNodeBirth()
+    publishDeviceBirth()
+######################################################################
+
+######################################################################
+# Publish the NBIRTH certificate
+######################################################################
+def publishNodeBirth():
+    print "Publishing Node Birth"
+
     # Create the node birth payload
     payload = sparkplug.getNodeBirthPayload()
+
+    # Set up the Node Controls
+    addMetric(payload, "Node Control/Next Server", MetricDataType.Boolean, False)
+    addMetric(payload, "Node Control/Rebirth", MetricDataType.Boolean, False)
+    addMetric(payload, "Node Control/Reboot", MetricDataType.Boolean, False)
 
     # Publish the node birth certificate
     byteArray = bytearray(payload.SerializeToString())
     client.publish("spBv1.0/" + myGroupId + "/NBIRTH/" + myNodeName, byteArray, 0, False)
+######################################################################
 
-    # Setup the I/O
+######################################################################
+# Publish the DBIRTH certificate
+######################################################################
+def publishDeviceBirth():
+    print "Publishing Device Birth"
+
+    # Get the payload
     payload = sparkplug.getDeviceBirthPayload()
 
     # Set up the propertites
     addMetric(payload, "Properties/Hardware Version", MetricDataType.String, "PFC_1.1")
     addMetric(payload, "Properties/Firmware Version", MetricDataType.String, "1.4.2")
 
+    # Add some simple metrics
     addMetric(payload, "my_boolean", MetricDataType.Boolean, random.choice([True, False]))
     addMetric(payload, "my_float", MetricDataType.Float, random.random())
     addMetric(payload, "my_int", MetricDataType.Int32, random.randint(0,100))
@@ -90,8 +121,12 @@ def publishBirth():
     # Publish the initial data with the Device BIRTH certificate
     totalByteArray = bytearray(payload.SerializeToString())
     client.publish("spBv1.0/" + myGroupId + "/DBIRTH/" + myNodeName + "/" + myDeviceName, totalByteArray, 0, False)
+######################################################################
 
 ######################################################################
+# Main Application
+######################################################################
+print "Starting main application"
 
 # Create the node death payload
 deathPayload = sparkplug.getNodeDeathPayload()
@@ -109,6 +144,7 @@ client.connect(serverUrl, 1883, 60)
 time.sleep(.1)
 client.loop()
 
+# Publish the birth certificates
 publishBirth()
 
 while True:
@@ -127,3 +163,4 @@ while True:
     for _ in range(50):
         time.sleep(.1)
         client.loop()
+######################################################################
