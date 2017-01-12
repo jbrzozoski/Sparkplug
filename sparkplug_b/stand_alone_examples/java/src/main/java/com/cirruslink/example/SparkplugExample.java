@@ -304,7 +304,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 		return java.util.UUID.randomUUID().toString();
 	}
 
-	private List<Metric> newMetrics(boolean withTemplateDefs) throws SparkplugException {
+	private List<Metric> newMetrics(boolean isBirth) throws SparkplugException {
 		Random random = new Random();
 		List<Metric> metrics = new ArrayList<Metric>();
 		metrics.add(new MetricBuilder("Int8", Int8, (byte)random.nextInt()).createMetric());
@@ -324,18 +324,38 @@ public class SparkplugExample implements MqttCallbackExtended {
 		metrics.add(new MetricBuilder("UUID", UUID, newUUID()).createMetric());
 		//metrics.add(new MetricBuilder("Bytes", Bytes, randomBytes(20)).createMetric());
 		//metrics.add(new MetricBuilder("File", File, null).createMetric());
+		
+		// DataSet
 		metrics.add(new MetricBuilder("DataSet", DataSet, newDataSet()).createMetric());
-		if (withTemplateDefs) {
+		if (isBirth) {
 			metrics.add(new MetricBuilder("TemplateDef", Template, newTemplate(true, null)).createMetric());
 		}
+		
+		// Template
 		metrics.add(new MetricBuilder("TemplateInst", Template, newTemplate(false, "TemplateDef")).createMetric());
-		metrics.addAll(newComplexTemplate(withTemplateDefs));
-		/*metrics.add(new MetricBuilder("StringWithProps", String, newUUID())
-				.propertySet(newPropertySet())
-				.createMetric());
+		
+		// Complex Template
+		metrics.addAll(newComplexTemplate(isBirth));
+		
+		// Metrics with properties
 		metrics.add(new MetricBuilder("IntWithProps", Int32, random.nextInt())
-				.propertySet(newPropertySet())
-				.createMetric());*/
+				.propertySet(new PropertySetBuilder()
+						.addProperty("EngUnit", new PropertyValue(PropertyDataType.String, "My Units"))
+						.addProperty("EngHigh", new PropertyValue(PropertyDataType.Int32, Integer.MAX_VALUE))
+						.addProperty("EngLow", new PropertyValue(PropertyDataType.Int32, Integer.MIN_VALUE))
+						.createPropertySet())
+				.createMetric());
+		
+		// Aliased metric
+		// The name and alias will be specified in a NBIRTH/DBIRTH message.
+		// Only the alias will be specified in a NDATA/DDATA message.
+		Long alias = 1111L;
+		if (isBirth) {
+			metrics.add(new MetricBuilder("AliasedString", String, newUUID()).alias(alias).createMetric());
+		} else {
+			metrics.add(new MetricBuilder(alias, String, newUUID()).createMetric());
+		}
+		
 		return metrics;
 	}
 	
