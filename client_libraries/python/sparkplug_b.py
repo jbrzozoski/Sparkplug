@@ -105,6 +105,23 @@ def getDdataPayload():
     return getDeviceBirthPayload()
 
 ######################################################################
+# Helper method for adding dataset metrics to a payload
+######################################################################
+def initDatasetMetric(payload, name, columns, types):
+    metric = payload.metrics.add()
+    metric.name = name
+    metric.timestamp = int(round(time.time() * 1000))
+    metric.datatype = MetricDataType.DataSet
+
+    # Set up the dataset
+#    metric.dataset_value = sparkplug_b_pb2.Payload().DataSet()
+#    dataset = sparkplug_b_pb2.Payload().DataSet()
+    metric.dataset_value.num_of_columns = len(types)
+    metric.dataset_value.columns.extend(columns)
+    metric.dataset_value.types.extend(types)
+    return metric.dataset_value
+
+######################################################################
 # Helper method for adding metrics to a payload
 ######################################################################
 def addMetric(payload, name, type, value):
@@ -156,6 +173,21 @@ def addMetric(payload, name, type, value):
     elif type == MetricDataType.Text:
         metric.datatype = MetricDataType.Text
         metric.string_value = value
+    elif type == MetricDataType.UUID:
+        metric.datatype = MetricDataType.UUID
+        metric.string_value = value
+    elif type == MetricDataType.DataSet:
+        metric.datatype = MetricDataType.DataSet
+        metric.dataset_value = value
+    elif type == MetricDataType.Bytes:
+        metric.datatype = MetricDataType.Bytes
+        metric.bytes_value = value
+    elif type == MetricDataType.File:
+        metric.datatype = MetricDataType.File
+        metric.bytes_value = value
+    elif type == MetricDataType.Template:
+        metric.datatype = MetricDataType.Template
+        metric.template_value = value
     else:
         print "Invalid: " + str(type)
 

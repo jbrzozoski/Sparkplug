@@ -94,6 +94,29 @@ def publishNodeBirth():
     addMetric(payload, "Node Control/Rebirth", MetricDataType.Boolean, False)
     addMetric(payload, "Node Control/Reboot", MetricDataType.Boolean, False)
 
+    # Add some regular node metrics
+    addMetric(payload, "Node Metric0", MetricDataType.String, "hello node")
+    addMetric(payload, "Node Metric1", MetricDataType.Boolean, True)
+
+    # Create a DataSet (012 - 345) two rows with Int8, Int16, and Int32 contents and headers Int8s, Int16s, Int32s and add it to the payload
+    columns = ["Int8s", "Int16s", "Int32s"]
+    types = [DataSetDataType.Int8, DataSetDataType.Int16, DataSetDataType.Int32]
+    dataset = initDatasetMetric(payload, "DataSet", columns, types)
+    row = dataset.rows.add()
+    element = row.elements.add();
+    element.int_value = 0
+    element = row.elements.add();
+    element.int_value = 1
+    element = row.elements.add();
+    element.int_value = 2
+    row = dataset.rows.add()
+    element = row.elements.add();
+    element.int_value = 3
+    element = row.elements.add();
+    element.int_value = 4
+    element = row.elements.add();
+    element.int_value = 5
+
     # Publish the node birth certificate
     byteArray = bytearray(payload.SerializeToString())
     client.publish("spBv1.0/" + myGroupId + "/NBIRTH/" + myNodeName, byteArray, 0, False)
