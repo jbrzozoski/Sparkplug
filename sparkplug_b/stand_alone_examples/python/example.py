@@ -124,6 +124,15 @@ def publishNodeBirth():
     propertyValue.type = ParameterDataType.String
     propertyValue.string_value = "MyCustomUnits"
 
+    # Create the UDT definition value which includes two UDT members and a single parameter and add it to the payload
+    template = initTemplateMetric(payload, "_types_/Custom_Motor", None)
+    templateParameter = template.parameters.add()
+    templateParameter.name = "Index"
+    templateParameter.type = ParameterDataType.String
+    templateParameter.string_value = "0"
+    addMetric(template, "RPMs", MetricDataType.Int32, 0)
+    addMetric(template, "AMPs", MetricDataType.Int32, 0)
+
     # Publish the node birth certificate
     byteArray = bytearray(payload.SerializeToString())
     client.publish("spBv1.0/" + myGroupId + "/NBIRTH/" + myNodeName, byteArray, 0, False)
@@ -147,6 +156,15 @@ def publishDeviceBirth():
     addMetric(payload, "my_float", MetricDataType.Float, random.random())
     addMetric(payload, "my_int", MetricDataType.Int32, random.randint(0,100))
     addMetric(payload, "my_long", MetricDataType.Int64, random.getrandbits(60))
+
+    # Create the UDT definition value which includes two UDT members and a single parameter and add it to the payload
+    template = initTemplateMetric(payload, "My_Custom_Motor", "Custom_Motor")
+    templateParameter = template.parameters.add()
+    templateParameter.name = "Index"
+    templateParameter.type = ParameterDataType.String
+    templateParameter.string_value = "1"
+    addMetric(template, "RPMs", MetricDataType.Int32, 123)
+    addMetric(template, "AMPs", MetricDataType.Int32, 456)
 
     # Publish the initial data with the Device BIRTH certificate
     totalByteArray = bytearray(payload.SerializeToString())

@@ -120,7 +120,25 @@ def initDatasetMetric(payload, name, columns, types):
     return metric.dataset_value
 
 ######################################################################
-# Helper method for adding metrics to a payload
+# Helper method for adding dataset metrics to a payload
+######################################################################
+def initTemplateMetric(payload, name, templateRef):
+    metric = payload.metrics.add()
+    metric.name = name
+    metric.timestamp = int(round(time.time() * 1000))
+    metric.datatype = MetricDataType.Template
+
+    # Set up the template
+    if templateRef is not None:
+        metric.template_value.template_ref = templateRef
+        metric.template_value.is_definition = False
+    else:
+        metric.template_value.is_definition = True
+
+    return metric.template_value
+
+######################################################################
+# Helper method for adding metrics to a payload or a template
 ######################################################################
 def addMetric(payload, name, type, value):
     metric = payload.metrics.add()
