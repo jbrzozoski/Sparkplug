@@ -23,13 +23,13 @@ import random
 from sparkplug_b import *
 
 # Application Variables
-serverUrl = "cl-target1.chariot.io"
+serverUrl = "localhost"
 myGroupId = "Sparkplug B Devices"
 myNodeName = "Python Edge Node 1"
 myDeviceName = "Emulated Device"
 publishPeriod = 5000
-myUsername = "CLAdmin"
-myPassword = "CLAdm79!"
+myUsername = "admin"
+myPassword = "changeme"
 
 ######################################################################
 # The callback for when the client receives a CONNACK response from the server.
