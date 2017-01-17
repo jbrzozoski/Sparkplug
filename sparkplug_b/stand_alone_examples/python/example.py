@@ -117,6 +117,13 @@ def publishNodeBirth():
     element = row.elements.add();
     element.int_value = 5
 
+    # Add a metric with a custom property
+    metric = addMetric(payload, "Node Metric2", MetricDataType.Int16, 13)
+    metric.properties.keys.extend(["engUnit"])
+    propertyValue = metric.properties.values.add()
+    propertyValue.type = ParameterDataType.String
+    propertyValue.string_value = "MyCustomUnits"
+
     # Publish the node birth certificate
     byteArray = bytearray(payload.SerializeToString())
     client.publish("spBv1.0/" + myGroupId + "/NBIRTH/" + myNodeName, byteArray, 0, False)

@@ -114,8 +114,6 @@ def initDatasetMetric(payload, name, columns, types):
     metric.datatype = MetricDataType.DataSet
 
     # Set up the dataset
-#    metric.dataset_value = sparkplug_b_pb2.Payload().DataSet()
-#    dataset = sparkplug_b_pb2.Payload().DataSet()
     metric.dataset_value.num_of_columns = len(types)
     metric.dataset_value.columns.extend(columns)
     metric.dataset_value.types.extend(types)
@@ -176,9 +174,6 @@ def addMetric(payload, name, type, value):
     elif type == MetricDataType.UUID:
         metric.datatype = MetricDataType.UUID
         metric.string_value = value
-    elif type == MetricDataType.DataSet:
-        metric.datatype = MetricDataType.DataSet
-        metric.dataset_value = value
     elif type == MetricDataType.Bytes:
         metric.datatype = MetricDataType.Bytes
         metric.bytes_value = value
@@ -190,6 +185,9 @@ def addMetric(payload, name, type, value):
         metric.template_value = value
     else:
         print "Invalid: " + str(type)
+
+    # Return the metric
+    return metric
 
 ######################################################################
 # Helper method for getting the next sequence number
