@@ -78,13 +78,18 @@ class ParameterDataType:
     DateTime = 13
     Text = 14
 
+######################################################################
 # Always request this before requesting the Node Birth Payload
+######################################################################
 def getNodeDeathPayload():
     payload = sparkplug_b_pb2.Payload()
     addMetric(payload, "bdSeq", MetricDataType.Int64, getBdSeqNum())
     return payload
+######################################################################
 
+######################################################################
 # Always request this after requesting the Node Death Payload
+######################################################################
 def getNodeBirthPayload():
     global seqNum
     seqNum = 0
@@ -94,15 +99,24 @@ def getNodeBirthPayload():
     addMetric(payload, "bdSeq", MetricDataType.Int64, --bdSeq)
     addMetric(payload, "Node Control/Rebirth", MetricDataType.Boolean, False);
     return payload
+######################################################################
 
+######################################################################
+# Get the DBIRTH payload
+######################################################################
 def getDeviceBirthPayload():
     payload = sparkplug_b_pb2.Payload()
     payload.timestamp = int(round(time.time() * 1000))
     payload.seq = getSeqNum()
     return payload
+######################################################################
 
+######################################################################
+# Get a DDATA payload
+######################################################################
 def getDdataPayload():
     return getDeviceBirthPayload()
+######################################################################
 
 ######################################################################
 # Helper method for adding dataset metrics to a payload
@@ -118,6 +132,7 @@ def initDatasetMetric(payload, name, columns, types):
     metric.dataset_value.columns.extend(columns)
     metric.dataset_value.types.extend(types)
     return metric.dataset_value
+######################################################################
 
 ######################################################################
 # Helper method for adding dataset metrics to a payload
@@ -136,6 +151,7 @@ def initTemplateMetric(payload, name, templateRef):
         metric.template_value.is_definition = True
 
     return metric.template_value
+######################################################################
 
 ######################################################################
 # Helper method for adding metrics to a payload or a template
@@ -206,6 +222,7 @@ def addMetric(payload, name, type, value):
 
     # Return the metric
     return metric
+######################################################################
 
 ######################################################################
 # Helper method for getting the next sequence number

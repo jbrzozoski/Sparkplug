@@ -175,7 +175,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 
 			// We know this is an Boolean because of how we declated it in the DBIRTH
 			bool new_value = inbound_payload.metrics[i].value.boolean_value;
-			fprintf(stdout, "CMD message for output/Device Metric2 - New Value: %s\n", new_value ? "true" : "false");
+			fprintf(stdout, "CMD message for output/Device Metric3 - New Value: %s\n", new_value ? "true" : "false");
 
 			// Create the DDATA payload
 			com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
