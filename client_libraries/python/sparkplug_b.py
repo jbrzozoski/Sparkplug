@@ -83,7 +83,7 @@ class ParameterDataType:
 ######################################################################
 def getNodeDeathPayload():
     payload = sparkplug_b_pb2.Payload()
-    addMetric(payload, "bdSeq", MetricDataType.Int64, getBdSeqNum())
+    addMetric(payload, "bdSeq", None, MetricDataType.Int64, getBdSeqNum())
     return payload
 ######################################################################
 
@@ -96,8 +96,7 @@ def getNodeBirthPayload():
     payload = sparkplug_b_pb2.Payload()
     payload.timestamp = int(round(time.time() * 1000))
     payload.seq = getSeqNum()
-    addMetric(payload, "bdSeq", MetricDataType.Int64, --bdSeq)
-    addMetric(payload, "Node Control/Rebirth", MetricDataType.Boolean, False);
+    addMetric(payload, "bdSeq", None, MetricDataType.Int64, --bdSeq)
     return payload
 ######################################################################
 
@@ -121,9 +120,12 @@ def getDdataPayload():
 ######################################################################
 # Helper method for adding dataset metrics to a payload
 ######################################################################
-def initDatasetMetric(payload, name, columns, types):
+def initDatasetMetric(payload, name, alias, columns, types):
     metric = payload.metrics.add()
-    metric.name = name
+    if name is not None:
+        metric.name = name
+    if alias is not None:
+        metric.alias = alias
     metric.timestamp = int(round(time.time() * 1000))
     metric.datatype = MetricDataType.DataSet
 
@@ -137,9 +139,12 @@ def initDatasetMetric(payload, name, columns, types):
 ######################################################################
 # Helper method for adding dataset metrics to a payload
 ######################################################################
-def initTemplateMetric(payload, name, templateRef):
+def initTemplateMetric(payload, name, alias, templateRef):
     metric = payload.metrics.add()
-    metric.name = name
+    if name is not None:
+        metric.name = name
+    if alias is not None:
+        metric.alias = alias
     metric.timestamp = int(round(time.time() * 1000))
     metric.datatype = MetricDataType.Template
 
@@ -154,11 +159,15 @@ def initTemplateMetric(payload, name, templateRef):
 ######################################################################
 
 ######################################################################
-# Helper method for adding metrics to a payload or a template
+# Helper method for adding metrics to a container which can be a
+# payload or a template
 ######################################################################
-def addMetric(payload, name, type, value):
-    metric = payload.metrics.add()
-    metric.name = name
+def addMetric(container, name, alias, type, value):
+    metric = container.metrics.add()
+    if name is not None:
+        metric.name = name
+    if alias is not None:
+        metric.alias = alias
     metric.timestamp = int(round(time.time() * 1000))
 
     # print "Type: " + str(type)

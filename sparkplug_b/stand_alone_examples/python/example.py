@@ -32,6 +32,20 @@ publishPeriod = 5000
 myUsername = "admin"
 myPassword = "changeme"
 
+class AliasMap:
+    Next_Server = 0
+    Rebirth = 1
+    Reboot = 2
+    Dataset = 3
+    Node_Metric0 = 4
+    Node_Metric1 = 5
+    Node_Metric2 = 6
+    Device_Metric0 = 7
+    Device_Metric1 = 8
+    Device_Metric2 = 9
+    Device_Metric3 = 10
+    My_Custom_Motor = 11
+
 ######################################################################
 # The callback for when the client receives a CONNACK response from the server.
 ######################################################################
@@ -87,9 +101,9 @@ def on_message(client, userdata, msg):
                 newValue = metric.int_value
                 print "CMD message for output/Device Metric2 - New Value: {}".format(newValue)
 
-                # Create the DDATA payload
+                # Create the DDATA payload - Use the alias because this isn't the DBIRTH
                 payload = sparkplug.getDdataPayload()
-                addMetric(payload, "output/Device Metric2", MetricDataType.Int16, newValue)
+                addMetric(payload, None, AliasMap.Device_Metric2, MetricDataType.Int16, newValue)
 
                 # Publish a message data
                 byteArray = bytearray(payload.SerializeToString())
@@ -104,9 +118,9 @@ def on_message(client, userdata, msg):
                 newValue = metric.boolean_value
                 print "CMD message for output/Device Metric3 - New Value: %r" % newValue
 
-                # Create the DDATA payload
+                # Create the DDATA payload - use the alias because this isn't the DBIRTH
                 payload = sparkplug.getDdataPayload()
-                addMetric(payload, "output/Device Metric3", MetricDataType.Boolean, newValue)
+                addMetric(payload, None, AliasMap.Device_Metric3, MetricDataType.Boolean, newValue)
 
                 # Publish a message data
                 byteArray = bytearray(payload.SerializeToString())
@@ -116,7 +130,7 @@ def on_message(client, userdata, msg):
     else:
         print "Unknown command..."
 
-    print "done publishing"
+    print "Done publishing"
 ######################################################################
 
 ######################################################################
@@ -137,18 +151,18 @@ def publishNodeBirth():
     payload = sparkplug.getNodeBirthPayload()
 
     # Set up the Node Controls
-    addMetric(payload, "Node Control/Next Server", MetricDataType.Boolean, False)
-    addMetric(payload, "Node Control/Rebirth", MetricDataType.Boolean, False)
-    addMetric(payload, "Node Control/Reboot", MetricDataType.Boolean, False)
+    addMetric(payload, "Node Control/Next Server", AliasMap.Next_Server, MetricDataType.Boolean, False)
+    addMetric(payload, "Node Control/Rebirth", AliasMap.Rebirth, MetricDataType.Boolean, False)
+    addMetric(payload, "Node Control/Reboot", AliasMap.Reboot, MetricDataType.Boolean, False)
 
     # Add some regular node metrics
-    addMetric(payload, "Node Metric0", MetricDataType.String, "hello node")
-    addMetric(payload, "Node Metric1", MetricDataType.Boolean, True)
+    addMetric(payload, "Node Metric0", AliasMap.Node_Metric0, MetricDataType.String, "hello node")
+    addMetric(payload, "Node Metric1", AliasMap.Node_Metric1, MetricDataType.Boolean, True)
 
     # Create a DataSet (012 - 345) two rows with Int8, Int16, and Int32 contents and headers Int8s, Int16s, Int32s and add it to the payload
     columns = ["Int8s", "Int16s", "Int32s"]
     types = [DataSetDataType.Int8, DataSetDataType.Int16, DataSetDataType.Int32]
-    dataset = initDatasetMetric(payload, "DataSet", columns, types)
+    dataset = initDatasetMetric(payload, "DataSet", AliasMap.Dataset, columns, types)
     row = dataset.rows.add()
     element = row.elements.add();
     element.int_value = 0
@@ -165,20 +179,20 @@ def publishNodeBirth():
     element.int_value = 5
 
     # Add a metric with a custom property
-    metric = addMetric(payload, "Node Metric2", MetricDataType.Int16, 13)
+    metric = addMetric(payload, "Node Metric2", AliasMap.Node_Metric2, MetricDataType.Int16, 13)
     metric.properties.keys.extend(["engUnit"])
     propertyValue = metric.properties.values.add()
     propertyValue.type = ParameterDataType.String
     propertyValue.string_value = "MyCustomUnits"
 
     # Create the UDT definition value which includes two UDT members and a single parameter and add it to the payload
-    template = initTemplateMetric(payload, "_types_/Custom_Motor", None)
+    template = initTemplateMetric(payload, "_types_/Custom_Motor", None, None)    # No alias for Template definitions
     templateParameter = template.parameters.add()
     templateParameter.name = "Index"
     templateParameter.type = ParameterDataType.String
     templateParameter.string_value = "0"
-    addMetric(template, "RPMs", MetricDataType.Int32, 0)
-    addMetric(template, "AMPs", MetricDataType.Int32, 0)
+    addMetric(template, "RPMs", None, MetricDataType.Int32, 0)    # No alias in UDT members
+    addMetric(template, "AMPs", None, MetricDataType.Int32, 0)    # No alias in UDT members
 
     # Publish the node birth certificate
     byteArray = bytearray(payload.SerializeToString())
@@ -195,19 +209,19 @@ def publishDeviceBirth():
     payload = sparkplug.getDeviceBirthPayload()
 
     # Add some device metrics
-    addMetric(payload, "input/Device Metric0", MetricDataType.String, "hello device")
-    addMetric(payload, "input/Device Metric1", MetricDataType.Boolean, True)
-    addMetric(payload, "output/Device Metric2", MetricDataType.Int16, 16)
-    addMetric(payload, "output/Device Metric3", MetricDataType.Boolean, True)
+    addMetric(payload, "input/Device Metric0", AliasMap.Device_Metric0, MetricDataType.String, "hello device")
+    addMetric(payload, "input/Device Metric1", AliasMap.Device_Metric1, MetricDataType.Boolean, True)
+    addMetric(payload, "output/Device Metric2", AliasMap.Device_Metric2, MetricDataType.Int16, 16)
+    addMetric(payload, "output/Device Metric3", AliasMap.Device_Metric3, MetricDataType.Boolean, True)
 
     # Create the UDT definition value which includes two UDT members and a single parameter and add it to the payload
-    template = initTemplateMetric(payload, "My_Custom_Motor", "Custom_Motor")
+    template = initTemplateMetric(payload, "My_Custom_Motor", AliasMap.My_Custom_Motor, "Custom_Motor")
     templateParameter = template.parameters.add()
     templateParameter.name = "Index"
     templateParameter.type = ParameterDataType.String
     templateParameter.string_value = "1"
-    addMetric(template, "RPMs", MetricDataType.Int32, 123)
-    addMetric(template, "AMPs", MetricDataType.Int32, 456)
+    addMetric(template, "RPMs", None, MetricDataType.Int32, 123)    # No alias in UDT members
+    addMetric(template, "AMPs", None, MetricDataType.Int32, 456)    # No alias in UDT members
 
     # Publish the initial data with the Device BIRTH certificate
     totalByteArray = bytearray(payload.SerializeToString())
@@ -243,8 +257,8 @@ while True:
     payload = sparkplug.getDdataPayload()
 
     # Add some random data to the inputs
-    addMetric(payload, "input/Device Metric0", MetricDataType.String, ''.join(random.choice(string.lowercase) for i in range(12)))
-    addMetric(payload, "input/Device Metric1", MetricDataType.Boolean, random.choice([True, False]))
+    addMetric(payload, None, AliasMap.Device_Metric0, MetricDataType.String, ''.join(random.choice(string.lowercase) for i in range(12)))
+    addMetric(payload, None, AliasMap.Device_Metric1, MetricDataType.Boolean, random.choice([True, False]))
 
     # Publish a message data
     byteArray = bytearray(payload.SerializeToString())
