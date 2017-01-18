@@ -54,7 +54,10 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 					status = pb_decode_varint(&substream, &dest);
 					if (status) {
 						DEBUG_PRINT(("\t\tVARINT - Success - new value: %ld\n", dest));
-						if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_timestamp_tag) {
+						if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_alias_tag) {
+							metric->has_alias = true;
+							metric->alias = dest;
+						} else if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_timestamp_tag) {
 							metric->has_timestamp = true;
 							metric->timestamp = dest;
 						} else if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_datatype_tag) {
