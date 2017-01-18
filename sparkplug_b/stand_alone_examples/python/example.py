@@ -72,26 +72,26 @@ def on_message(client, userdata, msg):
         inboundPayload = sparkplug_b_pb2.Payload()
         inboundPayload.ParseFromString(msg.payload)
         for metric in inboundPayload.metrics:
-            if metric.name == "Node Control/Next Server":
+            if metric.name == "Node Control/Next Server" or metric.alias == AliasMap.Next_Server:
                 # 'Node Control/Next Server' is an NCMD used to tell the device/client application to
                 # disconnect from the current MQTT server and connect to the next MQTT server in the
                 # list of available servers.  This is used for clients that have a pool of MQTT servers
                 # to connect to.
 		print "'Node Control/Next Server' is not implemented in this example"
-            elif metric.name == "Node Control/Rebirth":
+            elif metric.name == "Node Control/Rebirth" or metric.alias == AliasMap.Rebirth:
                 # 'Node Control/Rebirth' is an NCMD used to tell the device/client application to resend
                 # its full NBIRTH and DBIRTH again.  MQTT Engine will send this NCMD to a device/client
                 # application if it receives an NDATA or DDATA with a metric that was not published in the
                 # original NBIRTH or DBIRTH.  This is why the application must send all known metrics in
                 # its original NBIRTH and DBIRTH messages.
                 publishBirth()
-            elif metric.name == "Node Control/Reboot":
+            elif metric.name == "Node Control/Reboot" or metric.alias == AliasMap.Reboot:
                 # 'Node Control/Reboot' is an NCMD used to tell a device/client application to reboot
                 # This can be used for devices that need a full application reset via a soft reboot.
                 # In this case, we fake a full reboot with a republishing of the NBIRTH and DBIRTH
                 # messages.
                 publishBirth()
-            elif metric.name == "output/Device Metric2":
+            elif metric.name == "output/Device Metric2" or metric.alias == AliasMap.Device_Metric2:
                 # This is a metric we declared in our DBIRTH message and we're emulating an output.
                 # So, on incoming 'writes' to the output we must publish a DDATA with the new output
                 # value.  If this were a real output we'd write to the output and then read it back
@@ -108,7 +108,7 @@ def on_message(client, userdata, msg):
                 # Publish a message data
                 byteArray = bytearray(payload.SerializeToString())
                 client.publish("spBv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + myDeviceName, byteArray, 0, False)
-            elif metric.name == "output/Device Metric3":
+            elif metric.name == "output/Device Metric3" or metric.alias == AliasMap.Device_Metric3:
                 # This is a metric we declared in our DBIRTH message and we're emulating an output.
                 # So, on incoming 'writes' to the output we must publish a DDATA with the new output
                 # value.  If this were a real output we'd write to the output and then read it back
