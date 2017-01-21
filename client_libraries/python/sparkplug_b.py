@@ -78,6 +78,44 @@ class ParameterDataType:
     DateTime = 13
     Text = 14
 
+class DataQuality:
+    OpcBadData = 0
+    OpcConfigError = 4
+    OpcNotConnected = 8
+    OpcDeviceFailure = 12
+    OpcSensorFailure = 16
+    OpcBadShowingLast = 20
+    OpcCommFail = 24
+    OpcOutOfService = 28
+    OpcWaiting = 32
+    OpcUncertain = 64
+    OpcUncertainShowingLast = 68
+    OpcSensorBad = 80
+    OpcLimitExceeded = 84
+    OpcSubNormal = 88
+    OpcUnknown = 256
+    GoodData = 192
+    OpcGoodWithLocalOverride = 216
+    ConfigError = 300
+    CommError = 301
+    ExpressionEvalError = 310
+    SqlQueryError = 311
+    DbConnError = 312
+    TagExceError = 330
+    TypeConversionError = 340
+    AccessDenied = 403
+    NotFound = 404
+    Disabled = 410
+    Stale = 500
+    Unknown = 600
+    WritePending = 700
+    DemoExpired = 900
+    GwCommOff = 901
+    TagLimitExceeded = 902
+    GoodProvisional = 320
+    ReferenceNotFound = 405
+    AggregateNotFound = 1000
+
 ######################################################################
 # Always request this before requesting the Node Birth Payload
 ######################################################################

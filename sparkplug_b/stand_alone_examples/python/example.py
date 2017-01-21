@@ -258,7 +258,13 @@ while True:
 
     # Add some random data to the inputs
     addMetric(payload, None, AliasMap.Device_Metric0, MetricDataType.String, ''.join(random.choice(string.lowercase) for i in range(12)))
-    addMetric(payload, None, AliasMap.Device_Metric1, MetricDataType.Boolean, random.choice([True, False]))
+
+    # Note this data we're setting to STALE via the propertyset as an example
+    metric = addMetric(payload, None, AliasMap.Device_Metric1, MetricDataType.Boolean, random.choice([True, False]))
+    metric.properties.keys.extend(["Quality"])
+    propertyValue = metric.properties.values.add()
+    propertyValue.type = ParameterDataType.Int32
+    propertyValue.int_value = DataQuality.Stale
 
     # Publish a message data
     byteArray = bytearray(payload.SerializeToString())
