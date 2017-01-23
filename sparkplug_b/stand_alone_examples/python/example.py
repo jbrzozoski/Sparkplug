@@ -264,7 +264,7 @@ while True:
     metric.properties.keys.extend(["Quality"])
     propertyValue = metric.properties.values.add()
     propertyValue.type = ParameterDataType.Int32
-    propertyValue.int_value = DataQuality.Stale
+    propertyValue.int_value = 500
 
     # Publish a message data
     byteArray = bytearray(payload.SerializeToString())
