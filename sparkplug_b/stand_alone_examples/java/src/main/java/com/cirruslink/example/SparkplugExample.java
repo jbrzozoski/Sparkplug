@@ -322,8 +322,8 @@ public class SparkplugExample implements MqttCallbackExtended {
 		metrics.add(new MetricBuilder("DateTime", DateTime, new Date()).createMetric());
 		metrics.add(new MetricBuilder("Text", Text, newUUID()).createMetric());
 		metrics.add(new MetricBuilder("UUID", UUID, newUUID()).createMetric());
-		//metrics.add(new MetricBuilder("Bytes", Bytes, randomBytes(20)).createMetric());
-		//metrics.add(new MetricBuilder("File", File, null).createMetric());
+		metrics.add(new MetricBuilder("Bytes", Bytes, randomBytes(20)).createMetric());
+		metrics.add(new MetricBuilder("File", File, null).createMetric());
 		
 		// DataSet
 		metrics.add(new MetricBuilder("DataSet", DataSet, newDataSet()).createMetric());
@@ -410,7 +410,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 		ArrayList<Metric> metrics = new ArrayList<Metric>();
 		if (withTemplateDefs) {
 			
-			// Add a new template "subType" definition with two primative members
+			// Add a new template "subType" definition with two primitive members
 			metrics.add(new MetricBuilder("subType", Template, new TemplateBuilder()
 				.definition(true)
 				.addMetric(new MetricBuilder("StringMember", String, "value").createMetric())
