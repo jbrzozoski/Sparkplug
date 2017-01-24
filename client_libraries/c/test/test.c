@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <unistd.h>
 #include <sparkplug_b.h>
 #include <sparkplug_b.pb.h>
 #include <pb_decode.h>
