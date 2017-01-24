@@ -262,6 +262,7 @@
 
     encodeDataSet = function(object) {
         var num = object.numOfColumns,
+            names = object.columns,
             types = encodeTypes(object.types),
             rows = object.rows,
             newDataSet = new DataSet(num, object.columns, types),
@@ -269,19 +270,19 @@
         // Loop over all the rows
         for (var i = 0; i < rows.length; i++) {
             var newRow = new Row();
-                row = row[i];
+                row = rows[i];
                 elements = [];
             // Loop over all the elements in each row
             for (var t = 0; t < num; t++) {
                 var newValue = new DataSetValue();
-                setValue(types[t], row.elements[t], newValue);
+                setValue(types[t], row[t], newValue);
                 elements.push(newValue);
             }
             newRow.elements = elements;
             newRows.push(newRow);
         }
         newDataSet.rows = newRows;
-        return dataSet;
+        return newDataSet;
     }
 
     decodeDataSet = function(protoDataSet) {
@@ -296,13 +297,11 @@
         for (var i = 0; i < protoRows.length; i++) {
             var protoRow = protoRows[i],
                 protoElements = protoRow.elements,
-                row = {},
-                elements = [];
+                row = [];
             // Loop over all the elements in each row
             for (var t = 0; t < num; t++) {
-                elements.push(getValue(protoTypes[t], protoElements[t]));
+                row.push(getValue(protoTypes[t], protoElements[t]));
             }
-            row.elements = elements;
             rows.push(row);
         }
 
@@ -495,9 +494,9 @@
     }
 
     encodeTemplate = function(object) {
-        var newTemplate = new Template(object.name),
-            metrics = template.metrics,
-            parameters = template.parameters,
+        var newTemplate = new Template(),
+            metrics = object.metrics,
+            parameters = object.parameters,
             isDef = object.isDefinition,
             ref = object.templateRef,
             version = object.version;

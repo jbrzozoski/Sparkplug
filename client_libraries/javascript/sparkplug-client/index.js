@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 Cirrus Link Solutions
+ * Copyright (c) 2016-2017 Cirrus Link Solutions
  *
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
@@ -108,51 +108,6 @@ function SparkplugClient(config) {
         return payload;
     },
 
-    // Get BIRTH payload for the edge node
-    getEdgeBirthPayload = function() {
-        if (version === "spAv1") {
-            return {
-                "timestamp" : new Date().getTime(),
-                "metric" : [
-                    { "name" : "bdSeq", "value" : bdSeq, "type" : "int" },
-                    { "name" : "seq", "value" : incrementSeqNum(), "type" : "int" },
-                    { "name" : "Node Control/Rebirth", "value" : false, "type" : "boolean" }
-                ]
-            };
-        } else {
-            return {
-                "timestamp" : new Date().getTime(),
-                "seq" : incrementSeqNum(),
-                "metrics" : [
-                    { 
-                        "name" : "bdSeq",
-                        "type" : "uint32", 
-                        "value" : bdSeq
-                    },
-                    {
-                        "name" : "Node Control/Rebirth",
-                        "type" : "boolean",
-                        "value" : false
-                    }
-                ]
-            };
-        }
-    },
-
-    // Publishes BIRTH certificates for the edge node
-    publishNBirth = function(client) {
-        var payload, topic;
-        // Reset sequence number
-        seq = 0;
-
-        // Publish BIRTH certificate for edge node
-        console.log("Publishing Edge Node Birth");
-        payload = getEdgeBirthPayload();
-        topic = version + "/" + groupId + "/NBIRTH/" + edgeNode;
-        client.publish(topic, encodePayload(payload));
-        messageAlert("published", topic, payload);
-    },
-
     // Publishes DEATH certificates for the edge node
     publishNDeath = function(client) {
         var payload, topic;
@@ -174,32 +129,69 @@ function SparkplugClient(config) {
 
     events.EventEmitter.call(this);
 
+    // Publishes Node BIRTH certificates for the edge node
+    this.publishNodeBirth = function(payload) {
+        var topic = version + "/" + groupId + "/NBIRTH/" + edgeNode;
+        // Reset sequence number
+        seq = 0;
+        // Add seq number
+        addSeqNumber(payload);
+        // Add bdSeq number
+        var metrics = payload.metrics
+        if (metrics !== undefined && metrics !== null) {
+            metrics.push({
+                "name" : "bdSeq",
+                "type" : "uint32", 
+                "value" : bdSeq
+            });
+        }
+
+        // Publish BIRTH certificate for edge node
+        console.log("Publishing Edge Node Birth");
+        client.publish(topic, encodePayload(payload));
+        messageAlert("published", topic, payload);
+    },
+
+    // Publishes Node Data messages for the edge node
+    this.publishNodeData = function(payload) {
+        var topic = version + "/" + groupId + "/NDATA/" + edgeNode;
+        // Add seq number
+        addSeqNumber(payload);
+        // Publish
+        console.log("Publishing NDATA");
+        client.publish(topic, encodePayload(payload));
+        messageAlert("published", topic, payload);
+    };
+
+    // Publishes Node BIRTH certificates for the edge node
     this.publishDeviceData = function(deviceId, payload) {
+        var topic = version + "/" + groupId + "/DDATA/" + edgeNode + "/" + deviceId;
         // Add seq number
         addSeqNumber(payload);
         // Publish
         console.log("Publishing DDATA for device " + deviceId);
-        topic = version + "/" + groupId + "/DDATA/" + edgeNode + "/" + deviceId;
         client.publish(topic, encodePayload(payload));
         messageAlert("published", topic, payload);
     };
 
+    // Publishes Node BIRTH certificates for the edge node
     this.publishDeviceBirth = function(deviceId, payload) {
+        var topic = version + "/" + groupId + "/DBIRTH/" + edgeNode + "/" + deviceId;
         // Add seq number
         addSeqNumber(payload);
         // Publish
         console.log("Publishing DBIRTH for device " + deviceId);
-        topic = version + "/" + groupId + "/DBIRTH/" + edgeNode + "/" + deviceId;
         client.publish(topic, encodePayload(payload));
         messageAlert("published", topic, payload);
     };
 
+    // Publishes Node BIRTH certificates for the edge node
     this.publishDeviceDeath = function(deviceId, payload) {
+        var topic = version + "/" + groupId + "/DDEATH/" + edgeNode + "/" + deviceId;
         // Add seq number
         addSeqNumber(payload);
         // Publish
         console.log("Publishing DDEATH for device " + deviceId);
-        topic = version + "/" + groupId + "/DDEATH/" + edgeNode + "/" + deviceId;
         client.publish(topic, encodePayload(payload));
         messageAlert("published", topic, payload);
     };
@@ -253,11 +245,8 @@ function SparkplugClient(config) {
             client.subscribe(version + "/" + groupId + "/NCMD/" + edgeNode + "/#", { "qos" : 0 });
             client.subscribe(version + "/" + groupId + "/DCMD/" + edgeNode + "/#", { "qos" : 0 });
 
-            // Publish BIRTH certificates
-            publishNBirth(client);
-            // Emit the "rebirth" event to notify devices to send a birth
-            console.log("Emmitting 'Rebirth' event");
-            sparkplugClient.emit("rebirth");
+            // Emit the "birth" event to notify the application to send a births
+            sparkplugClient.emit("birth");
         });
 
         /*
@@ -304,30 +293,14 @@ function SparkplugClient(config) {
                     && splitTopic[1] === groupId
                     && splitTopic[2] === "NCMD"
                     && splitTopic[3] === edgeNode) {
-                // Loop over the metrics looking for commands
-                metrics = (version === versionA) 
-                        ? payload.metric
-                        : payload.metrics;
-                if (metrics !== undefined && metrics !== null) {
-                    for (var i = 0; i < metrics.length; i++) {
-                        var metric = metrics[i];
-                        if (metric.name == "Node Control/Rebirth" && metric.value) {
-                            console.log("Received 'Rebirth' command");
-                            // Publish BIRTH certificate for the edge node
-                            publishNBirth(client);
-                            // Emit the "rebirth" event
-                            console.log("Emmitting 'rebirth' event");
-                            sparkplugClient.emit("rebirth");
-                        }
-                    }
-                }
+                // Emit the "command" event
+                sparkplugClient.emit("ncmd", payload);
             } else if (splitTopic[0] === version
                     && splitTopic[1] === groupId
                     && splitTopic[2] === "DCMD"
                     && splitTopic[3] === edgeNode) {
-                console.log("Command recevied for device " + splitTopic[4]);
                 // Emit the "command" event for the given deviceId
-                sparkplugClient.emit("command", splitTopic[4], payload);
+                sparkplugClient.emit("dcmd", splitTopic[4], payload);
             }
         });
 
