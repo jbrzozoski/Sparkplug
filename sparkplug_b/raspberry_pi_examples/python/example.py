@@ -137,9 +137,13 @@ def on_message(client, userdata, msg):
     elif tokens[0] == "spBv1.0" and tokens[1] == myGroupId and tokens[2] == "NCMD" and tokens[3] == myNodeName:
         inboundPayload = sparkplug_b_pb2.Payload()
         inboundPayload.ParseFromString(msg.payload)
-        for metric in inboundPayload.metric:
+        for metric in inboundPayload.metrics:
+            if metric.name == "Node Control/Next Server":
+                publishBirths()
             if metric.name == "Node Control/Rebirth":
-                publishBirth()
+                publishBirths()
+            if metric.name == "Node Control/Reboot":
+                publishBirths()
     else:
         print "Unknown command..."
 
@@ -149,11 +153,16 @@ def on_message(client, userdata, msg):
 ######################################################################
 # Publish the Birth certificate
 ######################################################################
-def publishBirth():
+def publishBirths():
     print("Publishing Birth")
 
-    # Create the node birth payload
+    # Create the NBIRTH payload
     payload = sparkplug.getNodeBirthPayload()
+
+    # Add the Node Controls
+    addMetric(payload, "Node Control/Next Server", None, MetricDataType.Boolean, False)
+    addMetric(payload, "Node Control/Rebirth", None, MetricDataType.Boolean, False)
+    addMetric(payload, "Node Control/Reboot", None, MetricDataType.Boolean, False)
 
     # Set up the device Parameters
     p = subprocess.Popen('uname -a', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -177,11 +186,11 @@ def publishBirth():
     addMetric(payload, "Parameters/hw_revision", None, MetricDataType.String, ''.join(revisionOutput))
     addMetric(payload, "Parameters/hw_serial", None, MetricDataType.String, ''.join(serialOutput))
 
-    # Publish the node birth certificate
+    # Publish the NBIRTH certificate
     byteArray = bytearray(payload.SerializeToString())
     client.publish("spBv1.0/" + myGroupId + "/NBIRTH/" + myNodeName, byteArray, 0, False)
 
-    # Set up the input metrics
+    # Set up the DBIRTH with the input metrics
     payload = sparkplug.getDeviceBirthPayload()
 
     addMetric(payload, "Inputs/a", None, MetricDataType.Boolean, pibrella.input.a.read())
@@ -201,12 +210,12 @@ def publishBirth():
     addMetric(payload, "buzzer_fail", None, MetricDataType.Boolean, 0)
     addMetric(payload, "buzzer_success", None, MetricDataType.Boolean, 0)
 
-    # Publish the initial data with the Device BIRTH certificate
+    # Publish the initial data with the DBIRTH certificate
     totalByteArray = bytearray(payload.SerializeToString())
     client.publish("spBv1.0/" + myGroupId + "/DBIRTH/" + myNodeName + "/" + mySubNodeName, totalByteArray, 0, False)
 ######################################################################
 
-# Create the node death payload
+# Create the NDEATH payload
 deathPayload = sparkplug.getNodeDeathPayload()
 
 # Start of main program - Set up the MQTT client connection
@@ -222,7 +231,7 @@ client.connect(serverUrl, 1883, 60)
 time.sleep(.1)
 client.loop()
 
-publishBirth()
+publishBirths()
 
 # Set up the button press event handler
 pibrella.button.changed(button_changed)
