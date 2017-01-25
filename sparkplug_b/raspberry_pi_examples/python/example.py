@@ -24,7 +24,7 @@ import subprocess
 from sparkplug_b import *
 from threading import Lock
 
-serverUrl = "192.168.1.150"
+serverUrl = "192.168.1.53"
 myGroupId = "Sparkplug B Devices"
 myNodeName = "Python Raspberry Pi"
 mySubNodeName = "Pibrella"
@@ -42,7 +42,7 @@ def button_changed(pin):
         print("You pressed the button!")
     else:
         print("You released the button!")
-    addMetric(outboundPayload, "button", "Boolean", buttonValue);
+    addMetric(outboundPayload, "button", None, MetricDataType.Boolean, buttonValue);
     byteArray = bytearray(outboundPayload.SerializeToString())
     client.publish("spBv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
 
@@ -62,7 +62,7 @@ def input_changed(name, pin):
     try:
         # Lock the block around the callback handler to prevent inproper access based on debounce
         outboundPayload = sparkplug.getDdataPayload()
-        addMetric(outboundPayload, name, "Boolean", pin.read());
+        addMetric(outboundPayload, name, None, MetricDataType.Boolean, pin.read());
         byteArray = bytearray(outboundPayload.SerializeToString())
         client.publish("spBv1.0/" + myGroupId + "/DDATA/" + myNodeName + "/" + mySubNodeName, byteArray, 0, False)
     finally:
@@ -95,38 +95,38 @@ def on_message(client, userdata, msg):
         inboundPayload.ParseFromString(msg.payload)
         outboundPayload = sparkplug.getDdataPayload()
 
-        for metric in inboundPayload.metric:
+        for metric in inboundPayload.metrics:
             print "Tag Name: " + metric.name
             if metric.name == "Outputs/e":
                 pibrella.output.e.write(metric.boolean_value)
-                addMetric(outboundPayload, "Outputs/e", "Boolean", pibrella.output.e.read())
+                addMetric(outboundPayload, "Outputs/e", None, MetricDataType.Boolean, pibrella.output.e.read())
             elif metric.name == "Outputs/f":
                 pibrella.output.f.write(metric.boolean_value)
-                addMetric(outboundPayload, "Outputs/f", "Boolean", pibrella.output.f.read())
+                addMetric(outboundPayload, "Outputs/f", None, MetricDataType.Boolean, pibrella.output.f.read())
             elif metric.name == "Outputs/g":
                 pibrella.output.g.write(metric.boolean_value)
-                addMetric(outboundPayload, "Outputs/g", "Boolean", pibrella.output.g.read())
+                addMetric(outboundPayload, "Outputs/g", None, MetricDataType.Boolean, pibrella.output.g.read())
             elif metric.name == "Outputs/h":
                 pibrella.output.h.write(metric.boolean_value)
-                addMetric(outboundPayload, "Outputs/h", "Boolean", pibrella.output.h.read())
+                addMetric(outboundPayload, "Outputs/h", None, MetricDataType.Boolean, pibrella.output.h.read())
             elif metric.name == "Outputs/LEDs/green":
                 if metric.boolean_value:
                     pibrella.light.green.on()
                 else:
                     pibrella.light.green.off()
-                addMetric(outboundPayload, "Outputs/LEDs/green", "Boolean", pibrella.light.green.read())
+                addMetric(outboundPayload, "Outputs/LEDs/green", None, MetricDataType.Boolean, pibrella.light.green.read())
             elif metric.name == "Outputs/LEDs/red":
                 if metric.boolean_value:
                     pibrella.light.red.on()
                 else:
                     pibrella.light.red.off()
-                addMetric(outboundPayload, "Outputs/LEDs/red", "Boolean", pibrella.light.red.read())
+                addMetric(outboundPayload, "Outputs/LEDs/red", None, MetricDataType.Boolean, pibrella.light.red.read())
             elif metric.name == "Outputs/LEDs/yellow":
                 if metric.boolean_value:
                     pibrella.light.yellow.on()
                 else:
                     pibrella.light.yellow.off()
-                addMetric(outboundPayload, "Outputs/LEDs/yellow", "Boolean", pibrella.light.yellow.read())
+                addMetric(outboundPayload, "Outputs/LEDs/yellow", None, MetricDataType.Boolean, pibrella.light.yellow.read())
             elif metric.name == "buzzer_fail":
                 pibrella.buzzer.fail()
             elif metric.name == "buzzer_success":
@@ -172,10 +172,10 @@ def publishBirth():
     for line in p.stdout.readlines():
         serialOutput = line,
     retVal = p.wait()
-    addMetric(payload, "Parameters/sw_version", "String", ''.join(unameOutput))
-    addMetric(payload, "Parameters/hw_version", "String", ''.join(hardwareOutput))
-    addMetric(payload, "Parameters/hw_revision", "String", ''.join(revisionOutput))
-    addMetric(payload, "Parameters/hw_serial", "String", ''.join(serialOutput))
+    addMetric(payload, "Parameters/sw_version", None, MetricDataType.String, ''.join(unameOutput))
+    addMetric(payload, "Parameters/hw_version", None, MetricDataType.String, ''.join(hardwareOutput))
+    addMetric(payload, "Parameters/hw_revision", None, MetricDataType.String, ''.join(revisionOutput))
+    addMetric(payload, "Parameters/hw_serial", None, MetricDataType.String, ''.join(serialOutput))
 
     # Publish the node birth certificate
     byteArray = bytearray(payload.SerializeToString())
@@ -184,22 +184,22 @@ def publishBirth():
     # Set up the input metrics
     payload = sparkplug.getDeviceBirthPayload()
 
-    addMetric(payload, "Inputs/a", "Boolean", pibrella.input.a.read())
-    addMetric(payload, "Inputs/b", "Boolean", pibrella.input.b.read())
-    addMetric(payload, "Inputs/c", "Boolean", pibrella.input.c.read())
-    addMetric(payload, "Inputs/d", "Boolean", pibrella.input.d.read())
+    addMetric(payload, "Inputs/a", None, MetricDataType.Boolean, pibrella.input.a.read())
+    addMetric(payload, "Inputs/b", None, MetricDataType.Boolean, pibrella.input.b.read())
+    addMetric(payload, "Inputs/c", None, MetricDataType.Boolean, pibrella.input.c.read())
+    addMetric(payload, "Inputs/d", None, MetricDataType.Boolean, pibrella.input.d.read())
 
     # Set up the output states on first run so Ignition and MQTT Engine are aware of them
-    addMetric(payload, "Outputs/e", "Boolean", pibrella.output.e.read())
-    addMetric(payload, "Outputs/f", "Boolean", pibrella.output.f.read())
-    addMetric(payload, "Outputs/g", "Boolean", pibrella.output.g.read())
-    addMetric(payload, "Outputs/h", "Boolean", pibrella.output.h.read())
-    addMetric(payload, "Outputs/LEDs/green", "Boolean", pibrella.light.green.read())
-    addMetric(payload, "Outputs/LEDs/red", "Boolean", pibrella.light.red.read())
-    addMetric(payload, "Outputs/LEDs/yellow", "Boolean", pibrella.light.yellow.read())
-    addMetric(payload, "button", "Boolean", pibrella.button.read())
-    addMetric(payload, "buzzer_fail", "Boolean", 0)
-    addMetric(payload, "buzzer_success", "Boolean", 0)
+    addMetric(payload, "Outputs/e", None, MetricDataType.Boolean, pibrella.output.e.read())
+    addMetric(payload, "Outputs/f", None, MetricDataType.Boolean, pibrella.output.f.read())
+    addMetric(payload, "Outputs/g", None, MetricDataType.Boolean, pibrella.output.g.read())
+    addMetric(payload, "Outputs/h", None, MetricDataType.Boolean, pibrella.output.h.read())
+    addMetric(payload, "Outputs/LEDs/green", None, MetricDataType.Boolean, pibrella.light.green.read())
+    addMetric(payload, "Outputs/LEDs/red", None, MetricDataType.Boolean, pibrella.light.red.read())
+    addMetric(payload, "Outputs/LEDs/yellow", None, MetricDataType.Boolean, pibrella.light.yellow.read())
+    addMetric(payload, "button", None, MetricDataType.Boolean, pibrella.button.read())
+    addMetric(payload, "buzzer_fail", None, MetricDataType.Boolean, 0)
+    addMetric(payload, "buzzer_success", None, MetricDataType.Boolean, 0)
 
     # Publish the initial data with the Device BIRTH certificate
     totalByteArray = bytearray(payload.SerializeToString())
