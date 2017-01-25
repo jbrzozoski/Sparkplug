@@ -71,18 +71,19 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 	}
 	
 	private SparkplugBProto.Payload.Metric.Builder convertMetric(Metric metric) throws Exception {
+		logger.debug("Converting metric: " + metric);
 		
 		// build a metric
 		SparkplugBProto.Payload.Metric.Builder builder = SparkplugBProto.Payload.Metric.newBuilder();
 		
 		// set the basic parameters
-		logger.debug("Adding metric: " + metric.getName());
-		logger.trace("    data type: " + metric.getDataType());
-		
-		// Set the name, data type, and value
-		builder.setName(metric.getName());
 		builder.setDatatype(metric.getDataType().toIntValue());
 		builder = setMetricValue(builder, metric);
+		
+		// Set the name, data type, and value
+		if (metric.hasName()) {
+			builder.setName(metric.getName());
+		}
 		
 		// Set the alias
 		if (metric.hasAlias()) {

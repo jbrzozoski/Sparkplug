@@ -1,3 +1,15 @@
+/**
+ * Copyright (c) 2012, 2016 Cirrus Link Solutions
+ *
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  which accompanies this distribution, and is available at
+ *  http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *   Cirrus Link Solutions
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -42,7 +54,10 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 					status = pb_decode_varint(&substream, &dest);
 					if (status) {
 						DEBUG_PRINT(("\t\tVARINT - Success - new value: %ld\n", dest));
-						if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_timestamp_tag) {
+						if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_alias_tag) {
+							metric->has_alias = true;
+							metric->alias = dest;
+						} else if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_timestamp_tag) {
 							metric->has_timestamp = true;
 							metric->timestamp = dest;
 						} else if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_datatype_tag) {
@@ -651,66 +666,6 @@ void init_dataset(com_cirruslink_sparkplug_protobuf_Payload_DataSet *dataset,
 	// Set the rows
 	dataset->rows_count = num_of_rows;
 	dataset->rows = row_data;
-/*
-	dataset->rows = (com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row *) calloc(num_of_rows, sizeof(com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row));
-	for (i=0; i<num_of_rows; i++) {
-		dataset->rows[i].elements_count = num_of_columns;
-		dataset->rows[i].elements = (com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue *)
-									malloc(sizeof(com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue));
-
-		for (j=0; j<num_of_columns; j++) {
-			if (datatypes[j] == DATA_SET_DATA_TYPE_UNKNOWN) {
-				fprintf(stderr, "Can't create dataset with unknown datatype!\n");
-			} else if (datatypes[j] == DATA_SET_DATA_TYPE_INT8 || datatypes[j] == DATA_SET_DATA_TYPE_INT16 || datatypes[j] == DATA_SET_DATA_TYPE_INT32 ||
-					datatypes[j] == DATA_SET_DATA_TYPE_UINT8 || datatypes[j] == DATA_SET_DATA_TYPE_UINT16 || datatypes[j] == DATA_SET_DATA_TYPE_UINT32) {
-				dataset->rows[i].elements[j].which_value = com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
-				//dataset->rows[i].elements[j].value.int_value = *((uint32_t *)value);
-			} else {
-				fprintf(stderr, "Invalid datatype: %d\n", datatypes[j]);
-			}
-		}
-	}
-*/
-
-/*
-typedef struct _com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row {
-    pb_size_t elements_count;
-    struct _com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue *elements;
-    pb_extension_t *extensions;
-// @@protoc_insertion_point(struct:com_cirruslink_sparkplug_protobuf_Payload_DataSet
-} com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row;
-
-
-/*
-	if (datatype == DATA_SET_DATA_TYPE_UNKNOWN) {
-		fprintf(stderr, "Can't create dataset with unknown datatype!\n");
-	} else if (datatype == DATA_SET_DATA_TYPE_INT8) {
-		uint32_t (*int_array)[num_of_columns] = (unsigned int (*)[num_of_columns]) data;
-
-		// Iterate over rows
-		for (i=0; i<num_of_rows; i++) {
-			// Iterate over columns
-			for (j=0; j<num_of_columns; j++) {
-				fprintf(stdout, "data: %d\n", int_array[i][j]);
-			}
-		}
-	} else if (datatype == DATA_SET_DATA_TYPE_INT16) {
-	} else if (datatype == DATA_SET_DATA_TYPE_INT32) {
-	} else if (datatype == DATA_SET_DATA_TYPE_INT64) {
-	} else if (datatype == DATA_SET_DATA_TYPE_UINT8) {
-	} else if (datatype == DATA_SET_DATA_TYPE_UINT16) {
-	} else if (datatype == DATA_SET_DATA_TYPE_UINT32) {
-	} else if (datatype == DATA_SET_DATA_TYPE_UINT64) {
-	} else if (datatype == DATA_SET_DATA_TYPE_FLOAT) {
-	} else if (datatype == DATA_SET_DATA_TYPE_DOUBLE) {
-	} else if (datatype == DATA_SET_DATA_TYPE_BOOLEAN) {
-	} else if (datatype == DATA_SET_DATA_TYPE_STRING) {
-	} else if (datatype == DATA_SET_DATA_TYPE_DATETIME) {
-	} else if (datatype == DATA_SET_DATA_TYPE_TEXT) {
-	} else {
-		fprintf(stderr, "Unknown datatype %d\n", datatype);
-	}
-*/
 }
 
 /*

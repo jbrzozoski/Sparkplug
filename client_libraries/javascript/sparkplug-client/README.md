@@ -92,6 +92,45 @@ Here is a quick summary of the main changes in version B (over A):
 * Change the name of the metrics list field from "metric" to "metrics".
 
 
+#### Edge Node Birth Certificate (NBIRTH)
+
+A Sparkplug node birth certificate (NBIRTH) message will contain all data points,
+process variables, and/or metrics for the edge node. The payload for this message
+will differ slightly between the different Sparkplug versions.
+
+* timestamp:  A UTC timestamp represented by 64 bit integer.
+* metrics:  An array of metric objects. Each metric in the array must contain
+  the following:
+  * name:  The name of the metric.
+  * value:  The value of the metric.
+  * type:  The type of the metric.  The following types are supported: int, 
+    int8, int16, int32, int64, uint8, uint16, uint32, uint64, float, double, 
+    boolean, string, datetime, text, uuid, dataset, bytes, file, or template.
+
+Here is a code example of publishing a NBIRTH message:
+
+```javascript
+var payload = {
+        "timestamp" : 1465577611580,
+        "metrics" : [
+            {
+                "name" : "my_int",
+                "value" : 456,
+                "type" : "int32"
+            },
+            {
+                "name" : "my_float",
+                "value" : 1.23,
+                "type" : "float"
+            }
+        ]
+    };
+
+// Publish device birth
+client.publishNodeBirth(payload);
+```
+
+
 #### Device Birth Certificate (DBIRTH)
 
 A Sparkplug device birth certificate (DBIRTH) message will contain all data points,
@@ -99,7 +138,7 @@ process variables, and/or metrics for the device. The payload for this message
 will differ slightly between the different Sparkplug versions.
 
 * timestamp:  A UTC timestamp represented by 64 bit integer.
-* metric:  An array of metric objects. Each metric in the array must contain
+* metrics:  An array of metric objects. Each metric in the array must contain
   the following:
   * name:  The name of the metric.
   * value:  The value of the metric.
@@ -132,10 +171,34 @@ client.publishDeviceBirth(deviceId, payload);
 ```
 
 
+#### Node Data Message (NDATA)
+
+An edge node data message (NDATA) will look similar to NBIRTH but is not required
+to publish all metrics. However, it must publish at least one metric.
+
+Here is a code example of publishing a DBIRTH message:
+
+```javascript
+var payload = {
+        "timestamp" : 1465456711580,
+        "metrics" : [
+            {
+                "name" : "my_int",
+                "value" : 412,
+                "type" : "int32"
+            }
+        ]
+    };
+
+// Publish device data
+client.publishNodeData(payload);
+```
+
+
 #### Device Data Message (DDATA)
 
 A device data message (DDATA) will look similar to DBIRTH but is not required
-to publish all metrics, but it must publish at least one.
+to publish all metrics. However, it must publish at least one metric.
 
 Here is a code example of publishing a DBIRTH message:
 
@@ -156,12 +219,18 @@ var deviceId = "testDevice",
 client.publishDeviceData(deviceId, payload);
 ```
 
+#### Node Death Certificate (NDEATH)
+
+An edge node death certificate (NDEATH) is published to indicated that the edge
+node has gone offline or has lost a connection.  It registered as an MQTT LWT
+by the SparkplugClient instance and published on the applications behalf.
+
+
 #### Device Death Certificate (DDEATH)
 
 A device death certificate (DDEATH) can be published to indicated that the
 device has gone offline or has lost a connection.  It should contain only a
 timestamp.
-
 
 Here is a code example of publishing a DBIRTH message:
 
@@ -181,37 +250,38 @@ The client uses an EventEmitter to emit events to device applications.  The
 client emits a "rebirth" event, "command" event, and four MQTT connection
 events: "connect", "reconnect", "error", and "close".
 
-#### Rebirth Event
+#### Birth Event
 
-A "rebirth" event is used to signal the device application that a DBIRTH 
+A "birth" event is used to signal the device application that a DBIRTH 
 message is requested.  This event will be be emitted immediately after the 
-client initially connects with the MQTT Server or any time that the client
-receives a Edge Node command (NCMD) requesting a "rebirth".
+client initially connects or re-connects with the MQTT Server.
 
-Here is a code example of handling a "rebirth" event:
+Here is a code example of handling a "birth" event:
 
 ```javascript
-client.on('rebirth', function () {
-    console.log("received 'rebirth' event");
-    client.publishDeviceBirth(deviceId, getBirthPayload());
+sparkplugClient.on('birth', function () {
+    // Publish Node BIRTH certificate
+    sparkplugClient.publishNodeBirth(getNodeBirthPayload());
+    // Publish Device BIRTH certificate
+    sparkplugClient.publishDeviceBirth(deviceId, getDeviceBirthPayload());
 });
 ```
 
-#### Command Event
+#### Command Events
 
-A device command event is used to communicate a Device Command message (DCMD)
-from another MQTT client to a device.  A 'command' event will include the 
-device ID and a payload containing a list of metrics (as described above).  Any
-metrics included in the payload represent attempts to write a new value to the
-data points or process variables that they represent.  After the device 
-application processes the request the device application should publish a DDATA
-message containing any metrics that have changed or been updated.
+A Device Command event is used to communicate a Device Command message (DCMD)
+from another MQTT client to a device. A 'dcmd' event will include the device ID 
+and a payload containing a list of metrics (as described above).  Any metrics 
+included in the payload represent attempts to write a new value to the data 
+points or process variables that they represent.  After the device application
+processes the request the device application should publish a DDATA message 
+containing any metrics that have changed or been updated.
 
-Here is a code example of handling a "command" event:
+Here is a code example of handling a "dcmd" event:
 
 ```javascript
-client.on('command', function (deviceId, payload) {
-    console.log("received 'command' event");
+client.on('dcmd', function (deviceId, payload) {
+    console.log("received 'dcmd' event");
     console.log("device: " + device);
     console.log("payload: " + payload);
 
@@ -220,6 +290,29 @@ client.on('command', function (deviceId, payload) {
     //
 
     client.publishDeviceData(deviceId, newPayload);
+});
+```
+
+A Node Command event is used to communicate an Edge Node Command message (DCMD) 
+or Edge Node Command message (NCMD) from another MQTT client to a device.  An 
+'ncmd' event will include a payload containing a list of metrics (as described 
+above).  Any metrics included in the payload may represent attempts to write a 
+new value to the data points or process variables that they represent or they
+may represent control messages sent to the edge node such as a "rebirth" 
+request.
+
+Here is a code example of handling a "ncmd" event:
+
+```javascript
+client.on('ncmd', function (payload) {
+    console.log("received 'ncmd' event");
+    console.log("payload: " + payload);
+
+    //
+    // Process metrics and create new payload containing changed metrics
+    //
+
+    client.publishNodeData(newPayload);
 });
 ```
 
@@ -281,10 +374,14 @@ client.on('close', function () {
 * 1.1.0 Added more emitted events (connect, reconnect, error, close)
 * 1.2.0 Added 'publishDeath' config option, updated MQTT.js version
 * 2.0.0 Added support for Sparkplug B and made the version configurable.
+* 3.0.0 Added events for Node Birth/Command events. Renamed 'command' event
+        to distiguish between 'dcmd' (device commands) and 'ncmd' (node 
+        commands). Renamed 'rebirth' event to 'birth'. Updated dependency
+        versions and removed bytebuffer as a dependency.
 
 ## License
 
-Copyright (c) 2016 Cirrus Link Solutions
+Copyright (c) 2016-2017 Cirrus Link Solutions
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the Eclipse Public License v1.0

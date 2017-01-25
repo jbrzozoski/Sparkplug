@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 Cirrus Link Solutions
+ * Copyright (c) 2016-2017 Cirrus Link Solutions
  *
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
@@ -36,6 +36,38 @@ var sample = (function () {
         return 1 + Math.floor(Math.random() * 10);
     },
 
+    // Get BIRTH payload for the edge node
+    getNodeBirthPayload = function() {
+        return {
+            "timestamp" : new Date().getTime(),
+            "metrics" : [
+                {
+                    "name" : "Node Control/Rebirth",
+                    "type" : "boolean",
+                    "value" : false
+                },
+                {
+                    "name" : "Template1",
+                    "type" : "template",
+                    "value" : {
+                        "isDefinition" : true,
+                        "metrics" : [
+                            { "name" : "myBool", "value" : false, "type" : "boolean" },
+                            { "name" : "myInt", "value" : 0, "type" : "int" }
+                        ],
+                        "parameters" : [
+                            {
+                                "name" : "param1",
+                                "type" : "string",
+                                "value" : "value1"
+                            }
+                        ]
+                    }
+                }
+            ]
+        };
+    },
+
     // Get BIRTH payload for the device
     getDeviceBirthPayload = function() {
         return {
@@ -53,7 +85,39 @@ var sample = (function () {
                 { "name" : "Outputs/1", "value" :  0, "type" : "int" },
                 { "name" : "Outputs/2", "value" :  1.23, "type" : "float" },
                 { "name" : "Properties/hw_version", "value" :  hwVersion, "type" : "string" },
-                { "name" : "Properties/sw_version", "value" :  swVersion, "type" : "string" }
+                { "name" : "Properties/sw_version", "value" :  swVersion, "type" : "string" },
+                { 
+                    "name" : "my_dataset",
+                    "type" : "dataset",
+                    "value" : {
+                        "numOfColumns" : 2,
+                        "types" : [ "string", "string" ],
+                        "columns" : [ "str1", "str2" ],
+                        "rows" : [ 
+                            [ "x", "a"],
+                            [ "y", "b" ]
+                        ]
+                    }
+                },
+                {
+                    "name" : "TemplateInstance1",
+                    "type" : "template",
+                    "value" : {
+                        "templateRef" : "Template1",
+                        "isDefinition" : false,
+                        "metrics" : [
+                            { "name" : "myBool", "value" : true, "type" : "boolean" },
+                            { "name" : "myInt", "value" : 100, "type" : "int" }
+                        ],
+                        "parameters" : [
+                            {
+                                "name" : "param1",
+                                "type" : "string",
+                                "value" : "value2"
+                            }
+                        ]
+                    }
+                }
             ]
         };
     },
@@ -77,14 +141,35 @@ var sample = (function () {
         // Create the SparkplugClient
         sparkplugClient = SparkplugClient.newClient(config);
         
-        // Create 'rebirth' handler
-        sparkplugClient.on('rebirth', function () {
-            // Publish BIRTH certificate
+        // Create 'birth' handler
+        sparkplugClient.on('birth', function () {
+            // Publish Node BIRTH certificate
+            sparkplugClient.publishNodeBirth(getNodeBirthPayload());
+            // Publish Device BIRTH certificate
             sparkplugClient.publishDeviceBirth(deviceId, getDeviceBirthPayload());
         });
+
+        // Create node command handler
+        sparkplugClient.on('ncmd', function (payload) {
+            var timestamp = payload.timestamp,
+                metrics = payload.metrics;
+
+            if (metrics !== undefined && metrics !== null) {
+                for (var i = 0; i < metrics.length; i++) {
+                    var metric = metrics[i];
+                    if (metric.name == "Node Control/Rebirth" && metric.value) {
+                        console.log("Received 'Rebirth' command");
+                        // Publish Node BIRTH certificate
+                        sparkplugClient.publishNodeBirth(getNodeBirthPayload());
+                        // Publish Device BIRTH certificate
+                        sparkplugClient.publishDeviceBirth(deviceId, getDeviceBirthPayload());
+                    }
+                }
+            }     
+        });
         
-        // Create 'command' handler
-        sparkplugClient.on('command', function (deviceId, payload) {
+        // Create device command handler
+        sparkplugClient.on('dcmd', function (deviceId, payload) {
             var timestamp = payload.timestamp,
                 metrics = payload.metrics,
                 inboundMetricMap = {},
@@ -100,7 +185,6 @@ var sample = (function () {
                     inboundMetricMap[metric.name] = metric.value;
                 }
             }
-
             if (inboundMetricMap["Outputs/0"] !== undefined && inboundMetricMap["Outputs/0"] !== null) {
                 console.log("Outputs/0: " + inboundMetricMap["Outputs/0"]);
                 outboundMetric.push({ "name" : "Inputs/0", "value" : inboundMetricMap["Outputs/0"], "type" : "boolean" });

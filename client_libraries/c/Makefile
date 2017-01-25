@@ -17,6 +17,7 @@ LD_TEST  := -Llib -L/usr/local/lib -l$(NAME)
 all: $(SNAME) $(DNAME) $(TEST)
 
 $(SNAME): $(OBJ)
+	mkdir -p lib
 	$(AR) $(ARFLAGS) $@ $^
 
 $(DNAME): LDFLAGS += -shared

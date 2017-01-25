@@ -54,7 +54,7 @@ public class SparkplugListener implements MqttCallbackExtended {
 			client.setCallback(this);
 			
 			// Just listen to all DDATA messages on spAv1.0 topics and wait for inbound messages
-			client.subscribe("spBv1.0/+/DDATA/#", 0);
+			client.subscribe("spBv1.0/#", 0);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

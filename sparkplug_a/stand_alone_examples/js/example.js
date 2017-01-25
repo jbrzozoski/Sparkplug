@@ -23,7 +23,8 @@ var sample = (function () {
             'groupId' : 'Sparkplug A Devices',
             'edgeNode' : 'JavaScript Edge Node',
             'clientId' : 'JavaScriptSimpleEdgeNode',
-            'publishDeath' : false
+            'publishDeath' : false,
+            'version' : 'spAv1.0'
         },
         hwVersion = 'Emulated Hardware',
         swVersion = 'v1.0.0',
@@ -49,6 +50,20 @@ var sample = (function () {
             "timestamp" : new Date().getTime(),
             "satellites" : 8,
             "status" : 3
+        };
+    },
+
+    // Get BIRTH payload for the edge node
+    getNodeBirthPayload = function() {
+        return {
+            "timestamp" : new Date().getTime(),
+            "metric" : [
+                {
+                    "name" : "Node Control/Rebirth",
+                    "type" : "boolean",
+                    "value" : false
+                }
+            ]
         };
     },
 
@@ -96,13 +111,34 @@ var sample = (function () {
         sparkplugClient = SparkplugClient.newClient(config);
         
         // Create 'rebirth' handler
-        sparkplugClient.on('rebirth', function () {
-            // Publish BIRTH certificate
+        sparkplugClient.on('birth', function () {
+            // Publish Node BIRTH certificate
+            sparkplugClient.publishNodeBirth(getNodeBirthPayload());
+            // Publish Device BIRTH certificate
             sparkplugClient.publishDeviceBirth(deviceId, getDeviceBirthPayload());
+        });
+
+        // Create node command handler
+        sparkplugClient.on('ncmd', function (payload) {
+            var timestamp = payload.timestamp,
+                metrics = payload.metric;
+
+            if (metrics !== undefined && metrics !== null) {
+                for (var i = 0; i < metrics.length; i++) {
+                    var metric = metrics[i];
+                    if (metric.name == "Node Control/Rebirth" && metric.value) {
+                        console.log("Received 'Rebirth' command");
+                        // Publish Node BIRTH certificate
+                        sparkplugClient.publishNodeBirth(getNodeBirthPayload());
+                        // Publish Device BIRTH certificate
+                        sparkplugClient.publishDeviceBirth(deviceId, getDeviceBirthPayload());
+                    }
+                }
+            }     
         });
         
         // Create 'command' handler
-        sparkplugClient.on('command', function (deviceId, payload) {
+        sparkplugClient.on('dcmd', function (deviceId, payload) {
             var timestamp = payload.timestamp,
                 metric = payload.metric,
                 inboundMetricMap = {},

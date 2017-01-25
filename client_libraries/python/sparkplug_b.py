@@ -5,10 +5,8 @@ from sparkplug_b_pb2 import Payload
 seqNum = 0
 bdSeq = 0
 
-class MetricDataType:
+class DataSetDataType:
     Unknown = 0
-
-    # Basic Types
     Int8 = 1
     Int16 = 2
     Int32 = 3
@@ -24,44 +22,152 @@ class MetricDataType:
     DateTime = 13
     Text = 14
 
-    # Custom Types for Metrics
+class MetricDataType:
+    Unknown = 0
+    Int8 = 1
+    Int16 = 2
+    Int32 = 3
+    Int64 = 4
+    UInt8 = 5
+    UInt16 = 6
+    UInt32 = 7
+    UInt64 = 8
+    Float = 9
+    Double = 10
+    Boolean = 11
+    String = 12
+    DateTime = 13
+    Text = 14
     UUID = 15
     DataSet = 16
     Bytes = 17
     File = 18
     Template = 19
 
+class ParameterDataType:
+    Unknown = 0
+    Int8 = 1
+    Int16 = 2
+    Int32 = 3
+    Int64 = 4
+    UInt8 = 5
+    UInt16 = 6
+    UInt32 = 7
+    UInt64 = 8
+    Float = 9
+    Double = 10
+    Boolean = 11
+    String = 12
+    DateTime = 13
+    Text = 14
+
+class ParameterDataType:
+    Unknown = 0
+    Int8 = 1
+    Int16 = 2
+    Int32 = 3
+    Int64 = 4
+    UInt8 = 5
+    UInt16 = 6
+    UInt32 = 7
+    UInt64 = 8
+    Float = 9
+    Double = 10
+    Boolean = 11
+    String = 12
+    DateTime = 13
+    Text = 14
+
+######################################################################
 # Always request this before requesting the Node Birth Payload
+######################################################################
 def getNodeDeathPayload():
     payload = sparkplug_b_pb2.Payload()
-    addMetric(payload, "bdSeq", MetricDataType.Int64, getBdSeqNum())
+    addMetric(payload, "bdSeq", None, MetricDataType.Int64, getBdSeqNum())
     return payload
+######################################################################
 
+######################################################################
 # Always request this after requesting the Node Death Payload
+######################################################################
 def getNodeBirthPayload():
+    global seqNum
     seqNum = 0
     payload = sparkplug_b_pb2.Payload()
     payload.timestamp = int(round(time.time() * 1000))
     payload.seq = getSeqNum()
-    addMetric(payload, "bdSeq", MetricDataType.Int64, --bdSeq)
-    addMetric(payload, "Node Control/Rebirth", MetricDataType.Boolean, False);
+    addMetric(payload, "bdSeq", None, MetricDataType.Int64, --bdSeq)
     return payload
+######################################################################
 
+######################################################################
+# Get the DBIRTH payload
+######################################################################
 def getDeviceBirthPayload():
     payload = sparkplug_b_pb2.Payload()
     payload.timestamp = int(round(time.time() * 1000))
     payload.seq = getSeqNum()
     return payload
+######################################################################
 
+######################################################################
+# Get a DDATA payload
+######################################################################
 def getDdataPayload():
     return getDeviceBirthPayload()
+######################################################################
 
 ######################################################################
-# Helper method for adding metrics to a payload
+# Helper method for adding dataset metrics to a payload
 ######################################################################
-def addMetric(payload, name, type, value):
+def initDatasetMetric(payload, name, alias, columns, types):
     metric = payload.metrics.add()
-    metric.name = name
+    if name is not None:
+        metric.name = name
+    if alias is not None:
+        metric.alias = alias
+    metric.timestamp = int(round(time.time() * 1000))
+    metric.datatype = MetricDataType.DataSet
+
+    # Set up the dataset
+    metric.dataset_value.num_of_columns = len(types)
+    metric.dataset_value.columns.extend(columns)
+    metric.dataset_value.types.extend(types)
+    return metric.dataset_value
+######################################################################
+
+######################################################################
+# Helper method for adding dataset metrics to a payload
+######################################################################
+def initTemplateMetric(payload, name, alias, templateRef):
+    metric = payload.metrics.add()
+    if name is not None:
+        metric.name = name
+    if alias is not None:
+        metric.alias = alias
+    metric.timestamp = int(round(time.time() * 1000))
+    metric.datatype = MetricDataType.Template
+
+    # Set up the template
+    if templateRef is not None:
+        metric.template_value.template_ref = templateRef
+        metric.template_value.is_definition = False
+    else:
+        metric.template_value.is_definition = True
+
+    return metric.template_value
+######################################################################
+
+######################################################################
+# Helper method for adding metrics to a container which can be a
+# payload or a template
+######################################################################
+def addMetric(container, name, alias, type, value):
+    metric = container.metrics.add()
+    if name is not None:
+        metric.name = name
+    if alias is not None:
+        metric.alias = alias
     metric.timestamp = int(round(time.time() * 1000))
 
     # print "Type: " + str(type)
@@ -108,8 +214,24 @@ def addMetric(payload, name, type, value):
     elif type == MetricDataType.Text:
         metric.datatype = MetricDataType.Text
         metric.string_value = value
+    elif type == MetricDataType.UUID:
+        metric.datatype = MetricDataType.UUID
+        metric.string_value = value
+    elif type == MetricDataType.Bytes:
+        metric.datatype = MetricDataType.Bytes
+        metric.bytes_value = value
+    elif type == MetricDataType.File:
+        metric.datatype = MetricDataType.File
+        metric.bytes_value = value
+    elif type == MetricDataType.Template:
+        metric.datatype = MetricDataType.Template
+        metric.template_value = value
     else:
         print "Invalid: " + str(type)
+
+    # Return the metric
+    return metric
+######################################################################
 
 ######################################################################
 # Helper method for getting the next sequence number

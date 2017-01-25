@@ -64,9 +64,13 @@ public class Metric {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public boolean hasName() {
+		return !(name == null);
+	}
 	
 	public boolean hasAlias() {
-		return (alias == null) ? false : true;
+		return !(alias == null);
 	}
 
 	public Long getAlias() {
@@ -107,7 +111,7 @@ public class Metric {
 
 	public void setValue(Object value) {
 		this.value = value;
-		isNull = (value == null) ? true : false;
+		isNull = (value == null);
 	}
 
 	public PropertySet getPropertySet() {
@@ -162,6 +166,13 @@ public class Metric {
 		
 		public MetricBuilder(String name, MetricDataType dataType, Object value) {
 			this.name = name;
+			this.timestamp = new Date();
+			this.dataType = dataType;
+			this.value = value;
+		}
+		
+		public MetricBuilder(Long alias, MetricDataType dataType, Object value) {
+			this.alias = alias;
 			this.timestamp = new Date();
 			this.dataType = dataType;
 			this.value = value;
