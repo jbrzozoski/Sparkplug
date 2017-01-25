@@ -31,21 +31,9 @@ module.exports = function(RED) {
                 'publishDeath' : config.publishdeath == "true",
                 'version' : version
             },
-            sparkplugClient;
+            sparkplugClient,
 
-        try {
-            // Create the SparkplugClient
-            sparkplugClient = SparkplugClient.newClient(sparkPlugConfig);
-        } catch (e) {
-            node.error("Error creating new client", e);
-        }
-
-        /*
-         * 'rebirth' handler
-         */
-        sparkplugClient.on('rebirth', function () {
-            node.log(config.edgenode + " received 'rebirth' event");
-            // If device cache is enabled, send birth on behalf of device
+        doDeviceBirths = function() {
             if (cacheEnabled) {
                 // Loop over all devices in the device data cache
                 Object.keys(deviceCache).forEach(function(key) {
@@ -69,18 +57,81 @@ module.exports = function(RED) {
                     "payload" : {}
                 });
             }
+        },
+
+        doNodeBirth = function() {
+            var payload = { 
+                    "timestamp" : new Date().getTime()
+                },
+                metrics = [
+                    {
+                        "name" : "Node Control/Rebirth",
+                        "type" : "boolean",
+                        "value" : false
+                    }
+                ];
+            if (version === "spBv1.0") {
+                // Sparkplug B uses "metrics" as the key
+                payload.metrics = metrics;
+            } else {
+                // Sparkplug A uses "metric" as the key
+                payload.metric = metrics;
+            }
+            // Publish Node BIRTH certificate
+            sparkplugClient.publishNodeBirth(payload);
+        };
+
+        try {
+            // Create the SparkplugClient
+            sparkplugClient = SparkplugClient.newClient(sparkPlugConfig);
+        } catch (e) {
+            node.error("Error creating new client", e);
+        }
+
+        /*
+         * 'rebirth' handler
+         */
+        sparkplugClient.on('birth', function () {
+            node.log(config.edgenode + " received 'birth' event");
+            // Publish Node BIRTH certificate
+            doNodeBirth();
+            // Publish Device BIRTH certificate
+            doDeviceBirths();
         });
 
         /*
          * 'command' handler
          */
-        sparkplugClient.on('command', function (deviceId, payload) {
+        sparkplugClient.on('dcmd', function (deviceId, payload) {
             node.log(config.edgenode + " received 'command' event for deviceId: " + deviceId + ", sending to nodes");
             node.send({
                 "topic" : deviceId,
                 "payload" : payload
             });
 
+        });
+
+        /*
+         * 'command' handler
+         */
+        sparkplugClient.on('ncmd', function (payload) {
+            node.log(config.edgenode + " received 'ncmd' event");
+            var metrics = version === "spBv1.0" 
+                    ? payload.metrics 
+                    : payload.metric;
+
+            if (metrics !== undefined && metrics !== null) {
+                for (var i = 0; i < metrics.length; i++) {
+                    var metric = metrics[i];
+                    if (metric.name == "Node Control/Rebirth" && metric.value) {
+                        console.log("Received 'Rebirth' command");
+                        // Publish Node BIRTH certificate
+                        doNodeBirth();
+                        // Publish Device BIRTH certificate
+                        doDeviceBirths();
+                    }
+                }
+            }  
         });
 
         /*

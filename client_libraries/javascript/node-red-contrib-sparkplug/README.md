@@ -175,6 +175,7 @@ containing any metric values that have changed or been successfully written to.
 * 1.2.0 Added 'Publish Death' config option, and mouseover config descriptions
 * 1.2.1 Added "node-red" keyword
 * 2.0.0 Added support for Sparkplug B and made version configurable
+* 2.1.0 Updated sparkplug-client version to 3.0.0
 
 ## License
 

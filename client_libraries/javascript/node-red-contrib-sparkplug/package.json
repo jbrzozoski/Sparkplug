@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-sparkplug",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A Sparkplug node for Node-RED",
   "license": "EPL-1.0",
   "repository": {
@@ -23,8 +23,7 @@
   ],
   "author": "Chad Kienle <chad.kienle@cirrus-link.com> (http://www.cirrus-link.com)",
   "dependencies": {
-    "sparkplug-client": "^2.0.0",
-    "bytebuffer": "^5.0.1"
+    "sparkplug-client": "^3.0.0"
   },
   "files": [
     "sparkplug/sparkplug.html",
