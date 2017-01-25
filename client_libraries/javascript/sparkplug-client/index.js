@@ -101,7 +101,7 @@ function SparkplugClient(config) {
                 "type" : "int"
             } ];
         if (version === versionA) {
-            paylaod.metric = metric;
+            payload.metric = metric;
         } else {
             payload.metrics = metric;
         }

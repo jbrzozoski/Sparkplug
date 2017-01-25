@@ -374,8 +374,10 @@ client.on('close', function () {
 * 1.1.0 Added more emitted events (connect, reconnect, error, close)
 * 1.2.0 Added 'publishDeath' config option, updated MQTT.js version
 * 2.0.0 Added support for Sparkplug B and made the version configurable.
-* 2.1.0 Added events for Node Birth/Command events. Renamed command event
-        to distiguish between device and node commands.
+* 3.0.0 Added events for Node Birth/Command events. Renamed 'command' event
+        to distiguish between 'dcmd' (device commands) and 'ncmd' (node 
+        commands). Renamed 'rebirth' event to 'birth'. Updated dependency
+        versions and removed bytebuffer as a dependency.
 
 ## License
 

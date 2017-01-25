@@ -185,7 +185,6 @@ var sample = (function () {
                     inboundMetricMap[metric.name] = metric.value;
                 }
             }
-
             if (inboundMetricMap["Outputs/0"] !== undefined && inboundMetricMap["Outputs/0"] !== null) {
                 console.log("Outputs/0: " + inboundMetricMap["Outputs/0"]);
                 outboundMetric.push({ "name" : "Inputs/0", "value" : inboundMetricMap["Outputs/0"], "type" : "boolean" });

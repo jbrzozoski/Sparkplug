@@ -14,11 +14,9 @@
  * Provides support for generating Kura payloads.
  */
 (function () {
-    var ProtoBuf = require("protobufjs"),
-        ByteBuffer = require("bytebuffer"),
-        tempBuffer = ByteBuffer.allocate(1024);
+    var ProtoBuf = require("protobufjs");
 
-    var builder = ProtoBuf.loadProto("package com.cirruslink.sparkplug.protobuf; message Payload { message Template { " +
+    var SparkplugPayload = ProtoBuf.parse("package com.cirruslink.sparkplug.protobuf; message Payload { message Template { " +
             "message Parameter { optional string name = 1;optional uint32 type = 2; oneof value { uint32 int_value = 3; uint64 long_value = 4; " +
             "float float_value = 5; double double_value = 6; bool boolean_value = 7; string string_value = 8; ParameterValueExtension extension_value = 9; } " +
             "message ParameterValueExtension { extensions 1 to max; } } optional string version = 1; repeated Metric metrics = 2; " +
@@ -43,19 +41,18 @@
             "bool boolean_value = 14; string string_value = 15; bytes bytes_value = 16; DataSet dataset_value = 17; Template template_value = 18; " +
             "MetricValueExtension extension_value = 19; } " +
             "message MetricValueExtension { extensions 1 to max; } } optional uint64 timestamp = 1; repeated Metric metrics = 2; optional uint64 seq = 3; " +
-            "optional string uuid = 4; optional bytes body = 5; extensions 6 to max; } "),
-        SparkplugBDataTypes = builder.build('com.cirruslink.sparkplug.protobuf'),
-        Payload = SparkplugBDataTypes.Payload,
-        Template = Payload.Template,
-        Parameter = Template.Parameter,
-        DataSet = Payload.DataSet,
-        DataSetValue = DataSet.DataSetValue,
-        Row = DataSet.Row,
-        PropertyValue = Payload.PropertyValue,
-        PropertySet = Payload.PropertySet,
-        PropertyList = Payload.PropertyList,
-        MetaData =Payload.MetaData,
-        Metric = Payload.Metric;
+            "optional string uuid = 4; optional bytes body = 5; extensions 6 to max; } ").root,
+        Payload = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload'),
+        Template = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.Template'),
+        Parameter = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter'),
+        DataSet = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.DataSet'),
+        DataSetValue = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue'),
+        Row = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.DataSet.Row'),
+        PropertyValue = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.PropertyValue'),
+        PropertySet = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.PropertySet'),
+        PropertyList = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.PropertyList'),
+        MetaData =SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.MetaData'),
+        Metric = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.Metric');
 
     /**
      * Sets the value of an object given it's type expressed as an integer
@@ -67,43 +64,43 @@
             case 3: // Int32
             case 5: // UInt8
             case 6: // UInt32
-                object.int_value = value;
+                object.intValue = value;
                 break;
             case 4: // Int64
             case 7: // UInt32
             case 8: // UInt64
             case 13: // DataTime
-                object.long_value = value;
+                object.longValue = value;
                 break;
             case 9: // Float
-                object.float_value = value;
+                object.floatValue = value;
                 break;
             case 10: // Double
-                object.double_value = value;
+                object.doubleValue = value;
                 break;
             case 11: // Boolean
-                object.boolean_value = value;
+                object.booleanValue = value;
                 break;
             case 12: // String
             case 14: // Text
             case 15: // UUID
-                object.string_value = value;
+                object.stringValue = value;
                 break;
             case 16: // DataSet
-                object.dataset_value = encodeDataSet(value);
+                object.datasetValue = encodeDataSet(value);
                 break;
             case 17: // Bytes
             case 18: // File
-                object.bytes_value = value;
+                object.bytesValue = value;
                 break;
             case 19: // Template
-                object.template_value = encodeTemplate(value);
+                object.templateValue = encodeTemplate(value);
                 break;
             case 20: // PropertySet
-                object.propertyset_value = encodePropertySet(value);
+                object.propertysetValue = encodePropertySet(value);
                 break;
             case 21:
-                object.propertysets_value = encodePropertySetList(value);
+                object.propertysetsValue = encodePropertySetList(value);
                 break;
         } 
     }
@@ -115,33 +112,33 @@
             case 3: // Int32
             case 5: // UInt8
             case 6: // UInt32
-                return object.int_value;
+                return object.intValue;
             case 4: // Int64
             case 7: // UInt32
             case 8: // UInt64
             case 13: // DataTime
-                return object.long_value;
+                return object.longValue;
             case 9: // Float
-                return object.float_value;
+                return object.floatValue;
             case 10: // Double
-                return object.double_value;
+                return object.doubleValue;
             case 11: // Boolean
-                return object.boolean_value;
+                return object.booleanValue;
             case 12: // String
             case 14: // Text
             case 15: // UUID
-                return object.string_value;
+                return object.stringValue;
             case 16: // DataSet
-                return decodeDataSet(object.dataset_value);
+                return decodeDataSet(object.datasetValue);
             case 17: // Bytes
             case 18: // File
-                return object.bytes_value;
+                return object.bytesValue;
             case 19: // Template
-                return decodeTemplate(object.template_value);
+                return decodeTemplate(object.templateValue);
             case 20: // PropertySet
-                return decodePropertySet(object.propertyset_value);
+                return decodePropertySet(object.propertysetValue);
             case 21:
-                return decodePropertySetList(object.propertysets_value);
+                return decodePropertySetList(object.propertysetsValue);
             default:
                 console.log("Error: Cannot decode value for undefined type " + type);
                 return null;
@@ -265,16 +262,20 @@
             names = object.columns,
             types = encodeTypes(object.types),
             rows = object.rows,
-            newDataSet = new DataSet(num, object.columns, types),
+            newDataSet = DataSet.create({
+                "numOfColumns" : num, 
+                "columns" : object.columns, 
+                "types" : types 
+            }),
             newRows = [];
         // Loop over all the rows
         for (var i = 0; i < rows.length; i++) {
-            var newRow = new Row();
+            var newRow = Row.create();
                 row = rows[i];
                 elements = [];
             // Loop over all the elements in each row
             for (var t = 0; t < num; t++) {
-                var newValue = new DataSetValue();
+                var newValue = DataSetValue.create();
                 setValue(types[t], row[t], newValue);
                 elements.push(newValue);
             }
@@ -290,7 +291,7 @@
             protoTypes = protoDataSet.types,
             types = decodeTypes(protoTypes),
             protoRows = protoDataSet.rows,
-            num = protoDataSet.num_of_columns,
+            num = protoDataSet.numOfColumns,
             rows = [];
         
         // Loop over all the rows
@@ -314,9 +315,9 @@
     }
 
     encodeMetaData = function(object) {
-        var metadata = new MetaData(),
+        var metadata = MetaData.create(),
             isMultiPart = object.isMultiPart,
-            contentType = object.content_type,
+            contentType = object.contentType,
             size = object.size,
             seq = object.seq,
             fileName = object.fileName,
@@ -325,11 +326,11 @@
             description = object.description;
 
         if (isMultiPart !== undefined && isMultiPart !== null) {
-            metadata.is_multi_part = isMultiPart;
+            metadata.isMultiPart = isMultiPart;
         }
 
         if (contentType !== undefined && contentType !== null) {
-            metadata.content_type = contentType;
+            metadata.contentType = contentType;
         }
 
         if (size !== undefined && size !== null) {
@@ -341,11 +342,11 @@
         }
 
         if (fileName !== undefined && fileName !== null) {
-            metadata.file_name = fileName;
+            metadata.fileName = fileName;
         }
 
         if (fileType !== undefined && fileType !== null) {
-            metadata.file_type = fileType;
+            metadata.fileType = fileType;
         }
 
         if (md5 !== undefined && md5 !== null) {
@@ -361,12 +362,12 @@
 
     decodeMetaData = function(protoMetaData) {
         var metadata = {},
-            isMultiPart = protoMetaData.is_multi_part,
-            contentType = protoMetaData.content_type,
+            isMultiPart = protoMetaData.isMultiPart,
+            contentType = protoMetaData.contentType,
             size = protoMetaData.size,
             seq = protoMetaData.seq,
-            fileName = protoMetaData.file_name,
-            fileType = protoMetaData.file_type,
+            fileName = protoMetaData.fileName,
+            fileType = protoMetaData.fileType,
             md5 = protoMetaData.md5,
             description = protoMetaData.description;
 
@@ -407,10 +408,12 @@
 
     encodePropertyValue = function(object) {
         var type = encodeType(object.type),
-            newPropertyValue = new PropertyValue(type);
+            newPropertyValue = PropertyValue.create({
+                "type" : type
+            });
 
         if (object.isNull !== undefined && object.isNull !== null) {
-            newPropertyValue.is_null = object.isNull;
+            newPropertyValue.isNull = object.isNull;
         }
 
         setValue(type, object.value, newPropertyValue);
@@ -421,7 +424,7 @@
     decodePropertyValue = function(protoValue) {
         var propertyValue = {},
             protoType = protoValue.type,
-            isNull = protoValue.is_null;
+            isNull = protoValue.isNull;
 
         if (isNull !== undefined && isNull !== null) {
             propertyValue.isNull = isNull;
@@ -444,7 +447,10 @@
             }
         }
 
-        return new PropertySet(keys, values);
+        return PropertySet.create({
+            "keys" : keys, 
+            "values" : values
+        });
     }
 
     decodePropertySet = function(protoSet) {
@@ -464,7 +470,9 @@
         for (var i = 0; i < object.length; i++) {
             propertySets.push(encodePropertySet(object[i]));
         }
-        return new PropertySetList(propertySets);
+        return PropertySetList.create({
+            "propertySet" : propertySets
+        });
     }
 
     decodePropertySetList = function(protoSets) {
@@ -477,7 +485,10 @@
 
     encodeParameter = function(object) {
         var type = encodeType(object.type),
-            newParameter = new Parameter(object.name, type);
+            newParameter = Parameter.create({
+                "name" : object.name, 
+                "type" : type
+            });
         setValue(type, object.value, newParameter);
         return newParameter;
     }
@@ -494,7 +505,7 @@
     }
 
     encodeTemplate = function(object) {
-        var newTemplate = new Template(),
+        var newTemplate = Template.create(),
             metrics = object.metrics,
             parameters = object.parameters,
             isDef = object.isDefinition,
@@ -506,11 +517,11 @@
         }
 
         if (ref !== undefined && ref !== null) {
-            newTemplate.template_ref = ref;    
+            newTemplate.templateRef = ref;    
         }
 
         if (isDef !== undefined && isDef !== null) {
-            newTemplate.is_definition = isDef;    
+            newTemplate.isDefinition = isDef;    
         }
 
         // Build up the metric
@@ -541,8 +552,8 @@
         var template = {},
             protoMetrics = protoTemplate.metrics,
             protoParameters = protoTemplate.parameters,
-            isDef = protoTemplate.is_definition,
-            ref = protoTemplate.template_ref,
+            isDef = protoTemplate.isDefinition,
+            ref = protoTemplate.templateRef,
             version = protoTemplate.version;
 
         if (version !== undefined && version !== null) {
@@ -581,7 +592,9 @@
     }
 
     encodeMetric = function(metric) {
-        var newMetric = new Metric(metric.name),
+        var newMetric = Metric.create({
+                "name" : metric.name
+            }),
             value = metric.value,
             datatype = encodeType(metric.type),
             alias = metric.alias,
@@ -600,15 +613,15 @@
         }
 
         if (isHistorical !== undefined && isHistorical !== null) {
-            newMetric.is_historical = isHistorical;
+            newMetric.isHistorical = isHistorical;
         }
 
         if (isTransient !== undefined && isTransient !== null) {
-            newMetric.is_transient = isTransient;
+            newMetric.isTransient = isTransient;
         }
 
         if (isNull !== undefined && isNull !== null) {
-            newMetric.is_null = isNull;
+            newMetric.isNull = isNull;
         }
 
         if (metadata !== undefined && metadata !== null) {
@@ -625,9 +638,9 @@
     decodeMetric = function(protoMetric) {
         var metric = {},
             alias = protoMetric.alias,
-            isHistorical = protoMetric.is_historical,
-            isTransient = protoMetric.is_transient,
-            isNull = protoMetric.is_null,
+            isHistorical = protoMetric.isHistorical,
+            isTransient = protoMetric.isTransient,
+            isNull = protoMetric.isNull,
             metadata = protoMetric.metadata,
             properties = protoMetric.properties;
 
@@ -663,7 +676,9 @@
     }
 
     exports.encodePayload = function(object) {
-        var payload = new Payload(object.timestamp);
+        var payload = Payload.create({
+            "timestamp" : object.timestamp
+        });
 
         // Build up the metric
         if (object.metrics !== undefined && object.metrics !== null) {
@@ -688,7 +703,7 @@
             payload.body = object.body;
         }
 
-        return payload.toBuffer();
+        return Payload.encode(payload).finish();
     }
 
     exports.decodePayload = function(proto) {
@@ -698,7 +713,7 @@
             uuid = sparkplugPayload.uuid,
             body = sparkplugPayload.body,
             payload = {};
-
+        console.log("protoMetrics: " + protoMetrics);
         payload.timestamp = sparkplugPayload.timestamp.toNumber();
 
         if (protoMetrics !== undefined && protoMetrics !== null) {
