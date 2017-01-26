@@ -11,7 +11,12 @@
  */
 package com.cirruslink.example;
 
+import java.net.Inet4Address;
+import java.net.Inet6Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -79,7 +84,7 @@ public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 
 	private Object lock = new Object();
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
 		SparkplugRaspberryPiExample example = new SparkplugRaspberryPiExample();
 		example.run();
 	}
@@ -224,7 +229,7 @@ public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 				// appear in
 				// folders under this Node in the Ignition tag structure.
 				//
-				SparkplugBPayload payload = new SparkplugBPayloadBuilder(getNextSeqNum())
+				SparkplugBPayloadBuilder payloadBuilder = new SparkplugBPayloadBuilder(getNextSeqNum())
 						.setTimestamp(new Date())
 						.addMetric(new MetricBuilder("bdSeq",
 								MetricDataType.Int64,
@@ -265,12 +270,33 @@ public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 						.addMetric(new MetricBuilder("Config Change Count",
 								MetricDataType.Int32,
 								configChangeCount)
-								.createMetric())
-						.addMetric(new MetricBuilder("Properties/Ip_adr",
-								MetricDataType.String,
-								"192.168.0.55")
-								.createMetric())
-						.createPayload();
+								.createMetric());
+				
+				try {
+					// Add the Raspberry Pi's real network addresses
+					Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces();
+					while (e.hasMoreElements()) {
+					    NetworkInterface n = (NetworkInterface) e.nextElement();
+					    Enumeration<InetAddress> ee = n.getInetAddresses();
+					    while (ee.hasMoreElements()) {
+					        InetAddress i = (InetAddress) ee.nextElement();
+					        if (i instanceof Inet4Address) {
+					        	payloadBuilder.addMetric(
+					        			new MetricBuilder("Properties/IP Addresses/" + n.getName() + "/" + "IPV4",
+					        								MetricDataType.String,
+					        								i.getHostAddress()).createMetric());
+					        } else if (i instanceof Inet6Address) {
+					        	payloadBuilder.addMetric(
+					        			new MetricBuilder("Properties/IP Addresses/" + n.getName() + "/" + "IPV6",
+					        					MetricDataType.String,
+					        					i.getHostAddress().substring(0, i.getHostAddress().indexOf("%")))
+					        				.createMetric());
+					        }
+					    }
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
 				//
 				// Now publish the EoN Node Birth Certificate.
@@ -280,14 +306,14 @@ public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 				// metric
 				// is added into the payload by the Publisher() thread.
 				//
-				executor.execute(new Publisher(NAMESPACE + "/" + groupId + "/NBIRTH/" + edgeNode, payload));
+				executor.execute(new Publisher(NAMESPACE + "/" + groupId + "/NBIRTH/" + edgeNode, payloadBuilder.createPayload()));
 
 				//
 				// Create the Device BIRTH Certificate now. The tags defined
 				// here will appear in a
 				// folder hierarchy under the associated Device.
 				//
-				payload = new SparkplugBPayloadBuilder(getNextSeqNum())
+				SparkplugBPayload payload = new SparkplugBPayloadBuilder(getNextSeqNum())
 						.setTimestamp(new Date())
 						// Create an "Inputs" folder of process variables
 						.addMetric(new MetricBuilder("Inputs/a",
