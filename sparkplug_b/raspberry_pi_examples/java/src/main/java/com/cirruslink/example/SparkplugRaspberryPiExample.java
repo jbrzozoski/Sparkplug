@@ -20,6 +20,9 @@ import java.util.Enumeration;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.net.SocketFactory;
+import javax.net.ssl.SSLSocketFactory;
+
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttClient;
@@ -45,6 +48,7 @@ import com.pi4j.device.pibrella.impl.PibrellaDevice;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
+import com.pi4j.system.SystemInfo;
 
 /**
  * An example Sparkplug B application.
@@ -53,10 +57,6 @@ public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 
 	private static final Pibrella pibrella = new PibrellaDevice();
 
-	// HW/SW versions
-	private static final String HW_VERSION = "Raspberry Pi 2 model B";
-	private static final String SW_VERSION = "v1.0.0";
-	
 	private static final String NAMESPACE = "spBv1.0";
 
 	// Configuration
@@ -74,7 +74,6 @@ public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 	// Some control and parameter points for this demo
 	private int configChangeCount = 1;
 	private int scanRateMs = 1000;
-	private long upTimeMs = 0;
 	private long upTimeStart = System.currentTimeMillis();
 	private int buttonCounter = 0;
 	private int buttonCounterSetpoint = 10;
@@ -84,7 +83,7 @@ public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 
 	private Object lock = new Object();
 	
-	public static void main(String[] args) {		
+	public static void main(String[] args) {
 		SparkplugRaspberryPiExample example = new SparkplugRaspberryPiExample();
 		example.run();
 	}
@@ -147,6 +146,12 @@ public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 			// Setup the MQTT connection parameters using the Paho MQTT Client.
 			//
 			MqttConnectOptions options = new MqttConnectOptions();
+			
+			if (USING_REAL_TLS) {
+				SocketFactory sf = SSLSocketFactory.getDefault();
+				options.setSocketFactory(sf);
+			}
+			
 			// Autoreconnect enable
 			options.setAutomaticReconnect(true);
 			// MQTT session parameters Clean Start = true
@@ -214,9 +219,10 @@ public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 		try {
 			synchronized (lock) {
 				
-				seq = 0; 	// Since this is a birth - reset the seq number
-							// Note that message sequence numbers will appear in
-							// the "Node Metrics" folder in Ignition.
+				// Since this is a birth - reset the seq number
+				// Note that message sequence numbers will appear in
+				// the "Node Metrics" folder in Ignition.
+				seq = 0;
 
 				//
 				// Create the NBIRTH Certificate per the Sparkplug
@@ -255,17 +261,17 @@ public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 								MetricDataType.Int32,
 								scanRateMs)
 								.createMetric())
-						.addMetric(new MetricBuilder("Properties/Node Manf",
+						.addMetric(new MetricBuilder("Properties/Board Type",
 								MetricDataType.String,
-								"Element 14")
+								SystemInfo.getBoardType().toString())
 								.createMetric())
-						.addMetric(new MetricBuilder("Properties/Hardware Version",
+						.addMetric(new MetricBuilder("Properties/Hardware",
 								MetricDataType.String,
-								HW_VERSION)
+								SystemInfo.getHardware())
 								.createMetric())
-						.addMetric(new MetricBuilder("Properties/Software Version",
+						.addMetric(new MetricBuilder("Properties/OS FW Build",
 								MetricDataType.String,
-								SW_VERSION)
+								SystemInfo.getOsFirmwareBuild())
 								.createMetric())
 						.addMetric(new MetricBuilder("Config Change Count",
 								MetricDataType.Int32,
@@ -380,17 +386,6 @@ public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 								MetricDataType.Boolean,
 								false)
 								.createMetric())
-						//
-						// Add some properties to the Properties folder
-						//
-						.addMetric(new MetricBuilder("Properties/dev_type",
-								MetricDataType.String,
-								"Pibrella")
-								.createMetric())
-						.addMetric(new MetricBuilder("Properties/hw_version",
-								MetricDataType.String,
-								"3.0.1")
-								.createMetric())
 						.createPayload();
 
 				// Publish the Device BIRTH Certificate now
@@ -496,15 +491,15 @@ public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 						outboundPayloadBuilder.addMetric(new MetricBuilder("Outputs/e", MetricDataType.Boolean, 
 													pibrella.getOutputPin(PibrellaOutput.E).isHigh()).createMetric());
 					} else if (metric.getName().equals("Outputs/f")) {
-						pibrella.getOutputPin(PibrellaOutput.E).setState((Boolean) metric.getValue());
+						pibrella.getOutputPin(PibrellaOutput.F).setState((Boolean) metric.getValue());
 						outboundPayloadBuilder.addMetric(new MetricBuilder("Outputs/f", MetricDataType.Boolean, 
 													pibrella.getOutputPin(PibrellaOutput.F).isHigh()).createMetric());
 					} else if (metric.getName().equals("Outputs/g")) {
-						pibrella.getOutputPin(PibrellaOutput.E).setState((Boolean) metric.getValue());
+						pibrella.getOutputPin(PibrellaOutput.G).setState((Boolean) metric.getValue());
 						outboundPayloadBuilder.addMetric(new MetricBuilder("Outputs/g", MetricDataType.Boolean, 
 													pibrella.getOutputPin(PibrellaOutput.G).isHigh()).createMetric());
 					} else if (metric.getName().equals("Outputs/h")) {
-						pibrella.getOutputPin(PibrellaOutput.E).setState((Boolean) metric.getValue());
+						pibrella.getOutputPin(PibrellaOutput.H).setState((Boolean) metric.getValue());
 						outboundPayloadBuilder.addMetric(new MetricBuilder("Outputs/h", MetricDataType.Boolean, 
 													pibrella.getOutputPin(PibrellaOutput.H).isHigh()).createMetric());
 					} else if (metric.getName().equals("Outputs/LEDs/green")) {
