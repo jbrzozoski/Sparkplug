@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -60,6 +61,7 @@ public class KuraPayload
      * Everyware Cloud platform or used a query criteria when searching for messages through the messages/searchByMetric API.
      * Each payload can have zero or more metrics.
      */
+    @JsonProperty("metrics")
     private Map<String,Object> metrics;
 	
     /**
