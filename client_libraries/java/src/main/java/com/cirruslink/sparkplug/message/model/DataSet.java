@@ -15,6 +15,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cirruslink.sparkplug.SparkplugException;
+import com.cirruslink.sparkplug.message.model.Row.RowBuilder;
 
 /**
  * A data set that represents a table of data.
@@ -131,6 +132,16 @@ public class DataSet {
 			this.columnNames = new ArrayList<String>();
 			this.types = new ArrayList<DataSetDataType>();
 			this.rows =  new ArrayList<Row>();
+		}
+		
+		public DataSetBuilder(DataSet dataSet) {
+			this.numOfColumns = dataSet.getNumOfColumns();
+			this.columnNames = new ArrayList<String>(dataSet.getColumnNames());
+			this.types = new ArrayList<DataSetDataType>(dataSet.getTypes());
+			this.rows =  new ArrayList<Row>(dataSet.getRows().size());
+			for (Row row : dataSet.getRows()) {
+				rows.add(new RowBuilder(row).createRow());
+			}
 		}
 
 		public DataSetBuilder addColumnNames(Collection<String> columnNames) {

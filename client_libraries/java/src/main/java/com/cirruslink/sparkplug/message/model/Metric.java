@@ -9,7 +9,12 @@ package com.cirruslink.sparkplug.message.model;
 
 import java.util.Date;
 
+import com.cirruslink.sparkplug.SparkplugException;
 import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
+import com.cirruslink.sparkplug.message.model.DataSet.DataSetBuilder;
+import com.cirruslink.sparkplug.message.model.MetaData.MetaDataBuilder;
+import com.cirruslink.sparkplug.message.model.PropertySet.PropertySetBuilder;
+import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
 
 /**
  * A metric of a Sparkplug Payload.
@@ -176,6 +181,35 @@ public class Metric {
 			this.timestamp = new Date();
 			this.dataType = dataType;
 			this.value = value;
+		}
+		
+		public MetricBuilder(Metric metric) throws SparkplugException {
+			this.name = metric.getName();
+			this.alias = metric.getAlias();
+			this.timestamp = metric.getTimestamp();
+			this.dataType = metric.getDataType();
+			this.isHistorical = metric.isHistorical();
+			this.isTransient = metric.isTransient();
+			this.metaData = metric.getMetaData() != null 
+					? new MetaDataBuilder(metric.getMetaData()).createMetaData()
+					: null;
+			this.propertySet = metric.getMetaData() != null 
+					? new PropertySetBuilder(metric.getPropertySet()).createPropertySet()
+					: null;
+			switch (dataType) {
+				case DataSet:
+					this.value = metric.getValue() != null 
+							? new DataSetBuilder((DataSet) metric.getValue()).createDataSet()
+							: null;
+					break;
+				case Template:
+					this.value = metric.getValue() != null 
+							? new TemplateBuilder((Template) metric.getValue()).createTemplate()
+							: null;
+					break;
+				default:
+					this.value = metric.getValue();
+			}
 		}
 
 		public MetricBuilder name(String name) {
