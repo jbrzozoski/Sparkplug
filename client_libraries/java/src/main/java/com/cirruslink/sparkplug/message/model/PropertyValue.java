@@ -10,6 +10,7 @@ package com.cirruslink.sparkplug.message.model;
 import java.util.Objects;
 
 import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * The value of a property in a {@link PropertySet}.
@@ -51,6 +52,7 @@ public class PropertyValue {
 		isNull = (value == null) ? true : false;
 	}
 	
+	@JsonIgnore
 	public Boolean isNull() {
 		return isNull;
 	}

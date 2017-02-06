@@ -12,11 +12,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * A class that maintains a set of properties associated with a {@link Metric}.
  */
 public class PropertySet {
 	
+	@JsonIgnore
 	private Map<String, PropertyValue> propertyMap;
 	
 	public PropertySet() {
@@ -43,14 +46,17 @@ public class PropertySet {
 		this.propertyMap.clear();
 	}
 	
+	
 	public Set<String> getNames() {
 		return propertyMap.keySet();
 	}
 	
+	
 	public Collection<PropertyValue> getValues() {
 		return propertyMap.values();
 	}
-	
+
+	@JsonIgnore
 	public Map<String, PropertyValue> getPropertyMap() {
 		return propertyMap;
 	}
