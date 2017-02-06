@@ -30,14 +30,28 @@ import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
 import com.cirruslink.sparkplug.message.PayloadDecoder;
 import com.cirruslink.sparkplug.message.SparkplugBPayloadDecoder;
 import com.cirruslink.sparkplug.message.SparkplugBPayloadEncoder;
-import com.cirruslink.sparkplug.message.model.*;
+import com.cirruslink.sparkplug.message.model.DataSet;
 import com.cirruslink.sparkplug.message.model.DataSet.DataSetBuilder;
+import com.cirruslink.sparkplug.message.model.DataSetDataType;
+import com.cirruslink.sparkplug.message.model.File;
+import com.cirruslink.sparkplug.message.model.MetaData;
 import com.cirruslink.sparkplug.message.model.MetaData.MetaDataBuilder;
+import com.cirruslink.sparkplug.message.model.Metric;
 import com.cirruslink.sparkplug.message.model.Metric.MetricBuilder;
+import com.cirruslink.sparkplug.message.model.MetricDataType;
+import com.cirruslink.sparkplug.message.model.Parameter;
+import com.cirruslink.sparkplug.message.model.ParameterDataType;
+import com.cirruslink.sparkplug.message.model.PropertyDataType;
+import com.cirruslink.sparkplug.message.model.PropertySet;
 import com.cirruslink.sparkplug.message.model.PropertySet.PropertySetBuilder;
+import com.cirruslink.sparkplug.message.model.PropertyValue;
+import com.cirruslink.sparkplug.message.model.Row;
 import com.cirruslink.sparkplug.message.model.Row.RowBuilder;
+import com.cirruslink.sparkplug.message.model.SparkplugBPayload;
 import com.cirruslink.sparkplug.message.model.SparkplugBPayload.SparkplugBPayloadBuilder;
+import com.cirruslink.sparkplug.message.model.Template;
 import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
+import com.cirruslink.sparkplug.message.model.Value;
 
 /**
  * Sparkplug Test class for encoding and decoding sparkplug payloads
@@ -315,6 +329,7 @@ public class SparkplugTest {
 		assertThat(decodedMetric.isHistorical()).isEqualTo(isHistorical);
 		assertThat(decodedMetric.isTransient()).isEqualTo(isTransient);
 		assertThat(decodedMetric.isNull()).isEqualTo(isNull);
+		System.out.println("JSON: " + payload.toJsonString());
 	}
 	
 	public void testMetricPayload(String name, MetricDataType type, Object value, MetaData metaData) 

@@ -7,9 +7,9 @@
 
 package com.cirruslink.sparkplug.message.model;
 
-import java.util.List;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;

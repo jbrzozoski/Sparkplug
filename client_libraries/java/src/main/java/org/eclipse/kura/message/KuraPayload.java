@@ -11,12 +11,16 @@
  */
 package org.eclipse.kura.message;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * EdcPayload defines the recommended payload structure for the messages sent to the Everyware Cloud platform.
@@ -57,6 +61,7 @@ public class KuraPayload
      * Everyware Cloud platform or used a query criteria when searching for messages through the messages/searchByMetric API.
      * Each payload can have zero or more metrics.
      */
+    @JsonProperty("metrics")
     private Map<String,Object> metrics;
 	
     /**
@@ -121,5 +126,16 @@ public class KuraPayload
 	
 	public void setBody(byte[] body) {
 		this.body = body;
+	}
+		
+	@Override
+	public String toString() {
+		return "KuraPayload [timestamp=" + timestamp + ", position=" + position + ", metrics=" + metrics + ", body="
+				+ Arrays.toString(body) + "]";
+	}
+
+	public String toJsonString() throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(this);
 	}
 }

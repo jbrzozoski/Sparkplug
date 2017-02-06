@@ -190,11 +190,24 @@ public class MetaData {
 		private String md5;
 		private String description;
 		
+		public MetaDataBuilder() {};
+
+		public MetaDataBuilder(MetaData metaData) {
+			this.isMultiPart = metaData.isMultiPart();
+			this.contentType = metaData.getContentType();
+			this.size = metaData.getSize();
+			this.seq = metaData.getSeq();
+			this.fileName = metaData.getFileName();
+			this.fileType = metaData.getFileType();
+			this.md5 = metaData.getMd5();
+			this.description = metaData.getDescription();
+		}
+
 		public MetaDataBuilder multiPart(boolean isMultiPart) {
 			this.isMultiPart = isMultiPart;
 			return this;
 		}
-		
+
 		public MetaDataBuilder contentType(String contentType) {
 			this.contentType = contentType;
 			return this;

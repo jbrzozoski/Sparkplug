@@ -13,6 +13,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * A class representing a Sparkplug B payload
  */
@@ -100,6 +102,11 @@ public class SparkplugBPayload {
 	public String toString() {
 		return "SparkplugBPayload [timestamp=" + timestamp + ", metrics=" + metrics + ", seq=" + seq + ", uuid=" + uuid
 				+ ", body=" + Arrays.toString(body) + "]";
+	}
+	
+	public String toJsonString() throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(this);
 	}
 	
 	/**

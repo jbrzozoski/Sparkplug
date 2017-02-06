@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.cirruslink.sparkplug.SparkplugException;
+import com.cirruslink.sparkplug.message.model.Metric.MetricBuilder;
+
 /**
  * A class representing a template associated with a metric
  */
@@ -118,6 +121,20 @@ public class Template {
 			super();
 			this.metrics = new ArrayList<Metric>();
 			this.parameters = new ArrayList<Parameter>();
+		}
+		
+		public TemplateBuilder(Template template) throws SparkplugException {
+			this.version = template.getVersion();
+			this.templateRef = template.getTemplateRef();
+			this.isDefinition = template.isDefinition();
+			this.metrics = new ArrayList<Metric>(template.getMetrics().size());
+			for (Metric metric : template.getMetrics()) {
+				this.metrics.add(new MetricBuilder(metric).createMetric());
+			}
+			this.parameters = new ArrayList<Parameter>(template.getParameters().size());
+			for (Parameter parameter : template.getParameters()) {
+				this.parameters.add(new Parameter(parameter.getName(), parameter.getType(), parameter.getValue()));
+			}
 		}
 
 		public TemplateBuilder version(String version) {
