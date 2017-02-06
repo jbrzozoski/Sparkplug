@@ -49,6 +49,10 @@ public class Row {
 		public RowBuilder() {
 			this.values = new ArrayList<Value<?>>();
 		}
+		
+		public RowBuilder(Row row) {
+			this.values = new ArrayList<Value<?>>(row.getValues());
+		}
 
 		public RowBuilder addValue(Value<?> value) {
 			this.values.add(value);

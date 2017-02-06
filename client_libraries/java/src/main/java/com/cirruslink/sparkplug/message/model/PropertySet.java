@@ -11,8 +11,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
 
 /**
  * A class that maintains a set of properties associated with a {@link Metric}.
@@ -75,6 +75,14 @@ public class PropertySet {
 		
 		public PropertySetBuilder() {
 			this.propertyMap = new HashMap<String, PropertyValue>();
+		}
+		
+		public PropertySetBuilder(PropertySet propertySet) throws SparkplugInvalidTypeException {
+			this.propertyMap = new HashMap<String, PropertyValue>();
+			for (String name : propertySet.getNames()) {
+				PropertyValue value = propertySet.getPropertyValue(name);
+				propertyMap.put(name, new PropertyValue(value.getType(), value.getValue()));
+			}
 		}
 		
 		public PropertySetBuilder addProperty(String name, PropertyValue value) {
