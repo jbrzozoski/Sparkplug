@@ -290,7 +290,7 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 					metricBuilder.setBooleanValue(toBoolean(metric.getValue()));
 					break;
 				case DateTime:
-					metricBuilder.setLongValue(((Date)metric.getValue()).getTime());
+					metricBuilder.setLongValue(((Date) metric.getValue()).getTime());
 					break;
 				case File:
 					metricBuilder.setBytesValue(ByteString.copyFrom(((File) metric.getValue()).getBytes()));
@@ -306,11 +306,11 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 					metricBuilder.setDoubleValue((Double) metric.getValue());
 					break;
 				case Int8:
-					metricBuilder.setIntValue(Byte.toUnsignedInt((Byte)metric.getValue()));
+					metricBuilder.setIntValue(Byte.toUnsignedInt((Byte) metric.getValue()));
 					break;
 				case Int16:
 				case UInt8:
-					metricBuilder.setIntValue(Short.toUnsignedInt((Short)metric.getValue()));
+					metricBuilder.setIntValue(Short.toUnsignedInt((Short) metric.getValue()));
 					break;
 				case Int32:
 				case UInt16:

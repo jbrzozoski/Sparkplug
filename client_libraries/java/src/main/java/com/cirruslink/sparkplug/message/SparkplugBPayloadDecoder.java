@@ -79,6 +79,12 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 			builder.setBody(protoPayload.getBody().toByteArray());
 		}
 		
+		// Set the body
+		if (protoPayload.hasUuid()) {
+			logger.trace("Setting the UUID " + new String(protoPayload.getUuid()));
+			builder.setUuid(protoPayload.getUuid());
+		}
+		
 		return builder.createPayload();
 	}
 	
