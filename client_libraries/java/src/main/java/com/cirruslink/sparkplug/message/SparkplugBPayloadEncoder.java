@@ -306,11 +306,11 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 					metricBuilder.setDoubleValue((Double) metric.getValue());
 					break;
 				case Int8:
-					metricBuilder.setIntValue(Byte.toUnsignedInt((Byte) metric.getValue()));
+					metricBuilder.setIntValue(((Byte)metric.getValue()).intValue());
 					break;
 				case Int16:
 				case UInt8:
-					metricBuilder.setIntValue(Short.toUnsignedInt((Short) metric.getValue()));
+					metricBuilder.setIntValue(((Short)metric.getValue()).intValue());
 					break;
 				case Int32:
 				case UInt16:
