@@ -52,11 +52,18 @@ import com.cirruslink.sparkplug.message.model.SparkplugBPayload.SparkplugBPayloa
 import com.cirruslink.sparkplug.message.model.Template;
 import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
 import com.cirruslink.sparkplug.message.model.Value;
+import com.cirruslink.sparkplug.util.CompressionAlgorithm;
 
 /**
  * Sparkplug Test class for encoding and decoding sparkplug payloads
  */
 public class SparkplugTest {
+	
+	private Date testTime;
+	
+	public SparkplugTest() {
+		this.testTime = new Date();
+	}
 	
 	@BeforeClass
 	public void beforeClass() {
@@ -284,6 +291,7 @@ public class SparkplugTest {
     	assertThat(Boolean.FALSE).isEqualTo(decodedMetric.isHistorical());
     	assertThat((byte)65).isEqualTo(decodedMetric.getValue());
     	assertThat(decodedMetric.getMetaData()).isNotNull();
+    	
     	// Test the MetaData
     	MetaData decodedMetaData = decodedMetric.getMetaData();
     	assertThat(metaData).isEqualTo(decodedMetric.getMetaData());
