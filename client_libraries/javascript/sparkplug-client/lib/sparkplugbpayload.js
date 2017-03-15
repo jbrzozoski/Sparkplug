@@ -140,7 +140,6 @@
             case 21:
                 return decodePropertySetList(object.propertysetsValue);
             default:
-                console.log("Error: Cannot decode value for undefined type " + type);
                 return null;
         } 
     }
@@ -459,7 +458,7 @@
             protoValues = protoSet.values;
 
         for (var i = 0; i < protoKeys.length; i++) {
-            propertySet[keys[i]] = decodePropertyValue(values[i]);
+            propertySet[protoKeys[i]] = decodePropertyValue(protoValues[i]);
         }
 
         return propertySet;
@@ -713,7 +712,6 @@
             uuid = sparkplugPayload.uuid,
             body = sparkplugPayload.body,
             payload = {};
-        console.log("protoMetrics: " + protoMetrics);
         payload.timestamp = sparkplugPayload.timestamp.toNumber();
 
         if (protoMetrics !== undefined && protoMetrics !== null) {

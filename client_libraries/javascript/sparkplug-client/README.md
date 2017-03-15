@@ -91,6 +91,38 @@ Here is a quick summary of the main changes in version B (over A):
 * Removed required "position" field
 * Change the name of the metrics list field from "metric" to "metrics".
 
+#### Publish Options
+
+Each of the publish methods below can optionally take an object as an additional 
+argument.  This object contains any configured options for the publish.
+
+##### Compression Option
+
+A payload can be compressed before it is published by enabling payload compression
+in the options object and passing it to a plush command.  For example:
+
+```javascript
+var options = {
+    "compress" : true
+};
+
+// Publish device data
+client.publishDeviceData(deviceId, payload, options);
+```
+
+Additionally the compression algorithm can be specified as well.  Currently 
+supported algorithms are: DEFLATE and GZIP.  DEFLATE will be used if not algorithm
+is specified. For example:
+
+```javascript
+var options = {
+    "compress" : true,
+    "algorithm" : "GZIP"
+};
+
+// Publish device data
+client.publishDeviceData(deviceId, payload, options);
+```
 
 #### Edge Node Birth Certificate (NBIRTH)
 
@@ -378,6 +410,9 @@ client.on('close', function () {
         to distiguish between 'dcmd' (device commands) and 'ncmd' (node 
         commands). Renamed 'rebirth' event to 'birth'. Updated dependency
         versions and removed bytebuffer as a dependency.
+* 3.1.0 Added support for payload compression/decompression with DEFLATE
+        and Gzip algorithms, added logging with Winston to replace console
+        logging, and other minor bug fixes.
 
 ## License
 
