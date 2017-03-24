@@ -22,7 +22,7 @@ var sample = (function () {
             'password' : 'changeme',
             'groupId' : 'Sparkplug A Devices',
             'edgeNode' : 'JavaScript Edge Node',
-            'clientId' : 'JavaScriptSimpleEdgeNode',
+            'clientId' : 'JavaScriptSimpleEdgeNodeA',
             'publishDeath' : false,
             'version' : 'spAv1.0'
         },
