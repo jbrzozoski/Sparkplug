@@ -17,8 +17,7 @@ import java.io.IOException;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-public class GZipUtil 
-{
+public class GZipUtil {
 
 	public static boolean isCompressed(byte[] bytes) throws IOException {
 		if ((bytes == null) || (bytes.length < 2)) {

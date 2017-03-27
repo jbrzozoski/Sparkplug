@@ -140,7 +140,6 @@
             case 21:
                 return decodePropertySetList(object.propertysetsValue);
             default:
-                console.log("Error: Cannot decode value for undefined type " + type);
                 return null;
         } 
     }
@@ -459,7 +458,7 @@
             protoValues = protoSet.values;
 
         for (var i = 0; i < protoKeys.length; i++) {
-            propertySet[keys[i]] = decodePropertyValue(values[i]);
+            propertySet[protoKeys[i]] = decodePropertyValue(protoValues[i]);
         }
 
         return propertySet;
@@ -505,7 +504,7 @@
     }
 
     encodeTemplate = function(object) {
-        var newTemplate = Template.create(),
+        var template = Template.create(),
             metrics = object.metrics,
             parameters = object.parameters,
             isDef = object.isDefinition,
@@ -513,15 +512,15 @@
             version = object.version;
 
         if (version !== undefined && version !== null) {
-            newTemplate.version = version;    
+            template.version = version;    
         }
 
         if (ref !== undefined && ref !== null) {
-            newTemplate.templateRef = ref;    
+            template.templateRef = ref;    
         }
 
         if (isDef !== undefined && isDef !== null) {
-            newTemplate.isDefinition = isDef;    
+            template.isDefinition = isDef;    
         }
 
         // Build up the metric
@@ -532,7 +531,7 @@
             for (var i = 0; i < metrics.length; i++) {
                 newMetrics.push(encodeMetric(metrics[i]));
             }
-            newTemplate.metrics = newMetrics;
+            template.metrics = newMetrics;
         }
 
         // Build up the parameters
@@ -542,10 +541,10 @@
             for (var i = 0; i < object.parameters.length; i++) {
                 newParameter.push(encodeParameter(object.parameters[i]));
             }
-            newTemplate.parameters = newParameter;
+            template.parameters = newParameter;
         }
 
-        return newTemplate;
+        return template;
     }
 
     decodeTemplate = function(protoTemplate) {
@@ -588,7 +587,7 @@
             template.parameters = parameter;
         }
 
-        return newTemplate;
+        return template;
     }
 
     encodeMetric = function(metric) {
@@ -713,7 +712,6 @@
             uuid = sparkplugPayload.uuid,
             body = sparkplugPayload.body,
             payload = {};
-        console.log("protoMetrics: " + protoMetrics);
         payload.timestamp = sparkplugPayload.timestamp.toNumber();
 
         if (protoMetrics !== undefined && protoMetrics !== null) {

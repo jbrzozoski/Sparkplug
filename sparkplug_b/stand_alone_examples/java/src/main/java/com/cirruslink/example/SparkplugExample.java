@@ -166,6 +166,18 @@ public class SparkplugExample implements MqttCallbackExtended {
 				payload.addMetric(new MetricBuilder("Node Control/Rebirth", Boolean, false)
 						.createMetric());
 				
+				PropertySet propertySet = new PropertySetBuilder()
+						.addProperty("EngUnit", new PropertyValue(PropertyDataType.String, "My Units"))
+						.addProperty("EngLow", new PropertyValue(PropertyDataType.Double, 1.0))
+						.addProperty("EngHigh", new PropertyValue(PropertyDataType.Double, 10.0))
+						.addProperty("CustA", new PropertyValue(PropertyDataType.String, "Custom A"))
+						.addProperty("CustB", new PropertyValue(PropertyDataType.Double, 10.0))
+						.addProperty("CustC", new PropertyValue(PropertyDataType.Int32, 100))
+						.createPropertySet();
+				payload.addMetric(new MetricBuilder("MyMetric", String, "My Value")
+						.propertySet(propertySet)
+						.createMetric());
+				
 				System.out.println("Publishing Edge Node Birth");
 				executor.execute(new Publisher(NAMESPACE + "/" + groupId + "/NBIRTH/" + edgeNode, payload));
 	
@@ -185,9 +197,24 @@ public class SparkplugExample implements MqttCallbackExtended {
 				payload.addMetric(new MetricBuilder("Outputs/1", Int32, 0).createMetric());
 				payload.addMetric(new MetricBuilder("Outputs/2", Double, 1.23d).createMetric());
 	
+				//payload.addMetric(new MetricBuilder("New_1", Int32, 0).createMetric());
+				//payload.addMetric(new MetricBuilder("New_2", Double, 1.23d).createMetric());
+				
 				// Add some properties
 				payload.addMetric(new MetricBuilder("Properties/hw_version", String, HW_VERSION).createMetric());
 				payload.addMetric(new MetricBuilder("Properties/sw_version", String, SW_VERSION).createMetric());
+				
+				propertySet = new PropertySetBuilder()
+						.addProperty("EngUnit", new PropertyValue(PropertyDataType.String, "My Units"))
+						.addProperty("EngLow", new PropertyValue(PropertyDataType.Double, 1.0))
+						.addProperty("EngHigh", new PropertyValue(PropertyDataType.Double, 10.0))
+						.addProperty("CustA", new PropertyValue(PropertyDataType.String, "Custom A"))
+						.addProperty("CustB", new PropertyValue(PropertyDataType.Double, 10.0))
+						.addProperty("CustC", new PropertyValue(PropertyDataType.Int32, 100))
+						.createPropertySet();
+				payload.addMetric(new MetricBuilder("MyMetric", String, "My Value")
+						.propertySet(propertySet)
+						.createMetric());
 	
 				System.out.println("Publishing Device Birth");
 				executor.execute(new Publisher(NAMESPACE + "/" + groupId + "/DBIRTH/" + edgeNode + "/" + deviceId, payload));
@@ -322,8 +349,8 @@ public class SparkplugExample implements MqttCallbackExtended {
 		metrics.add(new MetricBuilder("DateTime", DateTime, new Date()).createMetric());
 		metrics.add(new MetricBuilder("Text", Text, newUUID()).createMetric());
 		metrics.add(new MetricBuilder("UUID", UUID, newUUID()).createMetric());
-		metrics.add(new MetricBuilder("Bytes", Bytes, randomBytes(20)).createMetric());
-		metrics.add(new MetricBuilder("File", File, null).createMetric());
+		//metrics.add(new MetricBuilder("Bytes", Bytes, randomBytes(20)).createMetric());
+		//metrics.add(new MetricBuilder("File", File, null).createMetric());
 		
 		// DataSet
 		metrics.add(new MetricBuilder("DataSet", DataSet, newDataSet()).createMetric());

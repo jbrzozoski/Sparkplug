@@ -14,7 +14,13 @@ var mqtt = require('mqtt'),
     kurapayload = require('./lib/kurapayload.js'),
     sparkplugbpayload = require('./lib/sparkplugbpayload.js'),
     events = require('events'),
-    util = require("util");
+    util = require("util"),
+    pako = require('pako'),
+    logger = require('winston');
+
+var compressed = "SPBV1.0_COMPRESSED";
+
+logger.level = 'debug';
 
 var getRequiredProperty = function(config, propName) {
     if (config[propName] !== undefined) {
@@ -113,7 +119,7 @@ function SparkplugClient(config) {
         var payload, topic;
 
         // Publish DEATH certificate for edge node
-        console.log("Publishing Edge Node Death");
+        logger.info("Publishing Edge Node Death");
         payload = getDeathPayload();
         topic = version + "/" + groupId + "/NDEATH/" + edgeNode;
         client.publish(topic, encodePayload(payload));
@@ -122,15 +128,102 @@ function SparkplugClient(config) {
 
     // Logs a message alert to the console
     messageAlert = function(alert, topic, payload) {
-        console.log("Message " + alert);
-        console.log(" topic: " + topic);
-        console.log(" payload: " + JSON.stringify(payload));
+        logger.debug("Message " + alert);
+        logger.debug(" topic: " + topic);
+        logger.debug(" payload: " + JSON.stringify(payload));
+    },
+
+    compressPayload = function(payload, options) {
+        var algorithm = null,
+            compressedPayload,
+            resultPayload = {
+                "uuid" : compressed
+            };
+
+        logger.debug("Compressing payload " + JSON.stringify(options));
+
+        // See if any options have been set
+        if (options !== undefined && options !== null) {
+                logger.info("test: " + options.algorithm);
+            // Check algorithm
+            if (options['algorithm']) {
+                logger.info("test");
+                algorithm = options['algorithm'];
+            }
+        }
+
+        if (algorithm === null || algorithm.toUpperCase() === "DEFLATE") {
+            logger.debug("Compressing with DEFLATE!");
+            resultPayload.body = pako.deflate(payload);
+        } else if (algorithm.toUpperCase() === "GZIP") {
+            logger.debug("Compressing with GZIP");
+            resultPayload.body = pako.gzip(payload);
+        } else {
+            throw new Error("Unknown or unsupported algorithm " + algorithm);
+        }
+
+        // Create and add the algorithm metric if is has been specified in the options
+        if (algorithm !== null) {
+            resultPayload.metrics = [ {
+                "name" : "algorithm", 
+                "value" : algorithm.toUpperCase(), 
+                "type" : "string"
+            } ];
+        }
+
+        return resultPayload;
+    },
+
+    decompressPayload = function(payload) {
+        var metrics = payload.metrics,
+            algorithm = null;
+
+        logger.debug("Decompressing payload");
+
+        if (metrics !== undefined && metrics !== null) {
+            for (var i = 0; i < metrics.length; i++) {
+                if (metrics[i].name === "algorithm") {
+                    algorithm = metrics[i].value;
+                }
+            }
+        }
+
+        if (algorithm === null || algorithm.toUpperCase() === "DEFLATE") {
+            logger.debug("Decompressing with DEFLATE!");
+            return pako.inflate(payload.body);
+        } else if (algorithm.toUpperCase() === "GZIP") {
+            logger.debug("Decompressing with GZIP");
+            return pako.ungzip(payload.body);
+        } else {
+            throw new Error("Unknown or unsupported algorithm " + algorithm);
+        }
+
+    },
+
+    maybeCompressPayload = function(payload, options) {
+        if (options !== undefined && options !== null && options.compress) {
+            // Compress the payload
+            return compressPayload(encodePayload(payload), options);
+        } else {
+            // Don't compress the payload
+            return payload;
+        }
+    },
+
+    maybeDecompressPayload = function(payload) {
+        if (payload.uuid !== undefined && payload.uuid === compressed) {
+            // Decompress the payload
+            return decodePayload(decompressPayload(payload));
+        } else {
+            // The payload is not compressed
+            return decodePayload(payload);
+        }
     };
 
     events.EventEmitter.call(this);
 
     // Publishes Node BIRTH certificates for the edge node
-    this.publishNodeBirth = function(payload) {
+    this.publishNodeBirth = function(payload, options) {
         var topic = version + "/" + groupId + "/NBIRTH/" + edgeNode;
         // Reset sequence number
         seq = 0;
@@ -147,42 +240,44 @@ function SparkplugClient(config) {
         }
 
         // Publish BIRTH certificate for edge node
-        console.log("Publishing Edge Node Birth");
-        client.publish(topic, encodePayload(payload));
-        messageAlert("published", topic, payload);
-    },
+        logger.info("Publishing Edge Node Birth");
+        var p = maybeCompressPayload(payload, options);
+        client.publish(topic, encodePayload(p));
+        messageAlert("published", topic, p);
+    };
 
     // Publishes Node Data messages for the edge node
-    this.publishNodeData = function(payload) {
+    this.publishNodeData = function(payload, options) {
         var topic = version + "/" + groupId + "/NDATA/" + edgeNode;
         // Add seq number
         addSeqNumber(payload);
         // Publish
-        console.log("Publishing NDATA");
-        client.publish(topic, encodePayload(payload));
+        logger.info("Publishing NDATA");
+        client.publish(topic, encodePayload(maybeCompressPayload(payload, options)));
         messageAlert("published", topic, payload);
     };
 
     // Publishes Node BIRTH certificates for the edge node
-    this.publishDeviceData = function(deviceId, payload) {
+    this.publishDeviceData = function(deviceId, payload, options) {
         var topic = version + "/" + groupId + "/DDATA/" + edgeNode + "/" + deviceId;
         // Add seq number
         addSeqNumber(payload);
         // Publish
-        console.log("Publishing DDATA for device " + deviceId);
-        client.publish(topic, encodePayload(payload));
+        logger.info("Publishing DDATA for device " + deviceId);
+        client.publish(topic, encodePayload(maybeCompressPayload(payload, options)));
         messageAlert("published", topic, payload);
     };
 
     // Publishes Node BIRTH certificates for the edge node
-    this.publishDeviceBirth = function(deviceId, payload) {
+    this.publishDeviceBirth = function(deviceId, payload, options) {
         var topic = version + "/" + groupId + "/DBIRTH/" + edgeNode + "/" + deviceId;
         // Add seq number
         addSeqNumber(payload);
         // Publish
-        console.log("Publishing DBIRTH for device " + deviceId);
-        client.publish(topic, encodePayload(payload));
-        messageAlert("published", topic, payload);
+        logger.info("Publishing DBIRTH for device " + deviceId);
+        var p = maybeCompressPayload(payload, options);
+        client.publish(topic, encodePayload(p));
+        messageAlert("published", topic, p);
     };
 
     // Publishes Node BIRTH certificates for the edge node
@@ -191,13 +286,13 @@ function SparkplugClient(config) {
         // Add seq number
         addSeqNumber(payload);
         // Publish
-        console.log("Publishing DDEATH for device " + deviceId);
-        client.publish(topic, encodePayload(payload));
+        logger.info("Publishing DDEATH for device " + deviceId);
+        client.publish(topic, encodePayload(maybeCompressPayload(payload, options)));
         messageAlert("published", topic, payload);
     };
 
     this.stop = function() {
-        console.log("publishDeath: " + publishDeath);
+        logger.debug("publishDeath: " + publishDeath);
         if (publishDeath) {
             // Publish the DEATH certificate
             publishNDeath(client);
@@ -226,22 +321,22 @@ function SparkplugClient(config) {
 
         // Connect to the MQTT server
         sparkplugClient.connecting = true;
-        console.log("Attempting to connect: " + serverUrl);
-        console.log("              options: " + JSON.stringify(clientOptions));
+        logger.debug("Attempting to connect: " + serverUrl);
+        logger.debug("              options: " + JSON.stringify(clientOptions));
         client = mqtt.connect(serverUrl, clientOptions);
-        console.log("Finished attempting to connect");
+        logger.debug("Finished attempting to connect");
 
         /*
          * 'connect' handler
          */
         client.on('connect', function () {
-            console.log("Client has connected");
+            logger.info("Client has connected");
             sparkplugClient.connecting = false;
             sparkplugClient.connected = true;
             sparkplugClient.emit("connect");
 
             // Subscribe to control/command messages for both the edge node and the attached devices
-            console.log("Subscribing to control/command messages for both the edge node and the attached devices");
+            logger.info("Subscribing to control/command messages for both the edge node and the attached devices");
             client.subscribe(version + "/" + groupId + "/NCMD/" + edgeNode + "/#", { "qos" : 0 });
             client.subscribe(version + "/" + groupId + "/DCMD/" + edgeNode + "/#", { "qos" : 0 });
 
@@ -280,7 +375,7 @@ function SparkplugClient(config) {
          * 'message' handler
          */
         client.on('message', function (topic, message) {
-            var payload = decodePayload(message),
+            var payload = maybeDecompressPayload(decodePayload(message)),
                 timestamp = payload.timestamp,
                 splitTopic,
                 metrics;
@@ -301,6 +396,8 @@ function SparkplugClient(config) {
                     && splitTopic[3] === edgeNode) {
                 // Emit the "command" event for the given deviceId
                 sparkplugClient.emit("dcmd", splitTopic[4], payload);
+            } else {
+                logger.info("Message received on unknown topic " + topic);
             }
         });
 

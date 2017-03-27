@@ -52,11 +52,18 @@ import com.cirruslink.sparkplug.message.model.SparkplugBPayload.SparkplugBPayloa
 import com.cirruslink.sparkplug.message.model.Template;
 import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
 import com.cirruslink.sparkplug.message.model.Value;
+import com.cirruslink.sparkplug.util.CompressionAlgorithm;
 
 /**
  * Sparkplug Test class for encoding and decoding sparkplug payloads
  */
 public class SparkplugTest {
+	
+	private Date testTime;
+	
+	public SparkplugTest() {
+		this.testTime = new Date();
+	}
 	
 	@BeforeClass
 	public void beforeClass() {
@@ -219,6 +226,7 @@ public class SparkplugTest {
     	SparkplugBPayloadBuilder payloadBuilder = new SparkplugBPayloadBuilder()
     			.setTimestamp(currentTime)
     			.setSeq(0)
+    			.setUuid("123456789")
     			.setBody("Hello".getBytes());
 
     	// Create MetaData
@@ -270,6 +278,7 @@ public class SparkplugTest {
     	// SparkplugBPayload checks
     	assertThat(currentTime).isEqualTo(decodedPayload.getTimestamp());
     	assertThat(0L).isEqualTo(decodedPayload.getSeq());
+    	assertThat("123456789").isEqualTo(decodedPayload.getUuid());
     	assertThat(Arrays.equals("Hello".getBytes(), decodedPayload.getBody())).isTrue();
 
     	// Test the Metric
@@ -282,6 +291,7 @@ public class SparkplugTest {
     	assertThat(Boolean.FALSE).isEqualTo(decodedMetric.isHistorical());
     	assertThat((byte)65).isEqualTo(decodedMetric.getValue());
     	assertThat(decodedMetric.getMetaData()).isNotNull();
+    	
     	// Test the MetaData
     	MetaData decodedMetaData = decodedMetric.getMetaData();
     	assertThat(metaData).isEqualTo(decodedMetric.getMetaData());
