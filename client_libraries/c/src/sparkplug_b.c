@@ -355,6 +355,8 @@ void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 	}
 
 	if (name == NULL) {
+		DEBUG_PRINT(("Name is null"));
+		payload->metrics[size-1].name = name;
 	} else {
 		payload->metrics[size-1].name = (char *)malloc((strlen(name)+1)*sizeof(char));
 		strcpy(payload->metrics[size-1].name, name);
@@ -695,15 +697,13 @@ void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
 			const void *value,
 			size_t size_of_value) {
 
-    if( name == NULL )  // JPL 04/03/17... If NULL then uses ALIAS
-    {
-      metric->name = name;
-    }
-    else
-    {
-	  metric->name = (char *)malloc((strlen(name)+1)*sizeof(char));
-	  strcpy(metric->name, name);
-    }
+	if( name == NULL ) {
+		DEBUG_PRINT(("Name is null"));
+		metric->name = name;
+	} else {
+		metric->name = (char *)malloc((strlen(name)+1)*sizeof(char));
+		strcpy(metric->name, name);
+	}
 
 	metric->has_alias = has_alias;
 	if (has_alias) {
