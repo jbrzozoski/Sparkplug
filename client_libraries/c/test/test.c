@@ -56,7 +56,7 @@ uint64_t ALIAS_DEVICE_METRIC_FLOAT      = 16;
 int main(int argc, char *argv[]) {
 
 	// MQTT Parameters
-        char *host = "192.168.1.53";
+        char *host = "localhost";
         int port = 1883;
         int keepalive = 60;
         bool clean_session = true;
