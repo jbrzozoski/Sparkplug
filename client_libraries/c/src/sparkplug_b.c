@@ -391,11 +391,12 @@ void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 	if (datatype == METRIC_DATA_TYPE_UNKNOWN) {
 		fprintf(stderr, "Can't create metric with unknown datatype!\n");
 	} else if (datatype == METRIC_DATA_TYPE_INT8 || datatype == METRIC_DATA_TYPE_INT16 || datatype == METRIC_DATA_TYPE_INT32 ||
-			datatype == METRIC_DATA_TYPE_UINT8 || datatype == METRIC_DATA_TYPE_UINT16 || datatype == METRIC_DATA_TYPE_UINT32) {
+			datatype == METRIC_DATA_TYPE_UINT8 || datatype == METRIC_DATA_TYPE_UINT16) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((uint32_t *)value)));
 		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag;
 		payload->metrics[size-1].value.int_value = *((uint32_t *)value);
-	} else if (datatype == METRIC_DATA_TYPE_INT64 || datatype == METRIC_DATA_TYPE_UINT64 || datatype == METRIC_DATA_TYPE_DATETIME) {
+	} else if (datatype == METRIC_DATA_TYPE_INT64 || datatype == METRIC_DATA_TYPE_UINT64 || datatype == METRIC_DATA_TYPE_UINT32 ||
+			datatype == METRIC_DATA_TYPE_DATETIME) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %zd\n", datatype, *((uint64_t *)value)));
 		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_long_value_tag;
 		payload->metrics[size-1].value.long_value = *((uint64_t *)value);
@@ -743,11 +744,12 @@ void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
 	if (datatype == METRIC_DATA_TYPE_UNKNOWN) {
 		fprintf(stderr, "Can't create metric with unknown datatype!\n");
 	} else if (datatype == METRIC_DATA_TYPE_INT8 || datatype == METRIC_DATA_TYPE_INT16 || datatype == METRIC_DATA_TYPE_INT32 ||
-			datatype == METRIC_DATA_TYPE_UINT8 || datatype == METRIC_DATA_TYPE_UINT16 || datatype == METRIC_DATA_TYPE_UINT32) {
+			datatype == METRIC_DATA_TYPE_UINT8 || datatype == METRIC_DATA_TYPE_UINT16) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((uint32_t *)value)));
 		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag;
 		metric->value.int_value = *((uint32_t *)value);
-	} else if (datatype == METRIC_DATA_TYPE_INT64 || datatype == METRIC_DATA_TYPE_UINT64 || datatype == METRIC_DATA_TYPE_DATETIME) {
+	} else if (datatype == METRIC_DATA_TYPE_INT64 || datatype == METRIC_DATA_TYPE_UINT64 || datatype == METRIC_DATA_TYPE_UINT32 ||
+			datatype == METRIC_DATA_TYPE_DATETIME) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %zd\n", datatype, *((uint64_t *)value)));
 		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_long_value_tag;
 		metric->value.long_value = *((uint64_t *)value);
@@ -836,10 +838,10 @@ void print_payload(com_cirruslink_sparkplug_protobuf_Payload *payload) {
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_INT16 ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_INT32 ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_UINT8 ||
-					payload->metrics[i].datatype == METRIC_DATA_TYPE_UINT16 ||
-					payload->metrics[i].datatype == METRIC_DATA_TYPE_UINT32) {
+					payload->metrics[i].datatype == METRIC_DATA_TYPE_UINT16) {
 			fprintf(stdout, "Payload:  Metric %d:  datatype: %d, with value: %d\n", i, payload->metrics[i].datatype, payload->metrics[i].value.int_value);
-		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_INT64 ||
+		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_UINT32 ||
+					payload->metrics[i].datatype == METRIC_DATA_TYPE_INT64 ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_UINT64 ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_DATETIME) {
 			fprintf(stdout, "Payload:  Metric %d:  datatype: %d, with value: %zd\n", i, payload->metrics[i].datatype, payload->metrics[i].value.long_value);

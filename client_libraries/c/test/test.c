@@ -49,13 +49,14 @@ uint64_t ALIAS_DEVICE_METRIC_1          = 10;
 uint64_t ALIAS_DEVICE_METRIC_2          = 11;
 uint64_t ALIAS_DEVICE_METRIC_3          = 12;
 uint64_t ALIAS_DEVICE_METRIC_UDT_INST   = 13;
-uint64_t ALIAS_DEVICE_METRIC_UINT32     = 14;
-uint64_t ALIAS_DEVICE_METRIC_FLOAT      = 15;
+uint64_t ALIAS_DEVICE_METRIC_INT8       = 14;
+uint64_t ALIAS_DEVICE_METRIC_UINT32     = 15;
+uint64_t ALIAS_DEVICE_METRIC_FLOAT      = 16;
 
 int main(int argc, char *argv[]) {
 
 	// MQTT Parameters
-        char *host = "localhost";
+        char *host = "192.168.1.53";
         int port = 1883;
         int keepalive = 60;
         bool clean_session = true;
@@ -435,8 +436,11 @@ void publish_device_birth(struct mosquitto *mosq) {
 	fprintf(stdout, "Adding metric: 'output/Device Metric3'\n");
 	bool dbirth_metric_three_value = true;
 	add_simple_metric(&dbirth_payload, "output/Device Metric3", true, ALIAS_DEVICE_METRIC_3, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &dbirth_metric_three_value, sizeof(dbirth_metric_three_value));
+	fprintf(stdout, "Adding metric: 'Device Metric INT8'\n");
+	int dbirth_metric_int8_value = 100;
+	add_simple_metric(&dbirth_payload, "Device Metric INT8", true, ALIAS_DEVICE_METRIC_INT8, METRIC_DATA_TYPE_INT8, false, false, false, &dbirth_metric_int8_value, sizeof(dbirth_metric_int8_value));
 	fprintf(stdout, "Adding metric: 'Device Metric UINT32'\n");
-	uint32_t dbirth_metric_uint32_value = 100;
+	int dbirth_metric_uint32_value = 100;
 	add_simple_metric(&dbirth_payload, "Device Metric UINT32", true, ALIAS_DEVICE_METRIC_UINT32, METRIC_DATA_TYPE_UINT32, false, false, false, &dbirth_metric_uint32_value, sizeof(dbirth_metric_uint32_value));
 	fprintf(stdout, "Adding metric: 'Device Metric FLOAT'\n");
 	float dbirth_metric_float_value = 100.12;
@@ -525,8 +529,12 @@ void publish_ddata_message(struct mosquitto *mosq) {
 	// Note the Metric name 'input/Device Metric1' is not needed because we're using aliases
 	add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_1, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &ddata_metric_one_value, sizeof(ddata_metric_one_value));
 
+	fprintf(stdout, "Adding metric: 'Device Metric INT8'\n");
+	int ddata_metric_int8_value = rand()%100;
+	add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_INT8, METRIC_DATA_TYPE_INT8, false, false, false, &ddata_metric_int8_value, sizeof(ddata_metric_int8_value));
+
 	fprintf(stdout, "Adding metric: 'Device Metric UINT32'\n");
-	uint32_t ddata_metric_uint32_value = 100;
+	int ddata_metric_uint32_value = rand()%1000;
 	add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_UINT32, METRIC_DATA_TYPE_UINT32, false, false, false, &ddata_metric_uint32_value, sizeof(ddata_metric_uint32_value));
 
 	fprintf(stdout, "Adding metric: 'Device Metric FLOAT'\n");
