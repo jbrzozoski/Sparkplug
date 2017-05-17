@@ -7,6 +7,6 @@ echo ""
 echo "Running dynamic example..."
 #echo "Starting LD_LIBRARY_PATH:  ${LD_LIBRARY_PATH}"
 PWD=`pwd`
-LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${PWD}/lib
+export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${PWD}/lib
 #echo "New LD_LIBRARY_PATH:       ${LD_LIBRARY_PATH}"
 ./test/test_dynamic

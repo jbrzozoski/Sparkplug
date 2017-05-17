@@ -1,3 +1,4 @@
+CC       :=  gcc
 NAME     :=  sparkplug_b
 SNAME    :=  lib/lib$(NAME).a
 DNAME    :=  lib/lib$(NAME).so

@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 #include <unistd.h>
 #include <sparkplug_b.h>
 #include <sparkplug_b.pb.h>
@@ -33,6 +34,24 @@ void publish_births(struct mosquitto *mosq);
 void publish_node_birth(struct mosquitto *mosq);
 void publish_device_birth(struct mosquitto *mosq);
 void publish_ddata_message(struct mosquitto *mosq);
+
+uint64_t ALIAS_NODE_CONTROL_NEXT_SERVER = 0;
+uint64_t ALIAS_NODE_CONTROL_REBIRTH     = 1;
+uint64_t ALIAS_NODE_CONTROL_REBOOT      = 2;
+uint64_t ALIAS_NODE_METRIC_0            = 3;
+uint64_t ALIAS_NODE_METRIC_1            = 4;
+uint64_t ALIAS_NODE_METRIC_UINT32       = 5;
+uint64_t ALIAS_NODE_METRIC_FLOAT        = 6;
+uint64_t ALIAS_NODE_METRIC_DATASET      = 7;
+uint64_t ALIAS_NODE_METRIC_2            = 8;
+uint64_t ALIAS_DEVICE_METRIC_0          = 9;
+uint64_t ALIAS_DEVICE_METRIC_1          = 10;
+uint64_t ALIAS_DEVICE_METRIC_2          = 11;
+uint64_t ALIAS_DEVICE_METRIC_3          = 12;
+uint64_t ALIAS_DEVICE_METRIC_UDT_INST   = 13;
+uint64_t ALIAS_DEVICE_METRIC_INT8       = 14;
+uint64_t ALIAS_DEVICE_METRIC_UINT32     = 15;
+uint64_t ALIAS_DEVICE_METRIC_FLOAT      = 16;
 
 int main(int argc, char *argv[]) {
 
@@ -80,9 +99,12 @@ int main(int argc, char *argv[]) {
 		int j;
 		for(j=0; j<50; j++) {
 			usleep(100000);
-			mosquitto_loop(mosq, 0, 1);
+			//mosquitto_loop(mosq, -1, 1);
 		}
 	}
+
+	//mosquitto_loop_forever(mosq, -1, 1);
+
 
 	// Close and cleanup
 	mosquitto_destroy(mosq);
@@ -154,7 +176,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 			com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
 			get_next_payload(&ddata_payload);
 			// Note the Metric name 'output/Device Metric2' is not needed because we're using aliases
-			add_simple_metric(&ddata_payload, NULL, true, 9, METRIC_DATA_TYPE_INT16, false, false, false, &new_value, sizeof(new_value));
+			add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_2, METRIC_DATA_TYPE_INT16, false, false, false, &new_value, sizeof(new_value));
 
 			// Encode the payload into a binary format so it can be published in the MQTT message.
 			// The binary_buffer must be large enough to hold the contents of the binary payload
@@ -182,7 +204,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 			com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
 			get_next_payload(&ddata_payload);
 			// Note the Metric name 'output/Device Metric3' is not needed because we're using aliases
-			add_simple_metric(&ddata_payload, NULL, true, 10, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &new_value, sizeof(new_value));
+			add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_3, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &new_value, sizeof(new_value));
 
 			// Encode the payload into a binary format so it can be published in the MQTT message.
 			// The binary_buffer must be large enough to hold the contents of the binary payload
@@ -268,21 +290,27 @@ void publish_node_birth(struct mosquitto *mosq) {
 	// Add node control metrics
 	fprintf(stdout, "Adding metric: 'Node Control/Next Server'\n");
 	bool next_server_value = false;
-	add_simple_metric(&nbirth_payload, "Node Control/Next Server", true, 0, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &next_server_value, sizeof(next_server_value));
+	add_simple_metric(&nbirth_payload, "Node Control/Next Server", true, ALIAS_NODE_CONTROL_NEXT_SERVER, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &next_server_value, sizeof(next_server_value));
 	fprintf(stdout, "Adding metric: 'Node Control/Rebirth'\n");
 	bool rebirth_value = false;
-	add_simple_metric(&nbirth_payload, "Node Control/Rebirth", true, 1, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &rebirth_value, sizeof(rebirth_value));
+	add_simple_metric(&nbirth_payload, "Node Control/Rebirth", true, ALIAS_NODE_CONTROL_REBIRTH, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &rebirth_value, sizeof(rebirth_value));
 	fprintf(stdout, "Adding metric: 'Node Control/Reboot'\n");
 	bool reboot_value = false;
-	add_simple_metric(&nbirth_payload, "Node Control/Reboot", true, 2, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &reboot_value, sizeof(reboot_value));
+	add_simple_metric(&nbirth_payload, "Node Control/Reboot", true, ALIAS_NODE_CONTROL_REBOOT, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &reboot_value, sizeof(reboot_value));
 
 	// Add some regular node metrics
 	fprintf(stdout, "Adding metric: 'Node Metric0'\n");
 	char nbirth_metric_zero_value[] = "hello node";
-	add_simple_metric(&nbirth_payload, "Node Metric0", true, 3, METRIC_DATA_TYPE_STRING, false, false, false, &nbirth_metric_zero_value, sizeof(nbirth_metric_zero_value));
+	add_simple_metric(&nbirth_payload, "Node Metric0", true, ALIAS_NODE_METRIC_0, METRIC_DATA_TYPE_STRING, false, false, false, &nbirth_metric_zero_value, sizeof(nbirth_metric_zero_value));
 	fprintf(stdout, "Adding metric: 'Node Metric1'\n");
 	bool nbirth_metric_one_value = true;
-	add_simple_metric(&nbirth_payload, "Node Metric1", true, 4, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &nbirth_metric_one_value, sizeof(nbirth_metric_one_value));
+	add_simple_metric(&nbirth_payload, "Node Metric1", true, ALIAS_NODE_METRIC_1, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &nbirth_metric_one_value, sizeof(nbirth_metric_one_value));
+	fprintf(stdout, "Adding metric: 'Node Metric UINT32'\n");
+	uint32_t nbirth_metric_uint32_value = 100;
+	add_simple_metric(&nbirth_payload, "Node Metric UINT32", true, ALIAS_NODE_METRIC_UINT32, METRIC_DATA_TYPE_UINT32, false, false, false, &nbirth_metric_uint32_value, sizeof(nbirth_metric_uint32_value));
+	fprintf(stdout, "Adding metric: 'Node Metric FLOAT'\n");
+	float nbirth_metric_float_value = 100.12;
+	add_simple_metric(&nbirth_payload, "Node Metric FLOAT", true, ALIAS_NODE_METRIC_FLOAT, METRIC_DATA_TYPE_FLOAT, false, false, false, &nbirth_metric_float_value, sizeof(nbirth_metric_float_value));
 
 	// Create a DataSet
 	com_cirruslink_sparkplug_protobuf_Payload_DataSet dataset = com_cirruslink_sparkplug_protobuf_Payload_DataSet_init_default;
@@ -317,14 +345,14 @@ void publish_node_birth(struct mosquitto *mosq) {
 	// Create the a Metric with the DataSet value and add it to the payload
 	fprintf(stdout, "Adding metric: 'DataSet'\n");
 	com_cirruslink_sparkplug_protobuf_Payload_Metric dataset_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
-	init_metric(&dataset_metric, "DataSet", true, 5, METRIC_DATA_TYPE_DATASET, false, false, false, &dataset, sizeof(dataset));
+	init_metric(&dataset_metric, "DataSet", true, ALIAS_NODE_METRIC_DATASET, METRIC_DATA_TYPE_DATASET, false, false, false, &dataset, sizeof(dataset));
 	add_metric_to_payload(&nbirth_payload, &dataset_metric);
 
 	// Add a metric with a custom property
 	fprintf(stdout, "Adding metric: 'Node Metric2'\n");
 	com_cirruslink_sparkplug_protobuf_Payload_Metric prop_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
 	uint32_t nbirth_metric_two_value = 13;
-	init_metric(&prop_metric, "Node Metric2", true, 5, METRIC_DATA_TYPE_INT16, false, false, false, &nbirth_metric_two_value, sizeof(nbirth_metric_two_value));
+	init_metric(&prop_metric, "Node Metric2", true, ALIAS_NODE_METRIC_2, METRIC_DATA_TYPE_INT16, false, false, false, &nbirth_metric_two_value, sizeof(nbirth_metric_two_value));
 	com_cirruslink_sparkplug_protobuf_Payload_PropertySet properties = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_init_default;
 	add_property_to_set(&properties, "engUnit", PROPERTY_DATA_TYPE_STRING, false, "MyCustomUnits", sizeof("MyCustomUnits"));
 	add_propertyset_to_metric(&prop_metric, &properties);
@@ -365,7 +393,7 @@ void publish_node_birth(struct mosquitto *mosq) {
 
 	// Create the root UDT definition and add the UDT definition value which includes the UDT members and parameters
 	com_cirruslink_sparkplug_protobuf_Payload_Metric metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
-	init_metric(&metric, "_types_/Custom_Motor", true, 6, METRIC_DATA_TYPE_TEMPLATE, false, false, false, &udt_template, sizeof(udt_template));
+	init_metric(&metric, "_types_/Custom_Motor", false, 0, METRIC_DATA_TYPE_TEMPLATE, false, false, false, &udt_template, sizeof(udt_template));
 
 	// Add the UDT to the payload
 	add_metric_to_payload(&nbirth_payload, &metric);
@@ -398,16 +426,25 @@ void publish_device_birth(struct mosquitto *mosq) {
 	// Add some device metrics
 	fprintf(stdout, "Adding metric: 'input/Device Metric0'\n");
 	char dbirth_metric_zero_value[] = "hello device";
-	add_simple_metric(&dbirth_payload, "input/Device Metric0", true, 7, METRIC_DATA_TYPE_STRING, false, false, false, &dbirth_metric_zero_value, sizeof(dbirth_metric_zero_value));
+	add_simple_metric(&dbirth_payload, "input/Device Metric0", true, ALIAS_DEVICE_METRIC_0, METRIC_DATA_TYPE_STRING, false, false, false, &dbirth_metric_zero_value, sizeof(dbirth_metric_zero_value));
 	fprintf(stdout, "Adding metric: 'input/Device Metric1'\n");
 	bool dbirth_metric_one_value = true;
-	add_simple_metric(&dbirth_payload, "input/Device Metric1", true, 8, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &dbirth_metric_one_value, sizeof(dbirth_metric_one_value));
+	add_simple_metric(&dbirth_payload, "input/Device Metric1", true, ALIAS_DEVICE_METRIC_1, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &dbirth_metric_one_value, sizeof(dbirth_metric_one_value));
 	fprintf(stdout, "Adding metric: 'output/Device Metric2'\n");
 	uint32_t dbirth_metric_two_value = 16;
-	add_simple_metric(&dbirth_payload, "output/Device Metric2", true, 9, METRIC_DATA_TYPE_INT16, false, false, false, &dbirth_metric_two_value, sizeof(dbirth_metric_two_value));
+	add_simple_metric(&dbirth_payload, "output/Device Metric2", true, ALIAS_DEVICE_METRIC_2, METRIC_DATA_TYPE_INT16, false, false, false, &dbirth_metric_two_value, sizeof(dbirth_metric_two_value));
 	fprintf(stdout, "Adding metric: 'output/Device Metric3'\n");
 	bool dbirth_metric_three_value = true;
-	add_simple_metric(&dbirth_payload, "output/Device Metric3", true, 10, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &dbirth_metric_three_value, sizeof(dbirth_metric_three_value));
+	add_simple_metric(&dbirth_payload, "output/Device Metric3", true, ALIAS_DEVICE_METRIC_3, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &dbirth_metric_three_value, sizeof(dbirth_metric_three_value));
+	fprintf(stdout, "Adding metric: 'Device Metric INT8'\n");
+	int dbirth_metric_int8_value = 100;
+	add_simple_metric(&dbirth_payload, "Device Metric INT8", true, ALIAS_DEVICE_METRIC_INT8, METRIC_DATA_TYPE_INT8, false, false, false, &dbirth_metric_int8_value, sizeof(dbirth_metric_int8_value));
+	fprintf(stdout, "Adding metric: 'Device Metric UINT32'\n");
+	int dbirth_metric_uint32_value = 100;
+	add_simple_metric(&dbirth_payload, "Device Metric UINT32", true, ALIAS_DEVICE_METRIC_UINT32, METRIC_DATA_TYPE_UINT32, false, false, false, &dbirth_metric_uint32_value, sizeof(dbirth_metric_uint32_value));
+	fprintf(stdout, "Adding metric: 'Device Metric FLOAT'\n");
+	float dbirth_metric_float_value = 100.12;
+	add_simple_metric(&dbirth_payload, "Device Metric FLOAT", true, ALIAS_DEVICE_METRIC_FLOAT, METRIC_DATA_TYPE_FLOAT, false, false, false, &dbirth_metric_float_value, sizeof(dbirth_metric_float_value));
 
 	// Create a metric called RPMs for the UDT instance
 	com_cirruslink_sparkplug_protobuf_Payload_Metric rpms_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
@@ -449,7 +486,7 @@ void publish_device_birth(struct mosquitto *mosq) {
 
 	// Create the root UDT instance and add the UDT instance value
 	com_cirruslink_sparkplug_protobuf_Payload_Metric metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
-	init_metric(&metric, "My_Custom_Motor", true, 11, METRIC_DATA_TYPE_TEMPLATE, false, false, false, &udt_template, sizeof(udt_template));
+	init_metric(&metric, "My_Custom_Motor", true, ALIAS_DEVICE_METRIC_UDT_INST, METRIC_DATA_TYPE_TEMPLATE, false, false, false, &udt_template, sizeof(udt_template));
 
 	// Add the UDT Instance to the payload
 	add_metric_to_payload(&dbirth_payload, &metric);
@@ -482,15 +519,27 @@ void publish_ddata_message(struct mosquitto *mosq) {
 	fprintf(stdout, "Adding metric: 'input/Device Metric0'\n");
 	char ddata_metric_zero_value[13];
 	int i;
-	for (i = 0; i<12; ++i) {
+	for (i = 0; i<13; ++i) {
 		ddata_metric_zero_value[i] = '0' + rand()%72; // starting on '0', ending on '}'
 	}
 	// Note the Metric name 'input/Device Metric0' is not needed because we're using aliases
-	add_simple_metric(&ddata_payload, NULL, true, 7, METRIC_DATA_TYPE_STRING, false, false, false, &ddata_metric_zero_value, sizeof(ddata_metric_zero_value));
+	add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_0, METRIC_DATA_TYPE_STRING, false, false, false, &ddata_metric_zero_value, sizeof(ddata_metric_zero_value));
 	fprintf(stdout, "Adding metric: 'input/Device Metric1'\n");
 	bool ddata_metric_one_value = rand()%2;
 	// Note the Metric name 'input/Device Metric1' is not needed because we're using aliases
-	add_simple_metric(&ddata_payload, NULL, true, 8, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &ddata_metric_one_value, sizeof(ddata_metric_one_value));
+	add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_1, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &ddata_metric_one_value, sizeof(ddata_metric_one_value));
+
+	fprintf(stdout, "Adding metric: 'Device Metric INT8'\n");
+	int ddata_metric_int8_value = rand()%100;
+	add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_INT8, METRIC_DATA_TYPE_INT8, false, false, false, &ddata_metric_int8_value, sizeof(ddata_metric_int8_value));
+
+	fprintf(stdout, "Adding metric: 'Device Metric UINT32'\n");
+	int ddata_metric_uint32_value = rand()%1000;
+	add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_UINT32, METRIC_DATA_TYPE_UINT32, false, false, false, &ddata_metric_uint32_value, sizeof(ddata_metric_uint32_value));
+
+	fprintf(stdout, "Adding metric: 'Device Metric FLOAT'\n");
+	float ddata_metric_float_value = ((float)rand()/(float)(RAND_MAX)) * 5.0;
+	add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_FLOAT, METRIC_DATA_TYPE_FLOAT, false, false, false, &ddata_metric_float_value, sizeof(ddata_metric_float_value));
 
 #ifdef SPARKPLUG_DEBUG
         // Print the payload

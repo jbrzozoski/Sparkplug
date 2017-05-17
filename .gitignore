@@ -15,3 +15,4 @@ sparkplug_example
 .pydevproject
 *.pyc
 *-tcp*
+pom.xml.versionsBackup

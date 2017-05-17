@@ -265,7 +265,11 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 				break;
 			case Text:
 			case String:
-				builder.setStringValue((String) value);
+				if (value == null) {
+					builder.setStringValue("");
+				} else {
+					builder.setStringValue((String) value);
+				}
 				break;
 			case Unknown:
 			default:

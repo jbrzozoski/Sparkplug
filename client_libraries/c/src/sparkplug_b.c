@@ -135,7 +135,11 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 						} else if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_string_value_tag) {
 							DEBUG_PRINT(("\t\tRead the Metric string_value! %s\n", dest));
 							metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_string_value_tag;
-							metric->value.string_value = dest;
+							// JPL 04/05/17... I hope this gets FREE(string_value)'d somewhere
+							metric->value.string_value =(char *)malloc((strlen(dest)+1)*sizeof(char));
+							strcpy(metric->value.string_value, dest );
+							// JPL 04/05/17... local memory?
+							//	metric->value.string_value = dest;
 						}
 					} else {
 						fprintf(stderr, "\t\tFailed to read the string...\n");
@@ -351,6 +355,8 @@ void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 	}
 
 	if (name == NULL) {
+		DEBUG_PRINT(("Name is null"));
+		payload->metrics[size-1].name = name;
 	} else {
 		payload->metrics[size-1].name = (char *)malloc((strlen(name)+1)*sizeof(char));
 		strcpy(payload->metrics[size-1].name, name);
@@ -385,11 +391,12 @@ void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 	if (datatype == METRIC_DATA_TYPE_UNKNOWN) {
 		fprintf(stderr, "Can't create metric with unknown datatype!\n");
 	} else if (datatype == METRIC_DATA_TYPE_INT8 || datatype == METRIC_DATA_TYPE_INT16 || datatype == METRIC_DATA_TYPE_INT32 ||
-			datatype == METRIC_DATA_TYPE_UINT8 || datatype == METRIC_DATA_TYPE_UINT16 || datatype == METRIC_DATA_TYPE_UINT32) {
+			datatype == METRIC_DATA_TYPE_UINT8 || datatype == METRIC_DATA_TYPE_UINT16) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((uint32_t *)value)));
 		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag;
 		payload->metrics[size-1].value.int_value = *((uint32_t *)value);
-	} else if (datatype == METRIC_DATA_TYPE_INT64 || datatype == METRIC_DATA_TYPE_UINT64 || datatype == METRIC_DATA_TYPE_DATETIME) {
+	} else if (datatype == METRIC_DATA_TYPE_INT64 || datatype == METRIC_DATA_TYPE_UINT64 || datatype == METRIC_DATA_TYPE_UINT32 ||
+			datatype == METRIC_DATA_TYPE_DATETIME) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %zd\n", datatype, *((uint64_t *)value)));
 		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_long_value_tag;
 		payload->metrics[size-1].value.long_value = *((uint64_t *)value);
@@ -588,6 +595,15 @@ void free_payload(com_cirruslink_sparkplug_protobuf_Payload *payload) {
 	for (i=0; i<payload->metrics_count; i++) {
 		free(payload->metrics[i].name);
 		// More TODO...
+		// JPL 04/05/17... free up string data allocated memory
+		if(  payload->metrics[i].which_value == 
+			 com_cirruslink_sparkplug_protobuf_Payload_Metric_string_value_tag ) // 15 ???
+		{
+		  if(payload->metrics[i].value.string_value)  // not null?
+		  {
+			free(payload->metrics[i].value.string_value);
+		  }
+		}
 	}
 }
 
@@ -682,15 +698,28 @@ void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
 			const void *value,
 			size_t size_of_value) {
 
-	metric->name = (char *)malloc((strlen(name)+1)*sizeof(char));
-	strcpy(metric->name, name);
+	if( name == NULL ) {
+		DEBUG_PRINT(("Name is null"));
+		metric->name = name;
+	} else {
+		metric->name = (char *)malloc((strlen(name)+1)*sizeof(char));
+		strcpy(metric->name, name);
+	}
 
 	metric->has_alias = has_alias;
 	if (has_alias) {
 		metric->alias = alias;
 	}
-	metric->has_timestamp = true;
-	metric->timestamp = get_current_timestamp();
+	if( is_historical && !is_transient )  // JPL 04/04/17... only timestamp historical
+	{
+	  metric->has_timestamp = true;
+	  metric->timestamp = get_current_timestamp();
+	}
+	else
+	{
+	  metric->has_timestamp = false;
+	  metric->timestamp = 0; //get_current_timestamp();
+	}
 	metric->has_datatype = true;
 	metric->datatype = datatype;
 	metric->has_is_historical = is_historical;
@@ -715,11 +744,12 @@ void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
 	if (datatype == METRIC_DATA_TYPE_UNKNOWN) {
 		fprintf(stderr, "Can't create metric with unknown datatype!\n");
 	} else if (datatype == METRIC_DATA_TYPE_INT8 || datatype == METRIC_DATA_TYPE_INT16 || datatype == METRIC_DATA_TYPE_INT32 ||
-			datatype == METRIC_DATA_TYPE_UINT8 || datatype == METRIC_DATA_TYPE_UINT16 || datatype == METRIC_DATA_TYPE_UINT32) {
+			datatype == METRIC_DATA_TYPE_UINT8 || datatype == METRIC_DATA_TYPE_UINT16) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((uint32_t *)value)));
 		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag;
 		metric->value.int_value = *((uint32_t *)value);
-	} else if (datatype == METRIC_DATA_TYPE_INT64 || datatype == METRIC_DATA_TYPE_UINT64 || datatype == METRIC_DATA_TYPE_DATETIME) {
+	} else if (datatype == METRIC_DATA_TYPE_INT64 || datatype == METRIC_DATA_TYPE_UINT64 || datatype == METRIC_DATA_TYPE_UINT32 ||
+			datatype == METRIC_DATA_TYPE_DATETIME) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %zd\n", datatype, *((uint64_t *)value)));
 		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_long_value_tag;
 		metric->value.long_value = *((uint64_t *)value);
@@ -808,10 +838,10 @@ void print_payload(com_cirruslink_sparkplug_protobuf_Payload *payload) {
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_INT16 ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_INT32 ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_UINT8 ||
-					payload->metrics[i].datatype == METRIC_DATA_TYPE_UINT16 ||
-					payload->metrics[i].datatype == METRIC_DATA_TYPE_UINT32) {
+					payload->metrics[i].datatype == METRIC_DATA_TYPE_UINT16) {
 			fprintf(stdout, "Payload:  Metric %d:  datatype: %d, with value: %d\n", i, payload->metrics[i].datatype, payload->metrics[i].value.int_value);
-		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_INT64 ||
+		} else if (payload->metrics[i].datatype == METRIC_DATA_TYPE_UINT32 ||
+					payload->metrics[i].datatype == METRIC_DATA_TYPE_INT64 ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_UINT64 ||
 					payload->metrics[i].datatype == METRIC_DATA_TYPE_DATETIME) {
 			fprintf(stdout, "Payload:  Metric %d:  datatype: %d, with value: %zd\n", i, payload->metrics[i].datatype, payload->metrics[i].value.long_value);

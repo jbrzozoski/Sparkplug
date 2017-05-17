@@ -103,13 +103,33 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 	if(decode_payload(&inbound_payload, message->payload, message->payloadlen)) {
 	} else {
 		fprintf(stderr, "Failed to decode the payload\n");
+		return;  // JPL 04/06/17...
 	}
 
 	// Get the number of metrics in the payload and iterate over them handling them as needed
 	int i;
 	for (i=0; i<inbound_payload.metrics_count; i++) {
 		// Handle the incoming message as necessary - start with the 'Node Control' metrics
-		if (strcmp(inbound_payload.metrics[i].name, "Node Control/Next Server") == 0) {
+		// JPL 04/06/17... Handle ALIAS metrics versus text-name based metrics
+		if( inbound_payload.metrics[i].name == NULL )  // alias 0 to 2
+		{
+			switch( (SINT32) inbound_payload.metrics[i].alias)
+			{
+			  case 0:  // Next Server
+			  fprintf(stderr,"Using Next Configured MQtt Server\n");
+			  break;
+
+			  case 1:  // Resend Births
+			  fprintf(stderr, "Resend Birth Certificates\n");
+			  publish_births(mosq);
+			  break;
+
+			  case 2:  // Next Server
+			  fprintf(stderr, "REBOOT Operating system\n");
+			  //system("reboot");
+			  break;
+			}
+		} else if (strcmp(inbound_payload.metrics[i].name, "Node Control/Next Server") == 0) {
 			// 'Node Control/Next Server' is an NCMD used to tell the device/client application to
 			// disconnect from the current MQTT server and connect to the next MQTT server in the
 			// list of available servers.  This is used for clients that have a pool of MQTT servers
@@ -132,6 +152,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 			fprintf(stderr, "Unknown CMD: %s\n", inbound_payload.metrics[i].name);
 		}
 	}
+	free_payload(&inbound_payload);  // JPL 04/06/17...
 }
 
 /*
