@@ -29,7 +29,7 @@ myGroupId = "Sparkplug B Devices"
 myNodeName = "Python Edge Node 1"
 myDeviceName = "Emulated Device"
 publishPeriod = 5000
-myUsername = "admin"
+myUsername = "aadmin"
 myPassword = "changeme"
 
 class AliasMap:
@@ -50,7 +50,11 @@ class AliasMap:
 # The callback for when the client receives a CONNACK response from the server.
 ######################################################################
 def on_connect(client, userdata, flags, rc):
-    print("Connected with result code "+str(rc))
+    if rc == 0:
+        print("Connected with result code "+str(rc))
+    else:
+        print("Failed to connect with result code "+str(rc))
+        sys.exit()
 
     global myGroupId
     global myNodeName
