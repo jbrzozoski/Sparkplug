@@ -29,7 +29,7 @@ myGroupId = "Sparkplug B Devices"
 myNodeName = "Python Edge Node 1"
 myDeviceName = "Emulated Device"
 publishPeriod = 5000
-myUsername = "aadmin"
+myUsername = "admin"
 myPassword = "changeme"
 
 class AliasMap:
