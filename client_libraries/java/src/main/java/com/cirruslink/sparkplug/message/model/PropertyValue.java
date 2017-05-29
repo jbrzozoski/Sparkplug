@@ -21,6 +21,8 @@ public class PropertyValue {
 	private Object value;
 	private Boolean isNull = null;
 	
+	public PropertyValue() {}
+	
 	/**
 	 * A constructor.
 	 * 

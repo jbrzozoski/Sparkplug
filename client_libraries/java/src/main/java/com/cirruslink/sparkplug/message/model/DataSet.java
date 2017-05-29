@@ -16,10 +16,14 @@ import org.apache.log4j.Logger;
 
 import com.cirruslink.sparkplug.SparkplugException;
 import com.cirruslink.sparkplug.message.model.Row.RowBuilder;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * A data set that represents a table of data.
  */
+@JsonDeserialize(using = DataSetDeserializer.class)
 public class DataSet {
 	
 	private static Logger logger = LogManager.getLogger(DataSet.class.getName());
@@ -27,16 +31,19 @@ public class DataSet {
 	/**
 	 * The number of columns
 	 */
+	@JsonProperty("numberOfColumns")
 	private long numOfColumns;
 	
 	/**
 	 * A list containing the names of each column
 	 */
+	@JsonProperty("columnNames")
 	private List<String> columnNames;
 	
 	/**
 	 * A list containing the data types of each column
 	 */
+	@JsonProperty("types")
 	private List<DataSetDataType> types;
 	
 	/**
@@ -73,6 +80,15 @@ public class DataSet {
 
 	public List<Row> getRows() {
 		return rows;
+	}
+	
+	@JsonGetter("rows")
+	public List<List<Object>> getRowsAsLists() {
+		List<List<Object>> list = new ArrayList<List<Object>>(getRows().size());
+		for (Row row : getRows()) {
+			list.add(Row.toValues(row));
+		}
+		return list;
 	}
 
 	public void addRow(Row row) {

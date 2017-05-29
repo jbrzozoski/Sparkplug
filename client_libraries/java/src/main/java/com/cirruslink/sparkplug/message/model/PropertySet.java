@@ -17,53 +17,112 @@ import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
 /**
  * A class that maintains a set of properties associated with a {@link Metric}.
  */
-public class PropertySet {
+public class PropertySet implements Map<String, PropertyValue> {
 	
 	@JsonIgnore
-	private Map<String, PropertyValue> propertyMap;
+	private Map<String, PropertyValue> map;
 	
 	public PropertySet() {
-		this.propertyMap = new HashMap<String, PropertyValue>();
+		this.map = new HashMap<String, PropertyValue>();
 	}
 	
 	private PropertySet(Map<String, PropertyValue> propertyMap) {
-		this.propertyMap = propertyMap;
+		this.map = propertyMap;
 	}
 	
+	@JsonIgnore
 	public PropertyValue getPropertyValue(String name) {
-		return this.propertyMap.get(name);
+		return this.map.get(name);
 	}
 	
+	@JsonIgnore
 	public void setProperty(String name, PropertyValue value) {
-		this.propertyMap.put(name, value);
+		this.map.put(name, value);
 	}
 	
+	@JsonIgnore
 	public void removeProperty(String name) {
-		this.propertyMap.remove(name);
+		this.map.remove(name);
 	}
 	
+	@JsonIgnore
 	public void clear() {
-		this.propertyMap.clear();
+		this.map.clear();
 	}
 	
-	
+	@JsonIgnore
 	public Set<String> getNames() {
-		return propertyMap.keySet();
+		return map.keySet();
 	}
 	
-	
+	@JsonIgnore
 	public Collection<PropertyValue> getValues() {
-		return propertyMap.values();
+		return map.values();
 	}
 
 	@JsonIgnore
 	public Map<String, PropertyValue> getPropertyMap() {
-		return propertyMap;
+		return map;
 	}
 	
 	@Override
 	public String toString() {
-		return "PropertySet [propertyMap=" + propertyMap + "]";
+		return "PropertySet [propertyMap=" + map + "]";
+	}
+	
+	@Override
+	public int size() {
+		return map.size();
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return map.isEmpty();
+	}
+
+	@Override
+	public boolean containsKey(Object key) {
+		return map.containsKey(key);
+	}
+
+	@Override
+	public boolean containsValue(Object value) {
+		return map.containsValue(value);
+	}
+
+	@Override
+	public PropertyValue get(Object key) {
+		return map.get(key);
+	}
+
+	@Override
+	public PropertyValue put(String key, PropertyValue value) {
+		return map.put(key, value);
+	}
+
+	@Override
+	public PropertyValue remove(Object key) {
+		return map.remove(key);
+	}
+
+	@Override
+	public void putAll(Map<? extends String, ? extends PropertyValue> m) {
+		map.putAll(m);
+	}
+
+	@Override
+	public Set<String> keySet() {
+		return map.keySet();
+	}
+
+	@Override
+	public Collection<PropertyValue> values() {
+		return map.values();
+	}
+
+	@Override
+	public Set<java.util.Map.Entry<String, PropertyValue>> entrySet() {
+		return map.entrySet();
 	}
 
 	/**

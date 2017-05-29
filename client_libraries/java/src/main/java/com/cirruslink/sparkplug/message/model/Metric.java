@@ -15,22 +15,46 @@ import com.cirruslink.sparkplug.message.model.DataSet.DataSetBuilder;
 import com.cirruslink.sparkplug.message.model.MetaData.MetaDataBuilder;
 import com.cirruslink.sparkplug.message.model.PropertySet.PropertySetBuilder;
 import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * A metric of a Sparkplug Payload.
  */
+@JsonIgnoreProperties(value = { "isNull" })
 public class Metric {
 	
+	@JsonProperty("name")
 	private String name;
+	
+	@JsonProperty("alias")
 	private Long alias;
+	
+	@JsonProperty("timestamp")
 	private Date timestamp;
+	
+	@JsonProperty("dataType")
 	private MetricDataType dataType;
+	
+	@JsonProperty("isHistorical")
 	private Boolean isHistorical = null;
+	
+	@JsonProperty("isTransient")
 	private Boolean isTransient = null;
-	private Boolean isNull = null;
+	
+	@JsonProperty("metaData")
 	private MetaData metaData;
+	
+	@JsonProperty("propertySet")
 	private PropertySet propertySet;
+	
+	@JsonProperty("value")
 	private Object value;
+	
+	private Boolean isNull = null;
+	
+	public Metric() {};
 
 	/**
 	 * @param name
@@ -143,6 +167,7 @@ public class Metric {
 		this.isTransient = isTransient;
 	}
 
+	@JsonIgnore
 	public Boolean isNull() {
 		return isNull;
 	}
