@@ -5,7 +5,7 @@
  * Proprietary and confidential
  */
 
-package com.cirruslink.sparkplug.message.model;
+package com.cirruslink.sparkplug.json;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -17,6 +17,10 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cirruslink.sparkplug.SparkplugException;
+import com.cirruslink.sparkplug.message.model.DataSet;
+import com.cirruslink.sparkplug.message.model.DataSetDataType;
+import com.cirruslink.sparkplug.message.model.Row;
+import com.cirruslink.sparkplug.message.model.Value;
 import com.cirruslink.sparkplug.message.model.DataSet.DataSetBuilder;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;

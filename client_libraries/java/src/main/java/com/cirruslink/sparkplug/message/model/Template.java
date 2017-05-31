@@ -14,12 +14,15 @@ import java.util.List;
 import com.cirruslink.sparkplug.SparkplugException;
 import com.cirruslink.sparkplug.message.model.Metric.MetricBuilder;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * A class representing a template associated with a metric
  */
+@JsonInclude(Include.NON_NULL)
 public class Template {
 
 	/**

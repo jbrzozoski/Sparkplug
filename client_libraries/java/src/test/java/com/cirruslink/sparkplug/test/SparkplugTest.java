@@ -27,6 +27,7 @@ import org.testng.annotations.Test;
 
 import com.cirruslink.sparkplug.SparkplugException;
 import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
+import com.cirruslink.sparkplug.json.JsonValidator;
 import com.cirruslink.sparkplug.message.PayloadDecoder;
 import com.cirruslink.sparkplug.message.SparkplugBPayloadDecoder;
 import com.cirruslink.sparkplug.message.SparkplugBPayloadEncoder;
@@ -53,16 +54,20 @@ import com.cirruslink.sparkplug.message.model.Template;
 import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
 import com.cirruslink.sparkplug.message.model.Value;
 import com.cirruslink.sparkplug.util.CompressionAlgorithm;
+import com.cirruslink.sparkplug.util.PayloadUtil;
 
 /**
  * Sparkplug Test class for encoding and decoding sparkplug payloads
  */
 public class SparkplugTest {
 	
-	private Date testTime;
+	/**
+	 * A {@link JsonValidator} instance used for testing JSON validation.
+	 */
+	private JsonValidator validator;
 	
 	public SparkplugTest() {
-		this.testTime = new Date();
+	    validator = JsonValidator.getInstance();
 	}
 	
 	@BeforeClass
@@ -339,11 +344,26 @@ public class SparkplugTest {
 		assertThat(decodedMetric.isHistorical()).isEqualTo(isHistorical);
 		assertThat(decodedMetric.isTransient()).isEqualTo(isTransient);
 		assertThat(decodedMetric.isNull()).isEqualTo(isNull);
-		System.out.println("JSON: " + payload.toJsonString());
+		System.out.println("JSON: " + PayloadUtil.toJsonString(payload));
 	}
+    
+    @Test(dataProvider = "metricData")
+    public void testJsonValidation(String name, MetricDataType type, Object value, MetaData metaData) 
+			throws SparkplugException, Exception {
+		Date currentTime = new Date();
+    	
+		SparkplugBPayload payload = new SparkplugBPayloadBuilder()
+					.setTimestamp(currentTime)
+					.addMetric(new MetricBuilder(name, type, value)
+							.metaData(metaData)
+							.createMetric())
+					.createPayload();
+    	
+    	assertThat(validator.isJsonValid(PayloadUtil.toJsonString(payload))).isTrue();
+    }
 	
-	public void testMetricPayload(String name, MetricDataType type, Object value, MetaData metaData) 
-			throws SparkplugException{
+	private void testMetricPayload(String name, MetricDataType type, Object value, MetaData metaData) 
+			throws SparkplugException {
 		try {
 			SparkplugBPayloadEncoder encoder = new SparkplugBPayloadEncoder();
 			Date currentTime = new Date();

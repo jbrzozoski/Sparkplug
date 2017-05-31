@@ -15,6 +15,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cirruslink.sparkplug.SparkplugException;
+import com.cirruslink.sparkplug.json.DataSetDeserializer;
 import com.cirruslink.sparkplug.message.model.Row.RowBuilder;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;

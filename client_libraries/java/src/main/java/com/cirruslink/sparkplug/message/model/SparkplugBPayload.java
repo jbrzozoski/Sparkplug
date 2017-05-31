@@ -7,18 +7,26 @@
 
 package com.cirruslink.sparkplug.message.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import com.cirruslink.sparkplug.json.DeserializerModifier;
+import com.cirruslink.sparkplug.json.DeserializerModule;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * A class representing a Sparkplug B payload
  */
+@JsonInclude(Include.NON_NULL)
 public class SparkplugBPayload {
 
 	private Date timestamp;
@@ -106,11 +114,6 @@ public class SparkplugBPayload {
 	public String toString() {
 		return "SparkplugBPayload [timestamp=" + timestamp + ", metrics=" + metrics + ", seq=" + seq + ", uuid=" + uuid
 				+ ", body=" + Arrays.toString(body) + "]";
-	}
-	
-	public String toJsonString() throws Exception {
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(this);
 	}
 	
 	/**

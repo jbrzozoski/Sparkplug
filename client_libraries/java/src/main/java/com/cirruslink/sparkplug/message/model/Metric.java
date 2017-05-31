@@ -15,14 +15,19 @@ import com.cirruslink.sparkplug.message.model.DataSet.DataSetBuilder;
 import com.cirruslink.sparkplug.message.model.MetaData.MetaDataBuilder;
 import com.cirruslink.sparkplug.message.model.PropertySet.PropertySetBuilder;
 import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
  * A metric of a Sparkplug Payload.
  */
 @JsonIgnoreProperties(value = { "isNull" })
+@JsonInclude(Include.NON_NULL)
 public class Metric {
 	
 	@JsonProperty("name")
@@ -38,10 +43,10 @@ public class Metric {
 	private MetricDataType dataType;
 	
 	@JsonProperty("isHistorical")
-	private Boolean isHistorical = null;
+	private Boolean isHistorical;
 	
 	@JsonProperty("isTransient")
-	private Boolean isTransient = null;
+	private Boolean isTransient;
 	
 	@JsonProperty("metaData")
 	private MetaData metaData;
@@ -126,10 +131,12 @@ public class Metric {
 		this.dataType = dataType;
 	}
 
+	@JsonGetter("metaData")
 	public MetaData getMetaData() {
 		return metaData;
 	}
 
+	@JsonSetter("metaData")
 	public void setMetaData(MetaData metaData) {
 		this.metaData = metaData;
 	}
@@ -151,18 +158,22 @@ public class Metric {
 		this.propertySet = propertySet;
 	}
 
+	@JsonGetter("isHistorical")
 	public Boolean isHistorical() {
 		return isHistorical;
 	}
 
+	@JsonSetter("isHistorical")
 	public void setHistorical(Boolean isHistorical) {
 		this.isHistorical = isHistorical;
 	}
 
+	@JsonGetter("isTransient")
 	public Boolean isTransient() {
 		return isTransient;
 	}
 
+	@JsonSetter("isTransient")
 	public void setTransient(Boolean isTransient) {
 		this.isTransient = isTransient;
 	}
@@ -188,8 +199,8 @@ public class Metric {
 		private Long alias;
 		private Date timestamp;
 		private MetricDataType dataType;
-		private Boolean isHistorical = null;
-		private Boolean isTransient = null;
+		private Boolean isHistorical;
+		private Boolean isTransient;
 		private MetaData metaData = null;
 		private PropertySet propertySet = null;
 		private Object value;
