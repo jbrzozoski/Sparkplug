@@ -42,16 +42,18 @@ uint64_t ALIAS_NODE_METRIC_0            = 3;
 uint64_t ALIAS_NODE_METRIC_1            = 4;
 uint64_t ALIAS_NODE_METRIC_UINT32       = 5;
 uint64_t ALIAS_NODE_METRIC_FLOAT        = 6;
-uint64_t ALIAS_NODE_METRIC_DATASET      = 7;
-uint64_t ALIAS_NODE_METRIC_2            = 8;
-uint64_t ALIAS_DEVICE_METRIC_0          = 9;
-uint64_t ALIAS_DEVICE_METRIC_1          = 10;
-uint64_t ALIAS_DEVICE_METRIC_2          = 11;
-uint64_t ALIAS_DEVICE_METRIC_3          = 12;
-uint64_t ALIAS_DEVICE_METRIC_UDT_INST   = 13;
-uint64_t ALIAS_DEVICE_METRIC_INT8       = 14;
-uint64_t ALIAS_DEVICE_METRIC_UINT32     = 15;
-uint64_t ALIAS_DEVICE_METRIC_FLOAT      = 16;
+uint64_t ALIAS_NODE_METRIC_DOUBLE       = 7;
+uint64_t ALIAS_NODE_METRIC_DATASET      = 8;
+uint64_t ALIAS_NODE_METRIC_2            = 9;
+uint64_t ALIAS_DEVICE_METRIC_0          = 10;
+uint64_t ALIAS_DEVICE_METRIC_1          = 11;
+uint64_t ALIAS_DEVICE_METRIC_2          = 12;
+uint64_t ALIAS_DEVICE_METRIC_3          = 13;
+uint64_t ALIAS_DEVICE_METRIC_UDT_INST   = 14;
+uint64_t ALIAS_DEVICE_METRIC_INT8       = 15;
+uint64_t ALIAS_DEVICE_METRIC_UINT32     = 16;
+uint64_t ALIAS_DEVICE_METRIC_FLOAT      = 17;
+uint64_t ALIAS_DEVICE_METRIC_DOUBLE     = 18;
 
 int main(int argc, char *argv[]) {
 
@@ -311,6 +313,8 @@ void publish_node_birth(struct mosquitto *mosq) {
 	fprintf(stdout, "Adding metric: 'Node Metric FLOAT'\n");
 	float nbirth_metric_float_value = 100.12;
 	add_simple_metric(&nbirth_payload, "Node Metric FLOAT", true, ALIAS_NODE_METRIC_FLOAT, METRIC_DATA_TYPE_FLOAT, false, false, false, &nbirth_metric_float_value, sizeof(nbirth_metric_float_value));
+	double nbirth_metric_double_value = 1000.123;
+	add_simple_metric(&nbirth_payload, "Node Metric DOUBLE", true, ALIAS_NODE_METRIC_DOUBLE, METRIC_DATA_TYPE_DOUBLE, false, false, false, &nbirth_metric_double_value, sizeof(nbirth_metric_double_value));
 
 	// Create a DataSet
 	com_cirruslink_sparkplug_protobuf_Payload_DataSet dataset = com_cirruslink_sparkplug_protobuf_Payload_DataSet_init_default;
@@ -445,6 +449,8 @@ void publish_device_birth(struct mosquitto *mosq) {
 	fprintf(stdout, "Adding metric: 'Device Metric FLOAT'\n");
 	float dbirth_metric_float_value = 100.12;
 	add_simple_metric(&dbirth_payload, "Device Metric FLOAT", true, ALIAS_DEVICE_METRIC_FLOAT, METRIC_DATA_TYPE_FLOAT, false, false, false, &dbirth_metric_float_value, sizeof(dbirth_metric_float_value));
+	double dbirth_metric_double_value = 1000.123;
+	add_simple_metric(&dbirth_payload, "Device Metric DOUBLE", true, ALIAS_DEVICE_METRIC_DOUBLE, METRIC_DATA_TYPE_DOUBLE, false, false, false, &dbirth_metric_double_value, sizeof(dbirth_metric_double_value));
 
 	// Create a metric called RPMs for the UDT instance
 	com_cirruslink_sparkplug_protobuf_Payload_Metric rpms_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
