@@ -9,15 +9,19 @@ package com.cirruslink.sparkplug.message.model;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * A class to represent the meta data associated with a metric.
  */
+@JsonInclude(Include.NON_NULL)
 public class MetaData {
 
 	/**
 	 * Indicates if the metric represents one of multiple parts.
 	 */
-	private boolean isMultiPart;
+	private Boolean isMultiPart;
 	
 	/**
 	 * A content type associated with the metric.
@@ -27,12 +31,12 @@ public class MetaData {
 	/** 
 	 * A size associated with the metric.
 	 */
-	private long size;
+	private Long size;
 	
 	/**
 	 * A sequence associated with the metric.
 	 */
-	private long seq;
+	private Long seq;
 
 	/**
 	 * A file name associated with the metric.
@@ -53,6 +57,11 @@ public class MetaData {
 	 * A description associated with the metric.
 	 */
 	private String description;
+	
+	/**
+	 * Default no-arg constructor.
+	 */
+	public MetaData() {}
 
 	/**
 	 * Constructor with fields.
@@ -66,7 +75,7 @@ public class MetaData {
 	 * @param md5 a MD5 sum associated with the metric.
 	 * @param description a description associated with the metric
 	 */
-	public MetaData(boolean isMultiPart, String contentType, long size, long seq, String fileName, 
+	public MetaData(Boolean isMultiPart, String contentType, Long size, Long seq, String fileName, 
 			String fileType, String md5, String description) {
 		this.isMultiPart = isMultiPart;
 		this.contentType = contentType;
@@ -78,11 +87,11 @@ public class MetaData {
 		this.description = description;
 	}
 
-	public boolean isMultiPart() {
+	public Boolean isMultiPart() {
 		return isMultiPart;
 	}
 
-	public MetaData setMultiPart(boolean isMultiPart) {
+	public MetaData setMultiPart(Boolean isMultiPart) {
 		this.isMultiPart = isMultiPart;
 		return this;
 	}
@@ -96,20 +105,20 @@ public class MetaData {
 		return this;
 	}
 
-	public long getSize() {
+	public Long getSize() {
 		return size;
 	}
 
-	public MetaData setSize(long size) {
+	public MetaData setSize(Long size) {
 		this.size = size;
 		return this;
 	}
 
-	public long getSeq() {
+	public Long getSeq() {
 		return seq;
 	}
 
-	public MetaData setSeq(long seq) {
+	public MetaData setSeq(Long seq) {
 		this.seq = seq;
 		return this;
 	}
@@ -181,10 +190,10 @@ public class MetaData {
 	 */
 	public static class MetaDataBuilder {
 
-		private boolean isMultiPart;
+		private Boolean isMultiPart;
 		private String contentType;
-		private long size;
-		private long seq;
+		private Long size;
+		private Long seq;
 		private String fileName;
 		private String fileType;
 		private String md5;
@@ -203,7 +212,7 @@ public class MetaData {
 			this.description = metaData.getDescription();
 		}
 
-		public MetaDataBuilder multiPart(boolean isMultiPart) {
+		public MetaDataBuilder multiPart(Boolean isMultiPart) {
 			this.isMultiPart = isMultiPart;
 			return this;
 		}
@@ -213,12 +222,12 @@ public class MetaData {
 			return this;
 		}
 		
-		public MetaDataBuilder size(long size) {
+		public MetaDataBuilder size(Long size) {
 			this.size = size;
 			return this;
 		}
 		
-		public MetaDataBuilder seq(long seq) {
+		public MetaDataBuilder seq(Long seq) {
 			this.seq = seq;
 			return this;
 		}
