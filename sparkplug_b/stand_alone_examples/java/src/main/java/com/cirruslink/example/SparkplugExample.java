@@ -149,6 +149,11 @@ public class SparkplugExample implements MqttCallbackExtended {
 	}
 
 	private void publishBirth() {
+		publishNodeBirth();
+		publishDeviceBirth();
+	}
+	
+	private void publishNodeBirth() {
 		try {
 			synchronized(seqLock) {
 				// Reset the sequence number
@@ -180,14 +185,25 @@ public class SparkplugExample implements MqttCallbackExtended {
 				
 				System.out.println("Publishing Edge Node Birth");
 				executor.execute(new Publisher(NAMESPACE + "/" + groupId + "/NBIRTH/" + edgeNode, payload));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
+	private void publishDeviceBirth() {
+		try {
+			synchronized(seqLock) {
 				// Create the payload and add some metrics
-				payload = new SparkplugBPayload(
+				SparkplugBPayload payload = new SparkplugBPayload(
 						new Date(), 
 						newMetrics(true), 
 						getSeqNum(),
 						newUUID(), 
 						null);
+				
+				payload.addMetric(new MetricBuilder("Device Control/Rebirth", Boolean, false)
+						.createMetric());
 
 				// Only do this once to set up the inputs and outputs
 				payload.addMetric(new MetricBuilder("Inputs/0", Boolean, true).createMetric());
@@ -204,7 +220,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 				payload.addMetric(new MetricBuilder("Properties/hw_version", String, HW_VERSION).createMetric());
 				payload.addMetric(new MetricBuilder("Properties/sw_version", String, SW_VERSION).createMetric());
 				
-				propertySet = new PropertySetBuilder()
+				PropertySet propertySet = new PropertySetBuilder()
 						.addProperty("EngUnit", new PropertyValue(PropertyDataType.String, "My Units"))
 						.addProperty("EngLow", new PropertyValue(PropertyDataType.Double, 1.0))
 						.addProperty("EngHigh", new PropertyValue(PropertyDataType.Double, 10.0))
@@ -300,7 +316,9 @@ public class SparkplugExample implements MqttCallbackExtended {
 			for (Metric metric : inboundPayload.getMetrics()) {
 				String name = metric.getName();
 				Object value = metric.getValue();
-				if ("Outputs/0".equals(name)) {
+				if ("Device Control/Rebirth".equals(metric.getName()) && ((Boolean)metric.getValue())) {
+					publishDeviceBirth();
+				} else if ("Outputs/0".equals(name)) {
 					System.out.println("Outputs/0: " + value);
 					outboundPayload.addMetric(new MetricBuilder("Inputs/0", Boolean, value).createMetric());
 					outboundPayload.addMetric(new MetricBuilder("Outputs/0", Boolean, value).createMetric());
