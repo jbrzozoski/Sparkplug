@@ -9,12 +9,27 @@ package com.cirruslink.sparkplug.util;
 
 import com.cirruslink.sparkplug.SparkplugParsingException;
 import com.cirruslink.sparkplug.message.model.MessageType;
+import com.cirruslink.sparkplug.message.model.SparkplugBPayload;
 import com.cirruslink.sparkplug.message.model.Topic;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Provides utility methods for handling Sparkplug MQTT message topics.
  */
 public class TopicUtil {
+	
+	/**
+	 * Serializes a {@link Topic} instance in to a JSON string.
+	 * 
+	 * @param topic a {@link Topic} instance
+	 * @return a JSON string
+	 * @throws JsonProcessingException
+	 */
+	public static String toJsonString(Topic topic) throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(topic);
+	}
 
 	/**
 	 * Parses a Sparkplug MQTT message topic string and returns a {@link Topic} instance.
