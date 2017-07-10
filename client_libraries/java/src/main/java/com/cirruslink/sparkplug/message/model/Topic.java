@@ -7,9 +7,13 @@
 
 package com.cirruslink.sparkplug.message.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * A Sparkplug MQTT Topic
  */
+@JsonInclude(Include.NON_NULL)
 public class Topic {
 	
 	/**
@@ -136,7 +140,7 @@ public class Topic {
 	 * @return true if this topic's type matches the passes in type, false otherwise
 	 */
 	public boolean isType(MessageType type) {
-		return this.type.equals(type);
+		return this.type != null && this.type.equals(type);
 	}
 	
 
