@@ -216,7 +216,7 @@ function SparkplugClient(config) {
             return decodePayload(decompressPayload(payload));
         } else {
             // The payload is not compressed
-            return decodePayload(payload);
+            return payload;
         }
     };
 
