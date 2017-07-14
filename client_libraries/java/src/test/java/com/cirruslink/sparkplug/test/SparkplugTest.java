@@ -380,6 +380,13 @@ public class SparkplugTest {
 			PayloadDecoder<SparkplugBPayload> decoder = new SparkplugBPayloadDecoder();
 			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
 			
+			for (Metric metric : decodedPayload.getMetrics()) {
+				if (metric.getDataType().equals(MetricDataType.Template)) {
+					System.out.println("PAYLOAD: " + PayloadUtil.toJsonString(decodedPayload));
+					break;
+				}
+			}
+			
 			// SparkplugBPayload checks
 			assertThat(currentTime).isEqualTo(decodedPayload.getTimestamp());
 			assertThat(-1L).isEqualTo(decodedPayload.getSeq());
@@ -408,6 +415,7 @@ public class SparkplugTest {
 		assertThat(name).isEqualTo(decodedMetric.getName());
 		assertThat(type).isEqualTo(decodedMetric.getDataType());
 		assertThat(Boolean.FALSE).isEqualTo(decodedMetric.isHistorical());
+		assertThat(Boolean.FALSE).isEqualTo(decodedMetric.isTransient());
 		
 		// Test PropertySet
 		if (propertySet != null) {

@@ -94,9 +94,9 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 		
 		// Build and return the Metric
 		return new MetricBuilder(protoMetric.getName(), dataType, getMetricValue(protoMetric))
-				.isHistorical(protoMetric.getIsHistorical())
-				.isTransient(protoMetric.getIsTransient())
-				.timestamp(new Date(protoMetric.getTimestamp()))
+				.isHistorical(protoMetric.hasIsHistorical() ? protoMetric.getIsHistorical() : null)
+				.isTransient(protoMetric.hasIsTransient() ? protoMetric.getIsTransient() : null)
+				.timestamp(protoMetric.hasTimestamp() ? new Date(protoMetric.getTimestamp()) : null)
 				.alias(protoMetric.hasAlias() 
 						? protoMetric.getAlias() 
 						: null)

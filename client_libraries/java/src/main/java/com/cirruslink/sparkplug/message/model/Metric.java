@@ -158,8 +158,13 @@ public class Metric {
 		this.propertySet = propertySet;
 	}
 
-	@JsonGetter("isHistorical")
+	@JsonIgnore
 	public Boolean isHistorical() {
+		return isHistorical == null ? false : isHistorical;
+	}
+
+	@JsonGetter("isHistorical")
+	public Boolean getIsHistorical() {
 		return isHistorical;
 	}
 
@@ -168,8 +173,13 @@ public class Metric {
 		this.isHistorical = isHistorical;
 	}
 
-	@JsonGetter("isTransient")
+	@JsonIgnore
 	public Boolean isTransient() {
+		return isTransient == null ? false : isTransient;
+	}
+
+	@JsonGetter("isTransient")
+	public Boolean getIsTransient() {
 		return isTransient;
 	}
 
@@ -180,6 +190,11 @@ public class Metric {
 
 	@JsonIgnore
 	public Boolean isNull() {
+		return isNull == null ? false : isNull;
+	}
+
+	@JsonIgnore
+	public Boolean getIsNull() {
 		return isNull;
 	}
 	

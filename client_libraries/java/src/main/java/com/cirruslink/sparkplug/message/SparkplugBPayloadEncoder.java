@@ -109,17 +109,17 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 		}
 		
 		// Set isHistorical
-		if (metric.isHistorical() != null) {
+		if (metric.getIsHistorical() != null) {
 			builder.setIsHistorical(metric.isHistorical());
 		}
 		
 		// Set isTransient
-		if (metric.isTransient() != null) {
+		if (metric.getIsTransient() != null) {
 			builder.setIsTransient(metric.isTransient());
 		}
 		
 		// Set isNull
-		if (metric.isNull() != null) {
+		if (metric.getIsNull() != null) {
 			builder.setIsNull(metric.isNull());
 		}
 
