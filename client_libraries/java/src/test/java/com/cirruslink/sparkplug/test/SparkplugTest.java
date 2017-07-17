@@ -141,7 +141,7 @@ public class SparkplugTest {
 					.addMetric(new MetricBuilder("TemplateMetric2", MetricDataType.Int32, 1234567890)
 							.createMetric())
 					.addMetric(new MetricBuilder("TemplateMetric3", MetricDataType.String, "TEST_STRING")
-							.propertySet(new PropertySetBuilder()
+							.properties(new PropertySetBuilder()
 									.addProperty("prop1a", new PropertyValue(PropertyDataType.Float, 1.23F))
 									.addProperty("prop1b", new PropertyValue(PropertyDataType.Float, new Float(1.23)))
 									.addProperty("prop2", new PropertyValue(PropertyDataType.DateTime, new Date()))
@@ -410,7 +410,7 @@ public class SparkplugTest {
 		MetricDataType type = metric.getDataType(); 
 		Object value = metric.getValue();
 		MetaData metaData = metric.getMetaData();
-		PropertySet propertySet = metric.getPropertySet();
+		PropertySet propertySet = metric.getProperties();
 		
 		assertThat(name).isEqualTo(decodedMetric.getName());
 		assertThat(type).isEqualTo(decodedMetric.getDataType());
@@ -420,7 +420,7 @@ public class SparkplugTest {
 		// Test PropertySet
 		if (propertySet != null) {
 			Map<String, PropertyValue> map = propertySet.getPropertyMap();
-			Map<String, PropertyValue> decodedMap = decodedMetric.getPropertySet().getPropertyMap();
+			Map<String, PropertyValue> decodedMap = decodedMetric.getProperties().getPropertyMap();
 			assertThat(map.size()).isEqualTo(decodedMap.size());
 			for (String key : map.keySet()) {
 				assertThat(map.get(key)).isEqualTo(decodedMap.get(key));

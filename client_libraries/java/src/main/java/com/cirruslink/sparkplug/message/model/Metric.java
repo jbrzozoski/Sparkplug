@@ -51,8 +51,8 @@ public class Metric {
 	@JsonProperty("metaData")
 	private MetaData metaData;
 	
-	@JsonProperty("propertySet")
-	private PropertySet propertySet;
+	@JsonProperty("properties")
+	private PropertySet properties;
 	
 	@JsonProperty("value")
 	private Object value;
@@ -70,12 +70,12 @@ public class Metric {
 	 * @param isTransient
 	 * @param isNull
 	 * @param metaData
-	 * @param propertySet
+	 * @param properties
 	 * @param value
 	 * @throws SparkplugInvalidTypeException 
 	 */
 	public Metric(String name, Long alias, Date timestamp, MetricDataType dataType, Boolean isHistorical,
-			Boolean isTransient, MetaData metaData, PropertySet propertySet, Object value) 
+			Boolean isTransient, MetaData metaData, PropertySet properties, Object value) 
 					throws SparkplugInvalidTypeException {
 		super();
 		this.name = name;
@@ -86,7 +86,7 @@ public class Metric {
 		this.isTransient = isTransient;
 		isNull = (value == null) ? true : false;
 		this.metaData = metaData;
-		this.propertySet = propertySet;
+		this.properties = properties;
 		this.value = value;
 		this.dataType.checkType(value);
 	}
@@ -150,12 +150,12 @@ public class Metric {
 		isNull = (value == null);
 	}
 
-	public PropertySet getPropertySet() {
-		return this.propertySet;
+	public PropertySet getProperties() {
+		return this.properties;
 	}
 
-	public void setPropertySet(PropertySet propertySet) {
-		this.propertySet = propertySet;
+	public void setProperties(PropertySet properties) {
+		this.properties = properties;
 	}
 
 	@JsonIgnore
@@ -202,7 +202,7 @@ public class Metric {
 	public String toString() {
 		return "Metric [name=" + name + ", alias=" + alias + ", timestamp=" + timestamp + ", dataType=" + dataType
 				+ ", isHistorical=" + isHistorical + ", isTransient=" + isTransient + ", isNull=" + isNull
-				+ ", metaData=" + metaData + ", propertySet=" + propertySet + ", value=" + value + "]";
+				+ ", metaData=" + metaData + ", propertySet=" + properties + ", value=" + value + "]";
 	}	
 	
 	/**
@@ -217,7 +217,7 @@ public class Metric {
 		private Boolean isHistorical;
 		private Boolean isTransient;
 		private MetaData metaData = null;
-		private PropertySet propertySet = null;
+		private PropertySet properties = null;
 		private Object value;
 		
 		public MetricBuilder(String name, MetricDataType dataType, Object value) {
@@ -244,8 +244,8 @@ public class Metric {
 			this.metaData = metric.getMetaData() != null 
 					? new MetaDataBuilder(metric.getMetaData()).createMetaData()
 					: null;
-			this.propertySet = metric.getMetaData() != null 
-					? new PropertySetBuilder(metric.getPropertySet()).createPropertySet()
+			this.properties = metric.getMetaData() != null 
+					? new PropertySetBuilder(metric.getProperties()).createPropertySet()
 					: null;
 			switch (dataType) {
 				case DataSet:
@@ -298,8 +298,8 @@ public class Metric {
 			return this;
 		}
 
-		public MetricBuilder propertySet(PropertySet propertySet) {
-			this.propertySet = propertySet;
+		public MetricBuilder properties(PropertySet properties) {
+			this.properties = properties;
 			return this;
 		}
 
@@ -310,7 +310,7 @@ public class Metric {
 		
 		public Metric createMetric() throws SparkplugInvalidTypeException {
 			return new Metric(name, alias, timestamp, dataType, isHistorical, isTransient, metaData, 
-					propertySet, value);
+					properties, value);
 		}
 	}
 }

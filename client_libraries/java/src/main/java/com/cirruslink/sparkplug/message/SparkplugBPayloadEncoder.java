@@ -130,9 +130,9 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 		}
 		
 		// Set the property set
-		if (metric.getPropertySet() != null) {
+		if (metric.getProperties() != null) {
 			logger.trace("PropertySet is not null");
-			builder.setProperties(convertPropertySet(metric.getPropertySet()));
+			builder.setProperties(convertPropertySet(metric.getProperties()));
 		}
 		
 		return builder;

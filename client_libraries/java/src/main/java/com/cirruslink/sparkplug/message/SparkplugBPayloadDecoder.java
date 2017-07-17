@@ -111,7 +111,7 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 								.description(protoMetric.getMetadata().getDescription())
 								.createMetaData()
 						: null)
-				.propertySet(protoMetric.hasProperties()
+				.properties(protoMetric.hasProperties()
 						? new PropertySetBuilder()
 								.addProperties(convertProperties(protoMetric.getProperties()))
 								.createPropertySet()
