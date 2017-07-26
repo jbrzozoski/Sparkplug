@@ -53,6 +53,7 @@ public class Template {
 	 * List of parameters.
 	 */
 	@JsonProperty("parameters")
+	@JsonInclude(Include.NON_EMPTY)
 	private List<Parameter> parameters;
 	
 	public Template() {}

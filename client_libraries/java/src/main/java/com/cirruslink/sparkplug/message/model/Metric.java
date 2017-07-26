@@ -52,6 +52,7 @@ public class Metric {
 	private MetaData metaData;
 	
 	@JsonProperty("properties")
+	@JsonInclude(Include.NON_EMPTY)
 	private PropertySet properties;
 	
 	@JsonProperty("value")
