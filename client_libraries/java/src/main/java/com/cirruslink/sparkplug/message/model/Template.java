@@ -13,17 +13,50 @@ import java.util.List;
 
 import com.cirruslink.sparkplug.SparkplugException;
 import com.cirruslink.sparkplug.message.model.Metric.MetricBuilder;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * A class representing a template associated with a metric
  */
+@JsonInclude(Include.NON_NULL)
 public class Template {
 
+	/**
+	 * The Template version.
+	 */
+	@JsonProperty("version")
 	private String version;
+	
+	/**
+	 * The template reference
+	 */
+	@JsonProperty("reference")
 	private String templateRef;
+	
+	/**
+	 * True if the template is a definition, false otherwise.
+	 */
+	@JsonProperty("isDefinition")
 	private boolean isDefinition;
+	
+	/**
+	 * List of metrics.
+	 */
+	@JsonProperty("metrics")
 	private List<Metric> metrics;
+	
+	/**
+	 * List of parameters.
+	 */
+	@JsonProperty("parameters")
+	@JsonInclude(Include.NON_EMPTY)
 	private List<Parameter> parameters;
+	
+	public Template() {}
 	
 	/**
 	 * Constructor
@@ -60,10 +93,12 @@ public class Template {
 		this.templateRef = templateRef;
 	}
 
+	@JsonGetter("isDefinition")
 	public boolean isDefinition() {
 		return isDefinition;
 	}
 
+	@JsonSetter("isDefinition")
 	public void setDefinition(boolean isDefinition) {
 		this.isDefinition = isDefinition;
 	}

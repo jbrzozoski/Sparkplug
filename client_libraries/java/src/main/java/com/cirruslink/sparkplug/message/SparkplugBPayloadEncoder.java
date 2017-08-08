@@ -109,17 +109,17 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 		}
 		
 		// Set isHistorical
-		if (metric.isHistorical() != null) {
+		if (metric.getIsHistorical() != null) {
 			builder.setIsHistorical(metric.isHistorical());
 		}
 		
 		// Set isTransient
-		if (metric.isTransient() != null) {
+		if (metric.getIsTransient() != null) {
 			builder.setIsTransient(metric.isTransient());
 		}
 		
 		// Set isNull
-		if (metric.isNull() != null) {
+		if (metric.getIsNull() != null) {
 			builder.setIsNull(metric.isNull());
 		}
 
@@ -130,9 +130,9 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 		}
 		
 		// Set the property set
-		if (metric.getPropertySet() != null) {
+		if (metric.getProperties() != null) {
 			logger.trace("PropertySet is not null");
-			builder.setProperties(convertPropertySet(metric.getPropertySet()));
+			builder.setProperties(convertPropertySet(metric.getProperties()));
 		}
 		
 		return builder;
@@ -446,8 +446,12 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 		if (metaData.getContentType() != null) {
 			metaDataBuilder.setContentType(metaData.getContentType());
 		}
-		metaDataBuilder.setSize(metaData.getSize());
-		metaDataBuilder.setSeq(metaData.getSeq());
+		if (metaData.getSize() != null) {
+			metaDataBuilder.setSize(metaData.getSize());
+		}
+		if (metaData.getSeq() != null) {
+			metaDataBuilder.setSeq(metaData.getSeq());
+		}
 		if (metaData.getFileName() != null) {
 			metaDataBuilder.setFileName(metaData.getFileName());
 		}

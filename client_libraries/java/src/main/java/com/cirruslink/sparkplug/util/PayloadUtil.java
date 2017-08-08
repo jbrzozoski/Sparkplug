@@ -19,6 +19,8 @@ import org.apache.log4j.Logger;
 import org.eclipse.kura.core.util.GZipUtil;
 
 import com.cirruslink.sparkplug.SparkplugException;
+import com.cirruslink.sparkplug.json.DeserializerModifier;
+import com.cirruslink.sparkplug.json.DeserializerModule;
 import com.cirruslink.sparkplug.message.SparkplugBPayloadDecoder;
 import com.cirruslink.sparkplug.message.SparkplugBPayloadEncoder;
 import com.cirruslink.sparkplug.message.model.Metric;
@@ -26,6 +28,10 @@ import com.cirruslink.sparkplug.message.model.MetricDataType;
 import com.cirruslink.sparkplug.message.model.Metric.MetricBuilder;
 import com.cirruslink.sparkplug.message.model.SparkplugBPayload;
 import com.cirruslink.sparkplug.message.model.SparkplugBPayload.SparkplugBPayloadBuilder;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Utilities for Sparkplug Payload handling.
@@ -37,6 +43,32 @@ public class PayloadUtil {
 	public static final String UUID_COMPRESSED = "SPBV1.0_COMPRESSED";
 	
 	public static final String METRIC_ALGORITHM = "algorithm";
+	
+	/**
+	 * Serializes a {@link SparkplugBPayload} instance in to a JSON string.
+	 * 
+	 * @param payload a {@link SparkplugBPayload} instance
+	 * @return a JSON string
+	 * @throws JsonProcessingException
+	 */
+	public static String toJsonString(SparkplugBPayload payload) throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		return mapper.writeValueAsString(payload);
+	}
+	
+	/**
+	 * Deserializes a JSON string into a {@link SparkplugBPayload} instance.
+	 * 
+	 * @param payload a JSON string
+	 * @return a {@link SparkplugBPayload} instance
+	 * @throws JsonProcessingException
+	 */
+	public static SparkplugBPayload fromJsonString(String jsonString) 
+			throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new DeserializerModule(new DeserializerModifier()));
+		return mapper.readValue(jsonString, SparkplugBPayload.class);
+	}
 	
 	/**
 	 * Returns a decompressed {@link SparkplugBPayload} instance from an existing payload.  Will return the original

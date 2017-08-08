@@ -8,7 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.cirruslink.example</groupId>
   <artifactId>sparkplug_b_example</artifactId>
-  <version>1.1.4</version>
+  <version>1.1.5</version>
   <packaging>jar</packaging>
   <name>Maven Quick Start Archetype</name>
   <url>http://maven.apache.org</url>
@@ -32,7 +32,7 @@
     <dependency>
       <groupId>com.cirruslink.sparkplug</groupId>
       <artifactId>sparkplug-java</artifactId>
-      <version>1.1.4</version>
+      <version>1.1.5</version>
     </dependency>
   </dependencies>
   <build>

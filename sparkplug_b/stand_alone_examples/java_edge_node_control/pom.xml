@@ -9,7 +9,7 @@
 
   <groupId>com.cirruslink.example</groupId>
   <artifactId>sparkplug_edge_node_control</artifactId>
-  <version>1.1.4</version>
+  <version>1.1.5</version>
   <packaging>jar</packaging>
 
   <name>Maven Quick Start Archetype</name>
@@ -35,7 +35,7 @@
     <dependency>
       <groupId>com.cirruslink.sparkplug</groupId>
       <artifactId>sparkplug-java</artifactId>
-      <version>1.1.4</version>
+      <version>1.1.5</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>

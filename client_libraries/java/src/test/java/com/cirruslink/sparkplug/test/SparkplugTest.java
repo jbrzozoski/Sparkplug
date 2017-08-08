@@ -27,6 +27,7 @@ import org.testng.annotations.Test;
 
 import com.cirruslink.sparkplug.SparkplugException;
 import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
+import com.cirruslink.sparkplug.json.JsonValidator;
 import com.cirruslink.sparkplug.message.PayloadDecoder;
 import com.cirruslink.sparkplug.message.SparkplugBPayloadDecoder;
 import com.cirruslink.sparkplug.message.SparkplugBPayloadEncoder;
@@ -53,16 +54,20 @@ import com.cirruslink.sparkplug.message.model.Template;
 import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
 import com.cirruslink.sparkplug.message.model.Value;
 import com.cirruslink.sparkplug.util.CompressionAlgorithm;
+import com.cirruslink.sparkplug.util.PayloadUtil;
 
 /**
  * Sparkplug Test class for encoding and decoding sparkplug payloads
  */
 public class SparkplugTest {
 	
-	private Date testTime;
+	/**
+	 * A {@link JsonValidator} instance used for testing JSON validation.
+	 */
+	private JsonValidator validator;
 	
 	public SparkplugTest() {
-		this.testTime = new Date();
+	    validator = JsonValidator.getInstance();
 	}
 	
 	@BeforeClass
@@ -136,7 +141,7 @@ public class SparkplugTest {
 					.addMetric(new MetricBuilder("TemplateMetric2", MetricDataType.Int32, 1234567890)
 							.createMetric())
 					.addMetric(new MetricBuilder("TemplateMetric3", MetricDataType.String, "TEST_STRING")
-							.propertySet(new PropertySetBuilder()
+							.properties(new PropertySetBuilder()
 									.addProperty("prop1a", new PropertyValue(PropertyDataType.Float, 1.23F))
 									.addProperty("prop1b", new PropertyValue(PropertyDataType.Float, new Float(1.23)))
 									.addProperty("prop2", new PropertyValue(PropertyDataType.DateTime, new Date()))
@@ -339,11 +344,26 @@ public class SparkplugTest {
 		assertThat(decodedMetric.isHistorical()).isEqualTo(isHistorical);
 		assertThat(decodedMetric.isTransient()).isEqualTo(isTransient);
 		assertThat(decodedMetric.isNull()).isEqualTo(isNull);
-		System.out.println("JSON: " + payload.toJsonString());
+		System.out.println("JSON: " + PayloadUtil.toJsonString(payload));
 	}
+    
+    @Test(dataProvider = "metricData")
+    public void testJsonValidation(String name, MetricDataType type, Object value, MetaData metaData) 
+			throws SparkplugException, Exception {
+		Date currentTime = new Date();
+    	
+		SparkplugBPayload payload = new SparkplugBPayloadBuilder()
+					.setTimestamp(currentTime)
+					.addMetric(new MetricBuilder(name, type, value)
+							.metaData(metaData)
+							.createMetric())
+					.createPayload();
+    	
+//    	assertThat(validator.isJsonValid(PayloadUtil.toJsonString(payload))).isTrue();
+    }
 	
-	public void testMetricPayload(String name, MetricDataType type, Object value, MetaData metaData) 
-			throws SparkplugException{
+	private void testMetricPayload(String name, MetricDataType type, Object value, MetaData metaData) 
+			throws SparkplugException {
 		try {
 			SparkplugBPayloadEncoder encoder = new SparkplugBPayloadEncoder();
 			Date currentTime = new Date();
@@ -359,6 +379,13 @@ public class SparkplugTest {
 			// Decode
 			PayloadDecoder<SparkplugBPayload> decoder = new SparkplugBPayloadDecoder();
 			SparkplugBPayload decodedPayload = decoder.buildFromByteArray(bytes);
+			
+			for (Metric metric : decodedPayload.getMetrics()) {
+				if (metric.getDataType().equals(MetricDataType.Template)) {
+					System.out.println("PAYLOAD: " + PayloadUtil.toJsonString(decodedPayload));
+					break;
+				}
+			}
 			
 			// SparkplugBPayload checks
 			assertThat(currentTime).isEqualTo(decodedPayload.getTimestamp());
@@ -383,16 +410,17 @@ public class SparkplugTest {
 		MetricDataType type = metric.getDataType(); 
 		Object value = metric.getValue();
 		MetaData metaData = metric.getMetaData();
-		PropertySet propertySet = metric.getPropertySet();
+		PropertySet propertySet = metric.getProperties();
 		
 		assertThat(name).isEqualTo(decodedMetric.getName());
 		assertThat(type).isEqualTo(decodedMetric.getDataType());
 		assertThat(Boolean.FALSE).isEqualTo(decodedMetric.isHistorical());
+		assertThat(Boolean.FALSE).isEqualTo(decodedMetric.isTransient());
 		
 		// Test PropertySet
 		if (propertySet != null) {
 			Map<String, PropertyValue> map = propertySet.getPropertyMap();
-			Map<String, PropertyValue> decodedMap = decodedMetric.getPropertySet().getPropertyMap();
+			Map<String, PropertyValue> decodedMap = decodedMetric.getProperties().getPropertyMap();
 			assertThat(map.size()).isEqualTo(decodedMap.size());
 			for (String key : map.keySet()) {
 				assertThat(map.get(key)).isEqualTo(decodedMap.get(key));

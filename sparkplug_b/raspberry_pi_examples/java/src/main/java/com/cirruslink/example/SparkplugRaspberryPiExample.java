@@ -239,7 +239,7 @@ public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 						.setTimestamp(new Date())
 						.addMetric(new MetricBuilder("bdSeq",
 								MetricDataType.Int64,
-								getNextBdSeqNum())
+								bdSeq)
 								.createMetric())
 						.addMetric(new MetricBuilder("Up Time ms",
 								MetricDataType.Int64,
@@ -278,6 +278,9 @@ public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 								configChangeCount)
 								.createMetric());
 				
+				// Increment the bdSeq number for the next use
+				incrementBdSeqNum();
+								
 				try {
 					// Add the Raspberry Pi's real network addresses
 					Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces();
@@ -397,15 +400,12 @@ public class SparkplugRaspberryPiExample implements MqttCallbackExtended {
 	}
 
 	// Used to get the sequence number
-	private long getNextBdSeqNum() throws Exception {
-		long retBdSeq = bdSeq;
+	private void incrementBdSeqNum() throws Exception {
 		if (bdSeq == 256) {
 			bdSeq = 0;
 		} else {
 			bdSeq++;
 		}
-		
-		return retBdSeq;
 	}
 
 	// Used to get the sequence number

@@ -13,11 +13,14 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * A class representing a Sparkplug B payload
  */
+@JsonInclude(Include.NON_NULL)
 public class SparkplugBPayload {
 
 	private Date timestamp;
@@ -26,6 +29,8 @@ public class SparkplugBPayload {
 	private String uuid;
 	private byte[] body;
 
+	public SparkplugBPayload() {};
+	
 	public SparkplugBPayload(Date timestamp, List<Metric> metrics, long seq, String uuid, byte[] body) {
 		this.timestamp = timestamp;
 		this.metrics = metrics;
@@ -66,6 +71,7 @@ public class SparkplugBPayload {
 		return metrics;
 	}
 	
+	@JsonIgnore
 	public Integer getMetricCount() {
 		return metrics.size();
 	}
@@ -102,11 +108,6 @@ public class SparkplugBPayload {
 	public String toString() {
 		return "SparkplugBPayload [timestamp=" + timestamp + ", metrics=" + metrics + ", seq=" + seq + ", uuid=" + uuid
 				+ ", body=" + Arrays.toString(body) + "]";
-	}
-	
-	public String toJsonString() throws Exception {
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(this);
 	}
 	
 	/**

@@ -10,6 +10,9 @@ package com.cirruslink.sparkplug.message.model;
 import java.util.Objects;
 
 import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
  * A class to represent a parameter associated with a template.
@@ -19,16 +22,19 @@ public class Parameter {
 	/**
 	 * The name of the parameter
 	 */
+	@JsonProperty("name")
 	private String name;
 	
 	/**
 	 * The data type of the parameter
 	 */
+	@JsonProperty("type")
 	private ParameterDataType type;
 	
 	/**
 	 * The value of the parameter
 	 */
+	@JsonProperty("value")
 	private Object value;
 	
 	
@@ -47,10 +53,12 @@ public class Parameter {
 		this.type.checkType(value);
 	}
 
+	@JsonGetter("name")
 	public String getName() {
 		return name;
 	}
 
+	@JsonSetter("name")
 	public void setName(String name) {
 		this.name = name;
 	}

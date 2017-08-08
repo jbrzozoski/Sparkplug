@@ -50,7 +50,11 @@ class AliasMap:
 # The callback for when the client receives a CONNACK response from the server.
 ######################################################################
 def on_connect(client, userdata, flags, rc):
-    print("Connected with result code "+str(rc))
+    if rc == 0:
+        print("Connected with result code "+str(rc))
+    else:
+        print("Failed to connect with result code "+str(rc))
+        sys.exit()
 
     global myGroupId
     global myNodeName
@@ -237,7 +241,7 @@ print "Starting main application"
 deathPayload = sparkplug.getNodeDeathPayload()
 
 # Start of main program - Set up the MQTT client connection
-client = mqtt.Client()
+client = mqtt.Client(serverUrl, 1883, 60)
 client.on_connect = on_connect
 client.on_message = on_message
 client.username_pw_set(myUsername, myPassword)
