@@ -22,18 +22,18 @@
 #include <mosquitto.h>
 #include <inttypes.h>
 
-/* Mosquitto Callbacks */
-void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mosquitto_message *message);
-void my_connect_callback(struct mosquitto *mosq, void *userdata, int result);
-void my_subscribe_callback(struct mosquitto *mosq, void *userdata, int mid, int qos_count, const int *granted_qos);
-void my_log_callback(struct mosquitto *mosq, void *userdata, int level, const char *str);
-
 /* Local Functions */
 void publisher(struct mosquitto *mosq, char *topic, void *buf, unsigned len);
 void publish_births(struct mosquitto *mosq);
 void publish_node_birth(struct mosquitto *mosq);
 void publish_device_birth(struct mosquitto *mosq);
 void publish_ddata_message(struct mosquitto *mosq);
+
+/* Mosquitto Callbacks */
+void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mosquitto_message *message);
+void my_connect_callback(struct mosquitto *mosq, void *userdata, int result);
+void my_subscribe_callback(struct mosquitto *mosq, void *userdata, int mid, int qos_count, const int *granted_qos);
+void my_log_callback(struct mosquitto *mosq, void *userdata, int level, const char *str);
 
 uint64_t ALIAS_NODE_CONTROL_NEXT_SERVER = 0;
 uint64_t ALIAS_NODE_CONTROL_REBIRTH     = 1;
@@ -58,7 +58,7 @@ uint64_t ALIAS_DEVICE_METRIC_DOUBLE     = 18;
 int main(int argc, char *argv[]) {
 
 	// MQTT Parameters
-        char *host = "localhost";
+        char *host = "ignition.chariot.io";
         int port = 1883;
         int keepalive = 60;
         bool clean_session = true;
@@ -72,10 +72,13 @@ int main(int argc, char *argv[]) {
                 fprintf(stderr, "Error: Out of memory.\n");
                 return 1;
         }
+
+	fprintf(stdout, "Setting up callbacks\n");
         mosquitto_log_callback_set(mosq, my_log_callback);
         mosquitto_connect_callback_set(mosq, my_connect_callback);
         mosquitto_message_callback_set(mosq, my_message_callback);
         mosquitto_subscribe_callback_set(mosq, my_subscribe_callback);
+
         mosquitto_username_pw_set(mosq,"admin","changeme");
         mosquitto_will_set(mosq, "spBv1.0/Sparkplug B Devices/NDEATH/C Edge Node 1", 0, NULL, 0, false);
 
@@ -101,7 +104,7 @@ int main(int argc, char *argv[]) {
 		int j;
 		for(j=0; j<50; j++) {
 			usleep(100000);
-			//mosquitto_loop(mosq, -1, 1);
+			mosquitto_loop(mosq, -1, 1);
 		}
 	}
 
@@ -112,14 +115,6 @@ int main(int argc, char *argv[]) {
 	mosquitto_destroy(mosq);
 	mosquitto_lib_cleanup();
 	return 0;
-}
-
-/*
- * Helper function to publish MQTT messages to the MQTT server
- */
-void publisher(struct mosquitto *mosq, char *topic, void *buf, unsigned len) {
-	// publish the data
-	mosquitto_publish(mosq, NULL, topic, len, buf, 0, false);
 }
 
 /*
@@ -145,26 +140,26 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 	int i;
 	for (i=0; i<inbound_payload.metrics_count; i++) {
 		// Handle the incoming message as necessary - start with the 'Node Control' metrics
-		if (strcmp(inbound_payload.metrics[i].name, "Node Control/Next Server") == 0) {
+		if (inbound_payload.metrics[i].alias == ALIAS_NODE_CONTROL_NEXT_SERVER) {
 			// 'Node Control/Next Server' is an NCMD used to tell the device/client application to
 			// disconnect from the current MQTT server and connect to the next MQTT server in the
 			// list of available servers.  This is used for clients that have a pool of MQTT servers
 			// to connect to.
 			fprintf(stderr, "'Node Control/Next Server' is not implemented in this example\n");
-		} else if (strcmp(inbound_payload.metrics[i].name, "Node Control/Rebirth") == 0) {
+		} else if (inbound_payload.metrics[i].alias == ALIAS_NODE_CONTROL_REBIRTH) {
 			// 'Node Control/Rebirth' is an NCMD used to tell the device/client application to resend
 			// its full NBIRTH and DBIRTH again.  MQTT Engine will send this NCMD to a device/client
 			// application if it receives an NDATA or DDATA with a metric that was not published in the
 			// original NBIRTH or DBIRTH.  This is why the application must send all known metrics in
 			// its original NBIRTH and DBIRTH messages.
 			publish_births(mosq);
-		} else if (strcmp(inbound_payload.metrics[i].name, "Node Control/Reboot") == 0) {
+		} else if (inbound_payload.metrics[i].alias == ALIAS_NODE_CONTROL_REBOOT) {
 			// 'Node Control/Reboot' is an NCMD used to tell a device/client application to reboot
 			// This can be used for devices that need a full application reset via a soft reboot.
 			// In this case, we fake a full reboot with a republishing of the NBIRTH and DBIRTH
 			// messages.
 			publish_births(mosq);
-		} else if (strcmp(inbound_payload.metrics[i].name, "output/Device Metric2") == 0) {
+		} else if (inbound_payload.metrics[i].alias == ALIAS_DEVICE_METRIC_2) {
 			// This is a metric we declared in our DBIRTH message and we're emulating an output.
 			// So, on incoming 'writes' to the output we must publish a DDATA with the new output
 			// value.  If this were a real output we'd write to the output and then read it back
@@ -192,21 +187,77 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 			// Free the memory
 			free(binary_buffer);
 			free_payload(&ddata_payload);
-		} else if (strcmp(inbound_payload.metrics[i].name, "output/Device Metric3") == 0) {
+		} else if (inbound_payload.metrics[i].alias == ALIAS_DEVICE_METRIC_3) {
 			// This is a metric we declared in our DBIRTH message and we're emulating an output.
 			// So, on incoming 'writes' to the output we must publish a DDATA with the new output
 			// value.  If this were a real output we'd write to the output and then read it back
 			// before publishing a DDATA message.
 
-			// We know this is an Boolean because of how we declated it in the DBIRTH
+			// We know this is an Boolean because of how we declared it in the DBIRTH
 			bool new_value = inbound_payload.metrics[i].value.boolean_value;
-			fprintf(stdout, "CMD message for output/Device Metric2 - New Value: %s\n", new_value ? "true" : "false");
+			fprintf(stdout, "CMD message for output/Device Metric3 - New Value: %s\n", new_value ? "true" : "false");
 
 			// Create the DDATA payload
 			com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
 			get_next_payload(&ddata_payload);
 			// Note the Metric name 'output/Device Metric3' is not needed because we're using aliases
 			add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_3, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &new_value, sizeof(new_value));
+
+			// Encode the payload into a binary format so it can be published in the MQTT message.
+			// The binary_buffer must be large enough to hold the contents of the binary payload
+			size_t buffer_length = 128;
+			uint8_t *binary_buffer = (uint8_t *)malloc(buffer_length * sizeof(uint8_t));
+			size_t message_length = encode_payload(&binary_buffer, buffer_length, &ddata_payload);
+
+		        // Publish the DDATA on the appropriate topic
+		        mosquitto_publish(mosq, NULL, "spBv1.0/Sparkplug B Devices/DDATA/C Edge Node 1/Emulated Device", message_length, binary_buffer, 0, false);
+
+			// Free the memory
+			free(binary_buffer);
+			free_payload(&ddata_payload);
+		} else if (inbound_payload.metrics[i].alias == ALIAS_DEVICE_METRIC_FLOAT) {
+			// This is a metric we declared in our DBIRTH message and we're emulating an output.
+			// So, on incoming 'writes' to the output we must publish a DDATA with the new output
+			// value.  If this were a real output we'd write to the output and then read it back
+			// before publishing a DDATA message.
+
+			// We know this is an float because of how we declared it in the DBIRTH
+			float new_value = inbound_payload.metrics[i].value.float_value;
+			fprintf(stdout, "CMD message for Device Metric FLOAT - New Value: %f\n", new_value);
+
+			// Create the DDATA payload
+			com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
+			get_next_payload(&ddata_payload);
+			// Note the Metric name 'output/Device Metric FLOAT' is not needed because we're using aliases
+			add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_FLOAT, METRIC_DATA_TYPE_FLOAT, false, false, false, &new_value, sizeof(new_value));
+
+			// Encode the payload into a binary format so it can be published in the MQTT message.
+			// The binary_buffer must be large enough to hold the contents of the binary payload
+			size_t buffer_length = 128;
+			uint8_t *binary_buffer = (uint8_t *)malloc(buffer_length * sizeof(uint8_t));
+			size_t message_length = encode_payload(&binary_buffer, buffer_length, &ddata_payload);
+
+		        // Publish the DDATA on the appropriate topic
+		        mosquitto_publish(mosq, NULL, "spBv1.0/Sparkplug B Devices/DDATA/C Edge Node 1/Emulated Device", message_length, binary_buffer, 0, false);
+
+			// Free the memory
+			free(binary_buffer);
+			free_payload(&ddata_payload);
+		} else if (inbound_payload.metrics[i].alias == ALIAS_DEVICE_METRIC_DOUBLE) {
+			// This is a metric we declared in our DBIRTH message and we're emulating an output.
+			// So, on incoming 'writes' to the output we must publish a DDATA with the new output
+			// value.  If this were a real output we'd write to the output and then read it back
+			// before publishing a DDATA message.
+
+			// We know this is an double because of how we declared it in the DBIRTH
+			double new_value = inbound_payload.metrics[i].value.double_value;
+			fprintf(stdout, "CMD message for Device Metric DOUBLE - New Value: %f\n", new_value);
+
+			// Create the DDATA payload
+			com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
+			get_next_payload(&ddata_payload);
+			// Note the Metric name 'output/Device Metric DOUBLE' is not needed because we're using aliases
+			add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_DOUBLE, METRIC_DATA_TYPE_DOUBLE, false, false, false, &new_value, sizeof(new_value));
 
 			// Encode the payload into a binary format so it can be published in the MQTT message.
 			// The binary_buffer must be large enough to hold the contents of the binary payload
@@ -233,6 +284,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 void my_connect_callback(struct mosquitto *mosq, void *userdata, int result) {
 	if(!result) {
 		// Subscribe to commands
+		fprintf(stdout, "Subscribing on CMD topics\n");
 		mosquitto_subscribe(mosq, NULL, "spBv1.0/Sparkplug B Devices/NCMD/C Edge Node 1/#", 0);
 		mosquitto_subscribe(mosq, NULL, "spBv1.0/Sparkplug B Devices/DCMD/C Edge Node 1/#", 0);
 	} else {
@@ -259,6 +311,14 @@ void my_subscribe_callback(struct mosquitto *mosq, void *userdata, int mid, int 
 void my_log_callback(struct mosquitto *mosq, void *userdata, int level, const char *str) {
 	// Print all log messages regardless of level.
 	fprintf(stdout, "%s\n", str);
+}
+
+/*
+ * Helper function to publish MQTT messages to the MQTT server
+ */
+void publisher(struct mosquitto *mosq, char *topic, void *buf, unsigned len) {
+	// publish the data
+	mosquitto_publish(mosq, NULL, topic, len, buf, 0, false);
 }
 
 /*
