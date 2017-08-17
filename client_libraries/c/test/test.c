@@ -58,7 +58,7 @@ uint64_t ALIAS_DEVICE_METRIC_DOUBLE     = 18;
 int main(int argc, char *argv[]) {
 
 	// MQTT Parameters
-        char *host = "ignition.chariot.io";
+        char *host = "localhost";
         int port = 1883;
         int keepalive = 60;
         bool clean_session = true;
