@@ -98,8 +98,43 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 					}
 				}
 			}
+		} else if (metric_wire_type == PB_WT_32BIT) {
+			DEBUG_PRINT(("\t\tMetric Wire type is PB_WT_32BIT\n"));
+			for (metric_field = com_cirruslink_sparkplug_protobuf_Payload_Metric_fields; metric_field->tag != 0; metric_field++) {
+				if (metric_field->tag == metric_tag && (((metric_field->type & PB_LTYPE_FIXED32) == PB_LTYPE_FIXED32))) {
+					DEBUG_PRINT(("\t\tWire type is PB_WT_32BIT\n"));
+					uint32_t dest;
+					status = pb_decode_fixed32(&substream, &dest);
+					if (status) {
+						DEBUG_PRINT(("\t\t32BIT - Success - new value: %ld\n", dest));
+						float destination_float = *((float*)&dest);
+						DEBUG_PRINT(("\t\tFLoat - Success - new value: %f\n", destination_float));
+						if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_float_value_tag) {
+							metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_float_value_tag;
+							metric->value.float_value = destination_float;
+						}
+					}
+				}
+			}
 		} else if (metric_wire_type == PB_WT_64BIT) {
 			DEBUG_PRINT(("\t\tMetric Wire type is PB_WT_64BIT\n"));
+			for (metric_field = com_cirruslink_sparkplug_protobuf_Payload_Metric_fields; metric_field->tag != 0; metric_field++) {
+				if (metric_field->tag == metric_tag && (((metric_field->type & PB_LTYPE_FIXED64) == PB_LTYPE_FIXED64))) {
+					DEBUG_PRINT(("\t\tWire type is PB_WT_64BIT\n"));
+					uint64_t dest;
+					status = pb_decode_fixed64(&substream, &dest);
+					if (status) {
+						DEBUG_PRINT(("\t\t64BIT - Success - new value: %ld\n", dest));
+						double destination_double = *((double*)&dest);
+						DEBUG_PRINT(("\t\tDouble - Success - new value: %f\n", destination_double));
+						if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_double_value_tag) {
+							metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_double_value_tag;
+							metric->value.double_value = destination_double;
+						}
+					}
+				}
+			}
+
 		} else if (metric_wire_type == PB_WT_STRING) {
 			DEBUG_PRINT(("\t\tMetric Wire type is PB_WT_STRING\n"));
 

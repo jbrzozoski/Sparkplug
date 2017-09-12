@@ -180,7 +180,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 						.addProperty("CustC", new PropertyValue(PropertyDataType.Int32, 100))
 						.createPropertySet();
 				payload.addMetric(new MetricBuilder("MyMetric", String, "My Value")
-						.propertySet(propertySet)
+						.properties(propertySet)
 						.createMetric());
 				
 				System.out.println("Publishing Edge Node Birth");
@@ -229,7 +229,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 						.addProperty("CustC", new PropertyValue(PropertyDataType.Int32, 100))
 						.createPropertySet();
 				payload.addMetric(new MetricBuilder("MyMetric", String, "My Value")
-						.propertySet(propertySet)
+						.properties(propertySet)
 						.createMetric());
 	
 				System.out.println("Publishing Device Birth");
@@ -384,7 +384,7 @@ public class SparkplugExample implements MqttCallbackExtended {
 		
 		// Metrics with properties
 		metrics.add(new MetricBuilder("IntWithProps", Int32, random.nextInt())
-				.propertySet(new PropertySetBuilder()
+				.properties(new PropertySetBuilder()
 						.addProperty("EngUnit", new PropertyValue(PropertyDataType.String, "My Units"))
 						.addProperty("EngHigh", new PropertyValue(PropertyDataType.Int32, Integer.MAX_VALUE))
 						.addProperty("EngLow", new PropertyValue(PropertyDataType.Int32, Integer.MIN_VALUE))
