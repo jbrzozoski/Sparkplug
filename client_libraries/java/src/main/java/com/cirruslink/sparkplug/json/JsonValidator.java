@@ -12,7 +12,7 @@ package com.cirruslink.sparkplug.json;
  */
 public class JsonValidator {
 	
-	protected static final String JSON_SCHEMA_FILENAME = "sparkplug_b.json";
+	protected static final String JSON_SCHEMA_FILENAME = "payload.json";
 	
 	private static JsonValidator instance = null;
 	
