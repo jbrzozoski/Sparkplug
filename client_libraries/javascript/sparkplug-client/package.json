@@ -24,9 +24,9 @@
     "LICENSE"
   ],
   "dependencies": {
-    "mqtt": "^2.3.0",
-    "protobufjs": "^6.0.0",
-    "pako": "^1.0.4",
+    "mqtt": "^2.13.0",
+    "protobufjs": "^6.8.0",
+    "pako": "^1.0.6",
     "winston": "^2.3.1"
   }
 }

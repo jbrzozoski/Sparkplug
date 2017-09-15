@@ -264,7 +264,7 @@ A device death certificate (DDEATH) can be published to indicated that the
 device has gone offline or has lost a connection.  It should contain only a
 timestamp.
 
-Here is a code example of publishing a DBIRTH message:
+Here is a code example of publishing a DDEATH message:
 
 ```javascript
 var deviceId = "testDevice",

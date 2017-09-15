@@ -411,8 +411,8 @@
                 "type" : type
             });
 
-        if (object.isNull !== undefined && object.isNull !== null) {
-            newPropertyValue.isNull = object.isNull;
+        if (object.value !== undefined && object.value === null) {
+            newPropertyValue.isNull = true;
         }
 
         setValue(type, object.value, newPropertyValue);
@@ -421,16 +421,15 @@
     }
 
     decodePropertyValue = function(protoValue) {
-        var propertyValue = {},
-            protoType = protoValue.type,
-            isNull = protoValue.isNull;
+        var propertyValue = {};
 
-        if (isNull !== undefined && isNull !== null) {
-            propertyValue.isNull = isNull;
+        if (protoValue.isNull !== undefined && protoValue.isNull === true) {
+            propertyValue.value = null;
+        } else {
+            propertyValue.value = getValue(protoValue.type, protoValue);
         }
 
-        propertyValue.type = decodeType(protoType);
-        propertyValue.value = getValue(protoType, protoValue);
+        propertyValue.type = decodeType(protoValue.type);
 
         return propertyValue;
     }
@@ -599,7 +598,6 @@
             alias = metric.alias,
             isHistorical = metric.isHistorical,
             isTransient = metric.isTransient,
-            isNull = metric.isNull,
             metadata = metric.metadata,
             properties = metric.properties;
         
@@ -619,8 +617,8 @@
             newMetric.isTransient = isTransient;
         }
 
-        if (isNull !== undefined && isNull !== null) {
-            newMetric.isNull = isNull;
+        if (value !== undefined && value === null) {
+            newMetric.isNull = true;
         }
 
         if (metadata !== undefined && metadata !== null) {
@@ -647,8 +645,14 @@
         metric.type = decodeType(protoMetric.datatype);
         metric.value = getValue(protoMetric.datatype, protoMetric);
 
-        if (protoMetric.alias !== undefined && alias !== null) {
-            metric.alias = protoMetric.alias;
+        if (isNull !== undefined && isNull === true) {
+            metric.value = null;
+        } else {
+            metric.value = getValue(protoMetric.datatype, protoMetric);
+        }
+
+        if (alias !== undefined && alias !== null) {
+            metric.alias = alias;
         }
 
         if (isHistorical !== undefined && isHistorical !== null) {
@@ -657,10 +661,6 @@
 
         if (isTransient !== undefined && isTransient !== null) {
             metric.isTransient = isTransient;
-        }
-
-        if (isNull !== undefined && isNull !== null) {
-            metric.isNull = isNull;
         }
 
         if (metadata !== undefined && metadata !== null) {
