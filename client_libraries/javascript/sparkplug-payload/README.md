@@ -17,7 +17,7 @@ This library supports the Sparkplug Google Protocol Buffer Schemas for the
 following Sparkplug namespaces:
 
 * spBv1.0
-* spAv1.0 (depricated)
+* spAv1.0 (deprecated)
 
 
 ### Encoding a payload

@@ -9,8 +9,7 @@
   },
   "keywords": [
     "sparkplug",
-    "payload",
-    "mqtt"
+    "payload"
   ],
   "author": "Chad Kienle <chad.kienle@cirrus-link.com> (http://www.cirrus-link.com)",
   "license": "EPL-1.0",
@@ -19,6 +18,7 @@
   },
   "homepage": "https://github.com/Cirrus-Link/Sparkplug#readme",
   "files": [
+    "index.js",
     "lib/kurapayload.js",
     "lib/sparkplugbpayload.js",
     "README.md",
