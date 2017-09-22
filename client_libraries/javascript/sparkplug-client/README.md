@@ -412,7 +412,8 @@ client.on('close', function () {
         versions and removed bytebuffer as a dependency.
 * 3.1.0 Added support for payload compression/decompression with DEFLATE
         and Gzip algorithms, added logging with Winston to replace console
-        logging, and other minor bug fixes.
+        logging, and other minor bug fixes. Moved sparkplug payload libraries
+        to their own project and updated dependecies.
 
 ## License
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012, 2016 Cirrus Link Solutions
+ * Copyright (c) 2016-2017 Cirrus Link Solutions
  *
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
@@ -645,30 +645,30 @@
         metric.type = decodeType(protoMetric.datatype);
         metric.value = getValue(protoMetric.datatype, protoMetric);
 
-        if (isNull !== undefined && isNull === true) {
+        if (protoMetric.hasOwnProperty("isNull") && protoMetric.isNull === true) {
             metric.value = null;
         } else {
             metric.value = getValue(protoMetric.datatype, protoMetric);
         }
 
-        if (alias !== undefined && alias !== null) {
-            metric.alias = alias;
+        if (protoMetric.hasOwnProperty("alias")) {
+            metric.alias = protoMetric.alias;
         }
 
-        if (isHistorical !== undefined && isHistorical !== null) {
-            metric.isHistorical = isHistorical;
+        if (protoMetric.hasOwnProperty("isHistorical")) {
+            metric.isHistorical = protoMetric.isHistorical;
         }
 
-        if (isTransient !== undefined && isTransient !== null) {
-            metric.isTransient = isTransient;
+        if (protoMetric.hasOwnProperty("isTransient")) {
+            metric.isTransient = protoMetric.isTransient;
         }
 
-        if (metadata !== undefined && metadata !== null) {
-            metric.metadata = decodeMetaData(metadata);
+        if (protoMetric.hasOwnProperty("metadata")) {
+            metric.metadata = decodeMetaData(protoMetric.metadata);
         }
 
-        if (properties !== undefined && properties !== null) {
-            metric.properties = decodePropertySet(properties);
+        if (protoMetric.hasOwnProperty("properties")) {
+            metric.properties = decodePropertySet(protoMetric.properties);
         }
 
         return metric;
@@ -707,31 +707,30 @@
 
     exports.decodePayload = function(proto) {
         var sparkplugPayload = Payload.decode(proto),
-            protoMetrics = sparkplugPayload.metrics,
-            seq = sparkplugPayload.seq,
-            uuid = sparkplugPayload.uuid,
-            body = sparkplugPayload.body,
             payload = {};
-        payload.timestamp = sparkplugPayload.timestamp.toNumber();
 
-        if (protoMetrics !== undefined && protoMetrics !== null) {
+        if (sparkplugPayload.hasOwnProperty("timestamp")) {
+            payload.timestamp = sparkplugPayload.timestamp.toNumber();
+        }
+
+        if (sparkplugPayload.hasOwnProperty("metrics")) {
             metrics = [];
-            for (var i = 0; i < protoMetrics.length; i++) {
-                metrics.push(decodeMetric(protoMetrics[i]));
+            for (var i = 0; i < sparkplugPayload.metrics.length; i++) {
+                metrics.push(decodeMetric(sparkplugPayload.metrics[i]));
             }
             payload.metrics = metrics;
         }
 
-        if (seq !== undefined && seq !== null) {
-            payload.seq = seq;
+        if (sparkplugPayload.hasOwnProperty("seq")) {
+            payload.seq = sparkplugPayload.seq.toNumber();
         }
 
-        if (uuid !== undefined && uuid !== null) {
-            payload.uuid = uuid;
+        if (sparkplugPayload.hasOwnProperty("uuid")) {
+            payload.uuid = sparkplugPayload.uuid;
         }
 
-        if (body !== undefined && body !== null) {
-            payload.body = body;
+        if (sparkplugPayload.hasOwnProperty("body")) {
+            payload.body = sparkplugPayload.body;
         }
 
         return payload;
