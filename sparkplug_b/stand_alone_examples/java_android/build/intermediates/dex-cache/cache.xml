@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a5d9eeb8c3028d110ee0d16ac7fe74dd610e8ce7">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_fe15e966ec66b47a25c6fdb93d4806c614eadcc1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.service/build/intermediates/bundles/default/libs/org.eclipse.paho.client.mqttv3-1.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="747dd7ad3c1c6cf472fa2b79c47d648855898dd5">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/8/org.eclipse.paho.client.mqttv3-1.1.0_bd26386336d552f7ab17ff6cf8aa91c29cceb416/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_2cb706b9a4004dd07e0d44454401cc26f9d11dfa/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/libs/android-core-3.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="86ce6f89a1d7944bb9814a2ec5520dccd3ee3dce">
+        <dex dex="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/2/android-core-3.3.0_72e329682011377fa16a1e179a11525d1ac86b78/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/.android/build-cache/fef36626832ae6e9192454515f0d4bf055a871f8/output/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="fbf8da429efd5ad21e02e3e5ecaa1efc4167878d">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_2db23b1e5a81ec452ecd869fadc48f2794494ca1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_b3f001d1a8b67de7423181c460efcec93dd059a4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/.android/build-cache/33c7d1cf7cf294af64c3f10ed975e9f44851d326/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d5c731fc64c03dfe04d51134955b483551c35849">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10/classes_28e86b20f5e3a42dab2f5a96c776fbbc4ff52b64/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/.android/build-cache/3eaf5dadd54b29a4c15d338f5bfe835f0459e97b/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e7f3132168957eefc46229fc32c3bd464642b71e">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10/classes_1df1ae549809c8ed7286949a8c34d02a720536a2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/libs/android-integration-3.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e0f3e0def130c30c1fab6f891cf52fb01cc8522b">
+        <dex dex="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/2/android-integration-3.3.0_f572c4243449ac8b43d1da3fc7d5601626bb0a23/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/libs/commons-io-2.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2852e6e05fbb95076fc091f6d1780f1f8fe35e0f">
+        <dex dex="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/2/commons-io-2.5_64617fa549178c21af279507aaec0b062c2c0a7e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/.android/build-cache/3ecb4c741c7f5c55faafd6786bd418f6b471470d/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="43b2dba6b5a0b14527961b75329d0b90025f15ea">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10/classes_524db76dbed8984a84f7d34066196609e55fb18c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/libs/sparkplug-java-1.1.5-SNAPSHOT.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ba9418ba6ac6783116c39a536292317b07e6e504">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/2/sparkplug-java-1.1.5-SNAPSHOT_35eebe8b66765f072b97caffa0b181e2cdb388ef/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/.android/build-cache/e3465cbec63d7182152f9171eb4b40dc869be391/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="94bc1dfb84dcc8b6f6f8f7cc726d7b2dd39c1574">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a159022306ed6619b7a73a148bb7a9367ab1b0aa/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/.android/build-cache/cfc5b1c1175bfe1744e8199fa5821e3c4bd1d75a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b9a1ac78ad7ef3abedc4a4b30cd92bcacb939d1f">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e28a52130a67fa7261c9e7135e2d252b53000b87/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c667c4b7e2a5b34d0a85b1b249aad5979f32f55d">
+        <dex dex="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_033f955ed06e7eeab1835c735b4363e8c00962f5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/libs/core-3.3.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="73c49077166faa4c3c0059c5f583d1d7bd1475fe">
+        <dex dex="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/2/core-3.3.0_3d0ebd6922603b89e5101fb9e748b407ae427b4d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/.android/build-cache/cb73300696f9bbc401af01cf524464936fb3c1fc/output/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7e4389bd133359a2ff88623ff1e4ff93d6e6f780">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_f3185f86d90b14353c27fdd1c267ce408cb6f3ac/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/.android/build-cache/fef36626832ae6e9192454515f0d4bf055a871f8/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="09b462bbcb77650284bd6614f1a32f360ef369f8">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10/classes_ceca691025dadb07c59c07b6ef87cea14161f1f4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/libs/sparkplug-java-1.1.5-SNAPSHOT.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ba9418ba6ac6783116c39a536292317b07e6e504">
+        <dex dex="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/2/sparkplug-java-1.1.5-SNAPSHOT_51efd4c3a8a69db038a293f73bf626f6602ae5f4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/.android/build-cache/cd4a29eb3ddc1d8e003e0c7650268f5473359045/output/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="935a969265b2a166b2d20415423f5f6e90fe16e0">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_6266ecaefe28607338fea7a6b55ba024d5238786/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/.android/build-cache/9633563cf61775832be38baadb3c5d992e45e481/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7521486d9bfd2cd9e756e0cf75ed7d97f2ce2d3b">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10/classes_9da57908a593804095f712185d90746fc6dd598c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/.android/build-cache/cfc5b1c1175bfe1744e8199fa5821e3c4bd1d75a/output/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5f64d657e838e8375135c0f6057a7ff8fab6a50e">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_eda32ee5e2823404eaed36e00c0c4e5824e5dec7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/.android/build-cache/3eaf5dadd54b29a4c15d338f5bfe835f0459e97b/output/jars/libs/internal_impl-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="867dad63c33388ff8c7644b236579355036d075f">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-24.2.1_cde808dc030152f43d0ea2d3dea6ea551902f1f9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/24.2.1/support-annotations-24.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8de3aafecbdf98a61db6427f008f2d515bcd2544">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-24.2.1_7d87a21107454b04044757364b8a293f3a11a7cd/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/.android/build-cache/d1d610c24e44bcd8344a4a39e353844130d45a9e/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10/classes_8b0b0d2bbc982ca95d40744666ce8402806ea334/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/libs/log4j-1.2.17.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5af35056b4d257e4b64b9e8069c0746e8b08629f">
+        <dex dex="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/2/log4j-1.2.17_ae1f686db1d0b94f7e3cce21ee8dbc5c631576a3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/libs/protobuf-java-3.2.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="62ccf171a106ff6791507f2d5364c275f9a3131d">
+        <dex dex="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/2/protobuf-java-3.2.0_acc5182a2902ed489311c422a2468b3a6f61c6da/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/.android/build-cache/cb73300696f9bbc401af01cf524464936fb3c1fc/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0ecb4b595fa0f0f8018a149ace3ea6525624f94e">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e4f40530be24ad9f549a8d3586ef9c1e601999ea/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/libs/slf4j-log4j12-1.7.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6edffc576ce104ec769d954618764f39f0f0f10d">
+        <dex dex="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/2/slf4j-log4j12-1.7.5_07cd9d390f39f035cc12cd6bd4680077e04120d9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.service/build/intermediates/bundles/default/libs/org.eclipse.paho.client.mqttv3-1.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="747dd7ad3c1c6cf472fa2b79c47d648855898dd5">
+        <dex dex="/Users/wes/dev/git/Sparkplug/sparkplug_b/stand_alone_examples/java_android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/8/org.eclipse.paho.client.mqttv3-1.1.0_e15e453242354d7d9a6829d626202b5d5c55916e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wes/.android/build-cache/cd4a29eb3ddc1d8e003e0c7650268f5473359045/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9c4c3bc902450c39ed54de170db4fb12aea20a35">
+        <dex dex="/Users/wes/dev/git/paho.mqtt.android/org.eclipse.paho.android.sample/build/intermediates/transforms/dex/debug/folders/1000/10/classes_dbca0efd8883312d46bc01a9dc213b3dc897ed15/classes.dex" />
+    </item>
+
+</items>
