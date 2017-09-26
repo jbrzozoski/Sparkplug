@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="android-core-3.3.0">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/org.eclipse.paho.android.sample/libs/android-core-3.3.0.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
