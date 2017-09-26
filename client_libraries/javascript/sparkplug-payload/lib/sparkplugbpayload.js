@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012, 2016 Cirrus Link Solutions
+ * Copyright (c) 2016-2017 Cirrus Link Solutions
  *
  *  All rights reserved. This program and the accompanying materials
  *  are made available under the terms of the Eclipse Public License v1.0
@@ -411,8 +411,8 @@
                 "type" : type
             });
 
-        if (object.isNull !== undefined && object.isNull !== null) {
-            newPropertyValue.isNull = object.isNull;
+        if (object.value !== undefined && object.value === null) {
+            newPropertyValue.isNull = true;
         }
 
         setValue(type, object.value, newPropertyValue);
@@ -421,16 +421,15 @@
     }
 
     decodePropertyValue = function(protoValue) {
-        var propertyValue = {},
-            protoType = protoValue.type,
-            isNull = protoValue.isNull;
+        var propertyValue = {};
 
-        if (isNull !== undefined && isNull !== null) {
-            propertyValue.isNull = isNull;
+        if (protoValue.isNull !== undefined && protoValue.isNull === true) {
+            propertyValue.value = null;
+        } else {
+            propertyValue.value = getValue(protoValue.type, protoValue);
         }
 
-        propertyValue.type = decodeType(protoType);
-        propertyValue.value = getValue(protoType, protoValue);
+        propertyValue.type = decodeType(protoValue.type);
 
         return propertyValue;
     }
@@ -599,7 +598,6 @@
             alias = metric.alias,
             isHistorical = metric.isHistorical,
             isTransient = metric.isTransient,
-            isNull = metric.isNull,
             metadata = metric.metadata,
             properties = metric.properties;
         
@@ -619,8 +617,8 @@
             newMetric.isTransient = isTransient;
         }
 
-        if (isNull !== undefined && isNull !== null) {
-            newMetric.isNull = isNull;
+        if (value !== undefined && value === null) {
+            newMetric.isNull = true;
         }
 
         if (metadata !== undefined && metadata !== null) {
@@ -647,28 +645,30 @@
         metric.type = decodeType(protoMetric.datatype);
         metric.value = getValue(protoMetric.datatype, protoMetric);
 
-        if (protoMetric.alias !== undefined && alias !== null) {
+        if (protoMetric.hasOwnProperty("isNull") && protoMetric.isNull === true) {
+            metric.value = null;
+        } else {
+            metric.value = getValue(protoMetric.datatype, protoMetric);
+        }
+
+        if (protoMetric.hasOwnProperty("alias")) {
             metric.alias = protoMetric.alias;
         }
 
-        if (isHistorical !== undefined && isHistorical !== null) {
-            metric.isHistorical = isHistorical;
+        if (protoMetric.hasOwnProperty("isHistorical")) {
+            metric.isHistorical = protoMetric.isHistorical;
         }
 
-        if (isTransient !== undefined && isTransient !== null) {
-            metric.isTransient = isTransient;
+        if (protoMetric.hasOwnProperty("isTransient")) {
+            metric.isTransient = protoMetric.isTransient;
         }
 
-        if (isNull !== undefined && isNull !== null) {
-            metric.isNull = isNull;
+        if (protoMetric.hasOwnProperty("metadata")) {
+            metric.metadata = decodeMetaData(protoMetric.metadata);
         }
 
-        if (metadata !== undefined && metadata !== null) {
-            metric.metadata = decodeMetaData(metadata);
-        }
-
-        if (properties !== undefined && properties !== null) {
-            metric.properties = decodePropertySet(properties);
+        if (protoMetric.hasOwnProperty("properties")) {
+            metric.properties = decodePropertySet(protoMetric.properties);
         }
 
         return metric;
@@ -707,31 +707,30 @@
 
     exports.decodePayload = function(proto) {
         var sparkplugPayload = Payload.decode(proto),
-            protoMetrics = sparkplugPayload.metrics,
-            seq = sparkplugPayload.seq,
-            uuid = sparkplugPayload.uuid,
-            body = sparkplugPayload.body,
             payload = {};
-        payload.timestamp = sparkplugPayload.timestamp.toNumber();
 
-        if (protoMetrics !== undefined && protoMetrics !== null) {
+        if (sparkplugPayload.hasOwnProperty("timestamp")) {
+            payload.timestamp = sparkplugPayload.timestamp.toNumber();
+        }
+
+        if (sparkplugPayload.hasOwnProperty("metrics")) {
             metrics = [];
-            for (var i = 0; i < protoMetrics.length; i++) {
-                metrics.push(decodeMetric(protoMetrics[i]));
+            for (var i = 0; i < sparkplugPayload.metrics.length; i++) {
+                metrics.push(decodeMetric(sparkplugPayload.metrics[i]));
             }
             payload.metrics = metrics;
         }
 
-        if (seq !== undefined && seq !== null) {
-            payload.seq = seq;
+        if (sparkplugPayload.hasOwnProperty("seq")) {
+            payload.seq = sparkplugPayload.seq.toNumber();
         }
 
-        if (uuid !== undefined && uuid !== null) {
-            payload.uuid = uuid;
+        if (sparkplugPayload.hasOwnProperty("uuid")) {
+            payload.uuid = sparkplugPayload.uuid;
         }
 
-        if (body !== undefined && body !== null) {
-            payload.body = body;
+        if (sparkplugPayload.hasOwnProperty("body")) {
+            payload.body = sparkplugPayload.body;
         }
 
         return payload;
