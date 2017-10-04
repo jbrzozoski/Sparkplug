@@ -82,9 +82,13 @@ int main(int argc, char *argv[]) {
         mosquitto_username_pw_set(mosq,"admin","changeme");
         mosquitto_will_set(mosq, "spBv1.0/Sparkplug B Devices/NDEATH/C Edge Node 1", 0, NULL, 0, false);
 
-	// Optional SSL parameters for MQTT
-	//mosquitto_tls_insecure_set(mosq, true);
-	//mosquitto_tls_opts_set(mosq, 0, "tlsv1.2", NULL);               // 0 is DO NOT SSL_VERIFY_PEER
+        // Optional 'self-signed' SSL parameters for MQTT
+        //mosquitto_tls_insecure_set(mosq, true);
+        //mosquitto_tls_opts_set(mosq, 0, "tlsv1.2", NULL);               // 0 is DO NOT SSL_VERIFY_PEER
+
+        // Optional 'real' SSL parameters for MQTT
+        //mosquitto_tls_insecure_set(mosq, false);
+        //mosquitto_tls_opts_set(mosq, 1, "tlsv1.2", NULL);               // 1 is SSL_VERIFY_PEER
 
 	// MQTT Connect
         if(mosquitto_connect(mosq, host, port, keepalive)){

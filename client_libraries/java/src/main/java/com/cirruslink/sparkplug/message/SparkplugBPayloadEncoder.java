@@ -349,8 +349,6 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 							// Add the column name
 							dataSetBuilder.addColumns(name);
 						}
-					} else {
-						throw new Exception("Invalid DataSet");
 					}
 
 					// Column types
@@ -360,8 +358,6 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 							// Add the column type
 							dataSetBuilder.addTypes(type.toIntValue());
 						}
-					} else {
-						throw new Exception("Invalid DataSet");
 					}
 
 					// Dataset rows
@@ -379,8 +375,6 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 
 								logger.debug("Adding row");
 								dataSetBuilder.addRows(protoRowBuilder);
-							} else {
-								throw new Exception("Invalid DataSet");
 							}
 						}
 					}

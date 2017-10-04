@@ -8,7 +8,8 @@
     "url": "git+https://github.com/Cirrus-Link/Sparkplug.git"
   },
   "keywords": [
-    "sparkplug"
+    "sparkplug",
+    "mqtt"
   ],
   "author": "Chad Kienle <chad.kienle@cirrus-link.com> (http://www.cirrus-link.com)",
   "license": "EPL-1.0",
@@ -18,15 +19,13 @@
   "homepage": "https://github.com/Cirrus-Link/Sparkplug#readme",
   "files": [
     "index.js",
-    "lib/kurapayload.js",
-    "lib/sparkplugbpayload.js",
     "README.md",
     "LICENSE"
   ],
   "dependencies": {
-    "mqtt": "^2.3.0",
-    "protobufjs": "^6.0.0",
-    "pako": "^1.0.4",
+    "mqtt": "^2.13.0",
+    "sparkplug-payload": "^1.0.0",
+    "pako": "^1.0.6",
     "winston": "^2.3.1"
   }
 }

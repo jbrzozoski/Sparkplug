@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="org.eclipse.paho.android.sample.activity.MessagesFragment"
+    android:layout_marginTop="56dp">
+
+    <View
+        android:id="@+id/dynamic_two_divider8"
+        style="@style/Divider" />
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Boolean 1"
+        android:id="@+id/dynamic_two_booleanOne"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_below="@+id/dynamic_two_divider8"/>
+
+    <View
+        android:id="@+id/dynamic_two_divider9"
+        style="@style/Divider"
+        android:layout_below="@+id/dynamic_two_booleanOne" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/dynamic_two_io_submit_button"
+        android:layout_below="@+id/dynamic_two_divider9"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

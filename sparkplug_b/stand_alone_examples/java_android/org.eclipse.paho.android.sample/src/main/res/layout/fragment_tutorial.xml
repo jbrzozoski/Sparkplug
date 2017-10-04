@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="org.eclipse.paho.android.sample.activity.MessagesFragment"
+    android:layout_marginTop="56dp">
+
+    <LinearLayout
+        android:id="@+id/tutorial_one_group"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tutorial_one_message_label"
+            style="@style/spinnerTextFieldLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Emulated Key" />
+
+        <org.eclipse.paho.android.sample.components.CustomEditText
+            android:id="@+id/emulatedKey"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:ems="10"
+            android:inputType="text"
+            android:lines="1" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider9"
+        style="@style/Divider"
+        android:layout_below="@+id/tutorial_one_group" />
+
+    <Button android:id="@+id/scan_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider9"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="60dp"
+        android:text="Scan" />
+
+    <Button android:id="@+id/emulate_scan_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider9"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="60dp"
+        android:text="Emulate Scan" />
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/dynamic_parameters_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/emulate_scan_button" />
+
+</RelativeLayout>

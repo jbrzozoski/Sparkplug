@@ -264,7 +264,7 @@ A device death certificate (DDEATH) can be published to indicated that the
 device has gone offline or has lost a connection.  It should contain only a
 timestamp.
 
-Here is a code example of publishing a DBIRTH message:
+Here is a code example of publishing a DDEATH message:
 
 ```javascript
 var deviceId = "testDevice",
@@ -412,7 +412,8 @@ client.on('close', function () {
         versions and removed bytebuffer as a dependency.
 * 3.1.0 Added support for payload compression/decompression with DEFLATE
         and Gzip algorithms, added logging with Winston to replace console
-        logging, and other minor bug fixes.
+        logging, and other minor bug fixes. Moved sparkplug payload libraries
+        to their own project and updated dependecies.
 
 ## License
 

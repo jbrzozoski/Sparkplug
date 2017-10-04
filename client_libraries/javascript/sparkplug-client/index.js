@@ -11,8 +11,9 @@
  */
 
 var mqtt = require('mqtt'),
-    kurapayload = require('./lib/kurapayload.js'),
-    sparkplugbpayload = require('./lib/sparkplugbpayload.js'),
+    sparkplug = require('sparkplug-payload'),
+    kurapayload = sparkplug.get("spAv1.0"),
+    sparkplugbpayload = sparkplug.get("spBv1.0"),
     events = require('events'),
     util = require("util"),
     pako = require('pako'),
