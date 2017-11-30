@@ -6,7 +6,7 @@
         <properties>
                 <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
                 <main.basedir>${project.basedir}</main.basedir>
-		<sparkplug.version>1.1.9-SNAPSHOT</sparkplug.version>
+		<sparkplug.version>1.1.9</sparkplug.version>
         </properties>
 
         <groupId>com.cirruslink.sparkplug</groupId>
