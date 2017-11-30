@@ -10,13 +10,11 @@
   <parent>
     <groupId>com.cirruslink.sparkplug</groupId>
     <artifactId>sparkplug</artifactId>
-    <version>1.1.8</version>
+    <version>1.1.9</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
 
-  <groupId>com.cirruslink.sparkplug</groupId>
   <artifactId>sparkplug-java</artifactId>
-  <version>1.1.8</version>
   <packaging>jar</packaging>
   <name>Maven Quick Start Archetype</name>
   <url>http://maven.apache.org</url>
@@ -109,8 +107,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.3.2</version>
         <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
+          <source>1.8</source>
+          <target>1.8</target>
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
