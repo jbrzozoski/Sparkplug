@@ -10,13 +10,13 @@
   <parent>
     <groupId>com.cirruslink.sparkplug</groupId>
     <artifactId>sparkplug</artifactId>
-    <version>1.1.9-SNAPSHOT</version>
+    <version>1.1.9</version>
     <relativePath>../../../pom.xml</relativePath>
   </parent>
 
   <groupId>com.cirruslink.example</groupId>
   <artifactId>sparkplug_b_example</artifactId>
-  <version>1.1.9-SNAPSHOT</version>
+  <version>1.1.9</version>
   <packaging>jar</packaging>
   <name>Maven Quick Start Archetype</name>
   <url>http://maven.apache.org</url>
