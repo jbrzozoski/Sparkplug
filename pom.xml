@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-        <modelVersion>4.0.0</modelVersion>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-        <properties>
-                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-                <main.basedir>${project.basedir}</main.basedir>
-		<sparkplug.version>1.1.10-SNAPSHOT</sparkplug.version>
-        </properties>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <main.basedir>${project.basedir}</main.basedir>
+    <sparkplug.version>1.1.10-SNAPSHOT</sparkplug.version>
+    <paho.version>1.2.0</paho.version>
+  </properties>
 
-        <groupId>com.cirruslink.sparkplug</groupId>
-        <artifactId>sparkplug</artifactId>
-        <version>1.1.10-SNAPSHOT</version>
-        <packaging>pom</packaging>
+  <groupId>com.cirruslink.sparkplug</groupId>
+  <artifactId>sparkplug</artifactId>
+  <version>1.1.10-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-        <dependencies>
-                <dependency>
-                        <groupId>junit</groupId>
-                        <artifactId>junit</artifactId>
-                        <version>4.12</version>
-                        <scope>test</scope>
-                </dependency>
-        </dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
-        <modules>
-                <module>client_libraries/java/pom.xml</module>
-		<module>sparkplug_b/raspberry_pi_examples/java/pom.xml</module>
+  <modules>
+    <module>client_libraries/java/pom.xml</module>
+    <module>sparkplug_b/raspberry_pi_examples/java/pom.xml</module>
 <!--
-		<module>sparkplug_b/raspberry_pi_examples/java_udt/pom.xml</module>
+    <module>sparkplug_b/raspberry_pi_examples/java_udt/pom.xml</module>
 -->
-		<module>sparkplug_b/stand_alone_examples/java/pom.xml</module>
-		<module>sparkplug_b/stand_alone_examples/java_android/pom.xml</module>
-		<module>sparkplug_b/stand_alone_examples/java_device_timestamp/pom.xml</module>
-		<module>sparkplug_b/stand_alone_examples/java_edge_node_control/pom.xml</module>
+    <module>sparkplug_b/stand_alone_examples/java/pom.xml</module>
+    <module>sparkplug_b/stand_alone_examples/java_android/pom.xml</module>
+    <module>sparkplug_b/stand_alone_examples/java_device_timestamp/pom.xml</module>
+    <module>sparkplug_b/stand_alone_examples/java_edge_node_control/pom.xml</module>
 <!--
-		<module>sparkplug_b/stand_alone_examples/java_history/pom.xml</module>
-		<module>sparkplug_b/stand_alone_examples/java_instrumentation/pom.xml</module>
+    <module>sparkplug_b/stand_alone_examples/java_history/pom.xml</module>
+    <module>sparkplug_b/stand_alone_examples/java_instrumentation/pom.xml</module>
 -->
-		<module>sparkplug_b/stand_alone_examples/java_udt/pom.xml</module>
-		<module>sparkplug_b/tools/java_sparkplug_b_listener/pom.xml</module>
-        </modules>
+    <module>sparkplug_b/stand_alone_examples/java_udt/pom.xml</module>
+    <module>sparkplug_b/tools/java_sparkplug_b_listener/pom.xml</module>
+  </modules>
 </project>
