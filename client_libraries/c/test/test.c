@@ -54,6 +54,14 @@ uint64_t ALIAS_DEVICE_METRIC_INT8       = 15;
 uint64_t ALIAS_DEVICE_METRIC_UINT32     = 16;
 uint64_t ALIAS_DEVICE_METRIC_FLOAT      = 17;
 uint64_t ALIAS_DEVICE_METRIC_DOUBLE     = 18;
+uint64_t ALIAS_NODE_METRIC_I8		= 19;
+uint64_t ALIAS_NODE_METRIC_I16		= 20;
+uint64_t ALIAS_NODE_METRIC_I32		= 21;
+uint64_t ALIAS_NODE_METRIC_I64		= 22;
+uint64_t ALIAS_NODE_METRIC_UI8		= 23;
+uint64_t ALIAS_NODE_METRIC_UI16		= 24;
+uint64_t ALIAS_NODE_METRIC_UI32		= 25;
+uint64_t ALIAS_NODE_METRIC_UI64		= 26;
 
 int main(int argc, char *argv[]) {
 
@@ -86,9 +94,9 @@ int main(int argc, char *argv[]) {
         //mosquitto_tls_insecure_set(mosq, true);
         //mosquitto_tls_opts_set(mosq, 0, "tlsv1.2", NULL);               // 0 is DO NOT SSL_VERIFY_PEER
 
-        // Optional 'real' SSL parameters for MQTT
-        //mosquitto_tls_insecure_set(mosq, false);
-        //mosquitto_tls_opts_set(mosq, 1, "tlsv1.2", NULL);               // 1 is SSL_VERIFY_PEER
+	// Optional 'real' SSL parameters for MQTT
+	//mosquitto_tls_insecure_set(mosq, false);
+	//mosquitto_tls_opts_set(mosq, 1, "tlsv1.2", NULL);               // 1 is SSL_VERIFY_PEER
 
 	// MQTT Connect
         if(mosquitto_connect(mosq, host, port, keepalive)){
@@ -377,8 +385,36 @@ void publish_node_birth(struct mosquitto *mosq) {
 	fprintf(stdout, "Adding metric: 'Node Metric FLOAT'\n");
 	float nbirth_metric_float_value = 100.12;
 	add_simple_metric(&nbirth_payload, "Node Metric FLOAT", true, ALIAS_NODE_METRIC_FLOAT, METRIC_DATA_TYPE_FLOAT, false, false, false, &nbirth_metric_float_value, sizeof(nbirth_metric_float_value));
-	double nbirth_metric_double_value = 1000.123;
+	double nbirth_metric_double_value = 1000.123456789;
 	add_simple_metric(&nbirth_payload, "Node Metric DOUBLE", true, ALIAS_NODE_METRIC_DOUBLE, METRIC_DATA_TYPE_DOUBLE, false, false, false, &nbirth_metric_double_value, sizeof(nbirth_metric_double_value));
+
+	// All INT Types
+	fprintf(stdout, "Adding metric: 'Node Metric I8'\n");
+	int8_t nbirth_metric_i8_value = 100;
+	add_simple_metric(&nbirth_payload, "Node Metric I8", true, ALIAS_NODE_METRIC_I8, METRIC_DATA_TYPE_INT8, false, false, false, &nbirth_metric_i8_value, sizeof(nbirth_metric_i8_value));
+	fprintf(stdout, "Adding metric: 'Node Metric I16'\n");
+	int16_t nbirth_metric_i16_value = 100;
+	add_simple_metric(&nbirth_payload, "Node Metric I16", true, ALIAS_NODE_METRIC_I16, METRIC_DATA_TYPE_INT16, false, false, false, &nbirth_metric_i16_value, sizeof(nbirth_metric_i16_value));
+	fprintf(stdout, "Adding metric: 'Node Metric I32'\n");
+	int32_t nbirth_metric_i32_value = 100;
+	add_simple_metric(&nbirth_payload, "Node Metric I32", true, ALIAS_NODE_METRIC_I32, METRIC_DATA_TYPE_INT32, false, false, false, &nbirth_metric_i32_value, sizeof(nbirth_metric_i32_value));
+	fprintf(stdout, "Adding metric: 'Node Metric I64'\n");
+	int64_t nbirth_metric_i64_value = 100;
+	add_simple_metric(&nbirth_payload, "Node Metric I64", true, ALIAS_NODE_METRIC_I64, METRIC_DATA_TYPE_INT64, false, false, false, &nbirth_metric_i64_value, sizeof(nbirth_metric_i64_value));
+
+	// All UINT Types
+	fprintf(stdout, "Adding metric: 'Node Metric UI8'\n");
+	uint8_t nbirth_metric_ui8_value = 200;
+	add_simple_metric(&nbirth_payload, "Node Metric UI8", true, ALIAS_NODE_METRIC_UI8, METRIC_DATA_TYPE_UINT8, false, false, false, &nbirth_metric_ui8_value, sizeof(nbirth_metric_ui8_value));
+	fprintf(stdout, "Adding metric: 'Node Metric UI16'\n");
+	uint16_t nbirth_metric_ui16_value = 200;
+	add_simple_metric(&nbirth_payload, "Node Metric UI16", true, ALIAS_NODE_METRIC_UI16, METRIC_DATA_TYPE_UINT16, false, false, false, &nbirth_metric_ui16_value, sizeof(nbirth_metric_ui16_value));
+	fprintf(stdout, "Adding metric: 'Node Metric UI32'\n");
+	uint32_t nbirth_metric_ui32_value = 200;
+	add_simple_metric(&nbirth_payload, "Node Metric UI32", true, ALIAS_NODE_METRIC_UI32, METRIC_DATA_TYPE_UINT32, false, false, false, &nbirth_metric_ui32_value, sizeof(nbirth_metric_ui32_value));
+	fprintf(stdout, "Adding metric: 'Node Metric UI64'\n");
+	uint64_t nbirth_metric_ui64_value = 200;
+	add_simple_metric(&nbirth_payload, "Node Metric UI64", true, ALIAS_NODE_METRIC_UI64, METRIC_DATA_TYPE_UINT64, false, false, false, &nbirth_metric_ui64_value, sizeof(nbirth_metric_ui64_value));
 
 	// Create a DataSet
 	com_cirruslink_sparkplug_protobuf_Payload_DataSet dataset = com_cirruslink_sparkplug_protobuf_Payload_DataSet_init_default;

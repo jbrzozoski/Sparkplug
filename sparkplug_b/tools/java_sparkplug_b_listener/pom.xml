@@ -10,13 +10,13 @@
   <parent>
     <groupId>com.cirruslink.sparkplug</groupId>
     <artifactId>sparkplug</artifactId>
-    <version>1.1.9</version>
+    <version>1.1.10</version>
     <relativePath>../../../pom.xml</relativePath>
   </parent>
 
   <groupId>com.cirruslink.example</groupId>
   <artifactId>sparkplug_b_listener</artifactId>
-  <version>1.1.9</version>
+  <version>1.1.10</version>
   <packaging>jar</packaging>
   <name>Maven Quick Start Archetype</name>
   <url>http://maven.apache.org</url>
@@ -35,7 +35,7 @@
     <dependency>
       <groupId>org.eclipse.paho</groupId>
       <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
-      <version>1.1.0</version>
+      <version>${paho.version}</version>
     </dependency>
     <dependency>
       <groupId>com.google.protobuf</groupId>
