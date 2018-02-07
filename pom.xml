@@ -7,7 +7,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <main.basedir>${project.basedir}</main.basedir>
     <sparkplug.version>1.1.11-SNAPSHOT</sparkplug.version>
-    <paho.version>1.2.0</paho.version>
+    <paho.version>1.1.1</paho.version>
   </properties>
 
   <groupId>com.cirruslink.sparkplug</groupId>
