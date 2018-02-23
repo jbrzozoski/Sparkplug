@@ -6,13 +6,13 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <main.basedir>${project.basedir}</main.basedir>
-    <sparkplug.version>1.1.11</sparkplug.version>
+    <sparkplug.version>1.1.12-SNAPSHOT</sparkplug.version>
     <paho.version>1.1.1</paho.version>
   </properties>
 
   <groupId>com.cirruslink.sparkplug</groupId>
   <artifactId>sparkplug</artifactId>
-  <version>1.1.11</version>
+  <version>1.1.12-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <dependencies>
