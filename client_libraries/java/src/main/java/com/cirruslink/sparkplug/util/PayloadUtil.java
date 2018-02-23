@@ -24,8 +24,8 @@ import com.cirruslink.sparkplug.json.DeserializerModule;
 import com.cirruslink.sparkplug.message.SparkplugBPayloadDecoder;
 import com.cirruslink.sparkplug.message.SparkplugBPayloadEncoder;
 import com.cirruslink.sparkplug.message.model.Metric;
-import com.cirruslink.sparkplug.message.model.MetricDataType;
 import com.cirruslink.sparkplug.message.model.Metric.MetricBuilder;
+import com.cirruslink.sparkplug.message.model.MetricDataType;
 import com.cirruslink.sparkplug.message.model.SparkplugBPayload;
 import com.cirruslink.sparkplug.message.model.SparkplugBPayload.SparkplugBPayloadBuilder;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -37,13 +37,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * Utilities for Sparkplug Payload handling.
  */
 public class PayloadUtil {
-	
+
 	private static Logger logger = LogManager.getLogger(PayloadUtil.class.getName());
-	
+
 	public static final String UUID_COMPRESSED = "SPBV1.0_COMPRESSED";
-	
+
 	public static final String METRIC_ALGORITHM = "algorithm";
-	
+
 	/**
 	 * Serializes a {@link SparkplugBPayload} instance in to a JSON string.
 	 * 
@@ -55,7 +55,7 @@ public class PayloadUtil {
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(payload);
 	}
-	
+
 	/**
 	 * Deserializes a JSON string into a {@link SparkplugBPayload} instance.
 	 * 
@@ -63,15 +63,15 @@ public class PayloadUtil {
 	 * @return a {@link SparkplugBPayload} instance
 	 * @throws JsonProcessingException
 	 */
-	public static SparkplugBPayload fromJsonString(String jsonString) 
+	public static SparkplugBPayload fromJsonString(String jsonString)
 			throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.registerModule(new DeserializerModule(new DeserializerModifier()));
 		return mapper.readValue(jsonString, SparkplugBPayload.class);
 	}
-	
+
 	/**
-	 * Returns a decompressed {@link SparkplugBPayload} instance from an existing payload.  Will return the original
+	 * Returns a decompressed {@link SparkplugBPayload} instance from an existing payload. Will return the original
 	 * payload if not compressed payload exists.
 	 * 
 	 * @param payload
@@ -83,9 +83,9 @@ public class PayloadUtil {
 			logger.trace("Decompressing payload");
 			SparkplugBPayloadDecoder decoder = new SparkplugBPayloadDecoder();
 			CompressionConfig config = new CompressionConfig();
-			byte [] decompressedBytes;
+			byte[] decompressedBytes;
 			List<Metric> metrics = payload.getMetrics();
-			
+
 			if (metrics != null && !metrics.isEmpty()) {
 				for (Metric metric : metrics) {
 					if (metric.getName().equals(METRIC_ALGORITHM)) {
@@ -104,7 +104,7 @@ public class PayloadUtil {
 				default:
 					throw new SparkplugException("Unknown or unsupported algorithm " + config.getAlgorithm());
 			}
-			
+
 			// Decode bytes and return
 			return decoder.buildFromByteArray(decompressedBytes);
 		} else {
@@ -123,15 +123,13 @@ public class PayloadUtil {
 		logger.trace("Compressing payload");
 		SparkplugBPayloadEncoder encoder = new SparkplugBPayloadEncoder();
 		// Encode bytes
-		byte [] encoded = encoder.getBytes(payload);
+		byte[] encoded = encoder.getBytes(payload);
 
 		// Default to DEFLATE
-		byte [] compressedBytes = deflateBytes(encoded);
-		
+		byte[] compressedBytes = deflateBytes(encoded);
+
 		// Create new payload, add the bytes as the body, and return.
-		return new SparkplugBPayloadBuilder(payload.getSeq())
-				.setBody(compressedBytes)
-				.setUuid(UUID_COMPRESSED)
+		return new SparkplugBPayloadBuilder(payload.getSeq()).setBody(compressedBytes).setUuid(UUID_COMPRESSED)
 				.createPayload();
 	}
 
@@ -141,16 +139,16 @@ public class PayloadUtil {
 	 * @return
 	 * @throws IOException
 	 */
-	public static SparkplugBPayload compress(SparkplugBPayload payload, CompressionAlgorithm algorithm) 
+	public static SparkplugBPayload compress(SparkplugBPayload payload, CompressionAlgorithm algorithm)
 			throws IOException, SparkplugException {
 		logger.trace("Compressing payload");
 		SparkplugBPayloadEncoder encoder = new SparkplugBPayloadEncoder();
 		// Encode bytes
-		byte [] encoded = encoder.getBytes(payload);
-		byte [] compressed = null;
+		byte[] encoded = encoder.getBytes(payload);
+		byte[] compressed = null;
 		Metric algorithmMetric = new MetricBuilder(METRIC_ALGORITHM, MetricDataType.String, algorithm.toString())
 				.createMetric();
-		
+
 		// Switch over compression algorithm
 		switch (algorithm) {
 			case GZIP:
@@ -162,13 +160,10 @@ public class PayloadUtil {
 			default:
 				throw new SparkplugException("Unknown or unsupported algorithm " + algorithm);
 		}
-		
+
 		// Wrap and return the payload
-		return new SparkplugBPayloadBuilder(payload.getSeq())
-				.setBody(compressed)
-				.setUuid(UUID_COMPRESSED)
-				.addMetric(algorithmMetric)
-				.createPayload();
+		return new SparkplugBPayloadBuilder(payload.getSeq()).setBody(compressed).setUuid(UUID_COMPRESSED)
+				.addMetric(algorithmMetric).createPayload();
 	}
 
 	/**
@@ -178,13 +173,13 @@ public class PayloadUtil {
 	 * @return the compressed byte array.
 	 * @throws IOException
 	 */
-	protected static byte [] deflateBytes(byte [] bytes) throws IOException {
+	protected static byte[] deflateBytes(byte[] bytes) throws IOException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(bytes.length);
 		Deflater deflater = new Deflater();
 		deflater.setInput(bytes);
 		deflater.finish();
 
-		byte [] buffer = new byte[1024];
+		byte[] buffer = new byte[1024];
 		while (!deflater.finished()) {
 			int count = deflater.deflate(buffer);
 			baos.write(buffer, 0, count);
@@ -202,12 +197,12 @@ public class PayloadUtil {
 	 * @throws IOException
 	 * @throws DataFormatException
 	 */
-	protected static byte [] inflateBytes(byte [] bytes) throws IOException, DataFormatException {
+	protected static byte[] inflateBytes(byte[] bytes) throws IOException, DataFormatException {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream(bytes.length);
 		Inflater inflater = new Inflater();
 		inflater.setInput(bytes);
 
-		byte [] buffer = new byte[1024];
+		byte[] buffer = new byte[1024];
 		while (!inflater.finished()) {
 			int count = inflater.inflate(buffer);
 			baos.write(buffer, 0, count);
@@ -215,11 +210,11 @@ public class PayloadUtil {
 		baos.close();
 		return baos.toByteArray();
 	}
-	
+
 	private static class CompressionConfig {
-		
+
 		private CompressionAlgorithm algorithm;
-		
+
 		protected CompressionConfig() {
 			this.algorithm = CompressionAlgorithm.DEFLATE;
 		}
