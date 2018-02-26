@@ -44,94 +44,86 @@ import com.cirruslink.sparkplug.protobuf.SparkplugBProto;
 /**
  * A {@link PayloadDecode} implementation for decoding Sparkplug B payloads.
  */
-public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPayload> {
-	
+public class SparkplugBPayloadDecoder implements PayloadDecoder<SparkplugBPayload> {
+
 	private static Logger logger = LogManager.getLogger(SparkplugBPayloadDecoder.class.getName());
 
 	public SparkplugBPayloadDecoder() {
 		super();
 	}
-	
+
 	public SparkplugBPayload buildFromByteArray(byte[] bytes) throws Exception {
 		SparkplugBProto.Payload protoPayload = SparkplugBProto.Payload.parseFrom(bytes);
 		SparkplugBPayloadBuilder builder = new SparkplugBPayloadBuilder(protoPayload.getSeq());
-		
+
 		// Set the timestamp
 		if (protoPayload.hasTimestamp()) {
-			logger.trace("Setting time " + new Date(protoPayload.getTimestamp()));
 			builder.setTimestamp(new Date(protoPayload.getTimestamp()));
 		}
-		
+
 		// Set the sequence number
 		if (protoPayload.hasSeq()) {
-			logger.trace("Setting sequence number " + protoPayload.getSeq());
 			builder.setSeq(protoPayload.getSeq());
 		}
-		
+
 		// Set the Metrics
 		for (SparkplugBProto.Payload.Metric protoMetric : protoPayload.getMetricsList()) {
 			builder.addMetric(convertMetric(protoMetric));
 		}
-		
+
 		// Set the body
 		if (protoPayload.hasBody()) {
-			logger.trace("Setting the body " + new String(protoPayload.getBody().toByteArray()));
 			builder.setBody(protoPayload.getBody().toByteArray());
 		}
-		
+
 		// Set the body
 		if (protoPayload.hasUuid()) {
-			logger.trace("Setting the UUID " + new String(protoPayload.getUuid()));
 			builder.setUuid(protoPayload.getUuid());
 		}
-		
+
 		return builder.createPayload();
 	}
-	
+
 	private Metric convertMetric(SparkplugBProto.Payload.Metric protoMetric) throws Exception {
 		// Convert the dataType
 		MetricDataType dataType = MetricDataType.fromInteger((protoMetric.getDatatype()));
-		
+
 		// Build and return the Metric
 		return new MetricBuilder(protoMetric.getName(), dataType, getMetricValue(protoMetric))
-				.isHistorical(protoMetric.hasIsHistorical() ? protoMetric.getIsHistorical() : null)
-				.isTransient(protoMetric.hasIsTransient() ? protoMetric.getIsTransient() : null)
+				.isHistorical(
+						protoMetric.hasIsHistorical() ? protoMetric.getIsHistorical() : null)
+				.isTransient(protoMetric
+						.hasIsTransient() ? protoMetric.getIsTransient() : null)
 				.timestamp(protoMetric.hasTimestamp() ? new Date(protoMetric.getTimestamp()) : null)
-				.alias(protoMetric.hasAlias() 
-						? protoMetric.getAlias() 
-						: null)
-				.metaData(protoMetric.hasMetadata() 
-						? new MetaDataBuilder()
-								.contentType(protoMetric.getMetadata().getContentType())
-								.size(protoMetric.getMetadata().getSize())
-								.seq(protoMetric.getMetadata().getSeq())
+				.alias(protoMetric.hasAlias() ? protoMetric.getAlias() : null)
+				.metaData(protoMetric.hasMetadata()
+						? new MetaDataBuilder().contentType(protoMetric.getMetadata().getContentType())
+								.size(protoMetric.getMetadata().getSize()).seq(protoMetric.getMetadata().getSeq())
 								.fileName(protoMetric.getMetadata().getFileName())
 								.fileType(protoMetric.getMetadata().getFileType())
 								.md5(protoMetric.getMetadata().getMd5())
-								.description(protoMetric.getMetadata().getDescription())
-								.createMetaData()
+								.description(protoMetric.getMetadata().getDescription()).createMetaData()
 						: null)
 				.properties(protoMetric.hasProperties()
-						? new PropertySetBuilder()
-								.addProperties(convertProperties(protoMetric.getProperties()))
+						? new PropertySetBuilder().addProperties(convertProperties(protoMetric.getProperties()))
 								.createPropertySet()
 						: null)
 				.createMetric();
 	}
-	
-	private Map<String, PropertyValue> convertProperties(SparkplugBProto.Payload.PropertySet decodedPropSet) 
+
+	private Map<String, PropertyValue> convertProperties(SparkplugBProto.Payload.PropertySet decodedPropSet)
 			throws SparkplugInvalidTypeException, Exception {
 		Map<String, PropertyValue> map = new HashMap<String, PropertyValue>();
 		List<String> keys = decodedPropSet.getKeysList();
 		List<SparkplugBProto.Payload.PropertyValue> values = decodedPropSet.getValuesList();
 		for (int i = 0; i < keys.size(); i++) {
 			SparkplugBProto.Payload.PropertyValue value = values.get(i);
-			map.put(keys.get(i), new PropertyValue(PropertyDataType.fromInteger(value.getType()), 
-					getPropertyValue(value)));
+			map.put(keys.get(i),
+					new PropertyValue(PropertyDataType.fromInteger(value.getType()), getPropertyValue(value)));
 		}
 		return map;
 	}
-	
+
 	private Object getPropertyValue(SparkplugBProto.Payload.PropertyValue value) throws Exception {
 		PropertyDataType type = PropertyDataType.fromInteger(value.getType());
 		if (value.getIsNull()) {
@@ -163,15 +155,13 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 			case Text:
 				return value.getStringValue();
 			case PropertySet:
-				return new PropertySetBuilder()
-						.addProperties(convertProperties(value.getPropertysetValue()))
+				return new PropertySetBuilder().addProperties(convertProperties(value.getPropertysetValue()))
 						.createPropertySet();
 			case PropertySetList:
 				List<PropertySet> propertySetList = new ArrayList<PropertySet>();
 				List<SparkplugBProto.Payload.PropertySet> list = value.getPropertysetsValue().getPropertysetList();
 				for (SparkplugBProto.Payload.PropertySet decodedPropSet : list) {
-					propertySetList.add(new PropertySetBuilder()
-							.addProperties(convertProperties(decodedPropSet))
+					propertySetList.add(new PropertySetBuilder().addProperties(convertProperties(decodedPropSet))
 							.createPropertySet());
 				}
 				return propertySetList;
@@ -180,7 +170,7 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 				throw new Exception("Failed to decode: Unknown Property Data Type " + type);
 		}
 	}
-	
+
 	private Object getMetricValue(SparkplugBProto.Payload.Metric protoMetric) throws Exception {
 		// Check if the null flag has been set indicating that the value is null
 		if (protoMetric.getIsNull()) {
@@ -195,7 +185,7 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 				return new Date(protoMetric.getLongValue());
 			case File:
 				String filename = protoMetric.getMetadata().getFileName();
-				byte [] fileBytes = protoMetric.getBytesValue().toByteArray();
+				byte[] fileBytes = protoMetric.getBytesValue().toByteArray();
 				return new File(filename, fileBytes);
 			case Float:
 				return protoMetric.getFloatValue();
@@ -223,49 +213,47 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 			case DataSet:
 				SparkplugBProto.Payload.DataSet protoDataSet = protoMetric.getDatasetValue();
 				// Build the and create the DataSet
-				return new DataSetBuilder(protoDataSet.getNumOfColumns())
-						.addColumnNames(protoDataSet.getColumnsList())
+				return new DataSetBuilder(protoDataSet.getNumOfColumns()).addColumnNames(protoDataSet.getColumnsList())
 						.addTypes(convertDataSetDataTypes(protoDataSet.getTypesList()))
 						.addRows(convertDataSetRows(protoDataSet.getRowsList(), protoDataSet.getTypesList()))
-						.createDataSet();	
+						.createDataSet();
 			case Template:
 				SparkplugBProto.Payload.Template protoTemplate = protoMetric.getTemplateValue();
 				List<Metric> metrics = new ArrayList<Metric>();
 				List<Parameter> parameters = new ArrayList<Parameter>();
-				
+
 				for (SparkplugBProto.Payload.Template.Parameter protoParameter : protoTemplate.getParametersList()) {
 					String name = protoParameter.getName();
-					logger.trace("Parameter name: " + name);
 					ParameterDataType type = ParameterDataType.fromInteger(protoParameter.getType());
-					logger.trace("Parameter type: " + type);
 					Object value = getParameterValue(protoParameter);
-					logger.trace("Setting template parameter name: " + name + ", type: " + type + ", value: " + value + ", valueType" + value.getClass());
-					
+					if (logger.isTraceEnabled()) {
+						logger.trace("Setting template parameter name: " + name + ", type: " + type + ", value: "
+								+ value + ", valueType" + value.getClass());
+					}
+
 					parameters.add(new Parameter(name, type, value));
 				}
-				
+
 				for (SparkplugBProto.Payload.Metric protoTemplateMetric : protoTemplate.getMetricsList()) {
 					Metric templateMetric = convertMetric(protoTemplateMetric);
-					logger.trace("Setting template parameter name: " + templateMetric.getName() + ", type: " 
-							+ templateMetric.getDataType() + ", value: " + templateMetric.getValue());
+					if (logger.isTraceEnabled()) {
+						logger.trace("Setting template parameter name: " + templateMetric.getName() + ", type: "
+								+ templateMetric.getDataType() + ", value: " + templateMetric.getValue());
+					}
 					metrics.add(templateMetric);
 				}
-				
-				Template template = new TemplateBuilder()
-						.version(protoTemplate.getVersion())
-						.templateRef(protoTemplate.getTemplateRef())
-						.definition(protoTemplate.getIsDefinition())
-						.addMetrics(metrics)
-						.addParameters(parameters)
-						.createTemplate();
-				
-				logger.trace("Setting template - name: " + protoMetric.getName() 
-						+ ", version: " + template.getVersion() 
-						+ ", ref: " + template.getTemplateRef() 
-						+ ", isDef: " + template.isDefinition() 
-						+ ", metrics: " + metrics.size() 
-						+ ", params: " + parameters.size());
-				
+
+				Template template = new TemplateBuilder().version(protoTemplate.getVersion())
+						.templateRef(protoTemplate.getTemplateRef()).definition(protoTemplate.getIsDefinition())
+						.addMetrics(metrics).addParameters(parameters).createTemplate();
+
+				if (logger.isTraceEnabled()) {
+					logger.trace(
+							"Setting template - name: " + protoMetric.getName() + ", version: " + template.getVersion()
+									+ ", ref: " + template.getTemplateRef() + ", isDef: " + template.isDefinition()
+									+ ", metrics: " + metrics.size() + ", params: " + parameters.size());
+				}
+
 				return template;
 			case Unknown:
 			default:
@@ -273,9 +261,9 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 
 		}
 	}
-	
-	private Collection<Row> convertDataSetRows(List<SparkplugBProto.Payload.DataSet.Row> protoRows, List<Integer> protoTypes) 
-			throws Exception {
+
+	private Collection<Row> convertDataSetRows(List<SparkplugBProto.Payload.DataSet.Row> protoRows,
+			List<Integer> protoTypes) throws Exception {
 		Collection<Row> rows = new ArrayList<Row>();
 		if (protoRows != null) {
 			for (SparkplugBProto.Payload.DataSet.Row protoRow : protoRows) {
@@ -299,7 +287,7 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 		}
 		return types;
 	}
-	
+
 	private Object getParameterValue(SparkplugBProto.Payload.Template.Parameter protoParameter) throws Exception {
 		// Otherwise convert the value based on the type
 		int type = protoParameter.getType();
@@ -333,10 +321,10 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 				throw new Exception("Failed to decode: Unknown Parameter Type " + type);
 		}
 	}
-	
-	private Value<?> convertDataSetValue(int protoType, SparkplugBProto.Payload.DataSet.DataSetValue protoValue) 
+
+	private Value<?> convertDataSetValue(int protoType, SparkplugBProto.Payload.DataSet.DataSetValue protoValue)
 			throws Exception {
-		
+
 		DataSetDataType type = DataSetDataType.fromInteger(protoType);
 		switch (type) {
 			case Boolean:
@@ -348,10 +336,10 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 			case Double:
 				return new Value<Double>(type, protoValue.getDoubleValue());
 			case Int8:
-				return new Value<Byte>(type, (byte)protoValue.getIntValue());
+				return new Value<Byte>(type, (byte) protoValue.getIntValue());
 			case UInt8:
 			case Int16:
-				return new Value<Short>(type, (short)protoValue.getIntValue());
+				return new Value<Short>(type, (short) protoValue.getIntValue());
 			case UInt16:
 			case Int32:
 				return new Value<Integer>(type, protoValue.getIntValue());
@@ -367,7 +355,7 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder <SparkplugBPaylo
 			case Unknown:
 			default:
 				logger.error("Unknown DataType: " + protoType);
-				throw new Exception("Failed to decode");	
+				throw new Exception("Failed to decode");
 		}
 	}
 }
