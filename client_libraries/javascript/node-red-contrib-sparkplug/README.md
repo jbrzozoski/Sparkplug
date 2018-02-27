@@ -16,6 +16,10 @@ certificates (DBIRTH), device data messages (DDATA), device death certificates
 (DDEATH), and receive device command messages (DCMD) that have been sent from
 another MQTT client.
 
+Additional details on the example payloads below can be found here:
+
+https://www.npmjs.com/package/sparkplug-client
+
 ## Installation
 
   npm install node-red-contrib-sparkplug
