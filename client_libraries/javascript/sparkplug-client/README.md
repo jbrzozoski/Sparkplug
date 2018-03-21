@@ -38,7 +38,8 @@ must contain the following properties:
 * publishDeath: A flag indicating if a Node DEATH Certificate (NDEATH) should
   be published when the client is stopped (defaults to false).
 * version: The Sparkplug version (currently: A or B).  This will indicate how
-  the payload of the published Sparkplug messages are formatted. 
+  the payload of the published Sparkplug messages are formatted.
+* keepalive: The MQTT client keep alive interval in seconds (defaults to 30). 
 
 Here is a code example of creating and configuring a new client:
 
@@ -279,8 +280,8 @@ client.publishDeviceDeath(deviceId, payload);
 ### Receiving events
 
 The client uses an EventEmitter to emit events to device applications.  The
-client emits a "rebirth" event, "command" event, and four MQTT connection
-events: "connect", "reconnect", "error", and "close".
+client emits a "rebirth" event, "command" event, and five MQTT connection
+events: "connect", "reconnect", "offline", "error", and "close".
 
 #### Birth Event
 
@@ -373,6 +374,18 @@ client.on('reconnect', function () {
 });
 ```
 
+#### Offline Event
+
+An "offline" event is emitted when the client loses connection with the server.
+
+Here is a code example of handling an "offline" event:
+
+```javascript
+client.on('offline', function () {
+    console.log("received 'offline' event");
+});
+```
+
 #### Error Event
 
 An "error" event is emitted when the client has experienced an error while
@@ -414,10 +427,13 @@ client.on('close', function () {
         and Gzip algorithms, added logging with Winston to replace console
         logging, and other minor bug fixes. Moved sparkplug payload libraries
         to their own project and updated dependecies.
+* 3.2.0 Added new 'offline' emitted event, added configurable keep alive,
+        updated log messages and set default level to 'info', and disabled 
+        ping rescheduling within the client.
 
 ## License
 
-Copyright (c) 2016-2017 Cirrus Link Solutions
+Copyright (c) 2016-2018 Cirrus Link Solutions
 
 All rights reserved. This program and the accompanying materials
 are made available under the terms of the Eclipse Public License v1.0

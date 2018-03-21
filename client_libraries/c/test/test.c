@@ -95,6 +95,7 @@ int main(int argc, char *argv[]) {
         //mosquitto_tls_opts_set(mosq, 0, "tlsv1.2", NULL);               // 0 is DO NOT SSL_VERIFY_PEER
 
 	// Optional 'real' SSL parameters for MQTT
+	//mosquitto_tls_set(mosq, NULL, "/etc/ssl/certs/", NULL, NULL, NULL);	// Necessary if the CA or other certs need to be picked up elsewhere on the local filesystem
 	//mosquitto_tls_insecure_set(mosq, false);
 	//mosquitto_tls_opts_set(mosq, 1, "tlsv1.2", NULL);               // 1 is SSL_VERIFY_PEER
 

@@ -21,7 +21,7 @@ var mqtt = require('mqtt'),
 
 var compressed = "SPBV1.0_COMPRESSED";
 
-logger.level = 'debug';
+logger.level = 'info';
 
 var getRequiredProperty = function(config, propName) {
     if (config[propName] !== undefined) {
@@ -308,7 +308,8 @@ function SparkplugClient(config) {
             clientOptions = {
                 "clientId" : clientId,
                 "clean" : true,
-                "keepalive" : 30,
+                "keepalive" : 5,
+                "reschedulePings" : false,
                 "connectionTimeout" : 30,
                 "username" : username,
                 "password" : password,
@@ -370,6 +371,27 @@ function SparkplugClient(config) {
          */
         client.on("reconnect", function() {
             sparkplugClient.emit("reconnect");
+        });
+
+        /*
+         * 'reconnect' handler
+         */
+        client.on("offline", function() {
+            sparkplugClient.emit("offline");
+        });
+
+        /*
+         * 'packetsend' handler
+         */
+        client.on("packetsend", function(packet) {
+            logger.info("packetsend: " + packet.cmd);
+        });
+
+        /*
+         * 'packetreceive' handler
+         */
+        client.on("packetreceive", function(packet) {
+            logger.info("packetreceive: " + packet.cmd);
         });
 
         /*

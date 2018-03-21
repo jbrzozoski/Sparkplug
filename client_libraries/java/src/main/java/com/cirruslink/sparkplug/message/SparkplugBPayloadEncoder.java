@@ -50,17 +50,14 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 		
 		// Set the timestamp
 		if (payload.getTimestamp() != null) {
-			logger.trace("Setting time " + payload.getTimestamp());
 			protoMsg.setTimestamp(payload.getTimestamp().getTime());
 		}
 		
 		// Set the sequence number
-		logger.trace("Setting sequence number " + payload.getSeq());
 		protoMsg.setSeq(payload.getSeq());
 		
 		// Set the UUID if defined
 		if (payload.getUuid() != null) {
-			logger.trace("Setting the UUID " + payload.getUuid());
 			protoMsg.setUuid(payload.getUuid());
 		}
 		
@@ -76,7 +73,6 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 
 		// Set the body
 		if (payload.getBody() != null) {
-			logger.debug("Setting the body " + new String(payload.getBody()));
 			protoMsg.setBody(ByteString.copyFrom(payload.getBody()));
 		}
 
@@ -84,8 +80,7 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 	}
 	
 	private SparkplugBProto.Payload.Metric.Builder convertMetric(Metric metric) throws Exception {
-		logger.debug("Converting metric: " + metric);
-		
+
 		// build a metric
 		SparkplugBProto.Payload.Metric.Builder builder = SparkplugBProto.Payload.Metric.newBuilder();
 		
@@ -125,13 +120,11 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 
 		// Set the metadata
 		if (metric.getMetaData() != null) {
-			logger.trace("Metadata is not null");
 			builder = setMetaData(builder, metric);
 		}
 		
 		// Set the property set
 		if (metric.getProperties() != null) {
-			logger.trace("PropertySet is not null");
 			builder.setProperties(convertPropertySet(metric.getProperties()));
 		}
 		
@@ -144,8 +137,10 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 		SparkplugBProto.Payload.Template.Parameter.Builder builder = 
 				SparkplugBProto.Payload.Template.Parameter.newBuilder();
 		
-		logger.trace("Adding parameter: " + parameter.getName());
-		logger.trace("            type: " + parameter.getType());
+		if (logger.isTraceEnabled()) {
+			logger.trace("Adding parameter: " + parameter.getName());
+			logger.trace("            type: " + parameter.getType());
+		}
 		
 		// Set the name
 		builder.setName(parameter.getName());
@@ -373,14 +368,12 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 									protoRowBuilder.addElements(convertDataSetValue(value));
 								}
 
-								logger.debug("Adding row");
 								dataSetBuilder.addRows(protoRowBuilder);
 							}
 						}
 					}
 
 					// Finally add the dataset
-					logger.debug("Adding the dataset");
 					metricBuilder.setDatasetValue(dataSetBuilder);
 					break;
 				case Template:
