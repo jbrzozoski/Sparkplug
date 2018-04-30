@@ -234,6 +234,64 @@ def addMetric(container, name, alias, type, value):
 ######################################################################
 
 ######################################################################
+# Helper method for adding metrics to a container which can be a
+# payload or a template
+######################################################################
+def addNullMetric(container, name, alias, type):
+    metric = container.metrics.add()
+    if name is not None:
+        metric.name = name
+    if alias is not None:
+        metric.alias = alias
+    metric.timestamp = int(round(time.time() * 1000))
+    metric.is_null = True
+
+    # print "Type: " + str(type)
+
+    if type == MetricDataType.Int8:
+        metric.datatype = MetricDataType.Int8
+    elif type == MetricDataType.Int16:
+        metric.datatype = MetricDataType.Int16
+    elif type == MetricDataType.Int32:
+        metric.datatype = MetricDataType.Int32
+    elif type == MetricDataType.Int64:
+        metric.datatype = MetricDataType.Int64
+    elif type == MetricDataType.UInt8:
+        metric.datatype = MetricDataType.UInt8
+    elif type == MetricDataType.UInt16:
+        metric.datatype = MetricDataType.UInt16
+    elif type == MetricDataType.UInt32:
+        metric.datatype = MetricDataType.UInt32
+    elif type == MetricDataType.UInt64:
+        metric.datatype = MetricDataType.UInt64
+    elif type == MetricDataType.Float:
+        metric.datatype = MetricDataType.Float
+    elif type == MetricDataType.Double:
+        metric.datatype = MetricDataType.Double
+    elif type == MetricDataType.Boolean:
+        metric.datatype = MetricDataType.Boolean
+    elif type == MetricDataType.String:
+        metric.datatype = MetricDataType.String
+    elif type == MetricDataType.DateTime:
+        metric.datatype = MetricDataType.DateTime
+    elif type == MetricDataType.Text:
+        metric.datatype = MetricDataType.Text
+    elif type == MetricDataType.UUID:
+        metric.datatype = MetricDataType.UUID
+    elif type == MetricDataType.Bytes:
+        metric.datatype = MetricDataType.Bytes
+    elif type == MetricDataType.File:
+        metric.datatype = MetricDataType.File
+    elif type == MetricDataType.Template:
+        metric.datatype = MetricDataType.Template
+    else:
+        print "Invalid: " + str(type)
+
+    # Return the metric
+    return metric
+######################################################################
+
+######################################################################
 # Helper method for getting the next sequence number
 ######################################################################
 def getSeqNum():
