@@ -1,6 +1,6 @@
 /*
  * Licensed Materials - Property of Cirrus Link Solutions
- * Copyright (c) 2016 Cirrus Link Solutions LLC - All Rights Reserved
+ * Copyright (c) 2016-2018 Cirrus Link Solutions LLC - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
  */
@@ -58,7 +58,17 @@ public enum MessageType {
 	/**
 	 * Critical application state message.
 	 */
-	STATE;
+	STATE,
+	
+	/**
+	 * Device record message.
+	 */
+	DRECORD,
+	
+	/**
+	 * Edge of Network (EoN) Node record message.
+	 */
+	NRECORD;
 	
 	public static MessageType parseMessageType(String type) throws SparkplugParsingException {
 		for (MessageType messageType : MessageType.values()) {
@@ -67,5 +77,25 @@ public enum MessageType {
 			}
 		}
 		throw new SparkplugParsingException("Invalid message type: " + type);
+	}
+	
+	public boolean isDeath() {
+		return this.equals(DDEATH) || this.equals(NDEATH);
+	}
+	
+	public boolean isCommand() {
+		return this.equals(DCMD) || this.equals(NCMD);
+	}
+	
+	public boolean isData() {
+		return this.equals(DDATA) || this.equals(NDATA);
+	}
+	
+	public boolean isBirth() {
+		return this.equals(DBIRTH) || this.equals(NBIRTH);
+	}
+	
+	public boolean isRecord() {
+		return this.equals(DRECORD) || this.equals(NRECORD);
 	}
 }

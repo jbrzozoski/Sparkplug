@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * Provides utility methods for handling Sparkplug MQTT message topics.
  */
 public class TopicUtil {
-	
+
 	/**
 	 * Serializes a {@link Topic} instance in to a JSON string.
 	 * 
@@ -38,22 +38,32 @@ public class TopicUtil {
 	 * @return a {@link Topic} instance
 	 * @throws SparkplugParsingException if an error occurs while parsing
 	 */
-	@SuppressWarnings("incomplete-switch")
 	public static Topic parseTopic(String topic) throws SparkplugParsingException {
+		return parseTopic(topic.split("/"));
+	}
+
+	/**
+	 * Parses a Sparkplug MQTT message topic string and returns a {@link Topic} instance.
+	 *
+	 * @param splitTopic a topic split into tokens
+	 * @return a {@link Topic} instance
+	 * @throws SparkplugParsingException if an error occurs while parsing
+	 */
+	@SuppressWarnings("incomplete-switch")
+	public static Topic parseTopic(String[] splitTopic) throws SparkplugParsingException {
 		MessageType type;
 		String namespace, edgeNodeId, groupId;
-		String[] splitTopic = topic.split("/");
 		int length = splitTopic.length;
-		
+
 		if (length < 4 || length > 5) {
 			throw new SparkplugParsingException("Invalid number of topic elements: " + length);
 		}
-		
+
 		namespace = splitTopic[0];
 		groupId = splitTopic[1];
 		type = MessageType.parseMessageType(splitTopic[2]);
 		edgeNodeId = splitTopic[3];
-		
+
 		if (length == 4) {
 			// A node topic
 			switch (type) {
@@ -62,8 +72,9 @@ public class TopicUtil {
 				case NCMD:
 				case NDATA:
 				case NDEATH:
+				case NRECORD:
 					return new Topic(namespace, groupId, edgeNodeId, type);
-			}	
+			}
 		} else {
 			// A device topic
 			switch (type) {
@@ -72,10 +83,10 @@ public class TopicUtil {
 				case DCMD:
 				case DDATA:
 				case DDEATH:
+				case DRECORD:
 					return new Topic(namespace, groupId, edgeNodeId, splitTopic[4], type);
 			}
 		}
-		throw new SparkplugParsingException("Invalid number of topic elements " + length 
-				+ " for topic type " + type);
+		throw new SparkplugParsingException("Invalid number of topic elements " + length + " for topic type " + type);
 	}
 }
