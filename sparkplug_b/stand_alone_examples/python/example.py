@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/python
 ######################################################################
 # Copyright (c) 2012, 2016 Cirrus Link Solutions
 #
@@ -40,11 +40,12 @@ class AliasMap:
     Node_Metric0 = 4
     Node_Metric1 = 5
     Node_Metric2 = 6
-    Device_Metric0 = 7
-    Device_Metric1 = 8
-    Device_Metric2 = 9
-    Device_Metric3 = 10
-    My_Custom_Motor = 11
+    Node_Metric3 = 7
+    Device_Metric0 = 8
+    Device_Metric1 = 9
+    Device_Metric2 = 10
+    Device_Metric3 = 11
+    My_Custom_Motor = 12
 
 ######################################################################
 # The callback for when the client receives a CONNACK response from the server.
@@ -162,6 +163,7 @@ def publishNodeBirth():
     # Add some regular node metrics
     addMetric(payload, "Node Metric0", AliasMap.Node_Metric0, MetricDataType.String, "hello node")
     addMetric(payload, "Node Metric1", AliasMap.Node_Metric1, MetricDataType.Boolean, True)
+    addNullMetric(payload, "Node Metric3", AliasMap.Node_Metric3, MetricDataType.Int32)
 
     # Create a DataSet (012 - 345) two rows with Int8, Int16, and Int32 contents and headers Int8s, Int16s, Int32s and add it to the payload
     columns = ["Int8s", "Int16s", "Int32s"]

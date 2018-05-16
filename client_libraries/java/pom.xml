@@ -10,7 +10,7 @@
   <parent>
     <groupId>com.cirruslink.sparkplug</groupId>
     <artifactId>sparkplug</artifactId>
-    <version>1.1.12</version>
+    <version>1.1.13</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
 
@@ -19,69 +19,6 @@
   <name>Maven Quick Start Archetype</name>
   <url>http://maven.apache.org</url>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-      <version>6.9.10</version>
-    </dependency>
-    <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <version>3.5.1</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.8.2</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.7.22</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.paho</groupId>
-      <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
-      <version>${paho.version}</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java -->
-    <dependency>
-      <groupId>com.google.protobuf</groupId>
-      <artifactId>protobuf-java</artifactId>
-      <version>3.2.0</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.5</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-core</artifactId>
-      <version>2.6.6</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.6.6</version>
-    </dependency>
-    
-<!--     <dependency> CANT USE DUE TO LICENCE (LGPLv3) -->
-<!--       <groupId>com.github.fge</groupId> -->
-<!--       <artifactId>json-schema-validator</artifactId> -->
-<!--       <version>2.2.6</version> -->
-<!--     </dependency> -->
-
-  </dependencies>
   <build>
     <plugins>
       <plugin>
@@ -99,7 +36,7 @@
             <configuration>
               <useMissingFile>true</useMissingFile>
               <excludedScopes>test</excludedScopes>
-              <excludedGroups> (com.cirruslink*) 
+              <excludedGroups> (com.cirruslink*)
               </excludedGroups>
               <licenseMerges>
                 <licenseMerge>The Apache Software License, Version
