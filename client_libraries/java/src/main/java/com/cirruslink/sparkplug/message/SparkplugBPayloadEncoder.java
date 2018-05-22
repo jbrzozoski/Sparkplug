@@ -495,7 +495,13 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 				protoValueBuilder.setBooleanValue(toBoolean(value.getValue()));
 				break;
 			case DateTime:
-				protoValueBuilder.setLongValue(((Date) value.getValue()).getTime());
+				try {
+					protoValueBuilder.setLongValue(((Date) value.getValue()).getTime());
+				} catch (NullPointerException npe) {
+					// FIXME - remove after is_null is supported for dataset values
+					logger.debug("Date in dataset was null - leaving it -9223372036854775808L");
+					protoValueBuilder.setLongValue(-9223372036854775808L);
+				}
 				break;
 			default:
 				logger.error("Unknown DataType: " + value.getType());
