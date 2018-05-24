@@ -53,7 +53,6 @@ import com.cirruslink.sparkplug.message.model.SparkplugBPayload.SparkplugBPayloa
 import com.cirruslink.sparkplug.message.model.Template;
 import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
 import com.cirruslink.sparkplug.message.model.Value;
-import com.cirruslink.sparkplug.util.CompressionAlgorithm;
 import com.cirruslink.sparkplug.util.PayloadUtil;
 
 /**
@@ -105,27 +104,37 @@ public class SparkplugTest {
 			{ "TestBytes", MetricDataType.Bytes, new byte[]{0x0, 0x1, 0x2, 0x3, 0x4}, null},
 			{ "TestFile", MetricDataType.File, new File("/tmp/.testfile", new byte[]{0x0, 0x1, 0x2, 0x3, 0x4}), 
 					new MetaDataBuilder().fileType("bin").fileName("/tmp/.testfile").createMetaData()},
-			{ "TestDataSet", MetricDataType.DataSet, new DataSetBuilder(3)
+			{ "TestDataSet", MetricDataType.DataSet, new DataSetBuilder(5)
 					.addColumnName("Booleans")
 					.addColumnName("Int32s")
 					.addColumnName("Floats")
+					.addColumnName("Dates")
+					.addColumnName("Strings")
 					.addType(DataSetDataType.Boolean)
 					.addType(DataSetDataType.Int32)
 					.addType(DataSetDataType.Float)
+					.addType(DataSetDataType.DateTime)
+					.addType(DataSetDataType.String)
 					.addRow(new RowBuilder()
 							.addValue(new Value<Boolean>(DataSetDataType.Boolean, false))
 							.addValue(new Value<Integer>(DataSetDataType.Int32, 1))
 							.addValue(new Value<Float>(DataSetDataType.Float, 1.1F))
-							.createRow())
+							.addValue(new Value<Date>(DataSetDataType.DateTime, new Date()))
+							.addValue(new Value<String>(DataSetDataType.String, "abc"))
+								.createRow())
 					.addRow(new RowBuilder()
 							.addValue(new Value<Boolean>(DataSetDataType.Boolean, true))
 							.addValue(new Value<Integer>(DataSetDataType.Int32, 2))
 							.addValue(new Value<Float>(DataSetDataType.Float, 1.2F))
+							.addValue(new Value<Date>(DataSetDataType.DateTime, new Date()))
+							.addValue(new Value<String>(DataSetDataType.String, ""))
 							.createRow())
 					.addRow(new RowBuilder()
 							.addValue(new Value<Boolean>(DataSetDataType.Boolean, false))
 							.addValue(new Value<Integer>(DataSetDataType.Int32, 3))
 							.addValue(new Value<Float>(DataSetDataType.Float, 1.3F))
+							.addValue(new Value<Date>(DataSetDataType.DateTime, null))
+							.addValue(new Value<String>(DataSetDataType.String, null))
 							.createRow())
 					.createDataSet()
 					, null},

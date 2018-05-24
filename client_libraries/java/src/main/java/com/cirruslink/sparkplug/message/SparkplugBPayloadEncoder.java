@@ -489,7 +489,12 @@ public class SparkplugBPayloadEncoder implements PayloadEncoder <SparkplugBPaylo
 				break;
 			case String:
 			case Text:
-				protoValueBuilder.setStringValue((String) value.getValue());
+				if (value.getValue() != null) {
+					protoValueBuilder.setStringValue((String) value.getValue());
+				} else {
+					logger.warn("String value for dataset is null");
+					protoValueBuilder.setStringValue("null");
+				}
 				break;
 			case Boolean:
 				protoValueBuilder.setBooleanValue(toBoolean(value.getValue()));

@@ -354,9 +354,12 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder<SparkplugBPayloa
 			case UInt64:
 				return new Value<BigInteger>(type, BigInteger.valueOf(protoValue.getLongValue()));
 			case String:
-				return new Value<String>(type, protoValue.getStringValue());
 			case Text:
-				return new Value<String>(type, protoValue.getStringValue());
+				if (protoValue.getStringValue().equals("null")) {
+					return new Value<String>(type, null);
+				} else {
+					return new Value<String>(type, protoValue.getStringValue());
+				}
 			case Unknown:
 			default:
 				logger.error("Unknown DataType: " + protoType);
