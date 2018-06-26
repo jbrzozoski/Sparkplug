@@ -35,7 +35,9 @@
     <module>sparkplug_b/raspberry_pi_examples/java_udt/pom.xml</module>
 -->
     <module>sparkplug_b/stand_alone_examples/java/pom.xml</module>
+<!--
     <module>sparkplug_b/stand_alone_examples/java_android/pom.xml</module>
+-->
     <module>sparkplug_b/stand_alone_examples/java_device_timestamp/pom.xml</module>
     <module>sparkplug_b/stand_alone_examples/java_edge_node_control/pom.xml</module>
 <!--
