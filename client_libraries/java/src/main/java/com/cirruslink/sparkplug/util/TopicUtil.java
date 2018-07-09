@@ -7,9 +7,11 @@
 
 package com.cirruslink.sparkplug.util;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.cirruslink.sparkplug.SparkplugParsingException;
 import com.cirruslink.sparkplug.message.model.MessageType;
-import com.cirruslink.sparkplug.message.model.SparkplugBPayload;
 import com.cirruslink.sparkplug.message.model.Topic;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,6 +20,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * Provides utility methods for handling Sparkplug MQTT message topics.
  */
 public class TopicUtil {
+	
+	private static final Map<String, String[]> SPLIT_TOPIC_CACHE = new HashMap<String, String[]>();
+	
+	public static String[] getSplitTopic(String topic) {
+		String[] splitTopic = SPLIT_TOPIC_CACHE.get(topic);
+		if (splitTopic == null) {
+			splitTopic = topic.split("/");
+			SPLIT_TOPIC_CACHE.put(topic, splitTopic);
+		}
+		
+		return splitTopic;
+	}
 
 	/**
 	 * Serializes a {@link Topic} instance in to a JSON string.
@@ -39,7 +53,7 @@ public class TopicUtil {
 	 * @throws SparkplugParsingException if an error occurs while parsing
 	 */
 	public static Topic parseTopic(String topic) throws SparkplugParsingException {
-		return parseTopic(topic.split("/"));
+		return parseTopic(TopicUtil.getSplitTopic(topic));
 	}
 
 	/**

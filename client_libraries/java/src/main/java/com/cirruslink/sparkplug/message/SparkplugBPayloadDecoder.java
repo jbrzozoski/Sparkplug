@@ -330,7 +330,12 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder<SparkplugBPayloa
 			case Boolean:
 				return new Value<Boolean>(type, protoValue.getBooleanValue());
 			case DateTime:
-				return new Value<Date>(type, new Date(protoValue.getLongValue()));
+				// FIXME - remove after is_null is supported for dataset values
+				if (protoValue.getLongValue() == -9223372036854775808L) {
+					return new Value<Date>(type, null);
+				} else {
+					return new Value<Date>(type, new Date(protoValue.getLongValue()));
+				}
 			case Float:
 				return new Value<Float>(type, protoValue.getFloatValue());
 			case Double:
@@ -349,9 +354,12 @@ public class SparkplugBPayloadDecoder implements PayloadDecoder<SparkplugBPayloa
 			case UInt64:
 				return new Value<BigInteger>(type, BigInteger.valueOf(protoValue.getLongValue()));
 			case String:
-				return new Value<String>(type, protoValue.getStringValue());
 			case Text:
-				return new Value<String>(type, protoValue.getStringValue());
+				if (protoValue.getStringValue().equals("null")) {
+					return new Value<String>(type, null);
+				} else {
+					return new Value<String>(type, protoValue.getStringValue());
+				}
 			case Unknown:
 			default:
 				logger.error("Unknown DataType: " + protoType);

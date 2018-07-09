@@ -6,13 +6,13 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <main.basedir>${project.basedir}</main.basedir>
-    <sparkplug.version>1.1.13</sparkplug.version>
+    <sparkplug.version>1.1.14</sparkplug.version>
     <paho.version>1.1.1</paho.version>
   </properties>
 
   <groupId>com.cirruslink.sparkplug</groupId>
   <artifactId>sparkplug</artifactId>
-  <version>1.1.13</version>
+  <version>1.1.14</version>
   <packaging>pom</packaging>
 
   <distributionManagement>
@@ -35,7 +35,9 @@
     <module>sparkplug_b/raspberry_pi_examples/java_udt/pom.xml</module>
 -->
     <module>sparkplug_b/stand_alone_examples/java/pom.xml</module>
+<!--
     <module>sparkplug_b/stand_alone_examples/java_android/pom.xml</module>
+-->
     <module>sparkplug_b/stand_alone_examples/java_device_timestamp/pom.xml</module>
     <module>sparkplug_b/stand_alone_examples/java_edge_node_control/pom.xml</module>
 <!--
