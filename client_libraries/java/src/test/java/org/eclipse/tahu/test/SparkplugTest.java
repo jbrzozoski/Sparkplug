@@ -1,11 +1,17 @@
-/*
- * Licensed Materials - Property of Cirrus Link Solutions
- * Copyright (c) 2016 Cirrus Link Solutions LLC - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- */
+/*******************************************************************************
+ * Copyright (c) 2016, 2018 Cirrus Link Solutions and/or its affiliates and others
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v2.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v20.html
+ *
+ * Contributors:
+ *  Cirrus Link Solutions
+ *
+ *******************************************************************************/
 
-package com.cirruslink.sparkplug.test;
+package org.eclipse.tahu.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;

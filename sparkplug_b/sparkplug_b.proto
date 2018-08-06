@@ -1,10 +1,12 @@
-syntax = "proto2";
 
 //
 // To compile:
 // cd client_libraries/java
 // protoc --proto_path=../../ --java_out=src/main/java ../../sparkplug_b.proto 
 //
+
+syntax = "proto2";
+
 package org.eclipse.tahu.protobuf;
 
 option java_package         = "org.eclipse.tahu.protobuf";
