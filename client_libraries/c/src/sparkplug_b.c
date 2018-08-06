@@ -24,7 +24,7 @@ uint64_t seq;
 /*
  * Private function to decode a Metric from a stream
  */
-bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_istream_t *stream) {
+bool decode_metric(org_eclipse_tahu_protobuf_Payload_Metric *metric, pb_istream_t *stream) {
 	bool status;
 	pb_istream_t substream;
 
@@ -46,7 +46,7 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 
 		if (metric_wire_type == PB_WT_VARINT) {
 			DEBUG_PRINT(("\t\tMetric Wire type is PB_WT_VARINT\n"));
-			for (metric_field = com_cirruslink_sparkplug_protobuf_Payload_Metric_fields; metric_field->tag != 0; metric_field++) {
+			for (metric_field = org_eclipse_tahu_protobuf_Payload_Metric_fields; metric_field->tag != 0; metric_field++) {
 				if (metric_field->tag == metric_tag && (((metric_field->type & PB_LTYPE_VARINT) == PB_LTYPE_VARINT) ||
 													((metric_field->type & PB_LTYPE_UVARINT) == PB_LTYPE_UVARINT))) {
 					DEBUG_PRINT(("\t\tWire type is PB_WT_VARINT\n"));
@@ -54,32 +54,32 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 					status = pb_decode_varint(&substream, &dest);
 					if (status) {
 						DEBUG_PRINT(("\t\tVARINT - Success - new value: %ld\n", dest));
-						if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_alias_tag) {
+						if (metric_field->tag == org_eclipse_tahu_protobuf_Payload_Metric_alias_tag) {
 							metric->has_alias = true;
 							metric->alias = dest;
-						} else if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_timestamp_tag) {
+						} else if (metric_field->tag == org_eclipse_tahu_protobuf_Payload_Metric_timestamp_tag) {
 							metric->has_timestamp = true;
 							metric->timestamp = dest;
-						} else if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_datatype_tag) {
+						} else if (metric_field->tag == org_eclipse_tahu_protobuf_Payload_Metric_datatype_tag) {
 							metric->has_datatype = true;
 							metric->datatype = dest;
-						} else if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_is_historical_tag) {
+						} else if (metric_field->tag == org_eclipse_tahu_protobuf_Payload_Metric_is_historical_tag) {
 							metric->has_is_historical = true;
 							metric->is_historical = dest;
-						} else if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_is_transient_tag) {
+						} else if (metric_field->tag == org_eclipse_tahu_protobuf_Payload_Metric_is_transient_tag) {
 							metric->has_is_transient = true;
 							metric->is_transient = dest;
-						} else if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_is_null_tag) {
+						} else if (metric_field->tag == org_eclipse_tahu_protobuf_Payload_Metric_is_null_tag) {
 							metric->has_is_null = true;
 							metric->is_null = dest;
-						} else if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag) {
-							metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag;
+						} else if (metric_field->tag == org_eclipse_tahu_protobuf_Payload_Metric_int_value_tag) {
+							metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_int_value_tag;
 							metric->value.int_value = dest;
-						} else if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_long_value_tag) {
-							metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_long_value_tag;
+						} else if (metric_field->tag == org_eclipse_tahu_protobuf_Payload_Metric_long_value_tag) {
+							metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_long_value_tag;
 							metric->value.long_value = dest;
-						} else if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_boolean_value_tag) {
-							metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_boolean_value_tag;
+						} else if (metric_field->tag == org_eclipse_tahu_protobuf_Payload_Metric_boolean_value_tag) {
+							metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_boolean_value_tag;
 							metric->value.boolean_value = dest;
 						}
 					} else {
@@ -100,7 +100,7 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 			}
 		} else if (metric_wire_type == PB_WT_32BIT) {
 			DEBUG_PRINT(("\t\tMetric Wire type is PB_WT_32BIT\n"));
-			for (metric_field = com_cirruslink_sparkplug_protobuf_Payload_Metric_fields; metric_field->tag != 0; metric_field++) {
+			for (metric_field = org_eclipse_tahu_protobuf_Payload_Metric_fields; metric_field->tag != 0; metric_field++) {
 				if (metric_field->tag == metric_tag && (((metric_field->type & PB_LTYPE_FIXED32) == PB_LTYPE_FIXED32))) {
 					DEBUG_PRINT(("\t\tWire type is PB_WT_32BIT\n"));
 					uint32_t dest;
@@ -109,8 +109,8 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 						DEBUG_PRINT(("\t\t32BIT - Success - new value: %d\n", dest));
 						float destination_float = *((float*)&dest);
 						DEBUG_PRINT(("\t\tFLoat - Success - new value: %f\n", destination_float));
-						if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_float_value_tag) {
-							metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_float_value_tag;
+						if (metric_field->tag == org_eclipse_tahu_protobuf_Payload_Metric_float_value_tag) {
+							metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_float_value_tag;
 							metric->value.float_value = destination_float;
 						}
 					}
@@ -118,7 +118,7 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 			}
 		} else if (metric_wire_type == PB_WT_64BIT) {
 			DEBUG_PRINT(("\t\tMetric Wire type is PB_WT_64BIT\n"));
-			for (metric_field = com_cirruslink_sparkplug_protobuf_Payload_Metric_fields; metric_field->tag != 0; metric_field++) {
+			for (metric_field = org_eclipse_tahu_protobuf_Payload_Metric_fields; metric_field->tag != 0; metric_field++) {
 				if (metric_field->tag == metric_tag && (((metric_field->type & PB_LTYPE_FIXED64) == PB_LTYPE_FIXED64))) {
 					DEBUG_PRINT(("\t\tWire type is PB_WT_64BIT\n"));
 					uint64_t dest;
@@ -127,8 +127,8 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 						DEBUG_PRINT(("\t\t64BIT - Success - new value: %ld\n", dest));
 						double destination_double = *((double*)&dest);
 						DEBUG_PRINT(("\t\tDouble - Success - new value: %f\n", destination_double));
-						if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_double_value_tag) {
-							metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_double_value_tag;
+						if (metric_field->tag == org_eclipse_tahu_protobuf_Payload_Metric_double_value_tag) {
+							metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_double_value_tag;
 							metric->value.double_value = destination_double;
 						}
 					}
@@ -138,7 +138,7 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 		} else if (metric_wire_type == PB_WT_STRING) {
 			DEBUG_PRINT(("\t\tMetric Wire type is PB_WT_STRING\n"));
 
-			for (metric_field = com_cirruslink_sparkplug_protobuf_Payload_Metric_fields; metric_field->tag != 0; metric_field++) {
+			for (metric_field = org_eclipse_tahu_protobuf_Payload_Metric_fields; metric_field->tag != 0; metric_field++) {
 				if (metric_field->tag == metric_tag && ((metric_field->type & PB_LTYPE_SUBMESSAGE) == PB_LTYPE_SUBMESSAGE)) {
 					DEBUG_PRINT(("\t\tFound a PB_LTYPE_SUBMESSAGE\n"));
 				} else if (metric_field->tag == metric_tag &&
@@ -163,13 +163,13 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 						dest[string_size[0]] = '\0';
 
 						// This is either the metric name or string value
-						if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_name_tag) {
+						if (metric_field->tag == org_eclipse_tahu_protobuf_Payload_Metric_name_tag) {
 							DEBUG_PRINT(("\t\tRead the Metric name! %s\n", dest));
 							metric->name = (char *)malloc((strlen(dest)+1)*sizeof(char));
 							strcpy(metric->name, dest);
-						} else if (metric_field->tag == com_cirruslink_sparkplug_protobuf_Payload_Metric_string_value_tag) {
+						} else if (metric_field->tag == org_eclipse_tahu_protobuf_Payload_Metric_string_value_tag) {
 							DEBUG_PRINT(("\t\tRead the Metric string_value! %s\n", dest));
-							metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_string_value_tag;
+							metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_string_value_tag;
 							// JPL 04/05/17... I hope this gets FREE(string_value)'d somewhere
 							metric->value.string_value =(char *)malloc((strlen(dest)+1)*sizeof(char));
 							strcpy(metric->value.string_value, dest );
@@ -218,10 +218,10 @@ int grow_char_array(char **array, int current_size, int num_new_elems) {
 /*
  * Private function to increase the size of an array of Metrics
  */
-int grow_metrics_array(com_cirruslink_sparkplug_protobuf_Payload_Metric **metric_array, int current_size, int num_new_elems) {
+int grow_metrics_array(org_eclipse_tahu_protobuf_Payload_Metric **metric_array, int current_size, int num_new_elems) {
         const int total_size = current_size + num_new_elems;
-        com_cirruslink_sparkplug_protobuf_Payload_Metric *temp = (com_cirruslink_sparkplug_protobuf_Payload_Metric*)realloc(*metric_array,
-                                                                 	(total_size * sizeof(com_cirruslink_sparkplug_protobuf_Payload_Metric)));
+        org_eclipse_tahu_protobuf_Payload_Metric *temp = (org_eclipse_tahu_protobuf_Payload_Metric*)realloc(*metric_array,
+                                                                 	(total_size * sizeof(org_eclipse_tahu_protobuf_Payload_Metric)));
 
 	if (temp == NULL) {
 		fprintf(stderr, "Cannot allocate more memory.\n");
@@ -236,10 +236,10 @@ int grow_metrics_array(com_cirruslink_sparkplug_protobuf_Payload_Metric **metric
 /*
  * Private function to increase the size of an array of PropertyValues
  */
-int grow_propertyvalues_array(com_cirruslink_sparkplug_protobuf_Payload_PropertyValue **values_array, int current_size, int num_new_elems) {
+int grow_propertyvalues_array(org_eclipse_tahu_protobuf_Payload_PropertyValue **values_array, int current_size, int num_new_elems) {
         const int total_size = current_size + num_new_elems;
-        com_cirruslink_sparkplug_protobuf_Payload_PropertyValue *temp = (com_cirruslink_sparkplug_protobuf_Payload_PropertyValue*)realloc(*values_array,
-                                                                 (total_size * sizeof(com_cirruslink_sparkplug_protobuf_Payload_PropertyValue)));
+        org_eclipse_tahu_protobuf_Payload_PropertyValue *temp = (org_eclipse_tahu_protobuf_Payload_PropertyValue*)realloc(*values_array,
+                                                                 (total_size * sizeof(org_eclipse_tahu_protobuf_Payload_PropertyValue)));
 
 	if (temp == NULL) {
 		fprintf(stderr, "Cannot allocate more memory.\n");
@@ -254,7 +254,7 @@ int grow_propertyvalues_array(com_cirruslink_sparkplug_protobuf_Payload_Property
 /*
  * Add Metadata to an existing Metric
  */
-void add_metadata_to_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, com_cirruslink_sparkplug_protobuf_Payload_MetaData *metadata) {
+void add_metadata_to_metric(org_eclipse_tahu_protobuf_Payload_Metric *metric, org_eclipse_tahu_protobuf_Payload_MetaData *metadata) {
 	metric->has_metadata = true;
 	metric->metadata = *metadata;
 }
@@ -262,11 +262,11 @@ void add_metadata_to_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *me
 /*
  * Add a complete Metric to an existing Payload
  */
-void add_metric_to_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, com_cirruslink_sparkplug_protobuf_Payload_Metric *metric) {
+void add_metric_to_payload(org_eclipse_tahu_protobuf_Payload *payload, org_eclipse_tahu_protobuf_Payload_Metric *metric) {
 
 	int size = payload->metrics_count;
 	if (size == 0) {
-		payload->metrics = (com_cirruslink_sparkplug_protobuf_Payload_Metric *) calloc(1, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Metric));
+		payload->metrics = (org_eclipse_tahu_protobuf_Payload_Metric *) calloc(1, sizeof(org_eclipse_tahu_protobuf_Payload_Metric));
 		if(payload->metrics == NULL) {
 			fprintf(stderr, "Cannot allocate initial memory for data\n");
 		} else {
@@ -286,7 +286,7 @@ void add_metric_to_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, c
 /*
  * Add a simple Property to an existing PropertySet
  */
-bool add_property_to_set(com_cirruslink_sparkplug_protobuf_Payload_PropertySet *propertyset, const char *key, uint32_t datatype, bool is_null, const void *value, size_t size_of_value) {
+bool add_property_to_set(org_eclipse_tahu_protobuf_Payload_PropertySet *propertyset, const char *key, uint32_t datatype, bool is_null, const void *value, size_t size_of_value) {
 
 	if(propertyset->keys_count != propertyset->values_count) {
 		fprintf(stderr, "Invalid PropertySet!\n");
@@ -296,7 +296,7 @@ bool add_property_to_set(com_cirruslink_sparkplug_protobuf_Payload_PropertySet *
 	int size = propertyset->keys_count;
 	if (size == 0) {
 		propertyset->keys = (char **) calloc(1, sizeof(char*));
-		propertyset->values = (com_cirruslink_sparkplug_protobuf_Payload_PropertyValue *) calloc(1, sizeof(com_cirruslink_sparkplug_protobuf_Payload_PropertyValue));
+		propertyset->values = (org_eclipse_tahu_protobuf_Payload_PropertyValue *) calloc(1, sizeof(org_eclipse_tahu_protobuf_Payload_PropertyValue));
 		if(propertyset->values == NULL) {
 			fprintf(stderr, "Cannot allocate initial memory for data\n");
 		} else {
@@ -322,55 +322,55 @@ bool add_property_to_set(com_cirruslink_sparkplug_protobuf_Payload_PropertySet *
 		fprintf(stderr, "Can't create property value with unknown datatype!\n");
 	} else if (datatype == PROPERTY_DATA_TYPE_INT8) {
 		DEBUG_PRINT(("Setting datatype: %d, with value: %d\n", datatype, *((int8_t *)value)));
-		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_int_value_tag;
+		propertyset->values[size-1].which_value = org_eclipse_tahu_protobuf_Payload_PropertyValue_int_value_tag;
 		propertyset->values[size-1].value.int_value = *((int8_t *)value);
 	} else if (datatype == PROPERTY_DATA_TYPE_INT16) {
 		DEBUG_PRINT(("Setting datatype: %d, with value: %d\n", datatype, *((int16_t *)value)));
-		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_int_value_tag;
+		propertyset->values[size-1].which_value = org_eclipse_tahu_protobuf_Payload_PropertyValue_int_value_tag;
 		propertyset->values[size-1].value.int_value = *((int16_t *)value);
 	} else if (datatype == PROPERTY_DATA_TYPE_INT32) {
 		DEBUG_PRINT(("Setting datatype: %d, with value: %d\n", datatype, *((int32_t *)value)));
-		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_int_value_tag;
+		propertyset->values[size-1].which_value = org_eclipse_tahu_protobuf_Payload_PropertyValue_int_value_tag;
 		propertyset->values[size-1].value.int_value = *((int32_t *)value);
 	} else if (datatype == PROPERTY_DATA_TYPE_INT64) {
 		DEBUG_PRINT(("Setting datatype: %d, with value: %zd\n", datatype, *((int64_t *)value)));
-		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_long_value_tag;
+		propertyset->values[size-1].which_value = org_eclipse_tahu_protobuf_Payload_PropertyValue_long_value_tag;
 		propertyset->values[size-1].value.long_value = *((int64_t *)value);
 	} else if (datatype == PROPERTY_DATA_TYPE_UINT8) {
 		DEBUG_PRINT(("Setting datatype: %d, with value: %u\n", datatype, *((uint8_t *)value)));
-		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_int_value_tag;
+		propertyset->values[size-1].which_value = org_eclipse_tahu_protobuf_Payload_PropertyValue_int_value_tag;
 		propertyset->values[size-1].value.int_value = *((uint8_t *)value);
 	} else if (datatype == PROPERTY_DATA_TYPE_UINT16) {
 		DEBUG_PRINT(("Setting datatype: %d, with value: %u\n", datatype, *((uint16_t *)value)));
-		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_int_value_tag;
+		propertyset->values[size-1].which_value = org_eclipse_tahu_protobuf_Payload_PropertyValue_int_value_tag;
 		propertyset->values[size-1].value.int_value = *((uint16_t *)value);
 	} else if (datatype == PROPERTY_DATA_TYPE_UINT32) {
 		DEBUG_PRINT(("Setting datatype: %d, with value: %u\n", datatype, *((uint32_t *)value)));
-		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_long_value_tag;
+		propertyset->values[size-1].which_value = org_eclipse_tahu_protobuf_Payload_PropertyValue_long_value_tag;
 		propertyset->values[size-1].value.long_value = *((uint32_t *)value);
 	} else if (datatype == PROPERTY_DATA_TYPE_UINT64) {
 		DEBUG_PRINT(("Setting datatype: %d, with value: %zd\n", datatype, *((uint64_t *)value)));
-		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_long_value_tag;
+		propertyset->values[size-1].which_value = org_eclipse_tahu_protobuf_Payload_PropertyValue_long_value_tag;
 		propertyset->values[size-1].value.long_value = *((uint64_t *)value);
 	} else if (datatype == PROPERTY_DATA_TYPE_DATETIME) {
 		DEBUG_PRINT(("Setting datatype: %d, with value: %zd\n", datatype, *((uint64_t *)value)));
-		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_long_value_tag;
+		propertyset->values[size-1].which_value = org_eclipse_tahu_protobuf_Payload_PropertyValue_long_value_tag;
 		propertyset->values[size-1].value.long_value = *((uint64_t *)value);
 	} else if (datatype == PROPERTY_DATA_TYPE_FLOAT) {
 		DEBUG_PRINT(("Setting datatype: %d, with value: %f\n", datatype, *((float *)value)));
-		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_float_value_tag;
+		propertyset->values[size-1].which_value = org_eclipse_tahu_protobuf_Payload_PropertyValue_float_value_tag;
 		propertyset->values[size-1].value.float_value = *((float *)value);
 	} else if (datatype == PROPERTY_DATA_TYPE_DOUBLE) {
 		DEBUG_PRINT(("Setting datatype: %d, with value: %f\n", datatype, *((double *)value)));
-		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_double_value_tag;
+		propertyset->values[size-1].which_value = org_eclipse_tahu_protobuf_Payload_PropertyValue_double_value_tag;
 		propertyset->values[size-1].value.double_value = *((double *)value);
 	} else if (datatype == PROPERTY_DATA_TYPE_BOOLEAN) {
 		DEBUG_PRINT(("Setting datatype: %d, with value: %d\n", datatype, *((bool *)value)));
-		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_boolean_value_tag;
+		propertyset->values[size-1].which_value = org_eclipse_tahu_protobuf_Payload_PropertyValue_boolean_value_tag;
 		propertyset->values[size-1].value.boolean_value = *((bool *)value);
 	} else if (datatype == PROPERTY_DATA_TYPE_STRING || datatype == PROPERTY_DATA_TYPE_TEXT) {
 		DEBUG_PRINT(("Setting datatype: %d, with value: %s\n", datatype, (char *)value));
-		propertyset->values[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_string_value_tag;
+		propertyset->values[size-1].which_value = org_eclipse_tahu_protobuf_Payload_PropertyValue_string_value_tag;
 		propertyset->values[size-1].value.string_value = (char *)malloc(size_of_value*sizeof(char));
 		strcpy(propertyset->values[size-1].value.string_value, (char *)value);
 	} else {
@@ -385,7 +385,7 @@ bool add_property_to_set(com_cirruslink_sparkplug_protobuf_Payload_PropertySet *
 /*
  * Add a PropertySet to an existing Metric
  */
-void add_propertyset_to_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, com_cirruslink_sparkplug_protobuf_Payload_PropertySet *properties) {
+void add_propertyset_to_metric(org_eclipse_tahu_protobuf_Payload_Metric *metric, org_eclipse_tahu_protobuf_Payload_PropertySet *properties) {
 	metric->has_properties = true;
 	metric->properties = *properties;
 }
@@ -393,7 +393,7 @@ void add_propertyset_to_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric 
 /*
  * Add a simple Metric to an existing Payload
  */
-void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
+void add_simple_metric(org_eclipse_tahu_protobuf_Payload *payload,
 			const char *name,
 			bool has_alias,
 			uint64_t alias,
@@ -406,7 +406,7 @@ void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 
 	int size = payload->metrics_count;
 	if (size == 0) {
-		payload->metrics = (com_cirruslink_sparkplug_protobuf_Payload_Metric *) calloc(1, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Metric));
+		payload->metrics = (org_eclipse_tahu_protobuf_Payload_Metric *) calloc(1, sizeof(org_eclipse_tahu_protobuf_Payload_Metric));
 		if(payload->metrics == NULL) {
 			fprintf(stderr, "Cannot allocate initial memory for data\n");
 		} else {
@@ -454,55 +454,55 @@ void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 		fprintf(stderr, "Can't create metric with unknown datatype!\n");
 	} else if (datatype == METRIC_DATA_TYPE_INT8) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((int8_t *)value)));
-		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag;
+		payload->metrics[size-1].which_value = org_eclipse_tahu_protobuf_Payload_Metric_int_value_tag;
 		payload->metrics[size-1].value.int_value = *((int8_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_INT16) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((int16_t *)value)));
-		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag;
+		payload->metrics[size-1].which_value = org_eclipse_tahu_protobuf_Payload_Metric_int_value_tag;
 		payload->metrics[size-1].value.int_value = *((int16_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_INT32) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((int32_t *)value)));
-		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag;
+		payload->metrics[size-1].which_value = org_eclipse_tahu_protobuf_Payload_Metric_int_value_tag;
 		payload->metrics[size-1].value.int_value = *((int32_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_INT64) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %zd\n", datatype, *((int64_t *)value)));
-		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_long_value_tag;
+		payload->metrics[size-1].which_value = org_eclipse_tahu_protobuf_Payload_Metric_long_value_tag;
 		payload->metrics[size-1].value.long_value = *((int64_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_UINT8) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %u\n", datatype, *((uint8_t *)value)));
-		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag;
+		payload->metrics[size-1].which_value = org_eclipse_tahu_protobuf_Payload_Metric_int_value_tag;
 		payload->metrics[size-1].value.int_value = *((uint8_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_UINT16) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %u\n", datatype, *((uint16_t *)value)));
-		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag;
+		payload->metrics[size-1].which_value = org_eclipse_tahu_protobuf_Payload_Metric_int_value_tag;
 		payload->metrics[size-1].value.int_value = *((uint16_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_UINT32) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %u\n", datatype, *((uint32_t *)value)));
-		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_long_value_tag;
+		payload->metrics[size-1].which_value = org_eclipse_tahu_protobuf_Payload_Metric_long_value_tag;
 		payload->metrics[size-1].value.long_value = *((uint32_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_UINT64) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %zd\n", datatype, *((uint64_t *)value)));
-		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_long_value_tag;
+		payload->metrics[size-1].which_value = org_eclipse_tahu_protobuf_Payload_Metric_long_value_tag;
 		payload->metrics[size-1].value.long_value = *((uint64_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_DATETIME) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %zd\n", datatype, *((uint64_t *)value)));
-		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_long_value_tag;
+		payload->metrics[size-1].which_value = org_eclipse_tahu_protobuf_Payload_Metric_long_value_tag;
 		payload->metrics[size-1].value.long_value = *((uint64_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_FLOAT) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %f\n", datatype, *((float *)value)));
-		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_float_value_tag;
+		payload->metrics[size-1].which_value = org_eclipse_tahu_protobuf_Payload_Metric_float_value_tag;
 		payload->metrics[size-1].value.float_value = *((float *)value);
 	} else if (datatype == METRIC_DATA_TYPE_DOUBLE) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %f\n", datatype, *((double *)value)));
-		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_double_value_tag;
+		payload->metrics[size-1].which_value = org_eclipse_tahu_protobuf_Payload_Metric_double_value_tag;
 		payload->metrics[size-1].value.double_value = *((double *)value);
 	} else if (datatype == METRIC_DATA_TYPE_BOOLEAN) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((bool *)value)));
-		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_boolean_value_tag;
+		payload->metrics[size-1].which_value = org_eclipse_tahu_protobuf_Payload_Metric_boolean_value_tag;
 		payload->metrics[size-1].value.boolean_value = *((bool *)value);
 	} else if (datatype == METRIC_DATA_TYPE_STRING || datatype == METRIC_DATA_TYPE_TEXT || datatype == METRIC_DATA_TYPE_UUID) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %s\n", datatype, (char *)value));
-		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_string_value_tag;
+		payload->metrics[size-1].which_value = org_eclipse_tahu_protobuf_Payload_Metric_string_value_tag;
 		payload->metrics[size-1].value.string_value = (char *)malloc(size_of_value*sizeof(char));
 		strcpy(payload->metrics[size-1].value.string_value, (char *)value);
 	} else if (datatype == METRIC_DATA_TYPE_BYTES) {
@@ -513,8 +513,8 @@ void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 		DEBUG_PRINT(("Datatype FILE - Not yet supported\n"));
 	} else if (datatype == METRIC_DATA_TYPE_TEMPLATE) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((bool *)value)));
-		payload->metrics[size-1].which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_template_value_tag;
-		payload->metrics[size-1].value.template_value = *((com_cirruslink_sparkplug_protobuf_Payload_Template *)value);
+		payload->metrics[size-1].which_value = org_eclipse_tahu_protobuf_Payload_Metric_template_value_tag;
+		payload->metrics[size-1].value.template_value = *((org_eclipse_tahu_protobuf_Payload_Template *)value);
 	} else {
 		DEBUG_PRINT(("Unknown datatype %ju\n", datatype));
 	}
@@ -526,7 +526,7 @@ void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
 /*
  * Encode a Payload into an array of bytes
  */
-size_t encode_payload(uint8_t **buffer, size_t buffer_length, com_cirruslink_sparkplug_protobuf_Payload *payload) {
+size_t encode_payload(uint8_t **buffer, size_t buffer_length, org_eclipse_tahu_protobuf_Payload *payload) {
         size_t message_length;
 	bool node_status;
 
@@ -535,7 +535,7 @@ size_t encode_payload(uint8_t **buffer, size_t buffer_length, com_cirruslink_spa
 
 	// Encode the payload
 	DEBUG_PRINT(("Encoding...\n"));
-	node_status = pb_encode(&node_stream, com_cirruslink_sparkplug_protobuf_Payload_fields, payload);
+	node_status = pb_encode(&node_stream, org_eclipse_tahu_protobuf_Payload_fields, payload);
 	message_length = node_stream.bytes_written;
 	DEBUG_PRINT(("Message length: %zd\n", message_length));
 
@@ -552,7 +552,7 @@ size_t encode_payload(uint8_t **buffer, size_t buffer_length, com_cirruslink_spa
 /*
  * Decode an array of bytes into a Payload
  */
-bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, const void *binary_payload, int binary_payloadlen) {
+bool decode_payload(org_eclipse_tahu_protobuf_Payload *payload, const void *binary_payload, int binary_payloadlen) {
 
 	pb_istream_t stream = pb_istream_from_buffer(binary_payload, binary_payloadlen);
 	DEBUG_PRINT(("Bytes Remaining: %zd\n", stream.bytes_left));
@@ -572,7 +572,7 @@ bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, const vo
 		DEBUG_PRINT(("\tTag: %d\n", payload_tag));
 
 		if (payload_wire_type == PB_WT_VARINT) {
-			for (payload_field = com_cirruslink_sparkplug_protobuf_Payload_fields; payload_field->tag != 0; payload_field++) {
+			for (payload_field = org_eclipse_tahu_protobuf_Payload_fields; payload_field->tag != 0; payload_field++) {
 				if (payload_field->tag == payload_tag && (((payload_field->type & PB_LTYPE_VARINT) == PB_LTYPE_VARINT) ||
 										((payload_field->type & PB_LTYPE_UVARINT) == PB_LTYPE_UVARINT))) {
 					DEBUG_PRINT(("\tWire type is PB_WT_VARINT\n"));
@@ -585,10 +585,10 @@ bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, const vo
 						return false;
 					}
 
-					if (payload_field->tag == com_cirruslink_sparkplug_protobuf_Payload_timestamp_tag) {
+					if (payload_field->tag == org_eclipse_tahu_protobuf_Payload_timestamp_tag) {
 						payload->has_timestamp = true;
 						payload->timestamp = dest;
-					} else if (payload_field->tag == com_cirruslink_sparkplug_protobuf_Payload_seq_tag) {
+					} else if (payload_field->tag == org_eclipse_tahu_protobuf_Payload_seq_tag) {
 						payload->has_seq = true;
 						payload->seq = dest;
 					}
@@ -608,7 +608,7 @@ bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, const vo
 			DEBUG_PRINT(("\tWire type is PB_WT_64BIT\n"));
 		} else if (payload_wire_type == PB_WT_STRING) {
 			DEBUG_PRINT(("\tWire type is PB_WT_STRING\n"));
-			for (payload_field = com_cirruslink_sparkplug_protobuf_Payload_fields; payload_field->tag != 0; payload_field++) {
+			for (payload_field = org_eclipse_tahu_protobuf_Payload_fields; payload_field->tag != 0; payload_field++) {
 				if (payload_field->tag == payload_tag && ((payload_field->type & PB_LTYPE_SUBMESSAGE) == PB_LTYPE_SUBMESSAGE)) {
 					DEBUG_PRINT(("\tFound a PB_LTYPE_SUBMESSAGE\n"));
 
@@ -618,7 +618,7 @@ bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, const vo
 						return false;
 					}
 
-					com_cirruslink_sparkplug_protobuf_Payload_Metric metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_zero;
+					org_eclipse_tahu_protobuf_Payload_Metric metric = org_eclipse_tahu_protobuf_Payload_Metric_init_zero;
 					if(decode_metric(&metric, &stream)) {
 						DEBUG_PRINT(("Decoding metric succeeded\n"));
 						add_metric_to_payload(payload, &metric);
@@ -678,14 +678,14 @@ bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload, const vo
 /*
  * Free memory from an existing Payload
  */
-void free_payload(com_cirruslink_sparkplug_protobuf_Payload *payload) {
+void free_payload(org_eclipse_tahu_protobuf_Payload *payload) {
 	int i=0;
 	for (i=0; i<payload->metrics_count; i++) {
 		free(payload->metrics[i].name);
 		// More TODO...
 		// JPL 04/05/17... free up string data allocated memory
 		if(  payload->metrics[i].which_value == 
-			 com_cirruslink_sparkplug_protobuf_Payload_Metric_string_value_tag ) // 15 ???
+			 org_eclipse_tahu_protobuf_Payload_Metric_string_value_tag ) // 15 ???
 		{
 		  if(payload->metrics[i].value.string_value)  // not null?
 		  {
@@ -718,7 +718,7 @@ uint64_t get_current_timestamp() {
 /*
  * Get the next empty Payload.  This populates the payload with the next sequence number and current timestamp
  */
-void get_next_payload(com_cirruslink_sparkplug_protobuf_Payload *payload) {
+void get_next_payload(org_eclipse_tahu_protobuf_Payload *payload) {
 	// Initialize payload
 	DEBUG_PRINT(("Current Sequence Number: %zd\n", seq));
 	payload->has_timestamp = true;
@@ -742,12 +742,12 @@ void get_next_payload(com_cirruslink_sparkplug_protobuf_Payload *payload) {
 /*
  * Initialize a Dataset with the values passed in
  */
-void init_dataset(com_cirruslink_sparkplug_protobuf_Payload_DataSet *dataset,
+void init_dataset(org_eclipse_tahu_protobuf_Payload_DataSet *dataset,
 			uint64_t num_of_rows,
 			uint64_t num_of_columns,
 			uint32_t *datatypes,
 			const char **column_keys,
-			com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row *row_data) {
+			org_eclipse_tahu_protobuf_Payload_DataSet_Row *row_data) {
 
 	// Set the number of columns
 	dataset->has_num_of_columns = true;
@@ -775,7 +775,7 @@ void init_dataset(com_cirruslink_sparkplug_protobuf_Payload_DataSet *dataset,
 /*
  * Initialize a Metric with the values of the arguments passed in
  */
-void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
+void init_metric(org_eclipse_tahu_protobuf_Payload_Metric *metric,
 			const char *name,
 			bool has_alias,
 			uint64_t alias,
@@ -833,69 +833,69 @@ void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
 		fprintf(stderr, "Can't create metric with unknown datatype!\n");
 	} else if (datatype == METRIC_DATA_TYPE_INT8) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((int8_t *)value)));
-		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag;
+		metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_int_value_tag;
 		metric->value.int_value = *((int8_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_INT16) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((int16_t *)value)));
-		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag;
+		metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_int_value_tag;
 		metric->value.int_value = *((int16_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_INT32) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((int32_t *)value)));
-		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag;
+		metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_int_value_tag;
 		metric->value.int_value = *((int32_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_INT64) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %zd\n", datatype, *((int64_t *)value)));
-		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_long_value_tag;
+		metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_long_value_tag;
 		metric->value.long_value = *((int64_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_UINT8) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %u\n", datatype, *((uint8_t *)value)));
-		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag;
+		metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_int_value_tag;
 		metric->value.int_value = *((uint8_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_UINT16) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %u\n", datatype, *((uint16_t *)value)));
-		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_int_value_tag;
+		metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_int_value_tag;
 		metric->value.int_value = *((uint16_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_UINT32) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %u\n", datatype, *((uint32_t *)value)));
-		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_long_value_tag;
+		metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_long_value_tag;
 		metric->value.long_value = *((uint32_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_UINT64) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %zd\n", datatype, *((uint64_t *)value)));
-		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_long_value_tag;
+		metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_long_value_tag;
 		metric->value.long_value = *((uint64_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_DATETIME) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %zd\n", datatype, *((uint64_t *)value)));
-		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_long_value_tag;
+		metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_long_value_tag;
 		metric->value.long_value = *((uint64_t *)value);
 	} else if (datatype == METRIC_DATA_TYPE_FLOAT) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %f\n", datatype, *((float *)value)));
-		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_float_value_tag;
+		metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_float_value_tag;
 		metric->value.float_value = *((float *)value);
 	} else if (datatype == METRIC_DATA_TYPE_DOUBLE) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %f\n", datatype, *((double *)value)));
-		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_double_value_tag;
+		metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_double_value_tag;
 		metric->value.double_value = *((double *)value);
 	} else if (datatype == METRIC_DATA_TYPE_BOOLEAN) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((bool *)value)));
-		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_boolean_value_tag;
+		metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_boolean_value_tag;
 		metric->value.boolean_value = *((bool *)value);
 	} else if (datatype == METRIC_DATA_TYPE_STRING || datatype == METRIC_DATA_TYPE_TEXT || datatype == METRIC_DATA_TYPE_UUID) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %s\n", datatype, (char *)value));
-		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_string_value_tag;
+		metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_string_value_tag;
 		metric->value.string_value = (char *)malloc(size_of_value*sizeof(char));
 		strcpy(metric->value.string_value, (char *)value);
 	} else if (datatype == METRIC_DATA_TYPE_BYTES) {
 		fprintf(stderr, "Datatype BYTES - Not yet supported\n");
 	} else if (datatype == METRIC_DATA_TYPE_DATASET) {
 		DEBUG_PRINT(("Setting datatype: %zd, with value: %d\n", datatype, *((bool *)value)));
-		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_dataset_value_tag;
-		metric->value.dataset_value = *((com_cirruslink_sparkplug_protobuf_Payload_DataSet *)value);
+		metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_dataset_value_tag;
+		metric->value.dataset_value = *((org_eclipse_tahu_protobuf_Payload_DataSet *)value);
 	} else if (datatype == METRIC_DATA_TYPE_FILE) {
 		fprintf(stderr, "Datatype FILE - Not yet supported\n");
 	} else if (datatype == METRIC_DATA_TYPE_TEMPLATE) {
-		DEBUG_PRINT(("Setting datatype: %zd, with # of metrics: %d\n", datatype, ((com_cirruslink_sparkplug_protobuf_Payload_Template *)value)->metrics_count));
-		metric->which_value = com_cirruslink_sparkplug_protobuf_Payload_Metric_template_value_tag;
-		metric->value.template_value = *((com_cirruslink_sparkplug_protobuf_Payload_Template *)value);
+		DEBUG_PRINT(("Setting datatype: %zd, with # of metrics: %d\n", datatype, ((org_eclipse_tahu_protobuf_Payload_Template *)value)->metrics_count));
+		metric->which_value = org_eclipse_tahu_protobuf_Payload_Metric_template_value_tag;
+		metric->value.template_value = *((org_eclipse_tahu_protobuf_Payload_Template *)value);
 	} else {
 		fprintf(stderr, "Unknown datatype %ju\n", datatype);
 	}
@@ -904,7 +904,7 @@ void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
 /*
  * Display a full Sparkplug Payload
  */
-void print_payload(com_cirruslink_sparkplug_protobuf_Payload *payload) {
+void print_payload(org_eclipse_tahu_protobuf_Payload *payload) {
 	fprintf(stdout, "Payload:  has_timestamp: %s\n", payload->has_timestamp ? "true" : "false");
 	if (payload->has_timestamp) {
 		fprintf(stdout, "Payload:  timestamp: %zd\n", payload->timestamp);

@@ -12,7 +12,6 @@
 
 var mqtt = require('mqtt'),
     sparkplug = require('sparkplug-payload'),
-    kurapayload = sparkplug.get("spAv1.0"),
     sparkplugbpayload = sparkplug.get("spBv1.0"),
     events = require('events'),
     util = require("util"),
@@ -42,8 +41,7 @@ var getProperty = function(config, propName, defaultValue) {
  * Sparkplug Client
  */
 function SparkplugClient(config) {
-    var versionA = "spAv1.0",
-        versionB = "spBv1.0",
+    var versionB = "spBv1.0",
         serverUrl = getRequiredProperty(config, "serverUrl"),
         username = getRequiredProperty(config, "username"),
         password = getRequiredProperty(config, "password"),
@@ -71,30 +69,15 @@ function SparkplugClient(config) {
     },
 
     encodePayload = function(payload) {
-        if (version === versionA) {
-            return kurapayload.generateKuraPayload(payload);
-        } else {
-            return sparkplugbpayload.encodePayload(payload);
-        }
+        return sparkplugbpayload.encodePayload(payload);
     },
 
     decodePayload = function(payload) {
-        if (version === versionA) {
-            return kurapayload.parseKuraPayload(payload);
-        } else {
-            return sparkplugbpayload.decodePayload(payload);
-        }
+        return sparkplugbpayload.decodePayload(payload);
     },
 
     addSeqNumber = function(payload) {
-        if (version === versionA) {
-            payload.metric = payload.metric !== undefined
-                ? payload.metric
-                : [];
-            payload.metric.push({ "name" : "seq", "value" : incrementSeqNum(), "type" : "int" });
-        } else {
-            payload.seq = incrementSeqNum();
-        }   
+        payload.seq = incrementSeqNum();
     },
 
     // Get DEATH payload
@@ -107,11 +90,7 @@ function SparkplugClient(config) {
                 "value" : bdSeq, 
                 "type" : "int"
             } ];
-        if (version === versionA) {
-            payload.metric = metric;
-        } else {
-            payload.metrics = metric;
-        }
+        payload.metrics = metric;
         return payload;
     },
 

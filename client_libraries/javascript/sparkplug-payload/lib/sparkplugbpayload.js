@@ -16,7 +16,7 @@
 (function () {
     var ProtoBuf = require("protobufjs");
 
-    var SparkplugPayload = ProtoBuf.parse("package com.cirruslink.sparkplug.protobuf; message Payload { message Template { " +
+    var SparkplugPayload = ProtoBuf.parse("package org.eclipse.tahu.protobuf; message Payload { message Template { " +
             "message Parameter { optional string name = 1;optional uint32 type = 2; oneof value { uint32 int_value = 3; uint64 long_value = 4; " +
             "float float_value = 5; double double_value = 6; bool boolean_value = 7; string string_value = 8; ParameterValueExtension extension_value = 9; } " +
             "message ParameterValueExtension { extensions 1 to max; } } optional string version = 1; repeated Metric metrics = 2; " +
@@ -42,17 +42,17 @@
             "MetricValueExtension extension_value = 19; } " +
             "message MetricValueExtension { extensions 1 to max; } } optional uint64 timestamp = 1; repeated Metric metrics = 2; optional uint64 seq = 3; " +
             "optional string uuid = 4; optional bytes body = 5; extensions 6 to max; } ").root,
-        Payload = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload'),
-        Template = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.Template'),
-        Parameter = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.Template.Parameter'),
-        DataSet = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.DataSet'),
-        DataSetValue = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.DataSet.DataSetValue'),
-        Row = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.DataSet.Row'),
-        PropertyValue = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.PropertyValue'),
-        PropertySet = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.PropertySet'),
-        PropertyList = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.PropertyList'),
-        MetaData =SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.MetaData'),
-        Metric = SparkplugPayload.lookup('com.cirruslink.sparkplug.protobuf.Payload.Metric');
+        Payload = SparkplugPayload.lookup('org.eclipse.tahu.protobuf.Payload'),
+        Template = SparkplugPayload.lookup('org.eclipse.tahu.protobuf.Payload.Template'),
+        Parameter = SparkplugPayload.lookup('org.eclipse.tahu.protobuf.Payload.Template.Parameter'),
+        DataSet = SparkplugPayload.lookup('org.eclipse.tahu.protobuf.Payload.DataSet'),
+        DataSetValue = SparkplugPayload.lookup('org.eclipse.tahu.protobuf.Payload.DataSet.DataSetValue'),
+        Row = SparkplugPayload.lookup('org.eclipse.tahu.protobuf.Payload.DataSet.Row'),
+        PropertyValue = SparkplugPayload.lookup('org.eclipse.tahu.protobuf.Payload.PropertyValue'),
+        PropertySet = SparkplugPayload.lookup('org.eclipse.tahu.protobuf.Payload.PropertySet'),
+        PropertyList = SparkplugPayload.lookup('org.eclipse.tahu.protobuf.Payload.PropertyList'),
+        MetaData =SparkplugPayload.lookup('org.eclipse.tahu.protobuf.Payload.MetaData'),
+        Metric = SparkplugPayload.lookup('org.eclipse.tahu.protobuf.Payload.Metric');
 
     /**
      * Sets the value of an object given it's type expressed as an integer

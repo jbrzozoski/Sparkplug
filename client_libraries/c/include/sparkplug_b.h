@@ -110,19 +110,19 @@
 	/*
 	 * Add Metadata to an existing Metric
 	 */
-	extern void add_metadata_to_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
-						com_cirruslink_sparkplug_protobuf_Payload_MetaData *metadata);
+	extern void add_metadata_to_metric(org_eclipse_tahu_protobuf_Payload_Metric *metric,
+						org_eclipse_tahu_protobuf_Payload_MetaData *metadata);
 
 	/*
 	 * Add a complete Metric to an existing Payload
 	 */
-	extern void add_metric_to_payload(com_cirruslink_sparkplug_protobuf_Payload *payload,
-						com_cirruslink_sparkplug_protobuf_Payload_Metric *metric);
+	extern void add_metric_to_payload(org_eclipse_tahu_protobuf_Payload *payload,
+						org_eclipse_tahu_protobuf_Payload_Metric *metric);
 
 	/*
 	 * Add a simple Property to an existing PropertySet
 	 */
-	extern bool add_property_to_set(com_cirruslink_sparkplug_protobuf_Payload_PropertySet *propertyset,
+	extern bool add_property_to_set(org_eclipse_tahu_protobuf_Payload_PropertySet *propertyset,
 					const char *key,
 					uint32_t type,
 					bool is_null,
@@ -132,13 +132,13 @@
 	/*
 	 * Add a PropertySet to an existing Metric
 	 */
-	extern void add_propertyset_to_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
-						com_cirruslink_sparkplug_protobuf_Payload_PropertySet *properties);
+	extern void add_propertyset_to_metric(org_eclipse_tahu_protobuf_Payload_Metric *metric,
+						org_eclipse_tahu_protobuf_Payload_PropertySet *properties);
 
 	/*
 	 * Add a simple Metric to an existing Payload
 	 */
-	extern void add_simple_metric(com_cirruslink_sparkplug_protobuf_Payload *payload,
+	extern void add_simple_metric(org_eclipse_tahu_protobuf_Payload *payload,
 					const char *name,
 					bool has_alias,
 					uint64_t alias,
@@ -154,19 +154,19 @@
 	 */
 	extern size_t encode_payload(uint8_t **buffer,
 					size_t buffer_length,
-					com_cirruslink_sparkplug_protobuf_Payload *payload);
+					org_eclipse_tahu_protobuf_Payload *payload);
 
 	/*
 	 * Decode an array of bytes into a Payload
 	 */
-	extern bool decode_payload(com_cirruslink_sparkplug_protobuf_Payload *payload,
+	extern bool decode_payload(org_eclipse_tahu_protobuf_Payload *payload,
 					const void *binary_payload,
 					int binary_payloadlen);
 
 	/*
 	 * Free memory from an existing Payload
 	 */
-	void free_payload(com_cirruslink_sparkplug_protobuf_Payload *payload);
+	void free_payload(org_eclipse_tahu_protobuf_Payload *payload);
 
 	/*
 	 * Get the current timestamp in milliseconds
@@ -176,22 +176,22 @@
 	/*
 	 * Get the next empty Payload.  This populates the payload with the next sequence number and current timestamp
 	 */
-	extern void get_next_payload(com_cirruslink_sparkplug_protobuf_Payload *payload);
+	extern void get_next_payload(org_eclipse_tahu_protobuf_Payload *payload);
 
 	/*
 	 * Initialize a Dataset with the values passed in
 	 */
-	extern void init_dataset(com_cirruslink_sparkplug_protobuf_Payload_DataSet *dataset,
+	extern void init_dataset(org_eclipse_tahu_protobuf_Payload_DataSet *dataset,
 					uint64_t num_of_rows,
 					uint64_t num_of_columns,
 					uint32_t *datatypes,
 					const char **column_keys,
-					com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row *row_data);
+					org_eclipse_tahu_protobuf_Payload_DataSet_Row *row_data);
 
 	/*
 	 * Initialize a Metric with the values of the arguments passed in
 	 */
-	extern void init_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric,
+	extern void init_metric(org_eclipse_tahu_protobuf_Payload_Metric *metric,
 	                        const char *name,
         	                bool has_alias,
         	                uint64_t alias,
@@ -203,6 +203,6 @@
         	                size_t size_of_value);
 
 	// Display a full Sparkplug Payload
-	extern void print_payload(com_cirruslink_sparkplug_protobuf_Payload *payload);
+	extern void print_payload(org_eclipse_tahu_protobuf_Payload *payload);
 
 #endif

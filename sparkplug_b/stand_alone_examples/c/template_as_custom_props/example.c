@@ -99,7 +99,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 	fflush(stdout);
 
 	// Decode the payload
-	com_cirruslink_sparkplug_protobuf_Payload inbound_payload = com_cirruslink_sparkplug_protobuf_Payload_init_zero;
+	org_eclipse_tahu_protobuf_Payload inbound_payload = org_eclipse_tahu_protobuf_Payload_init_zero;
 	if(decode_payload(&inbound_payload, message->payload, message->payloadlen)) {
 	} else {
 		fprintf(stderr, "Failed to decode the payload\n");
@@ -213,7 +213,7 @@ void publish_births(struct mosquitto *mosq) {
  */
 void publish_node_birth(struct mosquitto *mosq) {
 	// Create the NBIRTH payload
-	com_cirruslink_sparkplug_protobuf_Payload nbirth_payload;
+	org_eclipse_tahu_protobuf_Payload nbirth_payload;
 	get_next_payload(&nbirth_payload);
 
 	// Add node control metrics
@@ -228,43 +228,43 @@ void publish_node_birth(struct mosquitto *mosq) {
 	add_simple_metric(&nbirth_payload, "Node Control/Reboot", true, 2, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &reboot_value, sizeof(reboot_value));
 
 	// Create a metric called 'My Real Metric' which will be a member of the Template definition - note aliases do not apply to Template members
-	com_cirruslink_sparkplug_protobuf_Payload_Metric my_real_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	org_eclipse_tahu_protobuf_Payload_Metric my_real_metric = org_eclipse_tahu_protobuf_Payload_Metric_init_default;
 	uint32_t my_real_metric_value = 0;		// Default value
 	init_metric(&my_real_metric, "My Real Metric", false, 0, METRIC_DATA_TYPE_INT32, false, false, false, &my_real_metric_value, sizeof(my_real_metric_value));
 
 	// Create some Template Parameters - In this example we're using them as custom properties of a regular metric via a Template
-	com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter parameter_one = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_init_default;
+	org_eclipse_tahu_protobuf_Payload_Template_Parameter parameter_one = org_eclipse_tahu_protobuf_Payload_Template_Parameter_init_default;
 	parameter_one.name = (char *)malloc((strlen("MyPropKey1")+1)*sizeof(char));
         strcpy(parameter_one.name, "MyPropKey1");
 	parameter_one.has_type = true;
 	parameter_one.type = PARAMETER_DATA_TYPE_STRING;
-	parameter_one.which_value = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_string_value_tag;
+	parameter_one.which_value = org_eclipse_tahu_protobuf_Payload_Template_Parameter_string_value_tag;
 	parameter_one.value.string_value = (char *)malloc((strlen("MyDefaultPropValue1")+1)*sizeof(char));
 	strcpy(parameter_one.value.string_value, "MyDefaultPropValue1");		// Default value
 
-	com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter parameter_two = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_init_default;
+	org_eclipse_tahu_protobuf_Payload_Template_Parameter parameter_two = org_eclipse_tahu_protobuf_Payload_Template_Parameter_init_default;
 	parameter_two.name = (char *)malloc((strlen("MyPropKey2")+1)*sizeof(char));
         strcpy(parameter_two.name, "MyPropKey2");
 	parameter_two.has_type = true;
 	parameter_two.type = PARAMETER_DATA_TYPE_INT32;
-	parameter_two.which_value = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_int_value_tag;
+	parameter_two.which_value = org_eclipse_tahu_protobuf_Payload_Template_Parameter_int_value_tag;
 	parameter_two.value.int_value = 0;		// Default value
 
-	com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter parameter_three = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_init_default;
+	org_eclipse_tahu_protobuf_Payload_Template_Parameter parameter_three = org_eclipse_tahu_protobuf_Payload_Template_Parameter_init_default;
 	parameter_three.name = (char *)malloc((strlen("MyPropKey3")+1)*sizeof(char));
         strcpy(parameter_three.name, "MyPropKey3");
 	parameter_three.has_type = true;
 	parameter_three.type = PARAMETER_DATA_TYPE_FLOAT;
-	parameter_three.which_value = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_float_value_tag;
+	parameter_three.which_value = org_eclipse_tahu_protobuf_Payload_Template_Parameter_float_value_tag;
 	parameter_three.value.float_value = 0.0;	// Default value
 
 	// Create the Template definition value which includes the single Template members and parameters which are custom properties of the 'real metric'
-	com_cirruslink_sparkplug_protobuf_Payload_Template udt_template = com_cirruslink_sparkplug_protobuf_Payload_Template_init_default;
+	org_eclipse_tahu_protobuf_Payload_Template udt_template = org_eclipse_tahu_protobuf_Payload_Template_init_default;
 	udt_template.metrics_count = 1;
-	udt_template.metrics = (com_cirruslink_sparkplug_protobuf_Payload_Metric *) calloc(1, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Metric));
+	udt_template.metrics = (org_eclipse_tahu_protobuf_Payload_Metric *) calloc(1, sizeof(org_eclipse_tahu_protobuf_Payload_Metric));
 	udt_template.metrics[0] = my_real_metric;
 	udt_template.parameters_count = 3;
-	udt_template.parameters = (com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter *) calloc(3, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter));
+	udt_template.parameters = (org_eclipse_tahu_protobuf_Payload_Template_Parameter *) calloc(3, sizeof(org_eclipse_tahu_protobuf_Payload_Template_Parameter));
 	udt_template.parameters[0] = parameter_one;
 	udt_template.parameters[1] = parameter_two;
 	udt_template.parameters[2] = parameter_three;
@@ -273,7 +273,7 @@ void publish_node_birth(struct mosquitto *mosq) {
 	udt_template.is_definition = true;
 
 	// Create the root Template definition and add the Template definition value which includes the Template members and parameters
-	com_cirruslink_sparkplug_protobuf_Payload_Metric metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	org_eclipse_tahu_protobuf_Payload_Metric metric = org_eclipse_tahu_protobuf_Payload_Metric_init_default;
 	init_metric(&metric, "_types_/My Metric Definition", true, 3, METRIC_DATA_TYPE_TEMPLATE, false, false, false, &udt_template, sizeof(udt_template));
 
 	// Add the Template to the payload
@@ -301,58 +301,58 @@ void publish_node_birth(struct mosquitto *mosq) {
 
 void publish_device_birth(struct mosquitto *mosq) {
 	// Create the DBIRTH payload
-	com_cirruslink_sparkplug_protobuf_Payload dbirth_payload;
+	org_eclipse_tahu_protobuf_Payload dbirth_payload;
 	get_next_payload(&dbirth_payload);
 
 	// Add a metric with a custom property.  For use with Ignition, in order to see this as a Tag Property - it must be a known Ignition Tag Property.
 	fprintf(stdout, "Adding metric: 'Device Metric1'\n");
-	com_cirruslink_sparkplug_protobuf_Payload_Metric prop_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	org_eclipse_tahu_protobuf_Payload_Metric prop_metric = org_eclipse_tahu_protobuf_Payload_Metric_init_default;
 	uint32_t nbirth_metric_two_value = 13;
 	init_metric(&prop_metric, "Device Metric1", true, 4, METRIC_DATA_TYPE_INT16, false, false, false, &nbirth_metric_two_value, sizeof(nbirth_metric_two_value));
-	com_cirruslink_sparkplug_protobuf_Payload_PropertySet properties = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_init_default;
+	org_eclipse_tahu_protobuf_Payload_PropertySet properties = org_eclipse_tahu_protobuf_Payload_PropertySet_init_default;
 	add_property_to_set(&properties, "engUnit", PROPERTY_DATA_TYPE_STRING, false, "MyCustomUnits", sizeof("MyCustomUnits"));
 	add_propertyset_to_metric(&prop_metric, &properties);
 	add_metric_to_payload(&dbirth_payload, &prop_metric);
 
 	// Create a metric called 'My Real Metric' for the Template instance
-	com_cirruslink_sparkplug_protobuf_Payload_Metric my_real_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	org_eclipse_tahu_protobuf_Payload_Metric my_real_metric = org_eclipse_tahu_protobuf_Payload_Metric_init_default;
 	uint32_t my_real_metric_value = 123;	// Not a default - this is the actual value of the instance
 	init_metric(&my_real_metric, "My Real Metric", false, 0, METRIC_DATA_TYPE_INT32, false, false, false, &my_real_metric_value, sizeof(my_real_metric_value));
 
 	// Create some Template/UDT instance Parameters - in this example they represent custom tag properties
-	com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter parameter_one = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_init_default;
+	org_eclipse_tahu_protobuf_Payload_Template_Parameter parameter_one = org_eclipse_tahu_protobuf_Payload_Template_Parameter_init_default;
 	parameter_one.name = (char *)malloc((strlen("MyPropKey1")+1)*sizeof(char));
         strcpy(parameter_one.name, "MyPropKey1");
 	parameter_one.has_type = true;
 	parameter_one.type = PARAMETER_DATA_TYPE_STRING;
-	parameter_one.which_value = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_string_value_tag;
+	parameter_one.which_value = org_eclipse_tahu_protobuf_Payload_Template_Parameter_string_value_tag;
 	parameter_one.value.string_value = (char *)malloc((strlen("MyInstancePropValue1")+1)*sizeof(char));
 	strcpy(parameter_one.value.string_value, "MyInstancePropValue1");
 
-	com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter parameter_two = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_init_default;
+	org_eclipse_tahu_protobuf_Payload_Template_Parameter parameter_two = org_eclipse_tahu_protobuf_Payload_Template_Parameter_init_default;
 	parameter_two.name = (char *)malloc((strlen("MyPropKey2")+1)*sizeof(char));
         strcpy(parameter_two.name, "MyPropKey2");
 	parameter_two.has_type = true;
 	parameter_two.type = PARAMETER_DATA_TYPE_INT32;
-	parameter_two.which_value = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_int_value_tag;
+	parameter_two.which_value = org_eclipse_tahu_protobuf_Payload_Template_Parameter_int_value_tag;
 	parameter_two.value.int_value = 1089;
 
-	com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter parameter_three = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_init_default;
+	org_eclipse_tahu_protobuf_Payload_Template_Parameter parameter_three = org_eclipse_tahu_protobuf_Payload_Template_Parameter_init_default;
 	parameter_three.name = (char *)malloc((strlen("MyPropKey3")+1)*sizeof(char));
         strcpy(parameter_three.name, "MyPropKey3");
 	parameter_three.has_type = true;
 	parameter_three.type = PARAMETER_DATA_TYPE_FLOAT;
-	parameter_three.which_value = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_float_value_tag;
+	parameter_three.which_value = org_eclipse_tahu_protobuf_Payload_Template_Parameter_float_value_tag;
 	parameter_three.value.float_value = 12.34;
 
 	// Create the Template instance value which includes the Template members and parameters
-	com_cirruslink_sparkplug_protobuf_Payload_Template udt_template = com_cirruslink_sparkplug_protobuf_Payload_Template_init_default;
+	org_eclipse_tahu_protobuf_Payload_Template udt_template = org_eclipse_tahu_protobuf_Payload_Template_init_default;
 	udt_template.version = NULL;
 	udt_template.metrics_count = 1;
-	udt_template.metrics = (com_cirruslink_sparkplug_protobuf_Payload_Metric *) calloc(1, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Metric));
+	udt_template.metrics = (org_eclipse_tahu_protobuf_Payload_Metric *) calloc(1, sizeof(org_eclipse_tahu_protobuf_Payload_Metric));
 	udt_template.metrics[0] = my_real_metric;
 	udt_template.parameters_count = 3;
-	udt_template.parameters = (com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter *) calloc(3, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter));
+	udt_template.parameters = (org_eclipse_tahu_protobuf_Payload_Template_Parameter *) calloc(3, sizeof(org_eclipse_tahu_protobuf_Payload_Template_Parameter));
 	udt_template.parameters[0] = parameter_one;
 	udt_template.parameters[1] = parameter_two;
 	udt_template.parameters[2] = parameter_three;
@@ -362,7 +362,7 @@ void publish_device_birth(struct mosquitto *mosq) {
 	udt_template.is_definition = false;
 
 	// Create the root Template instance and add the Template instance value
-	com_cirruslink_sparkplug_protobuf_Payload_Metric metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	org_eclipse_tahu_protobuf_Payload_Metric metric = org_eclipse_tahu_protobuf_Payload_Metric_init_default;
 	init_metric(&metric, "My Metric Instance 1", true, 5, METRIC_DATA_TYPE_TEMPLATE, false, false, false, &udt_template, sizeof(udt_template));
 
 	// Add the Template Instance to the payload
@@ -389,25 +389,25 @@ void publish_device_birth(struct mosquitto *mosq) {
 
 void publish_ddata_message(struct mosquitto *mosq) {
 	// Create the DDATA payload
-	com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
+	org_eclipse_tahu_protobuf_Payload ddata_payload;
 	get_next_payload(&ddata_payload);
 
 	// Update the metric called 'My Real Metric' for the Template instance to update the 'real' metric value
-	com_cirruslink_sparkplug_protobuf_Payload_Metric my_real_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	org_eclipse_tahu_protobuf_Payload_Metric my_real_metric = org_eclipse_tahu_protobuf_Payload_Metric_init_default;
 	uint32_t my_real_metric_value = rand();	// Not a default - this is the actual value of the metric of instance
 	init_metric(&my_real_metric, "My Real Metric", false, 0, METRIC_DATA_TYPE_INT32, false, false, false, &my_real_metric_value, sizeof(my_real_metric_value));
 
 	// Create the Template instance value which includes the Template members and parameters
-	com_cirruslink_sparkplug_protobuf_Payload_Template udt_template = com_cirruslink_sparkplug_protobuf_Payload_Template_init_default;
+	org_eclipse_tahu_protobuf_Payload_Template udt_template = org_eclipse_tahu_protobuf_Payload_Template_init_default;
 	udt_template.version = NULL;
 	udt_template.metrics_count = 1;
-	udt_template.metrics = (com_cirruslink_sparkplug_protobuf_Payload_Metric *) calloc(1, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Metric));
+	udt_template.metrics = (org_eclipse_tahu_protobuf_Payload_Metric *) calloc(1, sizeof(org_eclipse_tahu_protobuf_Payload_Metric));
 	udt_template.metrics[0] = my_real_metric;
 	udt_template.has_is_definition = true;
 	udt_template.is_definition = false;
 
 	// Create the root Template instance and add the Template instance value
-	com_cirruslink_sparkplug_protobuf_Payload_Metric metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	org_eclipse_tahu_protobuf_Payload_Metric metric = org_eclipse_tahu_protobuf_Payload_Metric_init_default;
 	init_metric(&metric, "My Metric Instance 1", true, 5, METRIC_DATA_TYPE_TEMPLATE, false, false, false, &udt_template, sizeof(udt_template));
 
 	add_metric_to_payload(&ddata_payload, &metric);

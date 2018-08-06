@@ -11,7 +11,7 @@
  */
 package com.cirruslink.example;
 
-import static com.cirruslink.sparkplug.message.model.MetricDataType.*;
+import static org.eclipse.tahu.message.model.MetricDataType.*;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -33,18 +33,17 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
-
-import com.cirruslink.sparkplug.SparkplugException;
-import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
-import com.cirruslink.sparkplug.message.SparkplugBPayloadDecoder;
-import com.cirruslink.sparkplug.message.SparkplugBPayloadEncoder;
-import com.cirruslink.sparkplug.message.model.*;
-import com.cirruslink.sparkplug.message.model.DataSet.DataSetBuilder;
-import com.cirruslink.sparkplug.message.model.Metric.MetricBuilder;
-import com.cirruslink.sparkplug.message.model.PropertySet.PropertySetBuilder;
-import com.cirruslink.sparkplug.message.model.Row.RowBuilder;
-import com.cirruslink.sparkplug.message.model.SparkplugBPayload.SparkplugBPayloadBuilder;
-import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
+import org.eclipse.tahu.SparkplugException;
+import org.eclipse.tahu.SparkplugInvalidTypeException;
+import org.eclipse.tahu.message.SparkplugBPayloadDecoder;
+import org.eclipse.tahu.message.SparkplugBPayloadEncoder;
+import org.eclipse.tahu.message.model.*;
+import org.eclipse.tahu.message.model.DataSet.DataSetBuilder;
+import org.eclipse.tahu.message.model.Metric.MetricBuilder;
+import org.eclipse.tahu.message.model.PropertySet.PropertySetBuilder;
+import org.eclipse.tahu.message.model.Row.RowBuilder;
+import org.eclipse.tahu.message.model.SparkplugBPayload.SparkplugBPayloadBuilder;
+import org.eclipse.tahu.message.model.Template.TemplateBuilder;
 
 /**
  * An example Sparkplug B application.

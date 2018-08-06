@@ -143,7 +143,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 	fflush(stdout);
 
 	// Decode the payload
-	com_cirruslink_sparkplug_protobuf_Payload inbound_payload = com_cirruslink_sparkplug_protobuf_Payload_init_zero;
+	org_eclipse_tahu_protobuf_Payload inbound_payload = org_eclipse_tahu_protobuf_Payload_init_zero;
 	if(decode_payload(&inbound_payload, message->payload, message->payloadlen)) {
 	} else {
 		fprintf(stderr, "Failed to decode the payload\n");
@@ -183,7 +183,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 			fprintf(stdout, "CMD message for output/Device Metric2 - New Value: %d\n", new_value);
 
 			// Create the DDATA payload
-			com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
+			org_eclipse_tahu_protobuf_Payload ddata_payload;
 			get_next_payload(&ddata_payload);
 			// Note the Metric name 'output/Device Metric2' is not needed because we're using aliases
 			add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_2, METRIC_DATA_TYPE_INT16, false, false, false, &new_value, sizeof(new_value));
@@ -211,7 +211,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 			fprintf(stdout, "CMD message for output/Device Metric3 - New Value: %s\n", new_value ? "true" : "false");
 
 			// Create the DDATA payload
-			com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
+			org_eclipse_tahu_protobuf_Payload ddata_payload;
 			get_next_payload(&ddata_payload);
 			// Note the Metric name 'output/Device Metric3' is not needed because we're using aliases
 			add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_3, METRIC_DATA_TYPE_BOOLEAN, false, false, false, &new_value, sizeof(new_value));
@@ -239,7 +239,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 			fprintf(stdout, "CMD message for Device Metric FLOAT - New Value: %f\n", new_value);
 
 			// Create the DDATA payload
-			com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
+			org_eclipse_tahu_protobuf_Payload ddata_payload;
 			get_next_payload(&ddata_payload);
 			// Note the Metric name 'output/Device Metric FLOAT' is not needed because we're using aliases
 			add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_FLOAT, METRIC_DATA_TYPE_FLOAT, false, false, false, &new_value, sizeof(new_value));
@@ -267,7 +267,7 @@ void my_message_callback(struct mosquitto *mosq, void *userdata, const struct mo
 			fprintf(stdout, "CMD message for Device Metric DOUBLE - New Value: %f\n", new_value);
 
 			// Create the DDATA payload
-			com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
+			org_eclipse_tahu_protobuf_Payload ddata_payload;
 			get_next_payload(&ddata_payload);
 			// Note the Metric name 'output/Device Metric DOUBLE' is not needed because we're using aliases
 			add_simple_metric(&ddata_payload, NULL, true, ALIAS_DEVICE_METRIC_DOUBLE, METRIC_DATA_TYPE_DOUBLE, false, false, false, &new_value, sizeof(new_value));
@@ -357,7 +357,7 @@ void publish_births(struct mosquitto *mosq) {
  */
 void publish_node_birth(struct mosquitto *mosq) {
 	// Create the NBIRTH payload
-	com_cirruslink_sparkplug_protobuf_Payload nbirth_payload;
+	org_eclipse_tahu_protobuf_Payload nbirth_payload;
 	get_next_payload(&nbirth_payload);
 	nbirth_payload.uuid = (char*)malloc((strlen("MyUUID")+1) * sizeof(char));
 	strcpy(nbirth_payload.uuid, "MyUUID");
@@ -418,86 +418,86 @@ void publish_node_birth(struct mosquitto *mosq) {
 	add_simple_metric(&nbirth_payload, "Node Metric UI64", true, ALIAS_NODE_METRIC_UI64, METRIC_DATA_TYPE_UINT64, false, false, false, &nbirth_metric_ui64_value, sizeof(nbirth_metric_ui64_value));
 
 	// Create a DataSet
-	com_cirruslink_sparkplug_protobuf_Payload_DataSet dataset = com_cirruslink_sparkplug_protobuf_Payload_DataSet_init_default;
+	org_eclipse_tahu_protobuf_Payload_DataSet dataset = org_eclipse_tahu_protobuf_Payload_DataSet_init_default;
 	uint32_t datatypes[] = {DATA_SET_DATA_TYPE_INT8,
 					DATA_SET_DATA_TYPE_INT16,
 					DATA_SET_DATA_TYPE_INT32};
 	const char *column_keys[] = {"Int8s",
 					"Int16s",
 					"Int32s"};
-	com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row *row_data = (com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row *)
-										calloc(2, sizeof(com_cirruslink_sparkplug_protobuf_Payload_DataSet_Row));
+	org_eclipse_tahu_protobuf_Payload_DataSet_Row *row_data = (org_eclipse_tahu_protobuf_Payload_DataSet_Row *)
+										calloc(2, sizeof(org_eclipse_tahu_protobuf_Payload_DataSet_Row));
 	row_data[0].elements_count = 3;
-	row_data[0].elements = (com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue *)
-							calloc(3, sizeof(com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue));
-	row_data[0].elements[0].which_value = com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
+	row_data[0].elements = (org_eclipse_tahu_protobuf_Payload_DataSet_DataSetValue *)
+							calloc(3, sizeof(org_eclipse_tahu_protobuf_Payload_DataSet_DataSetValue));
+	row_data[0].elements[0].which_value = org_eclipse_tahu_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
 	row_data[0].elements[0].value.int_value = 0;
-	row_data[0].elements[1].which_value = com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
+	row_data[0].elements[1].which_value = org_eclipse_tahu_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
 	row_data[0].elements[1].value.int_value = 1;
-	row_data[0].elements[2].which_value = com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
+	row_data[0].elements[2].which_value = org_eclipse_tahu_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
 	row_data[0].elements[2].value.int_value = 2;
 	row_data[1].elements_count = 3;
-	row_data[1].elements = (com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue *)
-							calloc(3, sizeof(com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue));
-	row_data[1].elements[0].which_value = com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
+	row_data[1].elements = (org_eclipse_tahu_protobuf_Payload_DataSet_DataSetValue *)
+							calloc(3, sizeof(org_eclipse_tahu_protobuf_Payload_DataSet_DataSetValue));
+	row_data[1].elements[0].which_value = org_eclipse_tahu_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
 	row_data[1].elements[0].value.int_value = 3;
-	row_data[1].elements[1].which_value = com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
+	row_data[1].elements[1].which_value = org_eclipse_tahu_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
 	row_data[1].elements[1].value.int_value = 4;
-	row_data[1].elements[2].which_value = com_cirruslink_sparkplug_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
+	row_data[1].elements[2].which_value = org_eclipse_tahu_protobuf_Payload_DataSet_DataSetValue_int_value_tag;
 	row_data[1].elements[2].value.int_value = 5;
 	init_dataset(&dataset, 2, 3, datatypes, column_keys, row_data);
 
 	// Create the a Metric with the DataSet value and add it to the payload
 	fprintf(stdout, "Adding metric: 'DataSet'\n");
-	com_cirruslink_sparkplug_protobuf_Payload_Metric dataset_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	org_eclipse_tahu_protobuf_Payload_Metric dataset_metric = org_eclipse_tahu_protobuf_Payload_Metric_init_default;
 	init_metric(&dataset_metric, "DataSet", true, ALIAS_NODE_METRIC_DATASET, METRIC_DATA_TYPE_DATASET, false, false, false, &dataset, sizeof(dataset));
 	add_metric_to_payload(&nbirth_payload, &dataset_metric);
 
 	// Add a metric with a custom property
 	fprintf(stdout, "Adding metric: 'Node Metric2'\n");
-	com_cirruslink_sparkplug_protobuf_Payload_Metric prop_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	org_eclipse_tahu_protobuf_Payload_Metric prop_metric = org_eclipse_tahu_protobuf_Payload_Metric_init_default;
 	uint32_t nbirth_metric_two_value = 13;
 	init_metric(&prop_metric, "Node Metric2", true, ALIAS_NODE_METRIC_2, METRIC_DATA_TYPE_INT16, false, false, false, &nbirth_metric_two_value, sizeof(nbirth_metric_two_value));
-	com_cirruslink_sparkplug_protobuf_Payload_PropertySet properties = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_init_default;
+	org_eclipse_tahu_protobuf_Payload_PropertySet properties = org_eclipse_tahu_protobuf_Payload_PropertySet_init_default;
 	add_property_to_set(&properties, "engUnit", PROPERTY_DATA_TYPE_STRING, false, "MyCustomUnits", sizeof("MyCustomUnits"));
 	add_propertyset_to_metric(&prop_metric, &properties);
 	add_metric_to_payload(&nbirth_payload, &prop_metric);
 
 	// Create a metric called RPMs which is a member of the UDT definition - note aliases do not apply to UDT members
-	com_cirruslink_sparkplug_protobuf_Payload_Metric rpms_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	org_eclipse_tahu_protobuf_Payload_Metric rpms_metric = org_eclipse_tahu_protobuf_Payload_Metric_init_default;
 	uint32_t rpms_value = 0;
 	init_metric(&rpms_metric, "RPMs", false, 0, METRIC_DATA_TYPE_INT32, false, false, false, &rpms_value, sizeof(rpms_value));
 
 	// Create a metric called AMPs which is a member of the UDT definition - note aliases do not apply to UDT members
-	com_cirruslink_sparkplug_protobuf_Payload_Metric amps_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	org_eclipse_tahu_protobuf_Payload_Metric amps_metric = org_eclipse_tahu_protobuf_Payload_Metric_init_default;
 	uint32_t amps_value = 0;
 	init_metric(&amps_metric, "AMPs", false, 0, METRIC_DATA_TYPE_INT32, false, false, false, &amps_value, sizeof(amps_value));
 
 	// Create a Template/UDT Parameter - this is purely for example of including parameters and is not actually used by UDT instances
-	com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter parameter = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_init_default;
+	org_eclipse_tahu_protobuf_Payload_Template_Parameter parameter = org_eclipse_tahu_protobuf_Payload_Template_Parameter_init_default;
 	parameter.name = (char *)malloc((strlen("Index")+1)*sizeof(char));
         strcpy(parameter.name, "Index");
 	parameter.has_type = true;
 	parameter.type = PARAMETER_DATA_TYPE_STRING;
-	parameter.which_value = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_string_value_tag;
+	parameter.which_value = org_eclipse_tahu_protobuf_Payload_Template_Parameter_string_value_tag;
 	parameter.value.string_value = (char *)malloc((strlen("0")+1)*sizeof(char));
 	strcpy(parameter.value.string_value, "0");
 
 	// Create the UDT definition value which includes the UDT members and parameters
-	com_cirruslink_sparkplug_protobuf_Payload_Template udt_template = com_cirruslink_sparkplug_protobuf_Payload_Template_init_default;
+	org_eclipse_tahu_protobuf_Payload_Template udt_template = org_eclipse_tahu_protobuf_Payload_Template_init_default;
 	udt_template.metrics_count = 2;
-	udt_template.metrics = (com_cirruslink_sparkplug_protobuf_Payload_Metric *) calloc(2, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Metric));
+	udt_template.metrics = (org_eclipse_tahu_protobuf_Payload_Metric *) calloc(2, sizeof(org_eclipse_tahu_protobuf_Payload_Metric));
 	udt_template.metrics[0] = rpms_metric;
 	udt_template.metrics[1] = amps_metric;
 	udt_template.parameters_count = 1;
-	udt_template.parameters = (com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter *) calloc(1, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter));
+	udt_template.parameters = (org_eclipse_tahu_protobuf_Payload_Template_Parameter *) calloc(1, sizeof(org_eclipse_tahu_protobuf_Payload_Template_Parameter));
 	udt_template.parameters[0] = parameter;
 	udt_template.template_ref = NULL;
 	udt_template.has_is_definition = true;
 	udt_template.is_definition = true;
 
 	// Create the root UDT definition and add the UDT definition value which includes the UDT members and parameters
-	com_cirruslink_sparkplug_protobuf_Payload_Metric metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	org_eclipse_tahu_protobuf_Payload_Metric metric = org_eclipse_tahu_protobuf_Payload_Metric_init_default;
 	init_metric(&metric, "_types_/Custom_Motor", false, 0, METRIC_DATA_TYPE_TEMPLATE, false, false, false, &udt_template, sizeof(udt_template));
 
 	// Add the UDT to the payload
@@ -525,7 +525,7 @@ void publish_node_birth(struct mosquitto *mosq) {
 
 void publish_device_birth(struct mosquitto *mosq) {
 	// Create the DBIRTH payload
-	com_cirruslink_sparkplug_protobuf_Payload dbirth_payload;
+	org_eclipse_tahu_protobuf_Payload dbirth_payload;
 	get_next_payload(&dbirth_payload);
 
 	// Add some device metrics
@@ -554,37 +554,37 @@ void publish_device_birth(struct mosquitto *mosq) {
 	add_simple_metric(&dbirth_payload, "Device Metric DOUBLE", true, ALIAS_DEVICE_METRIC_DOUBLE, METRIC_DATA_TYPE_DOUBLE, false, false, false, &dbirth_metric_double_value, sizeof(dbirth_metric_double_value));
 
 	// Create a metric called RPMs for the UDT instance
-	com_cirruslink_sparkplug_protobuf_Payload_Metric rpms_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	org_eclipse_tahu_protobuf_Payload_Metric rpms_metric = org_eclipse_tahu_protobuf_Payload_Metric_init_default;
 	uint32_t rpms_value = 123;
 	init_metric(&rpms_metric, "RPMs", false, 0, METRIC_DATA_TYPE_INT32, false, false, false, &rpms_value, sizeof(rpms_value));
 
 	// Create a metric called AMPs for the UDT instance and create a custom property (milliamps) for it
-	com_cirruslink_sparkplug_protobuf_Payload_Metric amps_metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	org_eclipse_tahu_protobuf_Payload_Metric amps_metric = org_eclipse_tahu_protobuf_Payload_Metric_init_default;
 	uint32_t amps_value = 456;
 	init_metric(&amps_metric, "AMPs", false, 0, METRIC_DATA_TYPE_INT32, false, false, false, &amps_value, sizeof(amps_value));
-	com_cirruslink_sparkplug_protobuf_Payload_PropertySet properties = com_cirruslink_sparkplug_protobuf_Payload_PropertySet_init_default;
+	org_eclipse_tahu_protobuf_Payload_PropertySet properties = org_eclipse_tahu_protobuf_Payload_PropertySet_init_default;
 	add_property_to_set(&properties, "engUnit", PROPERTY_DATA_TYPE_STRING, false, "milliamps", sizeof("milliamps"));
 	add_propertyset_to_metric(&amps_metric, &properties);
 
 	// Create a Template/UDT instance Parameter - this is purely for example of including parameters and is not actually used by UDT instances
-	com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter parameter = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_init_default;
+	org_eclipse_tahu_protobuf_Payload_Template_Parameter parameter = org_eclipse_tahu_protobuf_Payload_Template_Parameter_init_default;
 	parameter.name = (char *)malloc((strlen("Index")+1)*sizeof(char));
         strcpy(parameter.name, "Index");
 	parameter.has_type = true;
 	parameter.type = PARAMETER_DATA_TYPE_STRING;
-	parameter.which_value = com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter_string_value_tag;
+	parameter.which_value = org_eclipse_tahu_protobuf_Payload_Template_Parameter_string_value_tag;
 	parameter.value.string_value = (char *)malloc((strlen("1")+1)*sizeof(char));
 	strcpy(parameter.value.string_value, "1");
 
 	// Create the UDT instance value which includes the UDT members and parameters
-	com_cirruslink_sparkplug_protobuf_Payload_Template udt_template = com_cirruslink_sparkplug_protobuf_Payload_Template_init_default;
+	org_eclipse_tahu_protobuf_Payload_Template udt_template = org_eclipse_tahu_protobuf_Payload_Template_init_default;
 	udt_template.version = NULL;
 	udt_template.metrics_count = 2;
-	udt_template.metrics = (com_cirruslink_sparkplug_protobuf_Payload_Metric *) calloc(2, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Metric));
+	udt_template.metrics = (org_eclipse_tahu_protobuf_Payload_Metric *) calloc(2, sizeof(org_eclipse_tahu_protobuf_Payload_Metric));
 	udt_template.metrics[0] = rpms_metric;
 	udt_template.metrics[1] = amps_metric;
 	udt_template.parameters_count = 1;
-	udt_template.parameters = (com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter *) calloc(1, sizeof(com_cirruslink_sparkplug_protobuf_Payload_Template_Parameter));
+	udt_template.parameters = (org_eclipse_tahu_protobuf_Payload_Template_Parameter *) calloc(1, sizeof(org_eclipse_tahu_protobuf_Payload_Template_Parameter));
 	udt_template.parameters[0] = parameter;
 	udt_template.template_ref = (char *)malloc((strlen("Custom_Motor")+1)*sizeof(char));;
 	strcpy(udt_template.template_ref, "Custom_Motor");
@@ -592,7 +592,7 @@ void publish_device_birth(struct mosquitto *mosq) {
 	udt_template.is_definition = false;
 
 	// Create the root UDT instance and add the UDT instance value
-	com_cirruslink_sparkplug_protobuf_Payload_Metric metric = com_cirruslink_sparkplug_protobuf_Payload_Metric_init_default;
+	org_eclipse_tahu_protobuf_Payload_Metric metric = org_eclipse_tahu_protobuf_Payload_Metric_init_default;
 	init_metric(&metric, "My_Custom_Motor", true, ALIAS_DEVICE_METRIC_UDT_INST, METRIC_DATA_TYPE_TEMPLATE, false, false, false, &udt_template, sizeof(udt_template));
 
 	// Add the UDT Instance to the payload
@@ -619,7 +619,7 @@ void publish_device_birth(struct mosquitto *mosq) {
 
 void publish_ddata_message(struct mosquitto *mosq) {
 	// Create the DDATA payload
-	com_cirruslink_sparkplug_protobuf_Payload ddata_payload;
+	org_eclipse_tahu_protobuf_Payload ddata_payload;
 	get_next_payload(&ddata_payload);
 
 	// Add some device metrics to denote changed values on inputs

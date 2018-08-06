@@ -11,22 +11,22 @@
  */
 package com.cirruslink.example;
 
-import static com.cirruslink.sparkplug.message.model.MetricDataType.Boolean;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.DateTime;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.Double;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.Float;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.Int16;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.Int32;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.Int64;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.Int8;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.String;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.Template;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.Text;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.UInt16;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.UInt32;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.UInt64;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.UInt8;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.UUID;
+import static org.eclipse.tahu.message.model.MetricDataType.Boolean;
+import static org.eclipse.tahu.message.model.MetricDataType.DateTime;
+import static org.eclipse.tahu.message.model.MetricDataType.Double;
+import static org.eclipse.tahu.message.model.MetricDataType.Float;
+import static org.eclipse.tahu.message.model.MetricDataType.Int16;
+import static org.eclipse.tahu.message.model.MetricDataType.Int32;
+import static org.eclipse.tahu.message.model.MetricDataType.Int64;
+import static org.eclipse.tahu.message.model.MetricDataType.Int8;
+import static org.eclipse.tahu.message.model.MetricDataType.String;
+import static org.eclipse.tahu.message.model.MetricDataType.Template;
+import static org.eclipse.tahu.message.model.MetricDataType.Text;
+import static org.eclipse.tahu.message.model.MetricDataType.UInt16;
+import static org.eclipse.tahu.message.model.MetricDataType.UInt32;
+import static org.eclipse.tahu.message.model.MetricDataType.UInt64;
+import static org.eclipse.tahu.message.model.MetricDataType.UInt8;
+import static org.eclipse.tahu.message.model.MetricDataType.UUID;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -46,19 +46,18 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
-
-import com.cirruslink.sparkplug.SparkplugException;
-import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
-import com.cirruslink.sparkplug.message.SparkplugBPayloadDecoder;
-import com.cirruslink.sparkplug.message.SparkplugBPayloadEncoder;
-import com.cirruslink.sparkplug.message.model.Metric;
-import com.cirruslink.sparkplug.message.model.Metric.MetricBuilder;
-import com.cirruslink.sparkplug.message.model.Parameter;
-import com.cirruslink.sparkplug.message.model.ParameterDataType;
-import com.cirruslink.sparkplug.message.model.SparkplugBPayload;
-import com.cirruslink.sparkplug.message.model.SparkplugBPayload.SparkplugBPayloadBuilder;
-import com.cirruslink.sparkplug.message.model.Template;
-import com.cirruslink.sparkplug.message.model.Template.TemplateBuilder;
+import org.eclipse.tahu.SparkplugException;
+import org.eclipse.tahu.SparkplugInvalidTypeException;
+import org.eclipse.tahu.message.SparkplugBPayloadDecoder;
+import org.eclipse.tahu.message.SparkplugBPayloadEncoder;
+import org.eclipse.tahu.message.model.Metric;
+import org.eclipse.tahu.message.model.Parameter;
+import org.eclipse.tahu.message.model.ParameterDataType;
+import org.eclipse.tahu.message.model.SparkplugBPayload;
+import org.eclipse.tahu.message.model.Template;
+import org.eclipse.tahu.message.model.Metric.MetricBuilder;
+import org.eclipse.tahu.message.model.SparkplugBPayload.SparkplugBPayloadBuilder;
+import org.eclipse.tahu.message.model.Template.TemplateBuilder;
 
 /**
  * An example Sparkplug B application.

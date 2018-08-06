@@ -5,9 +5,9 @@ syntax = "proto2";
 // cd client_libraries/java
 // protoc --proto_path=../../ --java_out=src/main/java ../../sparkplug_b.proto 
 //
-package com.cirruslink.sparkplug.protobuf;
+package org.eclipse.tahu.protobuf;
 
-option java_package         = "com.cirruslink.sparkplug.protobuf";
+option java_package         = "org.eclipse.tahu.protobuf";
 option java_outer_classname = "SparkplugBProto";
 
 message Payload {

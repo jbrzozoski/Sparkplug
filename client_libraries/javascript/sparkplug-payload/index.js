@@ -10,15 +10,12 @@
  *   Cirrus Link Solutions
  */
 
-var kurapayload = require('./lib/kurapayload.js'),
-    sparkplugbpayload = require('./lib/sparkplugbpayload.js');
+var sparkplugbpayload = require('./lib/sparkplugbpayload.js');
 
 exports.get = function(namespace) {
     if (namespace !== undefined && namespace !== null) {
         if (namespace === "spBv1.0") {
             return sparkplugbpayload;
-        } else if (namespace === "spAv1.0") {
-            return kurapayload;
         }
     }
     return null;
