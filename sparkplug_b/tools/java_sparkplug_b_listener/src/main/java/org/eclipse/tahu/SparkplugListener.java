@@ -11,7 +11,7 @@
  *   Cirrus Link Solutions - initial implementation
  ********************************************************************************/
 
-package com.cirruslink.example;
+package org.eclipse.tahu;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;

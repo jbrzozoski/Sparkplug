@@ -44,19 +44,10 @@
   <modules>
     <module>client_libraries/java/pom.xml</module>
     <module>sparkplug_b/raspberry_pi_examples/java/pom.xml</module>
-<!--
-    <module>sparkplug_b/raspberry_pi_examples/java_udt/pom.xml</module>
--->
     <module>sparkplug_b/stand_alone_examples/java/pom.xml</module>
-<!--
-    <module>sparkplug_b/stand_alone_examples/java_android/pom.xml</module>
--->
     <module>sparkplug_b/stand_alone_examples/java_device_timestamp/pom.xml</module>
     <module>sparkplug_b/stand_alone_examples/java_edge_node_control/pom.xml</module>
-<!--
-    <module>sparkplug_b/stand_alone_examples/java_history/pom.xml</module>
-    <module>sparkplug_b/stand_alone_examples/java_instrumentation/pom.xml</module>
--->
+    <module>sparkplug_b/stand_alone_examples/java_records/pom.xml</module>
     <module>sparkplug_b/stand_alone_examples/java_udt/pom.xml</module>
     <module>sparkplug_b/tools/java_sparkplug_b_listener/pom.xml</module>
   </modules>

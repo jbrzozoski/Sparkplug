@@ -11,7 +11,7 @@
  *   Cirrus Link Solutions - initial implementation
  ********************************************************************************/
 
-package com.cirruslink.example;
+package org.eclipse.tahu;
 
 import java.net.Inet4Address;
 import java.net.Inet6Address;

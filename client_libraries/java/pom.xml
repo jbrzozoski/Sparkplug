@@ -52,7 +52,7 @@
             <configuration>
               <useMissingFile>true</useMissingFile>
               <excludedScopes>test</excludedScopes>
-              <excludedGroups> (com.cirruslink*)
+              <excludedGroups> (org.eclipse.tahu*)
               </excludedGroups>
               <licenseMerges>
                 <licenseMerge>The Apache Software License, Version

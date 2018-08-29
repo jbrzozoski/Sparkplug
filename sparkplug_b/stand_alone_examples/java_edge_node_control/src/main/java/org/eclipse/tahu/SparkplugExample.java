@@ -11,7 +11,7 @@
  *   Cirrus Link Solutions - initial implementation
  ********************************************************************************/
 
-package com.cirruslink.example;
+package org.eclipse.tahu;
 
 import java.io.BufferedReader;
 import java.io.IOException;

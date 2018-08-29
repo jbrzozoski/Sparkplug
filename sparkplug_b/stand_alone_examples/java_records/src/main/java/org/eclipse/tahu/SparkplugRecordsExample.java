@@ -4,11 +4,11 @@
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
  */
-package com.cirruslink.example;
+package org.eclipse.tahu;
 
-import static com.cirruslink.sparkplug.message.model.MetricDataType.Boolean;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.Int64;
-import static com.cirruslink.sparkplug.message.model.MetricDataType.String;
+import static org.eclipse.tahu.message.model.MetricDataType.Boolean;
+import static org.eclipse.tahu.message.model.MetricDataType.Int64;
+import static org.eclipse.tahu.message.model.MetricDataType.String;
 
 import java.util.Date;
 import java.util.Random;
@@ -25,17 +25,15 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
-
-import com.cirruslink.sparkplug.SparkplugInvalidTypeException;
-import com.cirruslink.sparkplug.message.SparkplugBPayloadDecoder;
-import com.cirruslink.sparkplug.message.SparkplugBPayloadEncoder;
-import com.cirruslink.sparkplug.message.model.Metric;
-import com.cirruslink.sparkplug.message.model.Metric.MetricBuilder;
-import com.cirruslink.sparkplug.message.model.PropertyDataType;
-import com.cirruslink.sparkplug.message.model.PropertySet.PropertySetBuilder;
-import com.cirruslink.sparkplug.message.model.PropertyValue;
-import com.cirruslink.sparkplug.message.model.SparkplugBPayload;
-import com.cirruslink.sparkplug.message.model.SparkplugBPayload.SparkplugBPayloadBuilder;
+import org.eclipse.tahu.message.SparkplugBPayloadDecoder;
+import org.eclipse.tahu.message.SparkplugBPayloadEncoder;
+import org.eclipse.tahu.message.model.Metric;
+import org.eclipse.tahu.message.model.Metric.MetricBuilder;
+import org.eclipse.tahu.message.model.PropertyDataType;
+import org.eclipse.tahu.message.model.PropertySet.PropertySetBuilder;
+import org.eclipse.tahu.message.model.PropertyValue;
+import org.eclipse.tahu.message.model.SparkplugBPayload;
+import org.eclipse.tahu.message.model.SparkplugBPayload.SparkplugBPayloadBuilder;
 
 /**
  * An example Sparkplug B application.

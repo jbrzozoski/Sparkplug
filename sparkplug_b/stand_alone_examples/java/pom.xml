@@ -24,7 +24,6 @@
 
   <groupId>org.eclipse.tahu.example</groupId>
   <artifactId>sparkplug_b_example</artifactId>
-  <version>1.1.15-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Maven Quick Start Archetype</name>
   <url>http://maven.apache.org</url>
@@ -71,7 +70,7 @@
               <transformers>
                 <transformer
                   implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                  <mainClass>com.cirruslink.example.SparkplugExample</mainClass>
+                  <mainClass>org.eclipse.tahu.SparkplugExample</mainClass>
                 </transformer>
                 <transformer
                   implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
@@ -95,7 +94,7 @@
             <configuration>
               <useMissingFile>true</useMissingFile>
               <excludedScopes>test</excludedScopes>
-              <excludedGroups> (com.cirruslink*) 
+              <excludedGroups> (org.eclipse.tahu*)
               </excludedGroups>
               <licenseMerges>
                 <licenseMerge>The Apache Software License, Version
