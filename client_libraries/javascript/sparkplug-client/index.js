@@ -258,7 +258,7 @@ function SparkplugClient(config) {
         messageAlert("published", topic, payload);
     };
 
-    // Publishes Node BIRTH certificates for the edge node
+    // Publishes Device Data messages for the edge node
     this.publishDeviceData = function(deviceId, payload, options) {
         var topic = version + "/" + groupId + "/DDATA/" + edgeNode + "/" + deviceId;
         // Add seq number
@@ -269,7 +269,7 @@ function SparkplugClient(config) {
         messageAlert("published", topic, payload);
     };
 
-    // Publishes Node BIRTH certificates for the edge node
+    // Publishes Device BIRTH certificates for the edge node
     this.publishDeviceBirth = function(deviceId, payload, options) {
         var topic = version + "/" + groupId + "/DBIRTH/" + edgeNode + "/" + deviceId;
         // Add seq number
@@ -281,8 +281,8 @@ function SparkplugClient(config) {
         messageAlert("published", topic, p);
     };
 
-    // Publishes Node BIRTH certificates for the edge node
-    this.publishDeviceDeath = function(deviceId, payload) {
+    // Publishes Device DEATH certificates for the edge node
+    this.publishDeviceDeath = function(deviceId, payload, options) {
         var topic = version + "/" + groupId + "/DDEATH/" + edgeNode + "/" + deviceId;
         // Add seq number
         addSeqNumber(payload);
