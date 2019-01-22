@@ -692,6 +692,26 @@ void free_payload(com_cirruslink_sparkplug_protobuf_Payload *payload) {
 			free(payload->metrics[i].value.string_value);
 		  }
 		}
+		
+		if (payload->metrics[i].has_properties)
+		{
+			int j=0;
+			for (j=0; j<payload->metrics[i].properties.keys_count; j++){
+				free(payload->metrics[i].properties.keys[j]);
+				
+				if(payload->metrics[i].properties.values[j].which_value ==
+					com_cirruslink_sparkplug_protobuf_Payload_PropertyValue_string_value_tag) 
+				{
+					if(payload->metrics[i].properties.values[j].value.string_value)
+					{	
+						free(payload->metrics[i].properties.values[j].value.string_value);
+					}
+				}
+			}
+			free(payload->metrics[i].properties.keys);
+			free(payload->metrics[i].properties.values);	
+		}		
+	
 	}
 }
 
