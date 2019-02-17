@@ -203,7 +203,7 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
  */
 int grow_char_array(char **array, int current_size, int num_new_elems) {
         const int total_size = current_size + num_new_elems;
-	char *temp = (char *)realloc(*array, (total_size * sizeof(char)));
+	char *temp = (char *)realloc(*array, (total_size * sizeof(char*)));
 
 	if (temp == NULL) {
 		fprintf(stderr, "Cannot allocate more memory.\n");
