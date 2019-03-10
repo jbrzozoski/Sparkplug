@@ -199,11 +199,11 @@ bool decode_metric(com_cirruslink_sparkplug_protobuf_Payload_Metric *metric, pb_
 }
 
 /*
- * Private function to increase the size of an array of strings
+ * Private function to increase the size of an array of string pointers
  */
-int grow_char_array(char **array, int current_size, int num_new_elems) {
-        const int total_size = current_size + num_new_elems;
-	char *temp = (char *)realloc(*array, (total_size * sizeof(char*)));
+int grow_string_array(char ***array, int current_size, int num_new_elems) {
+    const int total_size = current_size + num_new_elems;
+	char **temp = (char **)realloc(*array, (total_size * sizeof(char**)));
 
 	if (temp == NULL) {
 		fprintf(stderr, "Cannot allocate more memory.\n");
@@ -303,7 +303,7 @@ bool add_property_to_set(com_cirruslink_sparkplug_protobuf_Payload_PropertySet *
 			size = 1;
 		}
 	} else {
-		grow_char_array(propertyset->keys, size, 1);
+		grow_string_array(&propertyset->keys, size, 1);
 		size = grow_propertyvalues_array(&propertyset->values, size, 1);
 	}
 
