@@ -340,14 +340,6 @@ extern const pb_field_t com_cirruslink_sparkplug_protobuf_Payload_Metric_MetricV
 /* com_cirruslink_sparkplug_protobuf_Payload_Metric_size depends on runtime parameters */
 #define com_cirruslink_sparkplug_protobuf_Payload_Metric_MetricValueExtension_size 0
 
-/* Message IDs (where set with "msgid" option) */
-#ifdef PB_MSGID
-
-#define SPARKPLUG_B_MESSAGES \
-
-
-#endif
-
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
