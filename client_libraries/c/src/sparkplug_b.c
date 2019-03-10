@@ -713,6 +713,10 @@ void free_payload(com_cirruslink_sparkplug_protobuf_Payload *payload) {
 		}		
 	
 	}
+    free(payload->metrics);
+    free(payload->uuid);
+    // Assume that the "body" and "extensions" members of the payload were allocated/set manually by our caller
+    // and should be freed by them as well.
 }
 
 /*
